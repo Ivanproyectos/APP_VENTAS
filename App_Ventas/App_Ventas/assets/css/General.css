@@ -1,0 +1,59 @@
+﻿.cssMessageError {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #d92550;
+}
+
+.input-validation-error {
+    border-color: #d92550;
+    padding-right: 2.25rem;
+    background-repeat: no-repeat;
+    background-position: center right calc(2.25rem / 4);
+    background-size: calc(2.25rem / 2) calc(2.25rem / 2);
+    background-image: url('../images/error.png');
+}
+
+
+.input-validation-error:focus {
+    border-color: #d92550;
+    box-shadow: 0 0 0 0.2rem rgba(217 ,37, 80, 0.25);
+}
+
+.valid:focus{
+    border-color: #3ac47d;
+    box-shadow: 0 0 0 0.2rem rgba(58 ,196 ,125 , 0.25);
+}
+.valid {
+    border-color: #3ac47d;
+    padding-right: 2.25rem;
+    background-repeat: no-repeat;
+    background-position: center right calc(2.25rem / 4);
+    background-size: calc(2.25rem / 2) calc(2.25rem / 2);
+    background-image:  url('../images/valid.png');
+}
+
+.form-control {
+    transition: all .2s;
+}
+
+ .form-control::placeholder {
+  color: #c7c7c7 !important;
+}
+
+/*.form-control:hover, .form-control:focus, .form-control.active {
+    box-shadow: none;
+    background: none !important;
+}*/
+
+    /*.form-control:hover, .form-control:focus, .form-control.active {
+        background: '' !important;
+  
+    }*/
+label {
+    color: #6c757d; 
+}
+
+.border-bottom-head {
+    border-bottom: 1px solid #eef2f7;
+}
