@@ -161,6 +161,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Administracion\AdministracionAreaRegistration.cs" />
+    <Compile Include="Areas\Administracion\Controllers\PersonalController.cs" />
+    <Compile Include="Areas\Administracion\Models\PersonalModelView.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -4035,6 +4038,9 @@
     <Content Include="assets\vendor\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="assets\vendor\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="assets\vendor\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Areas\Administracion\Views\Web.config" />
+    <Content Include="Areas\Administracion\Views\Personal\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\Personal\Mantenimiento.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -4054,6 +4060,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Js\Administracion\Personal.js" />
     <Content Include="Scripts\Js\Prueba.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
@@ -4102,6 +4109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administracion\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

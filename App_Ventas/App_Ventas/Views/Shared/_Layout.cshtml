@@ -200,22 +200,71 @@
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu" @*id="menuPrincipal"*@>
 
-                    @*<li class="nav-label first">Main Menu</li>*@
+             
+                       <li><a class="has-arrow not-before" name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aDasboard" aria-expanded="false">
+                         <i class="icon icon-app-store"></i><span class="nav-text"> Dasboard </span></a>
+                         <ul aria-expanded="false">    
+                        </ul>
+                      </li>
+
+
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                        class="icon icon-single-04"></i><span class="nav-text">Inventario</span></a>
+                        class="bi bi-gear-wide-connected"></i><span class="nav-text">Administración</span></a>
                         <ul aria-expanded="false">
-                            <li><a name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aPrueba">Prueba</a></li>
+                              <li><a href="./index2.html">Configuracion Empresa </a></li>
+                            <li><a name="Administracion/Personal/Index" onclick="_LayoutInvocar(this)" id="aPrueba">Personal</a></li>
                             <li><a href="./index2.html">Dashboard 2</a></li>
                         </ul>
                     </li>
+
                     @*<li class="nav-label">Apps</li>*@
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                        class="icon icon-app-store"></i><span class="nav-text">Apps</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="./app-profile.html">Profile</a></li>
-                            <li><a href="./app-calender.html">Calendar</a></li>
+
+                       <li><a class="has-arrow not-before" name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aCaja" aria-expanded="false">
+                         <i class="bi bi-wallet"></i><span class="nav-text"> Caja </span></a>
+                         <ul aria-expanded="false">    
                         </ul>
-                    </li>
+                      </li>
+
+                          <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="bi bi-cart3"></i><span class="nav-text">Ventas</span></a>
+                        <ul aria-expanded="false">
+                            <li><a name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aVentas">Prueba</a></li>
+                            <li><a href="./index2.html">Dashboard 2</a></li>
+                        </ul>
+                     </li>
+
+                      <li><a class="has-arrow not-before" name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aCuentasCobrar" aria-expanded="false">
+                         <i class="bi bi-collection"></i><span class="nav-text"> Cuentas por Cobrar </span></a>
+                         <ul aria-expanded="false">    
+                        </ul>
+                      </li>
+
+
+                       <li><a class="has-arrow not-before" name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aCompras" aria-expanded="false">
+                         <i class="bi bi-basket3"></i><span class="nav-text"> Compras </span></a>
+                         <ul aria-expanded="false">    
+                        </ul>
+                      </li>
+
+
+
+                       <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="bi bi-box-seam"></i><span class="nav-text">Inventario</span></a>
+                        <ul aria-expanded="false">
+                            <li><a name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aInventario">Prueba</a></li>
+                            <li><a href="./index2.html">Dashboard 2</a></li>
+                        </ul>
+                     </li>
+
+
+                       <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="bi bi-bar-chart-line"></i><span class="nav-text">Reportes</span></a>
+                        <ul aria-expanded="false">
+                            <li><a name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aReporte">Prueba</a></li>
+                            <li><a href="./index2.html">Dashboard 2</a></li>
+                        </ul>
+                     </li>
+
 
 
                 </ul>

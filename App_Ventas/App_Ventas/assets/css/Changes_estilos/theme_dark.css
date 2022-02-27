@@ -17,16 +17,32 @@
 }
 
 
+
+
+/*menu*/
+
+ .quixnav .metismenu > li a > i {
+    color:#2c7be5; 
+}
+
+
 .has-arrow:hover {
     background: var(--color-dark-hover) !important;
 }
+
+.not-before:after {
+   content:none !important; 
+  
+}
+.has-arrow {
+    cursor:pointer !important; 
+}
+
 
 .quixnav .metismenu > li.mm-active > a{
 
     background-color: var(--color-dark-hover);
 }
-
-/*menu*/
 
 .quixnav_a_active {
    color: #fff !important;
@@ -40,7 +56,7 @@ height:5px;
 background:#bfbebe; 
 position:absolute; 
 border-radius:50%; 
-left: -3px;
+left: -3.5px;
 top: 50%;
 transition:0.5s all; 
 }
