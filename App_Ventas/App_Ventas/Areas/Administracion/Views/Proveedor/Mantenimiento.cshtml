@@ -9,14 +9,14 @@
 
 
 
-@using (Html.BeginForm("Cliente", "Cliente", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmMantenimiento_Cliente", @class = "form-horizontal" }))
+@using (Html.BeginForm("Proveedor", "Proveedor", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmMantenimiento_Proveedor", @class = "form-horizontal" }))
 {
     @Html.ValidationSummary(true)
 
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Nuevo Cliente</h5>
+                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Nuevo Proveedor</h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
@@ -89,5 +89,5 @@
     </div>
 }
 
-@Html.Hidden("hfd_ID_PLANTILLA", Model.ID_CLIENTE)
-@Html.Hidden("AccionPlantilla", Model.Accion)
+@Html.Hidden("hfd_ID_PROVEEDOR", Model.ID_PROVEEDOR)
+@Html.Hidden("AccionProveedor", Model.Accion)

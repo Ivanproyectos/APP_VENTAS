@@ -11,6 +11,7 @@ namespace App_Ventas.Areas.Administracion.Models
     public class ClientesModelView
     {
         public string ID_CLIENTE { get; set; }
+        public string ID_PROVEEDOR { get; set; }
 
         [Display(Name = "Razón social/Nombre Completo: ")]
         [DataType(DataType.Text)]

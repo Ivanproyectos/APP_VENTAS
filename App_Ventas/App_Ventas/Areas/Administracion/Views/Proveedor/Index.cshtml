@@ -1,22 +1,22 @@
-﻿<script src="@Url.Content("~/Scripts/Js/Administracion/Clientes.js")" type="text/javascript"></script>
+﻿<script src="@Url.Content("~/Scripts/Js/Administracion/Proveedor.js")" type="text/javascript"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
-        Clientes_ConfigurarGrilla();
-        //Clientes_CargarGrilla();
+        Proveedor_ConfigurarGrilla();
+        //Proveedor_CargarGrilla();
     });
 
-    $("#Clientes_btnBuscar").click(function (e) {
-        Clientes_CargarGrilla();
+    $("#Proveedor_btnBuscar").click(function (e) {
+        Proveedor_CargarGrilla();
     });
 
-    $("#Clientes_btnLimpiar").click(function (e) {
-        Clientes_Limpiar();
+    $("#Proveedor_btnLimpiar").click(function (e) {
+        Proveedor_Limpiar();
     });
 
 
-    $("#Clientes_btnNuevo").click(function (e) {
-        Clientes_MostrarNuevo();
+    $("#Proveedor_btnNuevo").click(function (e) {
+        Proveedor_MostrarNuevo();
     });
 
 
@@ -47,7 +47,7 @@
 
                         <div class="form-group col-md-3">
                             <label>Estado:</label>
-                            <select class="form-control" id="Clientes_Estado">
+                            <select class="form-control" id="Proveedor_Estado">
                                 <option value="2">-- Seleccione --</option>
                                 <option value="1">Activo</option>
                                 <option value="1">Inactivo</option>
@@ -56,8 +56,8 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            <button type="button" id="Clientes_btnBuscar" class="btn btn-hover-shine  btn-square btn-primary "><i class="fa fa-search"></i>&nbsp Buscar</button>
-                            <button type="button" id="Clientes_btnLimpiar" class="btn  btn-square btn-light"><i class="bi bi-arrow-clockwise"></i>&nbsp Limpiar</button>
+                            <button type="button" id="Proveedor_btnBuscar" class="btn btn-hover-shine  btn-square btn-primary "><i class="fa fa-search"></i>&nbsp Buscar</button>
+                            <button type="button" id="Proveedor_btnLimpiar" class="btn  btn-square btn-light"><i class="bi bi-arrow-clockwise"></i>&nbsp Limpiar</button>
                         </div>
                     </div>
                 </div>
@@ -74,12 +74,12 @@
         <div class="card">
             <div class="card-header">
 
-                <button id="Clientes_btnNuevo" type="button" class="btn btn-hover-shine btn-square btn-primary "><i class="bi bi-plus-square"></i>&nbsp Nuevo</button>
+                <button id="Proveedor_btnNuevo" type="button" class="btn btn-hover-shine btn-square btn-primary "><i class="bi bi-plus-square"></i>&nbsp Nuevo</button>
             </div>
             <div class="card-body">
                 <div class="jqGrid">
-                    <table id="Clientes_Grilla"></table>
-                    <div id="Clientes_Barra"></div>
+                    <table id="Proveedor_Grilla"></table>
+                    <div id="Proveedor_Barra"></div>
                 </div>
             </div>
         </div>

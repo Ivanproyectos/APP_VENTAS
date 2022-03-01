@@ -167,6 +167,7 @@
     <Compile Include="Areas\Administracion\Controllers\ConfigurarEmpresaController.cs" />
     <Compile Include="Areas\Administracion\Controllers\PerfilController.cs" />
     <Compile Include="Areas\Administracion\Controllers\PersonalController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\ProveedorController.cs" />
     <Compile Include="Areas\Administracion\Controllers\SucursalController.cs" />
     <Compile Include="Areas\Administracion\Controllers\UsuariosController.cs" />
     <Compile Include="Areas\Administracion\Models\ClientesModelView.cs" />
@@ -4068,6 +4069,8 @@
     <Content Include="Areas\Administracion\Views\Sucursal\Mantenimiento.cshtml" />
     <Content Include="Areas\Administracion\Views\Clientes\Index.cshtml" />
     <Content Include="Areas\Administracion\Views\Clientes\Mantenimiento.cshtml" />
+    <Content Include="Areas\Administracion\Views\Proveedor\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\Proveedor\Mantenimiento.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -4090,6 +4093,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Js\Administracion\configurarEmpresa\configurarEmpresa.js" />
     <Content Include="Scripts\Js\Administracion\configurarEmpresa\Recursos.js" />
+    <Content Include="Scripts\Js\Administracion\Clientes.js" />
+    <Content Include="Scripts\Js\Administracion\Proveedor.js" />
     <Content Include="Scripts\Js\Administracion\Sucursal.js" />
     <Content Include="Scripts\Js\Administracion\Prueba.js" />
     <Content Include="Scripts\Js\Administracion\Perfil.js" />
