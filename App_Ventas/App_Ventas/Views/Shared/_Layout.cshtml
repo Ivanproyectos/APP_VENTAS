@@ -20,6 +20,13 @@
     <link href="@Url.Content("~/assets/css/animate.min.css")" rel="stylesheet">
     <link href="@Url.Content("~/assets/css/General.css")" rel="stylesheet">
     <link href="@Url.Content("~/assets/css/Switch_Toggle.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/Pluggins/Boostrap-Toggle/toggle.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/vendor/select2/css/select2.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/css/File_image.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/vendor/toastr/css/toastr.min.css")" rel="stylesheet">
+    @*<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")" type="text/javascript"></script>*@
+  
+   
 </head>
 <body>
     <!--*******************
@@ -192,7 +199,7 @@
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
-
+        <input type="hidden" id="inputHddNombre_Sistema" value="@System.Configuration.ConfigurationManager.AppSettings["Nombre_Sistema"].ToString()"/>
         <!--**********************************
             Sidebar start
         ***********************************-->
@@ -211,9 +218,13 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                         class="bi bi-gear-wide-connected"></i><span class="nav-text">Administración</span></a>
                         <ul aria-expanded="false">
-                              <li><a href="./index2.html">Configuracion Empresa </a></li>
-                            <li><a name="Administracion/Personal/Index" onclick="_LayoutInvocar(this)" id="aPrueba">Personal</a></li>
-                            <li><a href="./index2.html">Dashboard 2</a></li>
+                             <li><a name="Administracion/ConfigurarEmpresa/Index" onclick="_LayoutInvocar(this)" >Configuracion Empresa </a></li>
+                            <li><a name="Administracion/Usuarios/Index" onclick="_LayoutInvocar(this)" id="aPrueba">Usuarios</a></li>
+                            <li><a name="Administracion/Perfil/Index" onclick="_LayoutInvocar(this)" id="aPerfil">Perfiles</a></li>
+                            <li><a name="Administracion/Sucursal/Index" onclick="_LayoutInvocar(this)" id="aSucursal">Sucursales</a></li>
+                            <li><a name="Administracion/Clientes/Index" onclick="_LayoutInvocar(this)" id="aCliente">Clientes</a></li>
+                            <li><a href="./index2.html">Proveedores</a></li>
+
                         </ul>
                     </li>
 
@@ -228,8 +239,10 @@
                           <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                         class="bi bi-cart3"></i><span class="nav-text">Ventas</span></a>
                         <ul aria-expanded="false">
-                            <li><a name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aVentas">Prueba</a></li>
-                            <li><a href="./index2.html">Dashboard 2</a></li>
+                            <li><a name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aVentas">Ventas</a></li>
+                            <li><a href="./index2.html">Ventas Detalladas</a></li>
+                            <li><a href="./index2.html">Ventas Anuladas</a></li>
+                            <li><a href="./index2.html">Devoluciones</a></li>
                         </ul>
                      </li>
 
@@ -251,8 +264,10 @@
                        <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                         class="bi bi-box-seam"></i><span class="nav-text">Inventario</span></a>
                         <ul aria-expanded="false">
-                            <li><a name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aInventario">Prueba</a></li>
-                            <li><a href="./index2.html">Dashboard 2</a></li>
+                            <li><a name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aInventario">Categorias</a></li>
+                            <li><a href="./index2.html">Producto / Servicio</a></li>
+                            <li><a href="./index2.html">Kardex</a></li>
+                        
                         </ul>
                      </li>
 
@@ -333,8 +348,8 @@
     </script>
 
     <!-- Required vendors -->
-    <script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/General.js")"></script>
+ 
+
 
     <script src="@Url.Content("~/assets/vendor/global/global.min.js")"></script>
     <script src="@Url.Content("~/assets/js/quixnav-init.js")"></script>
@@ -378,7 +393,12 @@
     @*<script src="@Url.Content("~/assets/vendor/sweetalert2/dist/sweetalert2.min.js")"></script>*@
     <script src="@Url.Content("~/assets/vendor/sweetalert2/sweetalert2.min.js")"></script>
     <script src="@Url.Content("~/Scripts/SweetAlert.js")" type="text/javascript"></script>
-
+    <script src="@Url.Content("~/assets/Pluggins/Boostrap-Toggle/Toggle.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/vendor/select2/js/select2.full.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/vendor/toastr/js/toastr.min.js")" type="text/javascript"></script>
+     <script src="@Url.Content("~/Scripts/ui.datepicker-es.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/General.js")"></script>
 
 </body>
 

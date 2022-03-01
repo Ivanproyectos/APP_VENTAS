@@ -57,3 +57,19 @@ label {
 .border-bottom-head {
     border-bottom: 1px solid #eef2f7;
 }
+
+.select2,.select2-selection,.select2-selection__rendered,.select2-selection__arrow {
+    height:35px !important; 
+}
+
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 35px !important; 
+}
+
+.css_center_block {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+}

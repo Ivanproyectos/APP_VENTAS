@@ -1,0 +1,93 @@
+﻿@model App_Ventas.Areas.Administracion.Models.ClientesModelView
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+</script>
+
+
+
+@using (Html.BeginForm("Cliente", "Cliente", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmMantenimiento_Cliente", @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary(true)
+
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Nuevo Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.ID_TIPO_DOCUMENTO)
+                        @Html.DropDownListFor(model => model.ID_TIPO_DOCUMENTO, Model.Lista_Ubigeo, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.ID_TIPO_DOCUMENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+
+                             <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.NUMERO_DOCUMENTO)
+                        @Html.TextBoxFor(model => model.NUMERO_DOCUMENTO, new { @class = "form-control", @maxlength = "200" })
+                        @Html.ValidationMessageFor(model => model.NOMBRES_APE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.NOMBRES_APE)
+                        @Html.TextBoxFor(model => model.NOMBRES_APE, new { @class = "form-control", @maxlength = "200" })
+                        @Html.ValidationMessageFor(model => model.NOMBRES_APE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.TELEFONO)
+                        @Html.TextBoxFor(model => model.TELEFONO, new { @class = "form-control", @maxlength = "7" })
+                        @Html.ValidationMessageFor(model => model.TELEFONO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.CORREO)
+                        @Html.TextBoxFor(model => model.CORREO, new { @class = "form-control", @maxlength = "100" })
+                        @Html.ValidationMessageFor(model => model.CORREO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+                      <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.TELEFONO)
+                        @Html.TextBoxFor(model => model.TELEFONO, new { @class = "form-control", @maxlength = "7" })
+                        @Html.ValidationMessageFor(model => model.TELEFONO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+                      <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.CELULAR)
+                        @Html.TextBoxFor(model => model.CELULAR, new { @class = "form-control", @maxlength = "9" })
+                        @Html.ValidationMessageFor(model => model.CELULAR, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+             
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.COD_UBIGEO)
+                        @Html.DropDownListFor(model => model.COD_UBIGEO, Model.Lista_Ubigeo, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.COD_UBIGEO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="Btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
+            </div>
+        </div>
+    </div>
+}
+
+@Html.Hidden("hfd_ID_PLANTILLA", Model.ID_CLIENTE)
+@Html.Hidden("AccionPlantilla", Model.Accion)

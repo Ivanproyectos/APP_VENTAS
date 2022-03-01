@@ -162,7 +162,18 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Administracion\AdministracionAreaRegistration.cs" />
+    <Compile Include="Areas\Administracion\Controllers\ArchivoController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\ClientesController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\ConfigurarEmpresaController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\PerfilController.cs" />
     <Compile Include="Areas\Administracion\Controllers\PersonalController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\SucursalController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\UsuariosController.cs" />
+    <Compile Include="Areas\Administracion\Models\ClientesModelView.cs" />
+    <Compile Include="Areas\Administracion\Models\ConfiguracionEmpresaModelView.cs" />
+    <Compile Include="Areas\Administracion\Models\SucursalModelView.cs" />
+    <Compile Include="Areas\Administracion\Models\PerfilModelView.cs" />
+    <Compile Include="Areas\Administracion\Models\UsuariosModelView.cs" />
     <Compile Include="Areas\Administracion\Models\PersonalModelView.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -172,10 +183,16 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recursos\Clases\Css_Codigo.cs" />
+    <Compile Include="Recursos\Clases\Css_Encriptar.cs" />
+    <Compile Include="Recursos\Clases\Css_IP.cs" />
+    <Compile Include="Recursos\Clases\Css_Log.cs" />
+    <Compile Include="Recursos\Clases\Css_Ruta.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\animate.min.css" />
     <Content Include="assets\css\Changes_estilos\theme_dark.css" />
+    <Content Include="assets\css\File_image.css" />
     <Content Include="assets\css\General.css" />
     <Content Include="assets\css\perfect-scrollbar.css" />
     <Content Include="assets\css\style.css" />
@@ -410,6 +427,8 @@
     <Content Include="assets\js\quixnav-init.js" />
     <Content Include="assets\js\settings.js" />
     <Content Include="assets\js\styleSwitcher.js" />
+    <Content Include="assets\Pluggins\Boostrap-Toggle\toggle.css" />
+    <Content Include="assets\Pluggins\Boostrap-Toggle\Toggle.js" />
     <Content Include="assets\vendor\amcharts\amcharts.js" />
     <Content Include="assets\vendor\amcharts\ammap.js" />
     <Content Include="assets\vendor\amcharts\amstock.js" />
@@ -4041,6 +4060,14 @@
     <Content Include="Areas\Administracion\Views\Web.config" />
     <Content Include="Areas\Administracion\Views\Personal\Index.cshtml" />
     <Content Include="Areas\Administracion\Views\Personal\Mantenimiento.cshtml" />
+    <Content Include="Areas\Administracion\Views\ConfigurarEmpresa\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\Usuarios\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\Usuarios\Mantenimiento.cshtml" />
+    <Content Include="Areas\Administracion\Views\Perfil\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\Sucursal\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\Sucursal\Mantenimiento.cshtml" />
+    <Content Include="Areas\Administracion\Views\Clientes\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\Clientes\Mantenimiento.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -4052,6 +4079,7 @@
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.jqGrid.js" />
     <Content Include="Scripts\jquery.jqGrid.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -4060,6 +4088,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Js\Administracion\configurarEmpresa\configurarEmpresa.js" />
+    <Content Include="Scripts\Js\Administracion\configurarEmpresa\Recursos.js" />
+    <Content Include="Scripts\Js\Administracion\Sucursal.js" />
+    <Content Include="Scripts\Js\Administracion\Prueba.js" />
+    <Content Include="Scripts\Js\Administracion\Perfil.js" />
+    <Content Include="Scripts\Js\Administracion\Usuarios.js" />
     <Content Include="Scripts\Js\Administracion\Personal.js" />
     <Content Include="Scripts\Js\Prueba.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
@@ -4067,6 +4101,7 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\SICA.js" />
     <Content Include="Scripts\SweetAlert.js" />
+    <Content Include="Scripts\ui.datepicker-es.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -4110,9 +4145,17 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administracion\Views\Shared\" />
+    <Folder Include="Recursos\Log\" />
+    <Folder Include="Recursos\Temporales\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Capa_Entidad\Capa_Entidad.csproj">
+      <Project>{80e11cab-e660-4248-8cd9-69201e1a261f}</Project>
+      <Name>Capa_Entidad</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

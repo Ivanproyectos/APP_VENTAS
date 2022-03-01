@@ -1,0 +1,215 @@
+﻿@model App_Ventas.Areas.Administracion.Models.ConfiguracionEmpresaModelView
+<script src="@Url.Content("~/Scripts/Js/Administracion/configurarEmpresa/Recursos.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var CargoIsotipo = false;
+    var CargoLogo = false;
+    var IsotipoNuevo_Array = new Array();
+    var LogoNuevo_Array = new Array();
+
+    @*var Frm_Archivo_Archivo = @Html.Raw(Json.Encode(Model.MiArchivo))*@
+
+    $(document).ready(function () {
+        $('#FLG_IMPRIMIR').bootstrapToggle({
+            on: 'Si',
+            off: 'No',
+            //onstyle: "info"
+        });
+
+        $('#FLG_IMPUESTO').bootstrapToggle({
+            on: 'Si',
+            off: 'No',
+            //onstyle: "info"
+        });
+        $('#COD_UBIGEO').select2();
+
+    });
+
+    $("#Cargo_btnBuscar").click(function (e) {
+        Cargo_CargarGrilla();
+    });
+
+    $("#Cargo_btnLimpiar").click(function (e) {
+        Cargo_Limpiar();
+    });
+
+
+    $("#Cargo_btnNuevo").click(function (e) {
+        Cargo_MostrarNuevo();
+    });
+
+</script>
+
+<div class="modal fade" id="myModalNuevo"></div>
+
+
+
+<div class="row ">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header border-bottom-head">
+                <h4 class="card-title"><i class="bi bi-sliders"></i>&nbsp; Configurar Empresa</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="basic-form">
+
+                    <div class="form-row justify-content-around" style="margin-bottom: 10px;">
+                        <div class="form-group col-md-4 css_center_block">
+                            <p style="display: block; font-weight: bold;">Isotipo</p>
+                            @using (Html.BeginForm("Archivo", "Archivo", new { @area = "Administracion" }, FormMethod.Post, new { @id = "FrmIsotipoArchivo" }))
+                            {                   
+                                <div class=" mb-3" style="width: 180px; height: auto">
+                                    <label for="fileField-isotipo" class="attachment">
+                                        <div class="row btn-file">
+                                            <div class="btn-file__preview" id="Isotipo_Img"></div>
+                                            <div class="btn-file__actions">
+                                                <div class="btn-file__actions__item col-xs-12 text-center">
+                                                    <div class="btn-file__actions__item--shadow">
+                                                        <i class="bi bi-image" aria-hidden="true"></i>
+                                                        <div class="visible-xs-block"></div>
+                                                        Seleccione imagen
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input name="MifileArchivo" type="file" id="fileField-isotipo" class="file_image">
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group col-md-4 css_center_block">
+                            <p style="display: block; font-weight: bold;">Logo</p>
+                            @using (Html.BeginForm("Archivo", "Archivo", new { @area = "Administracion" }, FormMethod.Post, new { @id = "FrmLogoArchivo" }))
+                            {
+                                <label for="fileField-logo" class="attachment">
+                                    <div class="row btn-file">
+                                        <div class="btn-file__preview" id="Logo_Img"></div>
+                                        <div class="btn-file__actions">
+                                            <div class="btn-file__actions__item col-xs-12 text-center">
+                                                <div class="btn-file__actions__item--shadow">
+                                                    <i class="bi bi-image" aria-hidden="true"></i>
+                                                    <div class="visible-xs-block"></div>
+                                                    Seleccione imagen
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input name="MifileArchivo" type="file" id="fileField-logo" class="file_image">
+                                </label>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <h4 class="card-title border-bottom-head" style="width: 100%; height: 30px;"><i class="bi bi-card-list"></i>&nbsp;Datos Empresa</h4>
+                    </div>
+                    @using (Html.BeginForm("Archivo", "Archivo", new { @area = "Administracion" }, FormMethod.Post, new { @id = "FrmconfigEmpresa" }))
+                    {
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.RUC)
+                                @Html.TextBoxFor(model => model.RUC, new { @class = "form-control", @maxlength = "200", @placeholder = "Ruc" })
+                                @Html.ValidationMessageFor(model => model.RUC, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.RAZON_SOCIAL)
+                                @Html.TextBoxFor(model => model.RAZON_SOCIAL, new { @class = "form-control", @maxlength = "200", @placeholder = "Razón social" })
+                                @Html.ValidationMessageFor(model => model.RAZON_SOCIAL, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.NOMBRE_COMERCIAL)
+                                @Html.TextBoxFor(model => model.NOMBRE_COMERCIAL, new { @class = "form-control", @maxlength = "200", @placeholder = "Nombre Comercial" })
+                                @Html.ValidationMessageFor(model => model.NOMBRE_COMERCIAL, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.TELEFONO)
+                                @Html.TextBoxFor(model => model.TELEFONO, new { @class = "form-control", @maxlength = "200", @placeholder = "Telefono" })
+                                @Html.ValidationMessageFor(model => model.TELEFONO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.CORREO)
+                                @Html.TextBoxFor(model => model.CORREO, new { @class = "form-control", @maxlength = "200", @placeholder = "E-mail" })
+                                @Html.ValidationMessageFor(model => model.CORREO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.COD_UBIGEO)
+                                @Html.DropDownListFor(model => model.COD_UBIGEO, Model.Lista_Ubigeo, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                                @Html.ValidationMessageFor(model => model.COD_UBIGEO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.URBANIZACION)
+                                @Html.TextBoxFor(model => model.URBANIZACION, new { @class = "form-control", @maxlength = "200", @placeholder = "Urbanización" })
+                                @Html.ValidationMessageFor(model => model.URBANIZACION, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.DIRECCION_FISCAL)
+                                @Html.TextBoxFor(model => model.DIRECCION_FISCAL, new { @class = "form-control", @maxlength = "200", @placeholder = "Dirección" })
+                                @Html.ValidationMessageFor(model => model.DIRECCION_FISCAL, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.FLG_IMPRIMIR)
+                                @Html.CheckBoxFor(model => model.FLG_IMPRIMIR, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.FLG_IMPUESTO)
+                                @Html.CheckBoxFor(model => model.FLG_IMPUESTO, new { @class = "" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-row">
+                            <h4 class="card-title border-bottom-head" style="width: 100%; height: 30px;"><i class="bi bi-cash-coin"></i>&nbsp;Configurar Impuesto</h4>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4 ">
+                                @Html.LabelFor(model => model.NOMBRE_IMPUESTO)
+                                @Html.TextBoxFor(model => model.NOMBRE_IMPUESTO, new { @class = "form-control", @maxlength = "200", @placeholder = "Ejm: Igv" })
+                                @Html.ValidationMessageFor(model => model.NOMBRE_IMPUESTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-4 ">
+                                @Html.LabelFor(model => model.IMPUESTO)
+                                <div class="input-group mb-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                    @Html.TextBoxFor(model => model.IMPUESTO, new { @class = "form-control", @maxlength = "200", @placeholder = "18" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.IMPUESTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+                        </div>
+
+                        <div class="form-row justify-content-end">
+                            <div class="form-group col-md-4 " style="display: flex; justify-content: flex-end">
+                                <button type="button" class="btn btn-hover-shine  btn-square btn-primary "><i class="bi bi-save"></i>&nbsp Guardar</button>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
