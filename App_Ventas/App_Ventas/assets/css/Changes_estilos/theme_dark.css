@@ -193,6 +193,7 @@ border: 1px solid #f1f3fa;
 
 .modal-header {
     background: var(--color-dark);
+    align-items: center !important;
 }
 
 .modal-dialog {

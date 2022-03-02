@@ -1,0 +1,107 @@
+﻿@model App_Ventas.Areas.Inventario.Models.ProductoModelView
+<script src="@Url.Content("~/Scripts/Js/Inventario/Producto.js")" type="text/javascript"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        Producto_ConfigurarGrilla();
+        //Producto_CargarGrilla();
+    });
+
+    $("#Producto_btnBuscar").click(function (e) {
+        Producto_CargarGrilla();
+    });
+
+    $("#Producto_btnLimpiar").click(function (e) {
+        Producto_Limpiar();
+    });
+
+
+    $("#Producto_btnNuevo").click(function (e) {
+        Producto_MostrarNuevo();
+    });
+
+
+
+</script>
+
+<div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+
+
+<div class="row ">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header border-bottom-head">
+                <h4 class="card-title">Criterios de Busqueda</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="basic-form">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label>Producto:</label>
+                            <input type="text" class="form-control" placeholder="Ejm: Bebidas">
+                        </div>
+
+
+                        <div class="form-group col-md-3">
+                            <label>Estado:</label>
+                            <select class="form-control" id="Producto_Estado">
+                                <option value="2">-- Seleccione --</option>
+                                <option value="1">Activo</option>
+                                <option value="1">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <button type="button" id="Producto_btnBuscar" class="btn btn-hover-shine  btn-square btn-primary "><i class="fa fa-search"></i>&nbsp Buscar</button>
+                            <button type="button" id="Producto_btnLimpiar" class="btn  btn-square btn-light"><i class="bi bi-arrow-clockwise"></i>&nbsp Limpiar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row ">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="form-row">
+                    <button type="button" id="Producto_btnNuevo" class="btn btn-rounded btn-primary btn-hover-shine"style="margin-bottom:5px;" >
+                        <span class="btn-icon-left  text-primary "><i class="bi bi-plus-lg"></i></span>Nuevo Producto</button>
+
+                    <button type="button" class="btn btn-rounded btn-success btn-hover-shine" style="margin-left: 20px; margin-bottom:5px;">
+                        <span class="btn-icon-left text-success"><i class="fa fa-upload color-success"></i>
+                        </span>Ingresos</button>
+
+                    <button type="button" class="btn btn-rounded btn-danger btn-hover-shine" style="margin-left: 20px;margin-bottom:5px;">
+                        <span class="btn-icon-left text-danger"><i class="fa fa-envelope color-danger"></i>
+                        </span>Salidas</button>
+
+                    <button type="button" class="btn btn-rounded btn-info btn-hover-shine" style="margin-left: 20px;margin-bottom:5px;">
+                        <span class="btn-icon-left text-info"><i class="fa fa-plus color-info"></i>
+                        </span>Translados</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label>Almacen:</label>
+                        @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                    </div>
+                </div>
+                <div class="jqGrid">
+                    <table id="Producto_Grilla"></table>
+                    <div id="Producto_Barra"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

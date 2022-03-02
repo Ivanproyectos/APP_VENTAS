@@ -180,8 +180,10 @@
     <Compile Include="Areas\Caja\Controllers\CajaController.cs" />
     <Compile Include="Areas\Caja\Models\CajaModelView.cs" />
     <Compile Include="Areas\Inventario\Controllers\CategoriaController.cs" />
+    <Compile Include="Areas\Inventario\Controllers\ProductoController.cs" />
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
     <Compile Include="Areas\Inventario\Models\CategoriaModelView.cs" />
+    <Compile Include="Areas\Inventario\Models\ProductoModelView.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -4084,6 +4086,8 @@
     <Content Include="Areas\Inventario\Views\Web.config" />
     <Content Include="Areas\Inventario\Views\Categoria\Index.cshtml" />
     <Content Include="Areas\Inventario\Views\Categoria\Mantenimiento.cshtml" />
+    <Content Include="Areas\Inventario\Views\Producto\Index.cshtml" />
+    <Content Include="Areas\Inventario\Views\Producto\Mantenimiento.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -4115,6 +4119,7 @@
     <Content Include="Scripts\Js\Administracion\Usuarios.js" />
     <Content Include="Scripts\Js\Administracion\Personal.js" />
     <Content Include="Scripts\Js\Inventario\Categoria.js" />
+    <Content Include="Scripts\Js\Inventario\Producto.js" />
     <Content Include="Scripts\Js\Prueba.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
