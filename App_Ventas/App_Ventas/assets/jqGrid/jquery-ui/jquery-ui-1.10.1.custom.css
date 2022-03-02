@@ -369,7 +369,7 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-datepicker td {
 	border: 0;
-	padding: 1px;
+	padding: 2px;
 }
 .ui-datepicker td span,
 .ui-datepicker td a {
@@ -786,9 +786,9 @@ body .ui-tooltip {
 /* Component containers
 ----------------------------------*/
 .ui-widget {
-    font-family: "Open+Sans",sans-serif
+    font-family: "Open+Sans",sans-serif; 
 	/* font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif; */
-	font-size: 1.1em;
+	font-size: 1em;
 }
 .ui-widget .ui-widget {
 	font-size: 1em;
@@ -801,11 +801,11 @@ body .ui-tooltip {
 	font-size: 1em;
 }
 .ui-widget-content {
-	/*border: 1px solid #dddddd;*/
+	    border: 2px solid #eaeaea;
    
 	/*background: #eeeeee url(images/ui-bg_highlight-soft_100_eeeeee_1x100.png) 50% top repeat-x;*/
-     /*background: url("images/ui-bg_flat_75_ffffff_40x100.png") repeat-x scroll 50% bottom #fcfdfd;*/
-	color: #6c757d;
+      background: url(images/ui-bg_flat_75_ffffff_40x100.png) repeat-x scroll 50% bottom #fcfdfd;
+    color: #6c757d;
 }
 .ui-widget-content a {
 	color: black;
@@ -839,6 +839,7 @@ body .ui-tooltip {
     background: #f9fbfd; 
 	font-weight: bold;
 	color:#5d5959;
+    text-align: center;
 }
 .ui-state-default a,
 .ui-state-default a:link,
@@ -870,7 +871,7 @@ body .ui-tooltip {
 	border: 1px solid #fbd850;
 	background: #97b8e5;
 	font-weight: bold;
-	color: #eb8f00;
+	color: #545454;
 }
 .ui-state-active a,
 .ui-state-active a:link,

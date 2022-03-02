@@ -23,13 +23,13 @@
         border-bottom: 5px #f59d3f solid;
     }
 
-    .ui-jqgrid .ui-jqgrid-title {
-        float: left;
-        margin: 0.3em 0 0.2em;
-        font-size: 18px;
-        color: #454545;
-        font-family: Roboto,sans-serif;
-        font-weight: 500;
+   .ui-jqgrid .ui-jqgrid-title {
+     float: left;
+    margin: 5px;
+    font-size: 18px;
+    color: #959595;
+    font-family: Roboto,sans-serif;
+    font-weight: 500;
         /*margin-left: 25px;*/
     }
 

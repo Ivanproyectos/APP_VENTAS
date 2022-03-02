@@ -5,6 +5,9 @@
     $(document).ready(function () {
         //Caja_ConfigurarGrilla();
         //Caja_CargarGrilla();
+        var Fecha_Actual = moment().format('DD/MM/YYYY');
+        $('#Caja_FechaInicio, #Caja_FechaFin').val(Fecha_Actual);
+        Caja_ConfigurarGrilla();
     });
 
     $("#Caja_btnBuscar").click(function (e) {
@@ -35,7 +38,25 @@
 
 <div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
+<style>
+    .table thead th {
+        background-color: #1da1f2;
+        color: white;
+    }
 
+    ._text_detalle {
+        width: 45%;
+        max-width: 45%;
+        display: inline-block;
+        text-align: right;
+    }
+
+    ._text_detalle_monto {
+        width: 45%;
+        max-width: 45% display: inline-block;
+        text-align: left;
+    }
+</style>
 
 <div class="row ">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
@@ -47,15 +68,6 @@
 
                 <div class="basic-form">
                     <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <label>Usuario:</label>
-                            @Html.DropDownListFor(model => model.ID_USUARIO, Model.Lista_Usuario, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            <label>Sucursal:</label>
-                            @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
-                        </div>
 
                         <div class="form-group col-md-3">
                             <label>Fecha Inicio:</label>
@@ -67,13 +79,23 @@
                             </div>
                         </div>
                         <div class="form-group col-md-3">
-                            <label>Fecha Inicio:</label>
+                            <label>Fecha Fin:</label>
                             <div class="input-group mb-3">
                                 <input type="text" id="Caja_FechaFin" class="form-control" placeholder="">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Usuario:</label>
+                            @Html.DropDownListFor(model => model.ID_USUARIO, Model.Lista_Usuario, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Sucursal:</label>
+                            @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         </div>
 
                     </div>
@@ -96,58 +118,86 @@
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-body">
-                <div class="form-row justify-content-center">
-                    <div class="form-group col-md-8 ">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-responsive-sm">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Status</th>
-                                        <th>Date</th>
-                                        <th>Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>1</th>
-                                        <td>Kolor Tea Shirt For Man</td>
-                                        <td><span class="badge badge-primary">Sale</span>
-                                        </td>
-                                        <td>January 22</td>
-                                        <td class="color-primary">$21.56</td>
-                                    </tr>
-                                    <tr>
-                                        <th>2</th>
-                                        <td>Kolor Tea Shirt For Women</td>
-                                        <td><span class="badge badge-success">Tax</span>
-                                        </td>
-                                        <td>January 30</td>
-                                        <td class="color-success">$55.32</td>
-                                    </tr>
-                                    <tr>
-                                        <th>3</th>
-                                        <td>Blue Backpack For Baby</td>
-                                        <td><span class="badge badge-danger">Extended</span>
-                                        </td>
-                                        <td>January 25</td>
-                                        <td class="color-danger">$14.85</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div class="profile-tab">
+                    <ul class="nav nav-tabs" style="margin-bottom: 10px;">
+                        <li class="nav-item"><a href="#Cadre_Caja" data-toggle="tab" class="nav-link active"><i class="bi bi-cash-stack"></i>&nbsp; Cuadre Caja</a>
+                        </li>
+                        <li class="nav-item"><a href="#Movimiento_Caja" data-toggle="tab" class="nav-link"><i class="bi bi-files"></i>&nbsp; Movimiento Caja</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="Cadre_Caja" role="tabpanel">
+
+                            <div class="alert alert-light alert-dismissible alert-alt fade show col-sm-12" style="color: #808080">
+                                Cuadre caja para el sucursal: <strong>EL Paraiso</strong>
+                            </div>
+                            <div class="form-row justify-content-center">
+                                <div class=" col-md-8 ">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-responsive-sm" style="color: #5a5a5a;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Tipo Movimiento</th>
+                                                    <th>Monto</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>1</th>
+                                                    <td>Ventas</td>
+                                                    <td class="color-primary">$21.56</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>2</th>
+                                                    <td>Compras</td>
+                                                    <td class="color-success">$55.32</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>3</th>
+                                                    <td>Ingresos</td>
+                                                    <td class="color-danger">$14.85</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>4</th>
+                                                    <td>Egresos</td>
+                                                    <td class="color-danger">$14.85</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>5</th>
+                                                    <td>Cuentas Cobradas</td>
+                                                    <td class="color-danger">$14.85</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 " style="display: flex; justify-content: flex-end; margin-bottom: 8px;">
+                                    <div class="col-xl-4 col-xxl-6 col-lg-8 col-md-8" style="padding: 0px">
+                                        <div class="basic-list-group">
+                                            <ul class="list-group list-group-flush" style="color: #5a5a5a;">
+                                                <li class="list-group-item"><span class="_text_detalle">Ingresos caja:</span> <span class="_text_detalle_monto">0</span></li>
+                                                <li class="list-group-item"><span class="_text_detalle">Egresos Caja:</span> <span class="_text_detalle_monto">0</span> </li>
+                                                <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;"><span class="_text_detalle">Total Caja:</span> <span class="_text_detalle_monto">0</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 " style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
+                                 <button type="button" class="btn btn-rounded btn-success btn-hover-shine"><span class="btn-icon-left text-success"><i class="bi bi-inbox"></i>
+                                    </span>Cuadrar caja</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group col-md-8 ">
-                        <div class="col-sm-6">
-                            <div class="basic-list-group">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
-                                </ul>
+
+                        <div class="tab-pane fade show" id="Movimiento_Caja" role="tabpanel">
+                            <div class="alert alert-light alert-dismissible alert-alt fade show col-sm-12" style="color: #808080">
+                                Movimiento de caja para el sucursal: <strong>EL Paraiso</strong>
+                            </div>
+                            <div class="jqGrid">
+                                <table id="Caja_Grilla"></table>
+                                <div id="Barra_Grilla"></div>
                             </div>
                         </div>
                     </div>
@@ -155,4 +205,3 @@
             </div>
         </div>
     </div>
-</div>

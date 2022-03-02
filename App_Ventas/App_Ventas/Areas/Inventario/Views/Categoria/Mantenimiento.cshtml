@@ -1,0 +1,53 @@
+﻿@model App_Ventas.Areas.Inventario.Models.CategoriaModelView
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+</script>
+
+
+
+@using (Html.BeginForm("Cargo", "Cargo", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmMantenimientoCargo", @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary(true)
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Nueva Categoria</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.DESC_CATEGORIA)
+                        @Html.TextBoxFor(model => model.DESC_CATEGORIA, new { @class = "form-control", @maxlength = "200" })
+                        @Html.ValidationMessageFor(model => model.DESC_CATEGORIA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.DESCRIPCION)
+                        @Html.TextAreaFor(model => model.DESCRIPCION, new { @class = "form-control", @maxlength = "1000" })
+                        @Html.ValidationMessageFor(model => model.DESCRIPCION, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="Btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
+            </div>
+        </div>
+    </div>
+}
+
+@Html.Hidden("hfd_ID_SUCURSAL", Model.ID_CATEGORIA)
+@Html.Hidden("AccionCategoria", Model.Accion)
