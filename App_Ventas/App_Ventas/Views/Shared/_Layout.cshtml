@@ -240,7 +240,7 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                         class="bi bi-cart3"></i><span class="nav-text">Ventas</span></a>
                         <ul aria-expanded="false">
-                            <li><a name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aVentas">Ventas</a></li>
+                            <li><a name="Ventas/Ventas/Index" onclick="_LayoutInvocar(this)" id="aVentas">Ventas</a></li>
                             <li><a href="./index2.html">Ventas Detalladas</a></li>
                             <li><a href="./index2.html">Ventas Anuladas</a></li>
                             <li><a href="./index2.html">Devoluciones</a></li>
@@ -254,7 +254,7 @@
                     </li>
 
 
-                    <li><a class="has-arrow not-before" name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aCompras" aria-expanded="false">
+                    <li><a class="has-arrow not-before" name="Compras/Compras/Index" onclick="_LayoutInvocar(this)" id="aCompras" aria-expanded="false">
                         <i class="bi bi-basket3"></i><span class="nav-text">Compras </span></a>
                         <ul aria-expanded="false">
                         </ul>
@@ -331,23 +331,7 @@
         Main wrapper end
     ***********************************-->
 
-    <!--**********************************
-        Scripts
-    ***********************************-->
-    <script type="text/javascript">
-        var baseUrl = '@Url.Content("~")';
-        function _LayoutInvocar(e) {
-            ID_VENTANA = e.tabIndex;
-            var item =
-                {
-                    //ID_SEDE: $('#input_hdidsede').val()
-                };
-            InvocarVista(baseUrl + e.name, item);
-        };
-
-
-    </script>
-
+ 
     <!-- Required vendors -->
 
 
@@ -400,7 +384,32 @@
     <script src="@Url.Content("~/Scripts/ui.datepicker-es.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
     <script src= "@Url.Content("~/Scripts/moment.min.js")" type="text/javascript"></script>
+    <script src= "@Url.Content("~/Scripts/inicializacion.js")" type="text/javascript"></script>
+    <script src= "@Url.Content("~/Scripts/jquery.blockUI.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/General.js")"></script>
+
+       <!--**********************************
+        Scripts
+    ***********************************-->
+    <script type="text/javascript">
+        var baseUrl = '@Url.Content("~")';
+        function _LayoutInvocar(e) {
+            ID_VENTANA = e.tabIndex;
+            var item =
+                {
+                    //ID_SEDE: $('#input_hdidsede').val()
+                };
+            InvocarVista(baseUrl + e.name, item);
+        };
+
+
+        $(document).ready(function () {
+         
+        });
+
+    </script>
+
+
 
 </body>
 

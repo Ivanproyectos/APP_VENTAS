@@ -1,4 +1,6 @@
-﻿.cssMessageError {
+﻿@import url('spinnerloader.css'); 
+
+.cssMessageError {
     width: 100%;
     margin-top: 0.25rem;
     font-size: 80%;
@@ -41,6 +43,8 @@
   color: #c7c7c7 !important;
 }
 
+
+
 /*.form-control:hover, .form-control:focus, .form-control.active {
     box-shadow: none;
     background: none !important;
@@ -73,3 +77,6 @@ label {
     align-items: center;
     flex-flow: column;
 }
+
+
+

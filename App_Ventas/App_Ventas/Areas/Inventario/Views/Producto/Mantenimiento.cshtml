@@ -5,7 +5,9 @@
         $('#FLG_VENCE').bootstrapToggle({
             on: 'Si',
             off: 'No',
-            //onstyle: "info"
+            size: "mini",
+            width: "50",
+            onstyle: "danger"
         });
 
         $('#FLG_SERIVICIO').bootstrapToggle({
@@ -37,9 +39,12 @@
         if ($(this).is(':checked')) {
             $('#frmMantenimiento_Productos').hide();
             $('#frmMantenimiento_Servicios').show('slow');
+            $('#frmMantenimiento_ImagenProducto').hide();
+            
         } else {
             $('#frmMantenimiento_Servicios').hide();
             $('#frmMantenimiento_Productos').show('slow');
+            $('#frmMantenimiento_ImagenProducto').show('slow');
         }
 
 
@@ -89,7 +94,7 @@
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.DESC_PRODUCTO)
-                        @Html.TextBoxFor(model => model.DESC_PRODUCTO, new { @class = "form-control", @maxlength = "200" })
+                        @Html.TextBoxFor(model => model.DESC_PRODUCTO, new { @class = "form-control", @maxlength = "100" })
                         @Html.ValidationMessageFor(model => model.DESC_PRODUCTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
@@ -135,26 +140,44 @@
                         @Html.ValidationMessageFor(model => model.MODELO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
-
-
-                </div>
-                <div class="form-row">
-                    <h4 class="card-title border-bottom-head" style="width: 100%; height: 30px;"><i class="bi bi-calendar2-x"></i>&nbsp; Vencimiento de Producto</h4>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6 css_center_block">
-                        @Html.LabelFor(model => model.FLG_VENCE)
-                        @Html.CheckBoxFor(model => model.FLG_VENCE, new { @class = "form-control", @maxlength = "200" })
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.FECHA_VENCIMIENTO)
+                       <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.FLG_VENCE)  @Html.CheckBoxFor(model => model.FLG_VENCE, new { @class = "form-control", @maxlength = "200" })
                         @Html.TextBoxFor(model => model.FECHA_VENCIMIENTO, new { @class = "form-control", @maxlength = "7" })
                         @Html.ValidationMessageFor(model => model.FECHA_VENCIMIENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
                 </div>
+                   
+                <br />
+                <div class="form-row">
+                    <h4 class="card-title border-bottom-head" style="width: 100%; height: 30px;"><i class="bi bi-images"></i>&nbsp; Imagen</h4>
+                </div>
+         
             }
 
+            @using (Html.BeginForm("Producto", "Producto", new { @area = "Inventario" }, FormMethod.Post, new { @id = "frmMantenimiento_ImagenProducto" }))
+            {
+                @Html.ValidationSummary(true)
+                <div class="form-row">
+                    <div class="form-group col-md-12 css_center_block">
+                        <label for="fileField-logo" class="attachment">
+                            <div class="row btn-file">
+                                <div class="btn-file__preview" id="Logo_Img"></div>
+                                <div class="btn-file__actions">
+                                    <div class="btn-file__actions__item col-xs-12 text-center">
+                                        <div class="btn-file__actions__item--shadow">
+                                            <i class="bi bi-image" aria-hidden="true"></i>
+                                            <div class="visible-xs-block"></div>
+                                            Seleccione imagen
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input name="MifileArchivo" type="file" id="fileField-logo" class="file_image">
+                        </label>
+                    </div>
+                </div>
+
+            }
 
             @using (Html.BeginForm("Producto", "Producto", new { @area = "Inventario" }, FormMethod.Post, new { @id = "frmMantenimiento_Servicios", @style = "display:none;" }))
             {

@@ -179,11 +179,17 @@
     <Compile Include="Areas\Caja\CajaAreaRegistration.cs" />
     <Compile Include="Areas\Caja\Controllers\CajaController.cs" />
     <Compile Include="Areas\Caja\Models\CajaModelView.cs" />
+    <Compile Include="Areas\Compras\ComprasAreaRegistration.cs" />
+    <Compile Include="Areas\Compras\Controllers\ComprasController.cs" />
+    <Compile Include="Areas\Compras\Models\ComprasModelView.cs" />
     <Compile Include="Areas\Inventario\Controllers\CategoriaController.cs" />
     <Compile Include="Areas\Inventario\Controllers\ProductoController.cs" />
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
     <Compile Include="Areas\Inventario\Models\CategoriaModelView.cs" />
     <Compile Include="Areas\Inventario\Models\ProductoModelView.cs" />
+    <Compile Include="Areas\Ventas\Controllers\VentasController.cs" />
+    <Compile Include="Areas\Ventas\Models\VentasModelView.cs" />
+    <Compile Include="Areas\Ventas\VentasAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -201,6 +207,7 @@
   <ItemGroup>
     <Content Include="assets\css\animate.min.css" />
     <Content Include="assets\css\Changes_estilos\theme_dark.css" />
+    <Content Include="assets\css\spinnerloader.css" />
     <Content Include="assets\css\File_image.css" />
     <Content Include="assets\css\General.css" />
     <Content Include="assets\css\perfect-scrollbar.css" />
@@ -4088,8 +4095,15 @@
     <Content Include="Areas\Inventario\Views\Categoria\Mantenimiento.cshtml" />
     <Content Include="Areas\Inventario\Views\Producto\Index.cshtml" />
     <Content Include="Areas\Inventario\Views\Producto\Mantenimiento.cshtml" />
+    <Content Include="Areas\Compras\Views\Web.config" />
+    <Content Include="Areas\Compras\Views\Compras\Index.cshtml" />
+    <Content Include="Areas\Compras\Views\Compras\Mantenimiento.cshtml" />
+    <Content Include="Areas\Ventas\Views\Web.config" />
+    <Content Include="Areas\Ventas\Views\Ventas\Index.cshtml" />
+    <Content Include="Areas\Ventas\Views\Ventas\Mantenimiento.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\General.js" />
+    <Content Include="Scripts\inicializacion.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -4099,6 +4113,7 @@
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.jqGrid.js" />
     <Content Include="Scripts\jquery.jqGrid.min.js" />
@@ -4118,9 +4133,13 @@
     <Content Include="Scripts\Js\Administracion\Perfil.js" />
     <Content Include="Scripts\Js\Administracion\Usuarios.js" />
     <Content Include="Scripts\Js\Administracion\Personal.js" />
+    <Content Include="Scripts\Js\Compras\Compras.js" />
+    <Content Include="Scripts\Js\Compras\Compras_Detalle.js" />
     <Content Include="Scripts\Js\Inventario\Categoria.js" />
     <Content Include="Scripts\Js\Inventario\Producto.js" />
     <Content Include="Scripts\Js\Prueba.js" />
+    <Content Include="Scripts\Js\Ventas\Ventas.js" />
+    <Content Include="Scripts\Js\Ventas\Ventas_Detalle.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
@@ -4172,7 +4191,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administracion\Views\Shared\" />
     <Folder Include="Areas\Caja\Views\Shared\" />
+    <Folder Include="Areas\Compras\Views\Shared\" />
     <Folder Include="Areas\Inventario\Views\Shared\" />
+    <Folder Include="Areas\Ventas\Views\Shared\" />
     <Folder Include="Recursos\Log\" />
     <Folder Include="Recursos\Temporales\" />
   </ItemGroup>
