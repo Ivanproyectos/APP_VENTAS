@@ -78,5 +78,9 @@ label {
     flex-flow: column;
 }
 
+.blockUI {
+ z-index: 1060 !important; 
+}
+
 
 
