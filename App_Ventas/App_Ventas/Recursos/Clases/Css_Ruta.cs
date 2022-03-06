@@ -28,14 +28,10 @@ namespace App_Ventas.Recursos.Clases
         }
 
        
-        public static string Ruta_Plantilla()
+        public static string Ruta_Logo()
         {
             string ruta = "";
-            ruta = ConfigurationManager.AppSettings["Servidor_Temporal"].ToString();
-            if (ruta == "")
-            {
-                ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"Recursos\Plantillas\");
-            }
+            ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"Recursos\Logo_Empresa\"); 
             return ruta;
         }
 

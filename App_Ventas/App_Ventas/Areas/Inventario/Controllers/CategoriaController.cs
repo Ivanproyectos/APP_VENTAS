@@ -18,7 +18,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
             return View();
         }
 
-        public ActionResult Mantenimiento()
+        public ActionResult Mantenimiento(int id , string Accion)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             CategoriaModelView model = new CategoriaModelView();

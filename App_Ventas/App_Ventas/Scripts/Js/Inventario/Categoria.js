@@ -64,7 +64,7 @@ function Categoria_actionEliminar(cellvalue, options, rowObject) {
 
 function Categoria_MostrarNuevo() {
     jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Administracion/Categoria/Mantenimiento?id=0&Accion=N", function (responseText, textStatus, request) {
+    jQuery("#myModalNuevo").load(baseUrl + "Inventario/Categoria/Mantenimiento?id=0&Accion=N", function (responseText, textStatus, request) {
         $('#myModalNuevo').modal({ show: true });
         $.validator.unobtrusive.parse('#myModalNuevo');
         if (request.status != 200) return;
@@ -73,7 +73,7 @@ function Categoria_MostrarNuevo() {
 
 function Categoria_MostrarEditar(ID_SUCURSAL) {
     jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Administracion/Categoria/Mantenimiento?id=" + ID_SUCURSAL + "&Accion=M", function (responseText, textStatus, request) {
+    jQuery("#myModalNuevo").load(baseUrl + "Inventario/Categoria/Mantenimiento?id=" + ID_SUCURSAL + "&Accion=M", function (responseText, textStatus, request) {
         $('#myModalNuevo').modal({ show: true });
         $.validator.unobtrusive.parse('#myModalNuevo');
         if (request.status != 200) return;
@@ -93,7 +93,7 @@ function Categoria_CargarGrilla() {
            DESC_CARGO: $('#txtdesCategoria').val(),
            FLG_ESTADO: $('#cboEstado').val()
        };
-    var url = baseUrl + 'Administracion/Categoria/Categoria_Listar';
+    var url = baseUrl + 'Inventario/Categoria/Categoria_Listar';
     var auditoria = SICA.Ajax(url, item, false);
     jQuery("#" + Categoria_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
     if (auditoria.EJECUCION_PROCEDIMIENTO) {
@@ -142,7 +142,7 @@ function Categoria_Actualizar() {
                 };
         jConfirm("¿ Desea actualizar este cargo ?", "Atención", function (r) {
             if (r) {
-                var url = baseUrl + 'Administracion/Categoria/Categoria_Actualizar';
+                var url = baseUrl + 'Inventario/Categoria/Categoria_Actualizar';
                 var auditoria = SICA.Ajax(url, item, false);
                 if (auditoria != null && auditoria != "") {
                     if (auditoria.EJECUCION_PROCEDIMIENTO) {
@@ -180,7 +180,7 @@ function Categoria_Ingresar() {
                             USU_CREACION: $('#input_hdcodusuario').val(),
                             ACCION: $("#AccionCategoria").val()
                         };
-                    var url = baseUrl + 'Administracion/Categoria/Categoria_Insertar';
+                    var url = baseUrl + 'Inventario/Categoria/Categoria_Insertar';
                     var auditoria = SICA.Ajax(url, item, false);
                     if (auditoria != null && auditoria != "") {
                         if (auditoria.EJECUCION_PROCEDIMIENTO) {
@@ -211,7 +211,7 @@ function Categoria_Eliminar(ID_SUCURSAL) {
             var item = {
                 ID_SUCURSAL: ID_SUCURSAL
             };
-            var url = baseUrl + 'Administracion/Categoria/Categoria_Eliminar';
+            var url = baseUrl + 'Inventario/Categoria/Categoria_Eliminar';
             var auditoria = SICA.Ajax(url, item, false);
             if (auditoria != null && auditoria != "") {
                 if (auditoria.EJECUCION_PROCEDIMIENTO) {
@@ -240,7 +240,7 @@ function Categoria_Estado(ID_SUCURSAL, CHECK) {
         FLG_ESTADO: CHECK.checked == true ? '1' : '0',
         USU_MODIFICACION: $('#input_hdcodusuario').val(),
     };
-    var url = baseUrl + 'Administracion/Categoria/Categoria_Estado';
+    var url = baseUrl + 'Inventario/Categoria/Categoria_Estado';
     var auditoria = SICA.Ajax(url, item, false);
     if (auditoria != null && auditoria != "") {
         if (auditoria.EJECUCION_PROCEDIMIENTO) {

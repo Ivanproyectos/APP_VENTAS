@@ -18,8 +18,6 @@ $('.quixnav .metismenu ul a ').click(function () {
     //_liPadre.children();
 });
 
-
-
 /////////// para los menus sin grupo; 
 $('.quixnav .metismenu li .not-before').click(function () {
     var _this = $(this);
@@ -30,22 +28,15 @@ $('.quixnav .metismenu li .not-before').click(function () {
 });
 
 
-
-jQuery(($) => {
-    $('.attachment input[type="file"]')
-      .on('change', (event) => {
-          let el = $(event.target).closest('.attachment').find('.btn-file');
-    
-el
-  .find('.btn-file__actions__item')
-  .css({
-      'padding': '135px'
-  });
-    
-el
-  .find('.btn-file__preview')
-  .css({
-      'background-image': 'url(' + window.URL.createObjectURL(event.target.files[0]) + ')'
-  });
-});
-});
+function blockUI_(message) {
+    message == "" ? "Procesando..." : message; 
+    jQuery.blockUI({
+        message: "<div class=\"css_center_block\">  <div class=\"Loader_block\"> "
+                        + "<div class=\"spinner2\">"
+                            + " <div class=\"circle1\"></div>"
+                            + " <div class=\"circle2\"></div>"
+                        + " </div>"
+                    + " </div> <p style=\"color:white;\">" + message + "</p>  </div> ",
+    css: { width: "20px", left: "45%", top: "40%", background: "none" }
+    });
+}

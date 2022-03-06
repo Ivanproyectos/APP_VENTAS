@@ -41,9 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Administracion\Cls_Dat_ConfigurarEmpresa.cs" />
+    <Compile Include="Listados_Combos\Cls_Dat_Listados.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protected\DataBaseHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Capa_Entidad\Capa_Entidad.csproj">
+      <Project>{80e11cab-e660-4248-8cd9-69201e1a261f}</Project>
+      <Name>Capa_Entidad</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

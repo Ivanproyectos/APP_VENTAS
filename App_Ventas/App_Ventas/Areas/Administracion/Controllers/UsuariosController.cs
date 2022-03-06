@@ -22,6 +22,8 @@ namespace App_Ventas.Areas.Administracion.Controllers
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             UsuariosModelView model = new UsuariosModelView();
+            model.Accion = Accion;
+            model.ID_USUARIO = id; 
 
             model.Lista_Tipo_Documento = new List<SelectListItem>();
             model.Lista_Tipo_Documento.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });

@@ -176,10 +176,11 @@ function Usuarios_Actualizar() {
 ///************************************************ Inserta cargos  **************************************************/
 
 function Usuarios_Ingresar() {
+    debugger; 
     if ($('#AccionUsuarios').val() != 'N') {
         Usuarios_Actualizar();
     } else {
-        if ($("#frmMantenimientoUsuarios").valid()) {
+        if ($("#frmMantenimiento_Usuarios").valid()) {
             jConfirm("¿ Desea registrar este cargo ?", "Atención", function (r) {
                 if (r) {
                     var item =

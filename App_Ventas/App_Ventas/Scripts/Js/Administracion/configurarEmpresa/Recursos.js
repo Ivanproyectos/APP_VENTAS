@@ -1,9 +1,7 @@
 ﻿
 
 $("#fileField-isotipo").change(function () {
-    //$("#NOMBRE_ARCHIVO").val('');
-    //$("#lbl_file").html("Seleccionar archivo");
-    //if ($("#FrmPlantillaNuevoArchivo").valid()) {
+   
     var TIPO = 1; // ISOTIPO
     var input = document.getElementById('fileField-isotipo');
     var file = input.files[0];
@@ -68,7 +66,7 @@ $("#fileField-logo").change(function () {
             if (PesodeArchivo > Tamanio_Valido || !valido) {
                 $(this).val('');
                 if (!valido)
-                    jWarning("Solo se permite documentos en formato word(.png,.jpeg,.jpg)", 'Alerta');
+                    jWarning("Solo se permite documentos en formato Imagen(.png,.jpeg,.jpg)", 'Alerta');
                 else
                     jWarning("La cantidad de el archivo que va adjuntar no pueden pesar más de " + Tamanio_Valido / 1024 / 1024 + "Mb", 'Alerta');
                 return false;
@@ -90,7 +88,7 @@ $("#fileField-logo").change(function () {
 
 
 function ConfigurarEmpresa_GuardarTemporal(TIPO) {
-    //$("#FrmPlantillaNuevoArchivo").show();
+   
     var ErrorUrl = '';
     var url = baseUrl + "Administracion/Archivo/Guardar_Temporal_Archivo";
     var options = {
@@ -100,17 +98,18 @@ function ConfigurarEmpresa_GuardarTemporal(TIPO) {
         url: url,
         resetForm: false,
         beforeSubmit: function (formData, jqForm, options) {
-            return true;
+            blockUI_("Subiendo Archivo...");
         },
         success: function (response, textStatus, jqXHR) {
             if (response.EJECUCION_PROCEDIMIENTO) {
+                jQuery.unblockUI();
                 if (TIPO == 1) {
-                    CargoIsotipo = true;
+                    configurarEmpresaIsotipo = true;
                     IsotipoNuevo_Array = new Array();
                     IsotipoNuevo_Array.push(response.OBJETO);
                     $('#Isotipo_Img').css('background-image', 'url(' + MiSistema + response.OBJETO.RUTA_LINK + ')');
                 } else if (TIPO == 2) {
-                    CargoLogo = true;
+                    configurarEmpresaLogo = true;
                     LogoNuevo_Array = new Array();
                     LogoNuevo_Array.push(response.OBJETO);
                     $('#Logo_Img').css('background-image', 'url(' + MiSistema + response.OBJETO.RUTA_LINK + ')');
@@ -120,7 +119,7 @@ function ConfigurarEmpresa_GuardarTemporal(TIPO) {
                 jDanger(response.MENSAJE_SALIDA, 'Atención');
             }
         },
-        error: function (jqXHR, textStatus, errorThrown) { window.location = ErrorUrl; }
+        error: function (jqXHR, textStatus, errorThrown) { window.location = ErrorUrl; jQuery.unblockUI(); }
     };
     if (TIPO == 1) {
         $("#FrmIsotipoArchivo").ajaxForm(options);
@@ -159,7 +158,7 @@ $("#file-upload").change(function () {
             if (PesodeArchivo > Tamanio_Valido || !valido) {
                 $(this).val('');
                 if (!valido)
-                    jAlert("Solo se permite documentos en formato word(.png,.jpeg,.jpg)", 'Alerta');
+                    jAlert("Solo se permite documentos en formato Imagen(.png,.jpeg,.jpg)", 'Alerta');
                 else
                     jAlert("La cantidad de el archivo que va adjuntar no pueden pesar más de " + Tamanio_Valido / 1024 / 1024 + "Mb", 'Alerta');
                 return false;

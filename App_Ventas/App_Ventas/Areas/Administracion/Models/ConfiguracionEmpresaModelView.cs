@@ -5,13 +5,19 @@ using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Capa_Entidad.Base;
 
 namespace App_Ventas.Areas.Administracion.Models
 {
     public class ConfiguracionEmpresaModelView
     {
-        public int ID_CONFIGURACION { get; set; }
+        public ConfiguracionEmpresaModelView()
+        { 
+          Archivo_Logo = new Cls_Ent_Archivo(); 
+          Archivo_Isotipo = new Cls_Ent_Archivo(); 
+        }
 
+        public int ID_CONFIGURACION { get; set; }
         [Display(Name = "Ruc: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Ruc] es obligatorio")]
@@ -52,9 +58,10 @@ namespace App_Ventas.Areas.Administracion.Models
 
 
         [Display(Name = "Impuesto: ")]
-        [DataType(DataType.Text)]
+        [DataType(DataType.Text)]  
         [Required(ErrorMessage = "[Impuesto] es obligatorio")]
-        public decimal IMPUESTO { get; set; }
+        [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
+        public string IMPUESTO { get; set; }
 
 
 
@@ -73,6 +80,11 @@ namespace App_Ventas.Areas.Administracion.Models
         [EmailAddress(ErrorMessage = "Correo invalido")]
         public string CORREO { get; set; }
 
+        [Display(Name = "Simbolo Moneda: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Simbolo Moneda] es obligatorio")]
+        public string SIMBOLO_MONEDA { get; set; }
+
 
         [Display(Name = "Ubigeo: ")]
         [DataType(DataType.Text)]
@@ -80,6 +92,10 @@ namespace App_Ventas.Areas.Administracion.Models
         public string COD_UBIGEO { get; set; }
         public List<SelectListItem> Lista_Ubigeo { get; set; }
 
+
+        public Cls_Ent_Archivo Archivo_Logo { get; set; }
+        public Cls_Ent_Archivo Archivo_Isotipo { get; set; }
+       
 
     }
 }

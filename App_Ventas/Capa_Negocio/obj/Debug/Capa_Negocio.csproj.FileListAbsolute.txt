@@ -3,3 +3,7 @@ C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\obj\Debug\Capa_Negocio.csprojResolveAssemblyReference.cache
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\obj\Debug\Capa_Negocio.dll
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\obj\Debug\Capa_Negocio.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Debug\Capa_Datos.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Debug\Capa_Entidad.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Debug\Capa_Datos.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Debug\Capa_Entidad.pdb

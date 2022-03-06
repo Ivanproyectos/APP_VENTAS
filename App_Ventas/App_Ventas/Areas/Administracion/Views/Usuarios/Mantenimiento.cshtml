@@ -12,7 +12,7 @@
     });
 
     $('#Usuarios_btn_Guardar').click(function () {
-        Preguntar();
+        Usuarios_Ingresar();
     });
 
     $('#FEC_ACTIVACION, #FEC_DESACTIVACION').datepicker({
@@ -74,12 +74,6 @@
                                 @Html.LabelFor(model => model.APE_PATERNO)
                                 @Html.TextBoxFor(model => model.APE_PATERNO, new { @class = "form-control", @maxlength = "200" })
                                 @Html.ValidationMessageFor(model => model.APE_PATERNO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                @Html.LabelFor(model => model.APE_MATERNO)
-                                @Html.TextBoxFor(model => model.APE_MATERNO, new { @class = "form-control", @maxlength = "200" })
-                                @Html.ValidationMessageFor(model => model.APE_MATERNO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
 
                             <div class="form-group col-md-6">
@@ -182,7 +176,7 @@
                             </ul>
                         </div>
                         <br />
-                  
+
 
                         <div class="form-row">
                             <div class="form-group col-md-12">
@@ -197,9 +191,12 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
                 <button type="button" id="Usuarios_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
+                <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
 }
+
+@Html.Hidden("hfd_ID_SUCURSAL", Model.ID_SUCURSAL)
+@Html.Hidden("AccionUsuarios", Model.Accion)

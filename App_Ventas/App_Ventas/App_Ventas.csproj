@@ -165,6 +165,7 @@
     <Compile Include="Areas\Administracion\Controllers\ArchivoController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ClientesController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ConfigurarEmpresaController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\ListadoComboController.cs" />
     <Compile Include="Areas\Administracion\Controllers\PerfilController.cs" />
     <Compile Include="Areas\Administracion\Controllers\PersonalController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ProveedorController.cs" />
@@ -176,12 +177,17 @@
     <Compile Include="Areas\Administracion\Models\PerfilModelView.cs" />
     <Compile Include="Areas\Administracion\Models\UsuariosModelView.cs" />
     <Compile Include="Areas\Administracion\Models\PersonalModelView.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\ConfigurarEmpresaRepositorio.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\Listado_CombosRepositorio.cs" />
     <Compile Include="Areas\Caja\CajaAreaRegistration.cs" />
     <Compile Include="Areas\Caja\Controllers\CajaController.cs" />
     <Compile Include="Areas\Caja\Models\CajaModelView.cs" />
     <Compile Include="Areas\Compras\ComprasAreaRegistration.cs" />
     <Compile Include="Areas\Compras\Controllers\ComprasController.cs" />
     <Compile Include="Areas\Compras\Models\ComprasModelView.cs" />
+    <Compile Include="Areas\CuentasCobrar\Controllers\CuentasCobrarController.cs" />
+    <Compile Include="Areas\CuentasCobrar\CuentasCobrarAreaRegistration.cs" />
+    <Compile Include="Areas\CuentasCobrar\Models\CuentasCobrarModelView.cs" />
     <Compile Include="Areas\Inventario\Controllers\CategoriaController.cs" />
     <Compile Include="Areas\Inventario\Controllers\ProductoController.cs" />
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
@@ -4101,6 +4107,8 @@
     <Content Include="Areas\Ventas\Views\Web.config" />
     <Content Include="Areas\Ventas\Views\Ventas\Index.cshtml" />
     <Content Include="Areas\Ventas\Views\Ventas\Mantenimiento.cshtml" />
+    <Content Include="Areas\CuentasCobrar\Views\Web.config" />
+    <Content Include="Areas\CuentasCobrar\Views\CuentasCobrar\Index.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\inicializacion.js" />
@@ -4123,6 +4131,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Js\Administracion\ListadoCombo.js" />
     <Content Include="Scripts\Js\Caja\Caja.js" />
     <Content Include="Scripts\Js\Administracion\configurarEmpresa\configurarEmpresa.js" />
     <Content Include="Scripts\Js\Administracion\configurarEmpresa\Recursos.js" />
@@ -4135,6 +4144,7 @@
     <Content Include="Scripts\Js\Administracion\Personal.js" />
     <Content Include="Scripts\Js\Compras\Compras.js" />
     <Content Include="Scripts\Js\Compras\Compras_Detalle.js" />
+    <Content Include="Scripts\Js\CuentasCobrar\CuentasCobrar.js" />
     <Content Include="Scripts\Js\Inventario\Categoria.js" />
     <Content Include="Scripts\Js\Inventario\Producto.js" />
     <Content Include="Scripts\Js\Prueba.js" />
@@ -4192,8 +4202,10 @@
     <Folder Include="Areas\Administracion\Views\Shared\" />
     <Folder Include="Areas\Caja\Views\Shared\" />
     <Folder Include="Areas\Compras\Views\Shared\" />
+    <Folder Include="Areas\CuentasCobrar\Views\Shared\" />
     <Folder Include="Areas\Inventario\Views\Shared\" />
     <Folder Include="Areas\Ventas\Views\Shared\" />
+    <Folder Include="Recursos\Logo_Empresa\" />
     <Folder Include="Recursos\Log\" />
     <Folder Include="Recursos\Temporales\" />
   </ItemGroup>
@@ -4204,6 +4216,10 @@
     <ProjectReference Include="..\Capa_Entidad\Capa_Entidad.csproj">
       <Project>{80e11cab-e660-4248-8cd9-69201e1a261f}</Project>
       <Name>Capa_Entidad</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Capa_Negocio\Capa_Negocio.csproj">
+      <Project>{0b627b60-26a9-4b68-ab1e-cee89b4e72fa}</Project>
+      <Name>Capa_Negocio</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -40,10 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administracion\Cls_Ent_configurarEmpresa.cs" />
     <Compile Include="Administracion\Cls_Ent_Sistemas_Modulos.cs" />
     <Compile Include="Administracion\Cls_Ent_Sistemas_Perfiles.cs" />
     <Compile Include="Administracion\Cls_Ent_sistemas_Usuarios.cs" />
     <Compile Include="Administracion\Cls_Ent_Tipo_Documento.cs" />
+    <Compile Include="Administracion\Cls_Ent_Ubigeo.cs" />
     <Compile Include="Administracion\Cls_Ent_Usuario.cs" />
     <Compile Include="Base\Cls_Ent_Archivo.cs" />
     <Compile Include="Base\Cls_Ent_Base.cs" />
