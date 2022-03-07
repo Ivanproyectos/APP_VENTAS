@@ -7,6 +7,8 @@
             off: 'No',
             //onstyle: "info"
         });
+        $('#CELULAR').numeric();
+        $('#TELEFONO').numeric();
 
         Usuarios_Perfil_ConfigurarGrilla();
     });
@@ -23,6 +25,34 @@
         changeFirstDay: false,
         showAnim: 'slideDown'
     });
+
+    $('#ID_TIPO_DOCUMENTO').change(function () {
+        ChangeTipoDocumento($(this).val());
+    });
+
+
+    function ChangeTipoDocumento(_TipoDocumento) {
+        $('#DNI').val('');
+        if (_TipoDocumento == 1) {
+            $('#DNI').prop('maxlength', 8);
+        } else if (_TipoDocumento == 4 || _TipoDocumento == 7) {
+            $('#DNI').prop('maxlength', 12);
+        } else if (_TipoDocumento == 6) {
+            $('#DNI').prop('maxlength', 11);
+        }
+    }
+    function Cliente_SearchPersona() {
+        var _tipoDocumento = $('#ID_TIPO_DOCUMENTO').val();
+        if (_tipoDocumento == 1) {
+            BuscarPersonalNatural($('#DNI').val());
+        } else if (_tipoDocumento == 6) {
+            //BuscarPersonalJuridica($('#DNI').val());
+        } else {
+            jDanger('Tipo documento no valido para buscar.', 'Atención')
+        }
+    }
+
+
 
 </script>
 
@@ -62,47 +92,52 @@
 
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(model => model.DNI)
-                                @Html.TextBoxFor(model => model.DNI, new { @class = "form-control", @maxlength = "200" })
+                                <div class="input-group mb-12 ">
+                                    @Html.TextBoxFor(model => model.DNI, new { @class = "form-control", @maxlength = "200" , @autocomplete="off"})
+                                    <div class="input-group-append  btn-hover-shine waves-effect waves-light" onclick="Cliente_SearchPersona()">
+                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                    </div>
+                                </div>
                                 @Html.ValidationMessageFor(model => model.DNI, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
 
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(model => model.NOMBRE)
-                                @Html.TextBoxFor(model => model.NOMBRE, new { @class = "form-control", @maxlength = "200" })
+                                @Html.TextBoxFor(model => model.NOMBRE, new { @class = "form-control", @maxlength = "200" , @autocomplete="off" })
                                 @Html.ValidationMessageFor(model => model.NOMBRE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
 
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(model => model.APE_PATERNO)
-                                @Html.TextBoxFor(model => model.APE_PATERNO, new { @class = "form-control", @maxlength = "200" })
+                                @Html.TextBoxFor(model => model.APE_PATERNO, new { @class = "form-control", @maxlength = "200" , @autocomplete="off" })
                                 @Html.ValidationMessageFor(model => model.APE_PATERNO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
 
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(model => model.APE_MATERNO)
-                                @Html.TextBoxFor(model => model.APE_MATERNO, new { @class = "form-control", @maxlength = "200" })
+                                @Html.TextBoxFor(model => model.APE_MATERNO, new { @class = "form-control", @maxlength = "200" , @autocomplete="off" })
                                 @Html.ValidationMessageFor(model => model.APE_MATERNO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
 
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(model => model.CELULAR)
-                                @Html.TextBoxFor(model => model.CELULAR, new { @class = "form-control", @maxlength = "9" })
+                                @Html.TextBoxFor(model => model.CELULAR, new { @class = "form-control", @maxlength = "9" , @autocomplete="off" })
                                 @Html.ValidationMessageFor(model => model.CELULAR, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
 
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(model => model.TELEFONO)
-                                @Html.TextBoxFor(model => model.TELEFONO, new { @class = "form-control", @maxlength = "7" })
+                                @Html.TextBoxFor(model => model.TELEFONO, new { @class = "form-control", @maxlength = "7"  , @autocomplete="off"})
                                 @Html.ValidationMessageFor(model => model.TELEFONO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
 
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(model => model.CORREO)
-                                @Html.TextBoxFor(model => model.CORREO, new { @class = "form-control", @maxlength = "100" })
+                                @Html.TextBoxFor(model => model.CORREO, new { @class = "form-control", @maxlength = "100" , @autocomplete="off" })
                                 @Html.ValidationMessageFor(model => model.CORREO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
 
-                            <div class="form-group col-md-6 css_center_block">
+                            <div class="form-group col-md-6 css_center_block" style="align-items: start">
                                 @Html.LabelFor(model => model.FLG_ADMIN)
                                 @Html.CheckBoxFor(model => model.FLG_ADMIN, new { @class = "form-control", @maxlength = "200" })
                             </div>
@@ -120,7 +155,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="bi bi-person"></i></span>
                                     </div>
-                                    @Html.TextBoxFor(model => model.COD_USUARIO, new { @class = "form-control", @maxlength = "200", @placeholder = "Ejm: iperez" })
+                                    @Html.TextBoxFor(model => model.COD_USUARIO, new { @class = "form-control", @maxlength = "200", @placeholder = "Ejm: iperez" , @autocomplete="off" })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.COD_USUARIO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
@@ -131,7 +166,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="bi bi-unlock"></i></span>
                                     </div>
-                                    @Html.TextBoxFor(model => model.CLAVE_USUARIO, new { @class = "form-control", @maxlength = "200", @placeholder = "Ejm: elmejorxd" })
+                                    @Html.TextBoxFor(model => model.CLAVE_USUARIO, new { @class = "form-control", @maxlength = "200", @placeholder = "Ejm: elmejorxd" , @autocomplete="off" })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.CLAVE_USUARIO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
@@ -163,13 +198,23 @@
 
                                         <div class="form-group col-md-6">
                                             @Html.LabelFor(model => model.FEC_ACTIVACION)
-                                            @Html.TextBoxFor(model => model.FEC_ACTIVACION, new { @class = "form-control", @maxlength = "200" })
+                                            <div class="input-group mb-12">
+                                                @Html.TextBoxFor(model => model.FEC_ACTIVACION, new { @class = "form-control", @maxlength = "200" , @autocomplete="off" })
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                                </div>
+                                            </div>
                                             @Html.ValidationMessageFor(model => model.FEC_ACTIVACION, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                                         </div>
 
                                         <div class="form-group col-md-6">
                                             @Html.LabelFor(model => model.FEC_DESACTIVACION)
-                                            @Html.TextBoxFor(model => model.FEC_DESACTIVACION, new { @class = "form-control", @maxlength = "200" })
+                                            <div class="input-group mb-12">
+                                                @Html.TextBoxFor(model => model.FEC_DESACTIVACION, new { @class = "form-control", @maxlength = "200"  , @autocomplete="off"})
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                                </div>
+                                            </div>
                                             @Html.ValidationMessageFor(model => model.FEC_DESACTIVACION, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                                         </div>
                                         <div class="form-group col-md-12" style="display: flex; justify-content: flex-end">

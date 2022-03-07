@@ -1,9 +1,6 @@
 ﻿var Usuarios_Grilla = 'Usuarios_Grilla';
 var Usuarios_Barra = 'Usuarios_Barra';
 
-//$(document).ready(function () {
-//    Usuarios_ConfigurarGrilla();
-//});
 
 function Usuarios_Cerrar() {
     $('#myModalNuevo').modal('hide');
@@ -264,3 +261,61 @@ function Usuarios_Estado(ID_USUARIO, CHECK) {
 }
 
 ///*********************************************** ----------------- *************************************************/
+
+
+function BuscarPersonalNatural(_NumeroDocumento) {
+    if (_NumeroDocumento != "") {
+        if (_NumeroDocumento.length == 8) {
+            $.ajax({
+                type: "POST",
+                url: "https://snirh.ana.gob.pe/consultaspide/wsGetReniec.asmx/consultaDirectaReniec",
+                contentType: "application/json; charset=utf-8",
+                data: "{ pDniConsulta: " + _NumeroDocumento.toString() + " }",
+                dataType: "json",
+                // 20 s espera
+                timeout: 20000,
+                beforeSend: function () {
+                    blockUI_('Buscando persona...');
+                },
+                response: function (data) {
+                },
+                success: function (jdata) {
+                    jQuery.unblockUI();
+                    var json = JSON.parse(jdata.d);
+                    debugger;
+                    if (json.length > 0) {
+                        if (json[0]['codRes'] != 1003) {
+
+                            $('#NOMBRE').val(json[0]['nombres']);  
+                            $('#APE_PATERNO').val( json[0]['apePat']);
+                            $('#APE_MATERNO').val( json[0]['apeMat']);
+                            //$('#DIRECCION').val(json[0]['dir'])
+
+                        } else {
+                            jWarning(json[0]['desResul'], "Atención");
+
+                        }
+                    } else {
+                        jWarning("Persona no econtrada", "Atención");
+
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    jQuery.unblockUI();
+                    console.log(xmlHttpRequest.responseText);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                    return null;
+                }
+
+            });
+        } else {
+            jWarning("Numero dni debe tener 8 digitos", "Atención");
+            return null;
+        }
+
+    } else {
+        jWarning("Ingrese numero de dni", "Atención");
+        return null;
+    }
+}

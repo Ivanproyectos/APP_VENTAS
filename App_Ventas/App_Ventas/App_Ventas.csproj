@@ -165,10 +165,10 @@
     <Compile Include="Areas\Administracion\Controllers\ArchivoController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ClientesController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ConfigurarEmpresaController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\ProveedorController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ListadoComboController.cs" />
     <Compile Include="Areas\Administracion\Controllers\PerfilController.cs" />
     <Compile Include="Areas\Administracion\Controllers\PersonalController.cs" />
-    <Compile Include="Areas\Administracion\Controllers\ProveedorController.cs" />
     <Compile Include="Areas\Administracion\Controllers\SucursalController.cs" />
     <Compile Include="Areas\Administracion\Controllers\UsuariosController.cs" />
     <Compile Include="Areas\Administracion\Models\ClientesModelView.cs" />
@@ -179,6 +179,7 @@
     <Compile Include="Areas\Administracion\Models\PersonalModelView.cs" />
     <Compile Include="Areas\Administracion\Repositorio\ConfigurarEmpresaRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\ClienteRepositorio.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\ProveedorRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\Listado_CombosRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\PerfilRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\SucursalRepositorio.cs" />
@@ -196,6 +197,8 @@
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
     <Compile Include="Areas\Inventario\Models\CategoriaModelView.cs" />
     <Compile Include="Areas\Inventario\Models\ProductoModelView.cs" />
+    <Compile Include="Areas\Servicios\Controllers\ServiciosWebController.cs" />
+    <Compile Include="Areas\Servicios\ServiciosAreaRegistration.cs" />
     <Compile Include="Areas\Ventas\Controllers\VentasController.cs" />
     <Compile Include="Areas\Ventas\Models\VentasModelView.cs" />
     <Compile Include="Areas\Ventas\VentasAreaRegistration.cs" />
@@ -222,6 +225,7 @@
     <Content Include="assets\css\perfect-scrollbar.css" />
     <Content Include="assets\css\style.css" />
     <Content Include="assets\css\Switch_Toggle.css" />
+    <Content Include="assets\css\WavesEffect.css" />
     <Content Include="assets\icons\avasta\css\style.css" />
     <Content Include="assets\icons\avasta\fonts\avasta.svg" />
     <Content Include="assets\icons\Boopstrap\bootstrap-icons.css" />
@@ -4112,6 +4116,7 @@
     <Content Include="Areas\Ventas\Views\Ventas\Mantenimiento.cshtml" />
     <Content Include="Areas\CuentasCobrar\Views\Web.config" />
     <Content Include="Areas\CuentasCobrar\Views\CuentasCobrar\Index.cshtml" />
+    <Content Include="Areas\Servicios\Views\Web.config" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\inicializacion.js" />
@@ -4152,8 +4157,10 @@
     <Content Include="Scripts\Js\Inventario\Categoria.js" />
     <Content Include="Scripts\Js\Inventario\Producto.js" />
     <Content Include="Scripts\Js\Prueba.js" />
+    <Content Include="Scripts\Js\Servicio\ServicioPersona.js" />
     <Content Include="Scripts\Js\Ventas\Ventas.js" />
     <Content Include="Scripts\Js\Ventas\Ventas_Detalle.js" />
+    <Content Include="Scripts\WavesEffect.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
@@ -4208,6 +4215,8 @@
     <Folder Include="Areas\Compras\Views\Shared\" />
     <Folder Include="Areas\CuentasCobrar\Views\Shared\" />
     <Folder Include="Areas\Inventario\Views\Shared\" />
+    <Folder Include="Areas\Servicios\Models\" />
+    <Folder Include="Areas\Servicios\Views\Shared\" />
     <Folder Include="Areas\Ventas\Views\Shared\" />
     <Folder Include="Recursos\Logo_Empresa\" />
     <Folder Include="Recursos\Log\" />

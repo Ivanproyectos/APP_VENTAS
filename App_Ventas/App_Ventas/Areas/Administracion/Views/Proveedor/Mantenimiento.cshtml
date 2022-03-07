@@ -2,12 +2,57 @@
 
 <script>
     $(document).ready(function () {
+        $('#TELEFONO').numeric();
+        $('#CELULAR').numeric();
+        $('#COD_UBIGEO').select2();
 
+        //if ($('#AccionProveedor').val() == "M") {
+        //    ChangeTipoDocumento($('#ID_TIPO_DOCUMENTO').val());
+        //}
     });
+
+    $('#Proveedor_Btn_Guardar').click(function () {
+        Proveedor_Ingresar();
+    });
+    $('#ID_TIPO_DOCUMENTO').change(function () {
+        ChangeTipoDocumento($(this).val());
+    });
+
+    function ChangeTipoDocumento(_TipoDocumento) {
+        $('.AlEstRuc').hide();
+        $('#NUMERO_DOCUMENTO').val('');
+        if (_TipoDocumento == 1) {
+            $('#NUMERO_DOCUMENTO').prop('maxlength', 8);
+        } else if (_TipoDocumento == 4 || _TipoDocumento == 7) {
+            $('#NUMERO_DOCUMENTO').prop('maxlength', 12);
+        } else if (_TipoDocumento == 6) {
+            $('#NUMERO_DOCUMENTO').prop('maxlength', 11);
+        }
+    }
+    function Proveedor_SearchPersona() {
+        var _tipoDocumento = $('#ID_TIPO_DOCUMENTO').val();
+        if (_tipoDocumento == 1) {
+            BuscarPersonalNatural($('#NUMERO_DOCUMENTO').val());
+
+        } else if (_tipoDocumento == 6) {
+            BuscarPersonalJuridica($('#NUMERO_DOCUMENTO').val());
+        } else {
+            jDanger('Tipo documento no valido para buscar.', 'Atención')
+        }
+    }
+
 
 </script>
 
+<style>
+    .input-group-text {
+        cursor:pointer; 
+    }
+    .AlEstRuc {
+        display:none; 
+    }
 
+</style>
 
 @using (Html.BeginForm("Proveedor", "Proveedor", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmMantenimiento_Proveedor", @class = "form-horizontal" }))
 {
@@ -16,7 +61,12 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                @if(Model.ID_PROVEEDOR == 0 ){
                 <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Nuevo Proveedor</h5>
+                }else{
+                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Editar Proveedor</h5>
+                }
+
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
@@ -26,45 +76,51 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.ID_TIPO_DOCUMENTO)
-                        @Html.DropDownListFor(model => model.ID_TIPO_DOCUMENTO, Model.Lista_Ubigeo, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.DropDownListFor(model => model.ID_TIPO_DOCUMENTO, Model.Lista_Tipo_Documento, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         @Html.ValidationMessageFor(model => model.ID_TIPO_DOCUMENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.NUMERO_DOCUMENTO)
-                        @Html.TextBoxFor(model => model.NUMERO_DOCUMENTO, new { @class = "form-control", @maxlength = "200",@autocomplete="off" })
-                        @Html.ValidationMessageFor(model => model.NOMBRES_APE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                        <div class="input-group mb-12 ">
+                            @Html.TextBoxFor(model => model.NUMERO_DOCUMENTO, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
+                            <div class="input-group-append  btn-hover-shine waves-effect waves-light"onclick="Proveedor_SearchPersona()">
+                                <span class="input-group-text" ><i class="bi bi-search"></i></span>
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.NUMERO_DOCUMENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
 
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.NOMBRES_APE)
-                        @Html.TextBoxFor(model => model.NOMBRES_APE, new { @class = "form-control", @maxlength = "200" ,@autocomplete="off" })
+                        @Html.LabelFor(model => model.NOMBRES_APE) <span class="text-success AlEstRuc RucActivo">(Estado:Activo)</span>
+                        <span class="text-danger AlEstRuc RucInactivo">(Estado:Inactivo)</span>
+                        @Html.TextBoxFor(model => model.NOMBRES_APE, new { @class = "form-control", @maxlength = "500", @autocomplete = "off" })
                         @Html.ValidationMessageFor(model => model.NOMBRES_APE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.TELEFONO)
-                        @Html.TextBoxFor(model => model.TELEFONO, new { @class = "form-control", @maxlength = "7" ,@autocomplete="off" })
+                        @Html.TextBoxFor(model => model.TELEFONO, new { @class = "form-control", @maxlength = "7", @autocomplete = "off" })
                         @Html.ValidationMessageFor(model => model.TELEFONO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.CORREO)
-                        @Html.TextBoxFor(model => model.CORREO, new { @class = "form-control", @maxlength = "100" ,@autocomplete="off" })
+                        @Html.TextBoxFor(model => model.CORREO, new { @class = "form-control", @maxlength = "100", @autocomplete = "off" })
                         @Html.ValidationMessageFor(model => model.CORREO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.TELEFONO)
-                        @Html.TextBoxFor(model => model.TELEFONO, new { @class = "form-control", @maxlength = "7" ,@autocomplete="off" })
-                        @Html.ValidationMessageFor(model => model.TELEFONO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                        @Html.LabelFor(model => model.DIRECCION)
+                        @Html.TextBoxFor(model => model.DIRECCION, new { @class = "form-control", @maxlength = "100", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.DIRECCION, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.CELULAR)
-                        @Html.TextBoxFor(model => model.CELULAR, new { @class = "form-control", @maxlength = "9" ,@autocomplete="off" })
+                        @Html.TextBoxFor(model => model.CELULAR, new { @class = "form-control", @maxlength = "9", @autocomplete = "off" })
                         @Html.ValidationMessageFor(model => model.CELULAR, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
@@ -75,15 +131,20 @@
                         @Html.ValidationMessageFor(model => model.COD_UBIGEO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.DETALLE)
+                        @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "1000", @autocomplete = "off" })
+                    </div>
+
 
                 </div>
 
 
             </div>
             <div class="modal-footer">
-
+                <button type="button" id="Proveedor_Btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
                 <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="Btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
+
             </div>
         </div>
     </div>

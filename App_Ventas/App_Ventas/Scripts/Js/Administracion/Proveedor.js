@@ -1,26 +1,23 @@
 ﻿var Proveedor_Grilla = 'Proveedor_Grilla';
 var Proveedor_Barra = 'Proveedor_Barra';
 
-//$(document).ready(function () {
-//    Proveedor_ConfigurarGrilla();
-//});
-
 function Proveedor_Cerrar() {
     $('#myModalNuevo').modal('hide');
     jQuery("#myModalNuevo").html('');
 }
 
 function Proveedor_Limpiar() {
-    $("#txtdesProveedor").val('');
-    $('#cboEstado').val('');
+    $("#Proveedor_NombreYape").val('');
+    $('#Proveedor_NumeroDocumento').val('');
+    $('#Proveedor_Estado').val('');
 
     Proveedor_CargarGrilla();
 }
 
 function Proveedor_ConfigurarGrilla() {
     $("#" + Proveedor_Grilla).GridUnload();
-    var colNames = ['Editar', 'Eliminar', 'Estado', 'codigo', 'ID', 'Nombres y apellidos', 'Tipo documento', 'Número Documento', 'Dirección', 'Telefono','Celular', 'Correo',
-         'Ubigeo', 'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación'];
+    var colNames = ['Editar', 'Eliminar', 'Estado', 'codigo', 'ID', 'Nombres y apellidos', 'Tipo documento', 'Número Documento', 'Dirección', 'Telefono', 'Celular', 'Correo',
+         'Ubigeo', 'Detalle', 'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación'];
     var colModels = [
             { name: 'EDITAR', index: 'EDITAR', align: 'center', width: 60, hidden: false, formatter: Proveedor_actionEditar, sortable: false },
             { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: false, formatter: Proveedor_actionEliminar, sortable: false },
@@ -30,11 +27,12 @@ function Proveedor_ConfigurarGrilla() {
             { name: 'NOMBRES_APE', index: 'NOMBRES_APE', width: 300, hidden: false, align: "left" },
             { name: 'DESC_TIPO_DOCUMENTO', index: 'DESC_TIPO_DOCUMENTO', width: 200, hidden: false, align: "left" },
             { name: 'NUMERO_DOCUMENTO', index: 'NUMERO_DOCUMENTO', width: 150, hidden: false, align: "left" },
-            { name: 'DIRECCION', index: 'DIRECCION', width: 100, hidden: false, align: "left" },
+            { name: 'DIRECCION', index: 'DIRECCION', width: 200, hidden: false, align: "left" },
             { name: 'TELEFONO', index: 'TELEFONO', width: 100, hidden: false, align: "left" },
             { name: 'CELULAR', index: 'CELULAR', width: 100, hidden: false, align: "left" },
             { name: 'CORREO', index: 'CORREO', width: 100, hidden: false, align: "left" },
-            { name: 'COD_UBIGEO', index: 'COD_UBIGEO', width: 200, hidden: false, align: "left" },
+            { name: 'DESC_UBIGEO', index: 'DESC_UBIGEO', width: 200, hidden: false, align: "left" },
+            { name: 'DETALLE', index: 'DETALLE', width: 250, hidden: false, align: "left" },
             { name: 'FLG_ESTADO', index: 'FLG_ESTADO', width: 300, hidden: true, align: "left" },
             { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },
             { name: 'USU_CREACION', index: 'USU_CREACION', width: 150, hidden: false, align: "left" },
@@ -44,7 +42,8 @@ function Proveedor_ConfigurarGrilla() {
     var opciones = {
         GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
     };
-    SICA.Grilla(Proveedor_Grilla, Proveedor_Barra, '', 400, '', "Lista de Proveedor", '', 'ID_PROVEEDOR', colNames, colModels, '', opciones);
+    SICA.Grilla(Proveedor_Grilla, Proveedor_Barra, Proveedor_Grilla, 400, '', "Lista de Proveedor", '', 'ID_PROVEEDOR', colNames, colModels, '', opciones);
+    jqGridResponsive($(".jqGrid"));
 }
 
 function Proveedor_actionActivo(cellvalue, options, rowObject) {
@@ -62,7 +61,7 @@ function Proveedor_actionActivo(cellvalue, options, rowObject) {
 }
 
 function Proveedor_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Proveedor_MostrarEditar(" + rowObject.ID_PROVEEDOR + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
+    var _btn = "<button title='Editar'  onclick='Proveedor_MostrarEditar(" + rowObject.ID_PROVEEDOR + ");' class=\"btn btn-outline-light\" type=\"button\" > <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
     return _btn;
 }
 
@@ -93,15 +92,14 @@ function Proveedor_MostrarEditar(ID_PROVEEDOR) {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Lista los  cargo **************************************************/
+///*********************************************** Lista los  Proveedor **************************************************/
 
 function Proveedor_CargarGrilla() {
     var item =
        {
-           ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : 0,
-           //$("#input_hdid_entidad").val(),
-           DESC_CARGO: $('#txtdesProveedor').val(),
-           FLG_ESTADO: $('#cboEstado').val()
+           NOMBRES_APE: $('#Proveedor_NombreYape').val(),
+           NUMERO_DOCUMENTO: $('#Proveedor_NumeroDocumento').val(),
+           FLG_ESTADO: $('#Proveedor_Estado').val()
        };
     var url = baseUrl + 'Administracion/Proveedor/Proveedor_Listar';
     var auditoria = SICA.Ajax(url, item, false);
@@ -114,15 +112,24 @@ function Proveedor_CargarGrilla() {
                  {
                      CODIGO: idgrilla,
                      ID_PROVEEDOR: v.ID_PROVEEDOR,
-                     DESC_CARGO: v.DESC_CARGO,
-                     DESC_ENTIDAD: v.DESC_ENTIDAD,
+                     NOMBRES_APE: v.NOMBRES_APE,
+                     NUMERO_DOCUMENTO: v.NUMERO_DOCUMENTO,
+                     DIRECCION: v.DIRECCION,
+                     CORREO: v.CORREO,
+                     DESC_TIPO_DOCUMENTO: v.DESC_TIPO_DOCUMENTO,
+                     DIRECCION: v.DIRECCION,
+                     CORREO: v.CORREO,
+                     TELEFONO: v.TELEFONO,
+                     CELULAR: v.CELULAR,
+                     DESC_UBIGEO: v.DESC_UBIGEO,
+                     DETALLE: v.DETALLE,
+
                      FLG_ESTADO: v.FLG_ESTADO,
                      FEC_CREACION: v.FEC_CREACION,
                      USU_CREACION: v.USU_CREACION,
                      FEC_MODIFICACION: v.FEC_MODIFICACION,
-                     USU_MODIFICACION: v.USU_MODIFICACION,
-                     IP_CREACION: v.IP_CREACION,
-                     IP_MODIFICACION: v.IP_MODIFICACION
+                     USU_MODIFICACION: v.USU_MODIFICACION
+
                  };
                 jQuery("#" + Proveedor_Grilla).jqGrid('addRowData', i, myData);
             });
@@ -137,20 +144,26 @@ function Proveedor_CargarGrilla() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Actualiza  cargos  ************************************************/
+///*********************************************** Actualiza  Proveedors  ************************************************/
 
 function Proveedor_Actualizar() {
-    if ($("#frmMantenimientoProveedor").valid()) {
+    if ($("#frmMantenimiento_Proveedor").valid()) {
         var item =
                 {
-                    ID_PROVEEDOR: $("#hdfID_PROVEEDOR").val(),
-                    ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : $("#ID_ENTIDAD").val(),
-                    //ID_ENTIDAD: $("#ID_ENTIDAD").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
+                    ID_PROVEEDOR: $("#hfd_ID_PROVEEDOR").val(),
+                    ID_TIPO_DOCUMENTO: $("#ID_TIPO_DOCUMENTO").val(),
+                    NUMERO_DOCUMENTO: $("#NUMERO_DOCUMENTO").val(),
+                    NOMBRES_APE: $("#NOMBRES_APE").val(),
+                    TELEFONO: $("#TELEFONO").val(),
+                    CORREO: $("#CORREO").val(),
+                    DIRECCION: $("#DIRECCION").val(),
+                    CELULAR: $("#CELULAR").val(),
+                    COD_UBIGEO: $("#COD_UBIGEO").val(),
+                    DETALLE: $("#DETALLE").val(),
                     USU_MODIFICACION: $('#input_hdcodusuario').val(),
                     Accion: $("#AccionProveedor").val()
                 };
-        jConfirm("¿ Desea actualizar este cargo ?", "Atención", function (r) {
+        jConfirm("¿ Desea actualizar este Proveedor ?", "Atención", function (r) {
             if (r) {
                 var url = baseUrl + 'Administracion/Proveedor/Proveedor_Actualizar';
                 var auditoria = SICA.Ajax(url, item, false);
@@ -174,19 +187,27 @@ function Proveedor_Actualizar() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///************************************************ Inserta cargos  **************************************************/
+///************************************************ Inserta Proveedors  **************************************************/
 
 function Proveedor_Ingresar() {
+    debugger; 
     if ($('#AccionProveedor').val() != 'N') {
         Proveedor_Actualizar();
     } else {
-        if ($("#frmMantenimientoProveedor").valid()) {
-            jConfirm("¿ Desea registrar este cargo ?", "Atención", function (r) {
+        if ($("#frmMantenimiento_Proveedor").valid()) {
+            jConfirm("¿ Desea registrar este Proveedor ?", "Atención", function (r) {
                 if (r) {
                     var item =
                         {
-                            ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : $("#ID_ENTIDAD").val(),
-                            DESC_CARGO: $("#DESC_CARGO").val(),
+                            ID_TIPO_DOCUMENTO: $("#ID_TIPO_DOCUMENTO").val(),
+                            NUMERO_DOCUMENTO: $("#NUMERO_DOCUMENTO").val(),
+                            NOMBRES_APE: $("#NOMBRES_APE").val(),
+                            TELEFONO: $("#TELEFONO").val(),
+                            CORREO: $("#CORREO").val(),
+                            DIRECCION: $("#DIRECCION").val(),
+                            CELULAR: $("#CELULAR").val(),
+                            COD_UBIGEO: $("#COD_UBIGEO").val(),
+                            DETALLE: $("#DETALLE").val(),
                             USU_CREACION: $('#input_hdcodusuario').val(),
                             ACCION: $("#AccionProveedor").val()
                         };
@@ -213,10 +234,10 @@ function Proveedor_Ingresar() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Elimina cargos  ***************************************************/
+///*********************************************** Elimina Proveedors  ***************************************************/
 
 function Proveedor_Eliminar(ID_PROVEEDOR) {
-    jConfirm("¿ Desea eliminar este cargo ?", "Atención", function (r) {
+    jConfirm("¿ Desea eliminar este Proveedor ?", "Atención", function (r) {
         if (r) {
             var item = {
                 ID_PROVEEDOR: ID_PROVEEDOR
@@ -242,7 +263,7 @@ function Proveedor_Eliminar(ID_PROVEEDOR) {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Cambia estado de cargos  ******************************************/
+///*********************************************** Cambia estado de Proveedors  ******************************************/
 
 function Proveedor_Estado(ID_PROVEEDOR, CHECK) {
     var item = {

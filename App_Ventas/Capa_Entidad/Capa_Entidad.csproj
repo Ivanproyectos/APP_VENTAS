@@ -50,6 +50,7 @@
     <Compile Include="Administracion\Cls_Ent_Tipo_Documento.cs" />
     <Compile Include="Administracion\Cls_Ent_Ubigeo.cs" />
     <Compile Include="Administracion\Cls_Ent_Usuario.cs" />
+    <Compile Include="Administracion\Cls_Ent_Proveedor.cs" />
     <Compile Include="Base\Cls_Ent_Archivo.cs" />
     <Compile Include="Base\Cls_Ent_Base.cs" />
     <Compile Include="Base\Cls_Ent_Columnas.cs" />

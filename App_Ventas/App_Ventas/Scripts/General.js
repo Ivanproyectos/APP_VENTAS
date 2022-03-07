@@ -1,4 +1,5 @@
-﻿var Tamanio_Valido = 314572800; // 300MB -- Cantidad en MB
+﻿
+var Tamanio_Valido = 314572800; // 300MB -- Cantidad en MB
 var MiSistema =  $("#inputHddNombre_Sistema").val() == "" ? "":  "/" +$("#inputHddNombre_Sistema").val();
 
 /////////// para los menus active open; 
