@@ -2,9 +2,14 @@
 
 <script>
     $(document).ready(function () {
-
+        $('#TELEFONO').numeric();
+        $('#CELULAR').numeric();
+        $('#COD_UBIGEO').select2();
     });
 
+    $('#Cliente_Btn_Guardar').click(function () {
+        Clientes_Ingresar();
+    });
 </script>
 
 
@@ -26,45 +31,45 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.ID_TIPO_DOCUMENTO)
-                        @Html.DropDownListFor(model => model.ID_TIPO_DOCUMENTO, Model.Lista_Ubigeo, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.DropDownListFor(model => model.ID_TIPO_DOCUMENTO, Model.Lista_Tipo_Documento, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         @Html.ValidationMessageFor(model => model.ID_TIPO_DOCUMENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.NUMERO_DOCUMENTO)
-                        @Html.TextBoxFor(model => model.NUMERO_DOCUMENTO, new { @class = "form-control", @maxlength = "200",@autocomplete="off" })
+                        @Html.TextBoxFor(model => model.NUMERO_DOCUMENTO, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
                         @Html.ValidationMessageFor(model => model.NOMBRES_APE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.NOMBRES_APE)
-                        @Html.TextBoxFor(model => model.NOMBRES_APE, new { @class = "form-control", @maxlength = "200" ,@autocomplete="off" })
+                        @Html.TextBoxFor(model => model.NOMBRES_APE, new { @class = "form-control", @maxlength = "500", @autocomplete = "off" })
                         @Html.ValidationMessageFor(model => model.NOMBRES_APE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.TELEFONO)
-                        @Html.TextBoxFor(model => model.TELEFONO, new { @class = "form-control", @maxlength = "7" ,@autocomplete="off" })
+                        @Html.TextBoxFor(model => model.TELEFONO, new { @class = "form-control", @maxlength = "7", @autocomplete = "off" })
                         @Html.ValidationMessageFor(model => model.TELEFONO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.CORREO)
-                        @Html.TextBoxFor(model => model.CORREO, new { @class = "form-control", @maxlength = "100" ,@autocomplete="off" })
+                        @Html.TextBoxFor(model => model.CORREO, new { @class = "form-control", @maxlength = "100", @autocomplete = "off" })
                         @Html.ValidationMessageFor(model => model.CORREO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.TELEFONO)
-                        @Html.TextBoxFor(model => model.TELEFONO, new { @class = "form-control", @maxlength = "7" ,@autocomplete="off" })
-                        @Html.ValidationMessageFor(model => model.TELEFONO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                        @Html.LabelFor(model => model.DIRECCION)
+                        @Html.TextBoxFor(model => model.DIRECCION, new { @class = "form-control", @maxlength = "100", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.DIRECCION, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.CELULAR)
-                        @Html.TextBoxFor(model => model.CELULAR, new { @class = "form-control", @maxlength = "9" ,@autocomplete="off" })
+                        @Html.TextBoxFor(model => model.CELULAR, new { @class = "form-control", @maxlength = "9", @autocomplete = "off" })
                         @Html.ValidationMessageFor(model => model.CELULAR, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
@@ -75,19 +80,24 @@
                         @Html.ValidationMessageFor(model => model.COD_UBIGEO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.DETALLE)
+                        @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "1000", @autocomplete = "off" })
+                    </div>
+
 
                 </div>
 
 
             </div>
             <div class="modal-footer">
-
+                <button type="button" id="Cliente_Btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
                 <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="Btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
+
             </div>
         </div>
     </div>
 }
 
-@Html.Hidden("hfd_ID_PLANTILLA", Model.ID_CLIENTE)
-@Html.Hidden("AccionPlantilla", Model.Accion)
+@Html.Hidden("hfd_ID_CLIENTE", Model.ID_CLIENTE)
+@Html.Hidden("AccionClientes", Model.Accion)

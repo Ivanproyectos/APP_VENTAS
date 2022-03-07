@@ -27,7 +27,7 @@ function Perfil_ConfigurarGrilla() {
             { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: false, formatter: Perfil_actionEliminar, sortable: false },
             { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Perfil_actionActivo, sortable: false },
             { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
-            { name: 'ID_USUARIO', index: 'ID_USUARIO', width: 100, hidden: true, key: true },
+            { name: 'ID_PERFIL', index: 'ID_PERFIL', width: 100, hidden: true, key: true },
             { name: 'DESC_PERFIL', index: 'DESC_PERFIL', width: 300, hidden: false, align: "left"   ,search: true },
             { name: 'FLG_ESTADO', index: 'FLG_ESTADO', width: 300, hidden: true, align: "left" },
             { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },
@@ -45,7 +45,7 @@ function Perfil_ConfigurarGrilla() {
             }
         }
     };
-    SICA.Grilla(Perfil_Grilla, Perfil_Barra, '', 400, '', "Lista de Perfil", '', 'ID_USUARIO', colNames, colModels, '', opciones);
+    SICA.Grilla(Perfil_Grilla, Perfil_Barra, Perfil_Grilla, 400, '', "Lista de Perfil", '', 'ID_PERFIL', colNames, colModels, '', opciones);
 }
 
 function Perfil_actionActivo(cellvalue, options, rowObject) {
@@ -54,7 +54,7 @@ function Perfil_actionActivo(cellvalue, options, rowObject) {
         check_ = 'checked';
 
     var _btn = " <label class=\"content_toggle_1\">"
-            + "<input id=\"Perfil_chk_" + rowObject.ID_USUARIO + "\" class=\"toggle_Beatiful_1\" type=\"checkbox\" onchange=\"Perfil_Estado(" + rowObject.ID_USUARIO + ",this)\" " + check_ + ">"
+            + "<input id=\"Perfil_chk_" + rowObject.ID_PERFIL + "\" class=\"toggle_Beatiful_1\" type=\"checkbox\" onchange=\"Perfil_Estado(" + rowObject.ID_PERFIL + ",this)\" " + check_ + ">"
             + "<div class=\"content_toggle_2\">"
             + "  <span class=\"Label_toggle_1\" ></span>"
              + "</div>"
@@ -63,46 +63,47 @@ function Perfil_actionActivo(cellvalue, options, rowObject) {
 }
 
 function Perfil_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Perfil_MostrarEditar(" + rowObject.ID_USUARIO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
+    var _btn = "<button title='Editar'  onclick='Perfil_MostrarEditar(" + rowObject.ID_PERFIL + ");' class=\"btn btn-outline-light\" type=\"button\" > <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
     return _btn;
 }
 
 function Perfil_actionEliminar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Eliminar'  onclick='Perfil_Eliminar(" + rowObject.ID_USUARIO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>";
+    var _btn = "<button title='Eliminar'  onclick='Perfil_Eliminar(" + rowObject.CODIGO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>";
     return _btn;
 }
 
 
-function Perfil_MostrarNuevo() {
-    jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Administracion/Perfil/Mantenimiento?id=0&Accion=N", function (responseText, textStatus, request) {
-        $('#myModalNuevo').modal({ show: true });
-        $.validator.unobtrusive.parse('#myModalNuevo');
-        if (request.status != 200) return;
-    });
+
+function Perfil_MostrarEditar(CODIGO) {
+    $('#AccionPerfil').val('M');
+    $('#hfd_ID_PERFIL').val(CODIGO);
+    var _DataPerfil = jQuery('#' + Perfil_Grilla).jqGrid('getRowData', CODIGO);
+    $('#DESC_PERFIL').val(_DataPerfil.DESC_PERFIL);
+    $('#hfd_ID_PERFIL').val(_DataPerfil.ID_PERFIL);
+    $('#_btnGuardar_text').html('<span class="btn-icon-left text-secondary"><i class="bi bi-pencil-fill"></i> </span>Editar');
+    $('#Perfil_btnCancelar').show('slow');
+
 }
 
-function Perfil_MostrarEditar(ID_USUARIO) {
-    jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Administracion/Perfil/Mantenimiento?id=" + ID_USUARIO + "&Accion=M", function (responseText, textStatus, request) {
-        $('#myModalNuevo').modal({ show: true });
-        $.validator.unobtrusive.parse('#myModalNuevo');
-        if (request.status != 200) return;
-    });
-}
 
+function Perfil_CancelarEditar() {
+    $('#DESC_PERFIL').val('');
+    $('#AccionPerfil').val('N');
+    $('#hfd_ID_PERFIL').val('0');
+    $('#Perfil_btnCancelar').hide('slow');
+    $('#_btnGuardar_text').html('<span class="btn-icon-left text-secondary"><i class="fa fa-plus color-secondary"></i></span>Agregar');
+}
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Lista los  cargo **************************************************/
+///*********************************************** Lista los  perfil **************************************************/
 
 function Perfil_CargarGrilla() {
     var item =
        {
-           ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : 0,
-           //$("#input_hdid_entidad").val(),
-           DESC_CARGO: $('#txtdesPerfil').val(),
-           FLG_ESTADO: $('#cboEstado').val()
+
+           //DESC_PERFIL: $('#DESC_PERFIL').val(),
+           FLG_ESTADO: 2 // todos
        };
     var url = baseUrl + 'Administracion/Perfil/Perfil_Listar';
     var auditoria = SICA.Ajax(url, item, false);
@@ -114,16 +115,13 @@ function Perfil_CargarGrilla() {
                 var myData =
                  {
                      CODIGO: idgrilla,
-                     ID_USUARIO: v.ID_USUARIO,
-                     DESC_CARGO: v.DESC_CARGO,
-                     DESC_ENTIDAD: v.DESC_ENTIDAD,
+                     ID_PERFIL: v.ID_PERFIL,
+                     DESC_PERFIL: v.DESC_PERFIL,
                      FLG_ESTADO: v.FLG_ESTADO,
                      FEC_CREACION: v.FEC_CREACION,
                      USU_CREACION: v.USU_CREACION,
                      FEC_MODIFICACION: v.FEC_MODIFICACION,
                      USU_MODIFICACION: v.USU_MODIFICACION,
-                     IP_CREACION: v.IP_CREACION,
-                     IP_MODIFICACION: v.IP_MODIFICACION
                  };
                 jQuery("#" + Perfil_Grilla).jqGrid('addRowData', i, myData);
             });
@@ -138,20 +136,18 @@ function Perfil_CargarGrilla() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Actualiza  cargos  ************************************************/
+///*********************************************** Actualiza  perfils  ************************************************/
 
 function Perfil_Actualizar() {
-    if ($("#frmMantenimientoPerfil").valid()) {
+    if ($("#frmMantenimiento_Perfil").valid()) {
         var item =
                 {
-                    ID_USUARIO: $("#hdfID_USUARIO").val(),
-                    ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : $("#ID_ENTIDAD").val(),
-                    //ID_ENTIDAD: $("#ID_ENTIDAD").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
+                    ID_PERFIL: $("#hfd_ID_PERFIL").val(),
+                    DESC_PERFIL: $("#DESC_PERFIL").val(),
                     USU_MODIFICACION: $('#input_hdcodusuario').val(),
                     Accion: $("#AccionPerfil").val()
                 };
-        jConfirm("¿ Desea actualizar este cargo ?", "Atención", function (r) {
+        jConfirm("¿ Desea actualizar este perfil ?", "Atención", function (r) {
             if (r) {
                 var url = baseUrl + 'Administracion/Perfil/Perfil_Actualizar';
                 var auditoria = SICA.Ajax(url, item, false);
@@ -159,7 +155,7 @@ function Perfil_Actualizar() {
                     if (auditoria.EJECUCION_PROCEDIMIENTO) {
                         if (!auditoria.RECHAZAR) {
                             Perfil_CargarGrilla();
-                            Perfil_Cerrar();
+                            Perfil_CancelarEditar();
                             jOkas("Perfil actualizado satisfactoriamente", "Proceso");
                         } else {
                             jError(auditoria.MENSAJE_SALIDA, "Atención");
@@ -175,19 +171,19 @@ function Perfil_Actualizar() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///************************************************ Inserta cargos  **************************************************/
+///************************************************ Inserta perfils  **************************************************/
 
 function Perfil_Ingresar() {
     if ($('#AccionPerfil').val() != 'N') {
         Perfil_Actualizar();
     } else {
-        if ($("#frmMantenimientoPerfil").valid()) {
-            jConfirm("¿ Desea registrar este cargo ?", "Atención", function (r) {
+        if ($("#frmMantenimiento_Perfil").valid()) {
+            jConfirm("¿ Desea registrar este perfil ?", "Atención", function (r) {
                 if (r) {
                     var item =
                         {
                             ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : $("#ID_ENTIDAD").val(),
-                            DESC_CARGO: $("#DESC_CARGO").val(),
+                            DESC_PERFIL: $("#DESC_PERFIL").val(),
                             USU_CREACION: $('#input_hdcodusuario').val(),
                             ACCION: $("#AccionPerfil").val()
                         };
@@ -197,7 +193,6 @@ function Perfil_Ingresar() {
                         if (auditoria.EJECUCION_PROCEDIMIENTO) {
                             if (!auditoria.RECHAZAR) {
                                 Perfil_CargarGrilla();
-                                Perfil_Cerrar();
                                 jOkas("Perfil registrado satisfactoriamente", "Proceso");
                             } else {
                                 jError(auditoria.MENSAJE_SALIDA, "Atención");
@@ -214,13 +209,13 @@ function Perfil_Ingresar() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Elimina cargos  ***************************************************/
+///*********************************************** Elimina perfils  ***************************************************/
 
-function Perfil_Eliminar(ID_USUARIO) {
-    jConfirm("¿ Desea eliminar este cargo ?", "Atención", function (r) {
+function Perfil_Eliminar(ID_PERFIL) {
+    jConfirm("¿ Desea eliminar este perfil ?", "Atención", function (r) {
         if (r) {
             var item = {
-                ID_USUARIO: ID_USUARIO
+                ID_PERFIL: ID_PERFIL
             };
             var url = baseUrl + 'Administracion/Perfil/Perfil_Eliminar';
             var auditoria = SICA.Ajax(url, item, false);
@@ -243,11 +238,11 @@ function Perfil_Eliminar(ID_USUARIO) {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Cambia estado de cargos  ******************************************/
+///*********************************************** Cambia estado de perfils  ******************************************/
 
-function Perfil_Estado(ID_USUARIO, CHECK) {
+function Perfil_Estado(ID_PERFIL, CHECK) {
     var item = {
-        ID_USUARIO: ID_USUARIO,
+        ID_PERFIL: ID_PERFIL,
         FLG_ESTADO: CHECK.checked == true ? '1' : '0',
         USU_MODIFICACION: $('#input_hdcodusuario').val(),
     };

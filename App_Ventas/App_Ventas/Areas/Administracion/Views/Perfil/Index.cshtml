@@ -5,30 +5,27 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $.validator.unobtrusive.parse('#Contet_Perfil'); // validar div
         Perfil_ConfigurarGrilla();
-        //Perfil_CargarGrilla();
-    });
-
-    $("#Perfil_btnBuscar").click(function (e) {
         Perfil_CargarGrilla();
     });
 
-    $("#Perfil_btnLimpiar").click(function (e) {
-        Perfil_Limpiar();
+    $("#Perfil_btnGuardar").click(function (e) {
+        Perfil_Ingresar();
     });
 
+    //$("#Perfil_btnLimpiar").click(function (e) {
+    //    Perfil_Limpiar();
+    //});
 
-    $("#Perfil_btnNuevo").click(function (e) {
-        Perfil_MostrarNuevo();
-    });
+
+    //$("#Perfil_btnNuevo").click(function (e) {
+    //    Perfil_MostrarNuevo();
+    //});
 
 </script>
 
-@*<div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
-*@
-
-
-<div class="row ">
+<div class="row" id="Contet_Perfil">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-header border-bottom-head">
@@ -47,10 +44,15 @@
                                 @Html.ValidationMessageFor(model => model.DESC_PERFIL, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
 
-                            <div class="form-group col-xl-2 col-xxl-2 col-lg-2 col-md-4 css_center_block" style="justify-content: end;">
-                                <button type="button" class="btn btn-rounded btn-secondary btn-hover-shine">
-                                    <span class="btn-icon-left text-secondary"><i class="fa fa-plus color-secondary"></i>
-                                    </span>Agregar</button>
+                            <div class="form-group col-xl-4 col-xxl-4 col-lg-4 col-md-6 " style="margin-top: 25px;">
+                                <button type="button" id="Perfil_btnGuardar"class="btn btn-rounded btn-secondary btn-hover-shine" style="margin-left:12px;">
+                                   <span id="_btnGuardar_text"> <span class="btn-icon-left text-secondary"><i class="fa fa-plus color-secondary"></i> 
+                                    </span>Agregar </span></button>
+
+                                   <button type="button" onclick="Perfil_CancelarEditar();" id="Perfil_btnCancelar"class="btn btn-rounded btn-danger btn-hover-shine" style="margin-left:12px;display:none;">
+                                    <span class="btn-icon-left btn-icon-left text-danger"><i class="bi bi-arrow-clockwise color-danger"></i>
+                                    </span>Cancelar</button>
+
                             </div>
                         </div>
                     </div>
@@ -59,7 +61,8 @@
         </div>
     </div>
 </div>
-
+@Html.Hidden("hfd_ID_PERFIL","0")
+@Html.Hidden("AccionPerfil","N")
 
 
 <div class="row ">

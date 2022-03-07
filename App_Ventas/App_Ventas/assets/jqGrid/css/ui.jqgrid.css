@@ -198,7 +198,7 @@ tr.ui-search-toolbar select {
     overflow: hidden;
     white-space: pre;
     height: 22px;
-    padding: 14px 10px;
+    padding: 5px 10px;
     border-bottom-width: 1px;
     border-bottom-color: #eaeaea;
     border-bottom-style: solid;
@@ -237,6 +237,8 @@ tr.ui-search-toolbar select {
     border-right-width: 1px;
     border-right-color: #eaeaea; 
     border-right-style:solid; 
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .ui-jqgrid tr.ui-row-rtl td {

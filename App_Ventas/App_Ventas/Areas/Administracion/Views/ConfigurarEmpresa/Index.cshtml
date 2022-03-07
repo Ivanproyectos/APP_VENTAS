@@ -13,7 +13,6 @@
 
     $(document).ready(function () {
         $.validator.unobtrusive.parse('#Content_ViewCOnfiguracion'); // validar div
-        debugger; 
         if(Frm_Archivo_Isotipo != null){
             IsotipoNuevo_Array.push(Frm_Archivo_Isotipo); 
             $('#Isotipo_Img').css('background-image', 'url(' +'@Url.Content("~/Recursos/Logo_Empresa/")' + IsotipoNuevo_Array[0].CODIGO_ARCHIVO + IsotipoNuevo_Array[0].EXTENSION + ')');

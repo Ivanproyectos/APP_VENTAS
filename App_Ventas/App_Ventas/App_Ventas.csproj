@@ -178,7 +178,10 @@
     <Compile Include="Areas\Administracion\Models\UsuariosModelView.cs" />
     <Compile Include="Areas\Administracion\Models\PersonalModelView.cs" />
     <Compile Include="Areas\Administracion\Repositorio\ConfigurarEmpresaRepositorio.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\ClienteRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\Listado_CombosRepositorio.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\PerfilRepositorio.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\SucursalRepositorio.cs" />
     <Compile Include="Areas\Caja\CajaAreaRegistration.cs" />
     <Compile Include="Areas\Caja\Controllers\CajaController.cs" />
     <Compile Include="Areas\Caja\Models\CajaModelView.cs" />
@@ -4121,6 +4124,7 @@
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.alphanumeric.js" />
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.jqGrid.js" />

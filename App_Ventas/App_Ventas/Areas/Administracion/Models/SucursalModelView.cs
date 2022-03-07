@@ -11,7 +11,7 @@ namespace App_Ventas.Areas.Administracion.Models
     public class SucursalModelView
     {
 
-        public string ID_SUCURSAL { get; set; }
+        public int ID_SUCURSAL { get; set; }
 
         [Display(Name = "Sucursal: ")]
         [DataType(DataType.Text)]
@@ -29,7 +29,7 @@ namespace App_Ventas.Areas.Administracion.Models
         [Required(ErrorMessage = "[Número Documento] es obligatorio")]
         public int TELEFONO { get; set; }
 
-        [Display(Name = "Documento: ")]
+        [Display(Name = "Correo: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Número Documento] es obligatorio")]
         [EmailAddress(ErrorMessage = "Correo invalido")]

@@ -1,10 +1,6 @@
 ﻿var Sucursal_Grilla = 'Sucursal_Grilla';
 var Sucursal_Barra = 'Sucursal_Barra';
 
-//$(document).ready(function () {
-//    Sucursal_ConfigurarGrilla();
-//});
-
 function Sucursal_Cerrar() {
     $('#myModalNuevo').modal('hide');
     jQuery("#myModalNuevo").html('');
@@ -27,12 +23,12 @@ function Sucursal_ConfigurarGrilla() {
             { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Sucursal_actionActivo, sortable: false },
             { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
             { name: 'ID_SUCURSAL', index: 'ID_SUCURSAL', width: 100, hidden: true, key: true },
-            { name: 'DESC_SUCURSAL', index: 'DESC_SUCURSAL', width: 300, hidden: false, align: "left" },
+            { name: 'DESC_SUCURSAL', index: 'DESC_SUCURSAL', width: 250, hidden: false, align: "left" },
             { name: 'DIRECCION', index: 'DIRECCION', width: 200, hidden: false, align: "left" },
             { name: 'TELEFONO', index: 'TELEFONO', width: 150, hidden: false, align: "left" },
-            { name: 'CORREO', index: 'CORREO', width: 100, hidden: false, align: "left" },
-            { name: 'URBANIZACION', index: 'URBANIZACION', width: 100, hidden: false, align: "left" },
-            { name: 'COD_UBIGEO', index: 'COD_UBIGEO', width: 200, hidden: false, align: "left" },
+            { name: 'CORREO', index: 'CORREO', width: 150, hidden: false, align: "left",rezible:true },
+            { name: 'URBANIZACION', index: 'URBANIZACION', width: 200, hidden: false, align: "left" },
+            { name: 'DESC_UBIGEO', index: 'DESC_UBIGEO', width: 250, hidden: false, align: "left" },
             { name: 'FLG_ESTADO', index: 'FLG_ESTADO', width: 300, hidden: true, align: "left" },
             { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },
             { name: 'USU_CREACION', index: 'USU_CREACION', width: 150, hidden: false, align: "left" },
@@ -42,7 +38,8 @@ function Sucursal_ConfigurarGrilla() {
     var opciones = {
         GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
     };
-    SICA.Grilla(Sucursal_Grilla, Sucursal_Barra, '', 400, '', "Lista de Sucursal", '', 'ID_SUCURSAL', colNames, colModels, '', opciones);
+    SICA.Grilla(Sucursal_Grilla, Sucursal_Barra, Sucursal_Grilla, 400, '', "Lista de Sucursal", '', 'ID_SUCURSAL', colNames, colModels, '', opciones);
+    jqGridResponsive($(".jqGrid"));
 }
 
 function Sucursal_actionActivo(cellvalue, options, rowObject) {
@@ -60,7 +57,7 @@ function Sucursal_actionActivo(cellvalue, options, rowObject) {
 }
 
 function Sucursal_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Sucursal_MostrarEditar(" + rowObject.ID_SUCURSAL + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
+    var _btn = "<button title='Editar'  onclick='Sucursal_MostrarEditar(" + rowObject.ID_SUCURSAL + ");' class=\"btn btn-outline-light\" type=\"button\" > <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
     return _btn;
 }
 
@@ -91,15 +88,13 @@ function Sucursal_MostrarEditar(ID_SUCURSAL) {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Lista los  cargo **************************************************/
+///*********************************************** Lista los  sucursal **************************************************/
 
 function Sucursal_CargarGrilla() {
     var item =
        {
-           ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : 0,
-           //$("#input_hdid_entidad").val(),
-           DESC_CARGO: $('#txtdesSucursal').val(),
-           FLG_ESTADO: $('#cboEstado').val()
+           DESC_SUCURSAL: $('#Sucursal_Desc_Sucursal').val(),
+           FLG_ESTADO: $('#Sucursal_Estado').val()
        };
     var url = baseUrl + 'Administracion/Sucursal/Sucursal_Listar';
     var auditoria = SICA.Ajax(url, item, false);
@@ -112,15 +107,17 @@ function Sucursal_CargarGrilla() {
                  {
                      CODIGO: idgrilla,
                      ID_SUCURSAL: v.ID_SUCURSAL,
-                     DESC_CARGO: v.DESC_CARGO,
-                     DESC_ENTIDAD: v.DESC_ENTIDAD,
+                     DESC_SUCURSAL: v.DESC_SUCURSAL,
+                     DIRECCION: v.DIRECCION,
+                     TELEFONO: v.TELEFONO,
+                     CORREO: v.CORREO,
+                     URBANIZACION: v.URBANIZACION,
+                     DESC_UBIGEO: v.DESC_UBIGEO,
                      FLG_ESTADO: v.FLG_ESTADO,
                      FEC_CREACION: v.FEC_CREACION,
                      USU_CREACION: v.USU_CREACION,
                      FEC_MODIFICACION: v.FEC_MODIFICACION,
-                     USU_MODIFICACION: v.USU_MODIFICACION,
-                     IP_CREACION: v.IP_CREACION,
-                     IP_MODIFICACION: v.IP_MODIFICACION
+                     USU_MODIFICACION: v.USU_MODIFICACION
                  };
                 jQuery("#" + Sucursal_Grilla).jqGrid('addRowData', i, myData);
             });
@@ -135,20 +132,23 @@ function Sucursal_CargarGrilla() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Actualiza  cargos  ************************************************/
+///*********************************************** Actualiza  sucursals  ************************************************/
 
 function Sucursal_Actualizar() {
-    if ($("#frmMantenimientoSucursal").valid()) {
+    if ($("#frmMantenimiento_Sucursal").valid()) {
         var item =
                 {
-                    ID_SUCURSAL: $("#hdfID_SUCURSAL").val(),
-                    ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : $("#ID_ENTIDAD").val(),
-                    //ID_ENTIDAD: $("#ID_ENTIDAD").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
+                    ID_SUCURSAL: $("#hfd_ID_SUCURSAL").val(),
+                    DESC_SUCURSAL: $("#DESC_SUCURSAL").val(),
+                    DIRECCION: $("#DIRECCION").val(),
+                    TELEFONO: $("#TELEFONO").val(),
+                    CORREO: $("#CORREO").val(),
+                    URBANIZACION: $("#URBANIZACION").val(),
+                    COD_UBIGEO: $("#COD_UBIGEO").val(),
                     USU_MODIFICACION: $('#input_hdcodusuario').val(),
                     Accion: $("#AccionSucursal").val()
                 };
-        jConfirm("¿ Desea actualizar este cargo ?", "Atención", function (r) {
+        jConfirm("¿ Desea actualizar este sucursal ?", "Atención", function (r) {
             if (r) {
                 var url = baseUrl + 'Administracion/Sucursal/Sucursal_Actualizar';
                 var auditoria = SICA.Ajax(url, item, false);
@@ -172,19 +172,23 @@ function Sucursal_Actualizar() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///************************************************ Inserta cargos  **************************************************/
+///************************************************ Inserta sucursals  **************************************************/
 
 function Sucursal_Ingresar() {
     if ($('#AccionSucursal').val() != 'N') {
         Sucursal_Actualizar();
     } else {
-        if ($("#frmMantenimientoSucursal").valid()) {
-            jConfirm("¿ Desea registrar este cargo ?", "Atención", function (r) {
+        if ($("#frmMantenimiento_Sucursal").valid()) {
+            jConfirm("¿ Desea registrar este sucursal ?", "Atención", function (r) {
                 if (r) {
                     var item =
                         {
-                            ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : $("#ID_ENTIDAD").val(),
-                            DESC_CARGO: $("#DESC_CARGO").val(),
+                            DESC_SUCURSAL: $("#DESC_SUCURSAL").val(),
+                            DIRECCION: $("#DIRECCION").val(),
+                            TELEFONO: $("#TELEFONO").val(),
+                            CORREO: $("#CORREO").val(),
+                            URBANIZACION: $("#URBANIZACION").val(),
+                            COD_UBIGEO: $("#COD_UBIGEO").val(),
                             USU_CREACION: $('#input_hdcodusuario').val(),
                             ACCION: $("#AccionSucursal").val()
                         };
@@ -211,10 +215,10 @@ function Sucursal_Ingresar() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Elimina cargos  ***************************************************/
+///*********************************************** Elimina sucursals  ***************************************************/
 
 function Sucursal_Eliminar(ID_SUCURSAL) {
-    jConfirm("¿ Desea eliminar este cargo ?", "Atención", function (r) {
+    jConfirm("¿ Desea eliminar este sucursal ?", "Atención", function (r) {
         if (r) {
             var item = {
                 ID_SUCURSAL: ID_SUCURSAL
@@ -240,7 +244,7 @@ function Sucursal_Eliminar(ID_SUCURSAL) {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Cambia estado de cargos  ******************************************/
+///*********************************************** Cambia estado de sucursals  ******************************************/
 
 function Sucursal_Estado(ID_SUCURSAL, CHECK) {
     var item = {

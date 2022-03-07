@@ -68,8 +68,8 @@ namespace App_Ventas.Areas.Administracion.Controllers
                         model.FLG_IMPUESTO = entidad.FLG_IMPUESTO == 0 ? false : true;
 
                         if (entidad.CODIGO_ARCHIVO_LOGO != null)
-                        {          
-                            entidad.Archivo_Logo.CODIGO_ARCHIVO = entidad.CODIGO_ARCHIVO_ISOTIPO; 
+                        {
+                            entidad.Archivo_Logo.CODIGO_ARCHIVO = entidad.CODIGO_ARCHIVO_LOGO; 
                             entidad.Archivo_Logo.EXTENSION = entidad.EXTENSION_ARCHIVO_LOGO;
                             model.Archivo_Logo = entidad.Archivo_Logo; 
                         }

@@ -10,8 +10,8 @@ namespace App_Ventas.Areas.Administracion.Models
 {
     public class ClientesModelView
     {
-        public string ID_CLIENTE { get; set; }
-        public string ID_PROVEEDOR { get; set; }
+        public int ID_CLIENTE { get; set; }
+        public int ID_PROVEEDOR { get; set; }
 
         [Display(Name = "Razón social/Nombre Completo: ")]
         [DataType(DataType.Text)]
@@ -28,7 +28,7 @@ namespace App_Ventas.Areas.Administracion.Models
         [Display(Name = "Número Documento: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Número Documento] es obligatorio")]
-        public int NUMERO_DOCUMENTO { get; set; }
+        public string NUMERO_DOCUMENTO { get; set; }
 
         [Display(Name = "Correo: ")]
         [DataType(DataType.Text)]
@@ -45,13 +45,18 @@ namespace App_Ventas.Areas.Administracion.Models
         [Display(Name = "Telefono: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Número Documento] es obligatorio")]
-        public int TELEFONO { get; set; }
+        public string TELEFONO { get; set; }
 
 
         [Display(Name = "Celular: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Celular] es obligatorio")]
-        public int CELULAR { get; set; }
+        public string CELULAR { get; set; }
+
+        [Display(Name = "Detalle: ")]
+        [DataType(DataType.Text)]
+        public string DETALLE { get; set; }
+        
 
         [Display(Name = "Ubigeo: ")]
         [DataType(DataType.Text)]

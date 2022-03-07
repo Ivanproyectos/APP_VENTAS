@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using Capa_Entidad;
 using App_Ventas.Areas.Administracion.Models;
+using Capa_Entidad.Base;
+using Capa_Entidad.Administracion;
+using App_Ventas.Areas.Administracion.Repositorio;
+using App_Ventas.Recursos;
 
 namespace App_Ventas.Areas.Administracion.Controllers
 {
@@ -25,8 +29,20 @@ namespace App_Ventas.Areas.Administracion.Controllers
             model.Accion = Accion;
             model.ID_USUARIO = id; 
 
-            model.Lista_Tipo_Documento = new List<SelectListItem>();
-            model.Lista_Tipo_Documento.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+            
+            using (Listado_CombosRepositorio RepositorioUbigeo = new Listado_CombosRepositorio())
+            {
+                model.Lista_Tipo_Documento = RepositorioUbigeo.Tipo_Documento_Listar(ref auditoria).Where(t => t.ID_TIPO_DOCUMENTO != 6).Select(x => new SelectListItem()
+                {
+                    Text = x.DESC_TIPO_DOCUMENTO,
+                    Value = x.ID_TIPO_DOCUMENTO.ToString()
+                }).ToList();
+                model.Lista_Tipo_Documento.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+            }
+            
+
+            //model.Lista_Tipo_Documento = new List<SelectListItem>();
+            //model.Lista_Tipo_Documento.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
 
 
             model.Lista_Sucursal = new List<SelectListItem>();
