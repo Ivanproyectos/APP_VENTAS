@@ -8,15 +8,16 @@ function Usuarios_Cerrar() {
 }
 
 function Usuarios_Limpiar() {
-    $("#txtdesUsuarios").val('');
-    $('#cboEstado').val('');
+    $("#Usuarios_NombresApe").val('');
+    $("#Usuarios_Documento").val('');
+    $('#Usuarios_Estado').val(2);
 
     Usuarios_CargarGrilla();
 }
 
 function Usuarios_ConfigurarGrilla() {
     $("#" + Usuarios_Grilla).GridUnload();
-    var colNames = ['Editar', 'Eliminar', 'Estado', 'codigo', 'ID','Es Jefe', 'Nombre y Apellidos', 'Dni', 'Tipo Documento', 'Celular','Telefono','Correo',
+    var colNames = ['Editar', 'Eliminar', 'Estado', 'codigo', 'ID','Es Jefe', 'Nombre y Apellidos','Clave Usuario','Codigo Usuario' ,'Tipo Documento', 'Dni', 'Celular','Telefono','Correo',
         'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación'];
     var colModels = [
             { name: 'EDITAR', index: 'EDITAR', align: 'center', width: 60, hidden: false, formatter: Usuarios_actionEditar, sortable: false },
@@ -24,10 +25,12 @@ function Usuarios_ConfigurarGrilla() {
             { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Usuarios_actionActivo, sortable: false },
             { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
             { name: 'ID_USUARIO', index: 'ID_USUARIO', width: 100, hidden: true, key: true },
-            { name: 'FLG_ADMIN', index: 'FLG_ADMIN', width: 100, hidden: false, align: "left" },
-            { name: 'NOMBRES_APE', index: 'NOMBRES_APE', width: 300, hidden: false, align: "left" },
-            { name: 'DNI', index: 'DNI', width: 100, hidden: false, align: "left" },
-            { name: 'TIPO_DOCUMENTO', index: 'TIPO_DOCUMENTO', width: 150, hidden: false, align: "left" },
+            { name: 'ES_JEFE', index: 'ES_JEFE', width: 100, hidden: false, align: "left" },
+            { name: 'NOMBRES_APE', index: 'NOMBRES_APE', width: 250, hidden: false, align: "left", formatter:Usuario_TextUsuario },
+            { name: 'CLAVE_USUARIO', index: 'CLAVE_USUARIO', width: 150, hidden: false, align: "left" },
+            { name: 'COD_USUARIO', index: 'COD_USUARIO', width: 100, hidden: true, align: "left" },
+            { name: 'DESC_TIPO_DOCUMENTO', index: 'DESC_TIPO_DOCUMENTO', width: 150, hidden: false, align: "left" },
+            { name: 'DNI', index: 'DNI', width: 150, hidden: false, align: "left" },
             { name: 'CELULAR', index: 'CELULAR', width: 100, hidden: false, align: "left" },
             { name: 'TELEFONO', index: 'TELEFONO', width: 100, hidden: false, align: "left" },
             { name: 'CORREO', index: 'CORREO', width: 200, hidden: false, align: "left" },
@@ -40,7 +43,7 @@ function Usuarios_ConfigurarGrilla() {
     var opciones = {
         GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false ,rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
     };
-    SICA.Grilla(Usuarios_Grilla, Usuarios_Barra, '', 400, '', "Lista de Usuarios", '', 'ID_USUARIO', colNames, colModels, '', opciones);
+    SICA.Grilla(Usuarios_Grilla, Usuarios_Barra, Usuarios_Grilla, 400, '', "Lista de Usuarios", '', 'ID_USUARIO', colNames, colModels, '', opciones);
 }
 
 function Usuarios_actionActivo(cellvalue, options, rowObject) {
@@ -57,8 +60,17 @@ function Usuarios_actionActivo(cellvalue, options, rowObject) {
     return _btn;
 }
 
+function Usuario_TextUsuario(cellvalue, options, rowObject) {
+    var Usuario = rowObject.NOMBRES_APE;
+    var Cod_usuario = rowObject.COD_USUARIO;
+    var _text = '<span>' + Usuario + '</span><br><span style="font-size: 12px; color: #2c7be5;"><i class="bi bi-person"></i>&nbsp;Usuario: ' + Cod_usuario + '</span>';
+
+
+    return _text
+}
+
 function Usuarios_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Usuarios_MostrarEditar(" + rowObject.ID_USUARIO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
+    var _btn = "<button title='Editar'  onclick='Usuarios_MostrarEditar(" + rowObject.ID_USUARIO + ");' class=\"btn btn-outline-light\" type=\"button\"> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
     return _btn;
 }
 
@@ -94,31 +106,38 @@ function Usuarios_MostrarEditar(ID_USUARIO) {
 function Usuarios_CargarGrilla() {
     var item =
        {
-           ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : 0,
-           //$("#input_hdid_entidad").val(),
-           DESC_CARGO: $('#txtdesUsuarios').val(),
-           FLG_ESTADO: $('#cboEstado').val()
+           NOMBRES_APE: $('#Usuarios_NombresApe').val(),
+           DNI: $('#Usuarios_Documento').val(),
+           FLG_ESTADO: $('#Usuarios_Estado').val()
        };
-    var url = baseUrl + 'Administracion/Usuarios/Usuarios_Listar';
+    var url = baseUrl + 'Administracion/Usuarios/Usuario_Listar';
     var auditoria = SICA.Ajax(url, item, false);
     jQuery("#" + Usuarios_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
     if (auditoria.EJECUCION_PROCEDIMIENTO) {
         if (!auditoria.RECHAZAR) {
             $.each(auditoria.OBJETO, function (i, v) {
                 var idgrilla = i + 1;
+
                 var myData =
                  {
                      CODIGO: idgrilla,
                      ID_USUARIO: v.ID_USUARIO,
-                     DESC_CARGO: v.DESC_CARGO,
-                     DESC_ENTIDAD: v.DESC_ENTIDAD,
+                     ES_JEFE : v.FLG_ADMIN == 1? 'SI' : 'NO',
+                     NOMBRES_APE: v.NOMBRES_APE,
+                     DESC_TIPO_DOCUMENTO: v.DESC_TIPO_DOCUMENTO,
+                     DNI: v.DNI,
+                     CELULAR: v.CELULAR,
+                     TELEFONO: v.TELEFONO,
+                     CORREO: v.CORREO,
+                     COD_USUARIO: v.COD_USUARIO,
+                     CLAVE_USUARIO: v.CLAVE_USUARIO,
+                     FLG_ADMIN: v.FLG_ADMIN,
                      FLG_ESTADO: v.FLG_ESTADO,
                      FEC_CREACION: v.FEC_CREACION,
                      USU_CREACION: v.USU_CREACION,
                      FEC_MODIFICACION: v.FEC_MODIFICACION,
                      USU_MODIFICACION: v.USU_MODIFICACION,
-                     IP_CREACION: v.IP_CREACION,
-                     IP_MODIFICACION: v.IP_MODIFICACION
+
                  };
                 jQuery("#" + Usuarios_Grilla).jqGrid('addRowData', i, myData);
             });
@@ -139,16 +158,23 @@ function Usuarios_Actualizar() {
     if ($("#frmMantenimientoUsuarios").valid()) {
         var item =
                 {
-                    ID_USUARIO: $("#hdfID_USUARIO").val(),
-                    ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : $("#ID_ENTIDAD").val(),
-                    //ID_ENTIDAD: $("#ID_ENTIDAD").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
+                    DNI: $("#DNI").val(),
+                    NOMBRE: $("#NOMBRE").val(),
+                    APE_PATERNO: $("#APE_PATERNO").val(),
+                    APE_MATERNO: $("#APE_MATERNO").val(),
+                    CELULAR: $("#CELULAR").val(),
+                    TELEFONO: $("#TELEFONO").val(),
+                    CORREO: $("#CORREO").val(),
+                    FLG_ADMIN: $("#FLG_ADMIN").is(':checked') ? 1 : 0,
+                    COD_USUARIO: $("#COD_USUARIO").val(),
+                    CLAVE_USUARIO: $("#CLAVE_USUARIO").val(),
+                    ID_TIPO_DOCUMENTO: $("#ID_TIPO_DOCUMENTO").val(),
                     USU_MODIFICACION: $('#input_hdcodusuario').val(),
                     Accion: $("#AccionUsuarios").val()
                 };
         jConfirm("¿ Desea actualizar este cargo ?", "Atención", function (r) {
             if (r) {
-                var url = baseUrl + 'Administracion/Usuarios/Usuarios_Actualizar';
+                var url = baseUrl + 'Administracion/Usuarios/Usuario_Actualizar';
                 var auditoria = SICA.Ajax(url, item, false);
                 if (auditoria != null && auditoria != "") {
                     if (auditoria.EJECUCION_PROCEDIMIENTO) {
@@ -182,19 +208,39 @@ function Usuarios_Ingresar() {
                 if (r) {
                     var item =
                         {
-                            ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : $("#ID_ENTIDAD").val(),
-                            DESC_CARGO: $("#DESC_CARGO").val(),
+                            DNI: $("#DNI").val(),
+                            NOMBRE: $("#NOMBRE").val(),
+                            APE_PATERNO: $("#APE_PATERNO").val(),
+                            APE_MATERNO: $("#APE_MATERNO").val(),
+                            CELULAR: $("#CELULAR").val(),
+                            TELEFONO: $("#TELEFONO").val(),
+                            CORREO: $("#CORREO").val(),
+                            FLG_ADMIN: $("#FLG_ADMIN").is(':checked') ? 1 : 0,
+                            COD_USUARIO: $("#COD_USUARIO").val(),
+                            CLAVE_USUARIO: $("#CLAVE_USUARIO").val(),
+                            ID_TIPO_DOCUMENTO: $("#ID_TIPO_DOCUMENTO").val(),
+                            
                             USU_CREACION: $('#input_hdcodusuario').val(),
                             ACCION: $("#AccionUsuarios").val()
                         };
-                    var url = baseUrl + 'Administracion/Usuarios/Usuarios_Insertar';
+                    var url = baseUrl + 'Administracion/Usuarios/Usuario_Insertar';
                     var auditoria = SICA.Ajax(url, item, false);
                     if (auditoria != null && auditoria != "") {
                         if (auditoria.EJECUCION_PROCEDIMIENTO) {
                             if (!auditoria.RECHAZAR) {
                                 Usuarios_CargarGrilla();
-                                Usuarios_Cerrar();
-                                jOkas("Usuarios registrado satisfactoriamente", "Proceso");
+                                //Usuarios_Cerrar();
+                                jOkas("Usuario registrado correctamente, a continuación configuré acceso al sistema para este usuario.", "Proceso");
+                                $('#hfd_ID_USUARIO').val(auditoria.OBJETO);
+                                $('#UsuariosTab, #Usuariospanel').removeClass('active');
+                                $('#Usuariospanel').removeClass('show ');
+
+                                $('#UsuariosAccesoTab').removeClass('DisabledContent'); 
+                                $('#UsuariosAccesoTab, #UsuariosAccesoPanel').addClass('active');
+                                $('#UsuariosAccesoPanel').addClass('show');
+                                $('#UsuariosTab').addClass('DisabledContent');
+                                $('#Usuarios_btn_Guardar').hide();
+
                             } else {
                                 jError(auditoria.MENSAJE_SALIDA, "Atención");
                             }
@@ -218,7 +264,7 @@ function Usuarios_Eliminar(ID_USUARIO) {
             var item = {
                 ID_USUARIO: ID_USUARIO
             };
-            var url = baseUrl + 'Administracion/Usuarios/Usuarios_Eliminar';
+            var url = baseUrl + 'Administracion/Usuarios/Usuario_Eliminar';
             var auditoria = SICA.Ajax(url, item, false);
             if (auditoria != null && auditoria != "") {
                 if (auditoria.EJECUCION_PROCEDIMIENTO) {
@@ -247,7 +293,7 @@ function Usuarios_Estado(ID_USUARIO, CHECK) {
         FLG_ESTADO: CHECK.checked == true ? '1' : '0',
         USU_MODIFICACION: $('#input_hdcodusuario').val(),
     };
-    var url = baseUrl + 'Administracion/Usuarios/Usuarios_Estado';
+    var url = baseUrl + 'Administracion/Usuarios/Usuario_Estado';
     var auditoria = SICA.Ajax(url, item, false);
     if (auditoria != null && auditoria != "") {
         if (auditoria.EJECUCION_PROCEDIMIENTO) {
@@ -290,7 +336,7 @@ function BuscarPersonalNatural(_NumeroDocumento) {
                             $('#APE_PATERNO').val( json[0]['apePat']);
                             $('#APE_MATERNO').val( json[0]['apeMat']);
                             //$('#DIRECCION').val(json[0]['dir'])
-
+                            GenerarCredencialesUsuario();
                         } else {
                             jWarning(json[0]['desResul'], "Atención");
 

@@ -45,6 +45,8 @@
     <Compile Include="Administracion\Cls_Rule_ConfigurarEmpresa.cs" />
     <Compile Include="Administracion\Cls_Rule_Sucursal.cs" />
     <Compile Include="Administracion\Cls_Rule_Proveedor.cs" />
+    <Compile Include="Administracion\Cls_Rule_Usuario.cs" />
+    <Compile Include="Administracion\Cls_Rule_Usuario_Perfil.cs" />
     <Compile Include="Listados_Combos\Cls_Rule_Listados.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -44,12 +44,12 @@ namespace App_Ventas.Areas.Administracion.Models
         [Display(Name = "Celular: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Apellido Materno] es obligatorio")]
-        public int CELULAR { get; set; }
+        public string CELULAR { get; set; }
 
         [Display(Name = "Telefono: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Telefono] es obligatorio")]
-        public int TELEFONO { get; set; }
+        public string TELEFONO { get; set; }
 
         [Display(Name = "Correo: ")]
         [DataType(DataType.Text)]

@@ -165,6 +165,7 @@
     <Compile Include="Areas\Administracion\Controllers\ArchivoController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ClientesController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ConfigurarEmpresaController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\Usuarios_PerfilController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ProveedorController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ListadoComboController.cs" />
     <Compile Include="Areas\Administracion\Controllers\PerfilController.cs" />
@@ -179,6 +180,8 @@
     <Compile Include="Areas\Administracion\Models\PersonalModelView.cs" />
     <Compile Include="Areas\Administracion\Repositorio\ConfigurarEmpresaRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\ClienteRepositorio.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\UsuarioPerfilRepositorio.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\UsuarioRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\ProveedorRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\Listado_CombosRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\PerfilRepositorio.cs" />

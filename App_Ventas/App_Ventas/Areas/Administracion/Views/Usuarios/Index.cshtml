@@ -5,7 +5,7 @@
 
     $(document).ready(function () {
         Usuarios_ConfigurarGrilla();
-        //Usuarios_CargarGrilla();
+        Usuarios_CargarGrilla();
     });
 
     $("#Usuarios_btnBuscar").click(function (e) {
@@ -41,12 +41,12 @@
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label>Nombres y Apellidos:</label>
-                            <input type="text" class="form-control" placeholder="Ejm: Ivan perez">
+                            <input type="text" class="form-control" id="Usuarios_NombresApe" placeholder="Ejm: Ivan perez">
                         </div>
 
                         <div class="form-group col-md-3">
                             <label>Número Documento:</label>
-                            <input type="text" class="form-control" placeholder="Ejm: 33545656">
+                            <input type="text" id="Usuarios_Documento" class="form-control" placeholder="Ejm: 33545656">
                         </div>
 
                         <div class="form-group col-md-3">

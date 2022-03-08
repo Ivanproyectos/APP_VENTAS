@@ -28,7 +28,7 @@ $('.quixnav .metismenu li .not-before').click(function () {
 
 });
 
-
+// block ui
 function blockUI_(message) {
     message == "" ? "Procesando..." : message; 
     jQuery.blockUI({
@@ -40,4 +40,125 @@ function blockUI_(message) {
                     + " </div> <p style=\"color:white;\">" + message + "</p>  </div> ",
     css: { width: "20px", left: "45%", top: "40%", background: "none" }
     });
+}
+
+
+// validaciones
+
+
+
+function CountCharactersControlTxt(obj, lblObject, max) {
+    try {
+        var total = max;
+        cant = document.getElementById(obj).value.length;
+        total = total - cant
+        if (cant > max) {
+            var aux = document.getElementById(obj).value;
+            document.getElementById(obj).value = aux.substring(0, max);
+            return;
+        }
+        $("#" + lblObject).html("Nº Caracteres: " + cant + " restan " + total);
+    } catch (e) {
+        alert(e.Message);
+    }
+}
+
+
+/**********************************************     VALIDACION DE FECHAS          
+
+**********************************************/
+
+function ValidarFormatoFecha(campo) {
+
+    var RegExPattern = /^\d{1,2}\/\d{1,2}\/\d{2,4}$/;
+    if ((campo.match(RegExPattern)) && (campo != '')) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function ValidarFecha(fecha) {
+
+    var fechaf = fecha.split("/");
+    var day = fechaf[0];
+    var month = fechaf[1];
+    if (Number(month) > 12 || Number(month) < 1) {
+        return false;
+    }
+    var year = fechaf[2];
+    var date = new Date(year, month, '0');
+    if ((day - 0) > (date.getDate() - 0)) {
+        return false;
+    }
+    return true;
+}
+
+function ValidarFechasInicioFin(fechaini, fechafin, tipo) {
+
+    var valido = true;
+    //var fechaini = $('#' + fec_ini).val();
+    //var fechafin = $('#' + fec_fin).val();
+    if (fechaini != "") {
+        if (ValidarFormatoFecha(fechaini) != true) {
+            jWarning('La fecha es incorrecta', 'Alerta');
+            valido = false;
+            return valido;
+        }
+        if (ValidarFecha(fechaini) != true) {
+            jWarning('La fecha no existe', 'Alerta');
+            valido = false;
+            return valido;
+        }
+    }
+    if (fechafin != "") {
+        if (ValidarFormatoFecha(fechafin) != true) {
+            jWarning('La fecha fin es incorrecta', 'Alerta');
+            valido = false;
+            return valido;
+        }
+
+        if (ValidarFecha(fechafin) != true) {
+            jWarning('La fecha fin no existe', 'Alerta');
+            valido = false;
+            return valido;
+        }
+    }
+    if ((fechaini != "" || fechafin != "") && tipo) {
+        if (fechaini == "") {
+            jWarning('La fecha no puede estar vacio si hay fecha final','Alerta');
+            valido = false;
+            return valido;
+        }
+        if (fechafin == "") {
+            jWarning('La fecha final no puede estar vacio si hay fecha inicio','Alerta');
+            valido = false;
+            return valido;
+        }
+        var x = new Date();
+        var fecha = fechaini.split("/");
+        if (fecha[2].length != 4) {
+            jWarning('La fecha tiene el año incompleto', 'Alerta');
+            valido = false;
+            return valido;
+        }
+
+        x.setFullYear(fecha[2], fecha[1] - 1, fecha[0]);
+
+        var x1 = new Date();
+        var fecha1 = fechafin.split("/");
+        x1.setFullYear(fecha1[2], fecha1[1] - 1, fecha1[0]);
+        if (fecha1[2].length != 4) {
+            jWarning( 'La fecha fin tiene el año incompleto','Alerta');
+            valido = false;
+            return valido;
+        }
+        if (x > x1) {
+            jWarning( 'La fecha inicio no puede ser mayor a la final','Alerta');
+            valido = false;
+            return valido;
+        }
+    }
+
+    return valido;
 }
