@@ -7,8 +7,8 @@ function Sucursal_Cerrar() {
 }
 
 function Sucursal_Limpiar() {
-    $("#txtdesSucursal").val('');
-    $('#cboEstado').val('');
+    $("#Sucursal_Desc_Sucursal").val('');
+    $('#Sucursal_Estado').val(2);
 
     Sucursal_CargarGrilla();
 }

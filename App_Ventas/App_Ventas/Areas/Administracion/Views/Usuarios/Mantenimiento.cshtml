@@ -10,6 +10,9 @@
         $('#CELULAR').numeric();
         $('#TELEFONO').numeric();
         Usuarios_Perfil_ConfigurarGrilla();
+        if ($('#AccionUsuarios').val() == "M") {            
+            $('#UsuariosAccesoTab').removeClass('DisabledContent')
+        }
 
     });
 
@@ -74,7 +77,7 @@
             $('#Usuarios_btn_Guardar').show('slow');
         } else if (_this.id == "UsuariosAccesoTab") {
             $('#Usuarios_btn_Guardar').hide();
-            UsuariosPerfil_CargarGrilla(); 
+            UsuariosPerfil_CargarGrilla();
         }
 
     }
@@ -83,7 +86,7 @@
         if (ValidarFormatoFecha($('#FEC_ACTIVACION').val()) && ValidarFormatoFecha($('#FEC_DESACTIVACION').val())) {
             if (ValidarFechasInicioFin($('#FEC_ACTIVACION').val(), $('#FEC_DESACTIVACION').val(), true)) {
                 UsuariosPerfil_Ingresar();
-            } 
+            }
         } else {
             jWarning('Fecha tiene formato invalido.', 'Ateción');
         }

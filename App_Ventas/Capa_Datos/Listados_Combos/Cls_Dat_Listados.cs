@@ -99,5 +99,49 @@ namespace Capa_Datos.Listados_Combos
         }
 
 
+        ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** Lista tipo documento *************************************************/
+        ///
+        public List<Cls_Ent_Unidad_Medida> Unidad_Medida_Listar(ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            List<Cls_Ent_Unidad_Medida> lista = new List<Cls_Ent_Unidad_Medida>();
+            try
+            {
+                using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlDataReader dr = null;
+                    SqlCommand cmd = new SqlCommand("USP_CONS_UNIDAD_MEDIDA_LISTAR", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    dr = cmd.ExecuteReader();
+                    int pos_ID_UNIDAD_MEDIDA = dr.GetOrdinal("ID_UNIDAD_MEDIDA");
+                    int pos_DESC_UNIDAD_MEDIDA = dr.GetOrdinal("DESC_UNIDAD_MEDIDA");
+
+                    if (dr.HasRows)
+                    {
+                        Cls_Ent_Unidad_Medida obj = null;
+                        while (dr.Read())
+                        {
+                            obj = new Cls_Ent_Unidad_Medida();
+                            if (dr.IsDBNull(pos_ID_UNIDAD_MEDIDA)) obj.ID_UNIDAD_MEDIDA = 0;
+                            else obj.ID_UNIDAD_MEDIDA = int.Parse(dr[pos_ID_UNIDAD_MEDIDA].ToString());
+                            if (dr.IsDBNull(pos_DESC_UNIDAD_MEDIDA)) obj.DESC_UNIDAD_MEDIDA = "";
+                            else obj.DESC_UNIDAD_MEDIDA = dr.GetString(pos_DESC_UNIDAD_MEDIDA);
+                            lista.Add(obj);
+                        }
+                    }
+                    dr.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+            return lista;
+        }
+
+
+
     }
 }

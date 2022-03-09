@@ -7,8 +7,8 @@ function Categoria_Cerrar() {
 }
 
 function Categoria_Limpiar() {
-    $("#txtdesCategoria").val('');
-    $('#cboEstado').val('');
+    $("#Categoria_Desc").val('');
+    $('#Categoria_Estado').val(2);
 
     Categoria_CargarGrilla();
 }
@@ -22,8 +22,8 @@ function Categoria_ConfigurarGrilla() {
             { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: false, formatter: Categoria_actionEliminar, sortable: false },
             { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Categoria_actionActivo, sortable: false },
             { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
-            { name: 'ID_SUCURSAL', index: 'ID_SUCURSAL', width: 100, hidden: true, key: true },
-            { name: 'DESC_SUCURSAL', index: 'DESC_SUCURSAL', width: 200, hidden: false, align: "left" },
+            { name: 'ID_CATEGORIA', index: 'ID_CATEGORIA', width: 100, hidden: true, key: true },
+            { name: 'DESC_CATEGORIA', index: 'DESC_CATEGORIA', width: 200, hidden: false, align: "left" },
             { name: 'DESCRIPCION', index: 'DESCRIPCION', width: 300, hidden: false, align: "left" },
             { name: 'FLG_ESTADO', index: 'FLG_ESTADO', width: 300, hidden: true, align: "left" },
             { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },
@@ -34,7 +34,7 @@ function Categoria_ConfigurarGrilla() {
     var opciones = {
         GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
     };
-    SICA.Grilla(Categoria_Grilla, Categoria_Barra, '', 400, '', "Lista de Categoria", '', 'ID_SUCURSAL', colNames, colModels, '', opciones);
+    SICA.Grilla(Categoria_Grilla, Categoria_Barra, '', 400, '', "Lista de Categoria", '', 'ID_CATEGORIA', colNames, colModels, '', opciones);
 }
 
 function Categoria_actionActivo(cellvalue, options, rowObject) {
@@ -43,7 +43,7 @@ function Categoria_actionActivo(cellvalue, options, rowObject) {
         check_ = 'checked';
 
     var _btn = " <label class=\"content_toggle_1\">"
-            + "<input id=\"Categoria_chk_" + rowObject.ID_SUCURSAL + "\" class=\"toggle_Beatiful_1\" type=\"checkbox\" onchange=\"Categoria_Estado(" + rowObject.ID_SUCURSAL + ",this)\" " + check_ + ">"
+            + "<input id=\"Categoria_chk_" + rowObject.ID_CATEGORIA + "\" class=\"toggle_Beatiful_1\" type=\"checkbox\" onchange=\"Categoria_Estado(" + rowObject.ID_CATEGORIA + ",this)\" " + check_ + ">"
             + "<div class=\"content_toggle_2\">"
             + "  <span class=\"Label_toggle_1\" ></span>"
              + "</div>"
@@ -52,12 +52,12 @@ function Categoria_actionActivo(cellvalue, options, rowObject) {
 }
 
 function Categoria_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Categoria_MostrarEditar(" + rowObject.ID_SUCURSAL + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
+    var _btn = "<button title='Editar'  onclick='Categoria_MostrarEditar(" + rowObject.ID_CATEGORIA + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
     return _btn;
 }
 
 function Categoria_actionEliminar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Eliminar'  onclick='Categoria_Eliminar(" + rowObject.ID_SUCURSAL + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>";
+    var _btn = "<button title='Eliminar'  onclick='Categoria_Eliminar(" + rowObject.ID_CATEGORIA + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>";
     return _btn;
 }
 
@@ -71,9 +71,9 @@ function Categoria_MostrarNuevo() {
     });
 }
 
-function Categoria_MostrarEditar(ID_SUCURSAL) {
+function Categoria_MostrarEditar(ID_CATEGORIA) {
     jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Inventario/Categoria/Mantenimiento?id=" + ID_SUCURSAL + "&Accion=M", function (responseText, textStatus, request) {
+    jQuery("#myModalNuevo").load(baseUrl + "Inventario/Categoria/Mantenimiento?id=" + ID_CATEGORIA + "&Accion=M", function (responseText, textStatus, request) {
         $('#myModalNuevo').modal({ show: true });
         $.validator.unobtrusive.parse('#myModalNuevo');
         if (request.status != 200) return;
@@ -83,15 +83,13 @@ function Categoria_MostrarEditar(ID_SUCURSAL) {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Lista los  cargo **************************************************/
+///*********************************************** Lista los  categoria **************************************************/
 
 function Categoria_CargarGrilla() {
     var item =
        {
-           ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : 0,
-           //$("#input_hdid_entidad").val(),
-           DESC_CARGO: $('#txtdesCategoria').val(),
-           FLG_ESTADO: $('#cboEstado').val()
+           DESC_CATEGORIA: $('#Categoria_Desc').val(),
+           FLG_ESTADO: $('#Categoria_Estado').val()
        };
     var url = baseUrl + 'Inventario/Categoria/Categoria_Listar';
     var auditoria = SICA.Ajax(url, item, false);
@@ -103,16 +101,15 @@ function Categoria_CargarGrilla() {
                 var myData =
                  {
                      CODIGO: idgrilla,
-                     ID_SUCURSAL: v.ID_SUCURSAL,
-                     DESC_CARGO: v.DESC_CARGO,
-                     DESC_ENTIDAD: v.DESC_ENTIDAD,
+                     ID_CATEGORIA: v.ID_CATEGORIA,
+                     DESC_CATEGORIA: v.DESC_CATEGORIA,
+                     DESCRIPCION: v.DESCRIPCION,
                      FLG_ESTADO: v.FLG_ESTADO,
                      FEC_CREACION: v.FEC_CREACION,
-                     USU_CREACION: v.USU_CREACION,
+                     USU_CREACION:v.USU_CREACION,
                      FEC_MODIFICACION: v.FEC_MODIFICACION,
                      USU_MODIFICACION: v.USU_MODIFICACION,
-                     IP_CREACION: v.IP_CREACION,
-                     IP_MODIFICACION: v.IP_MODIFICACION
+   
                  };
                 jQuery("#" + Categoria_Grilla).jqGrid('addRowData', i, myData);
             });
@@ -127,20 +124,19 @@ function Categoria_CargarGrilla() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Actualiza  cargos  ************************************************/
+///*********************************************** Actualiza  categorias  ************************************************/
 
 function Categoria_Actualizar() {
-    if ($("#frmMantenimientoCategoria").valid()) {
+    if ($("#frmMantenimiento_Categoria").valid()) {
         var item =
                 {
-                    ID_SUCURSAL: $("#hdfID_SUCURSAL").val(),
-                    ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : $("#ID_ENTIDAD").val(),
-                    //ID_ENTIDAD: $("#ID_ENTIDAD").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
+                    ID_CATEGORIA: $("#hfd_ID_CATEGORIA").val(),
+                    DESC_CATEGORIA: $("#DESC_CATEGORIA").val(),
+                    DESCRIPCION: $("#DESCRIPCION").val(),
                     USU_MODIFICACION: $('#input_hdcodusuario').val(),
                     Accion: $("#AccionCategoria").val()
                 };
-        jConfirm("¿ Desea actualizar este cargo ?", "Atención", function (r) {
+        jConfirm("¿ Desea actualizar este categoria ?", "Atención", function (r) {
             if (r) {
                 var url = baseUrl + 'Inventario/Categoria/Categoria_Actualizar';
                 var auditoria = SICA.Ajax(url, item, false);
@@ -164,19 +160,19 @@ function Categoria_Actualizar() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///************************************************ Inserta cargos  **************************************************/
+///************************************************ Inserta categorias  **************************************************/
 
 function Categoria_Ingresar() {
     if ($('#AccionCategoria').val() != 'N') {
         Categoria_Actualizar();
     } else {
-        if ($("#frmMantenimientoCategoria").valid()) {
-            jConfirm("¿ Desea registrar este cargo ?", "Atención", function (r) {
+        if ($("#frmMantenimiento_Categoria").valid()) {
+            jConfirm("¿ Desea registrar este categoria ?", "Atención", function (r) {
                 if (r) {
                     var item =
                         {
-                            ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : $("#ID_ENTIDAD").val(),
-                            DESC_CARGO: $("#DESC_CARGO").val(),
+                            DESC_CATEGORIA: $("#DESC_CATEGORIA").val(),
+                            DESCRIPCION: $("#DESCRIPCION").val(),
                             USU_CREACION: $('#input_hdcodusuario').val(),
                             ACCION: $("#AccionCategoria").val()
                         };
@@ -203,13 +199,13 @@ function Categoria_Ingresar() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Elimina cargos  ***************************************************/
+///*********************************************** Elimina categorias  ***************************************************/
 
-function Categoria_Eliminar(ID_SUCURSAL) {
-    jConfirm("¿ Desea eliminar este cargo ?", "Atención", function (r) {
+function Categoria_Eliminar(ID_CATEGORIA) {
+    jConfirm("¿ Desea eliminar este categoria ?", "Atención", function (r) {
         if (r) {
             var item = {
-                ID_SUCURSAL: ID_SUCURSAL
+                ID_CATEGORIA: ID_CATEGORIA
             };
             var url = baseUrl + 'Inventario/Categoria/Categoria_Eliminar';
             var auditoria = SICA.Ajax(url, item, false);
@@ -232,11 +228,11 @@ function Categoria_Eliminar(ID_SUCURSAL) {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Cambia estado de cargos  ******************************************/
+///*********************************************** Cambia estado de categorias  ******************************************/
 
-function Categoria_Estado(ID_SUCURSAL, CHECK) {
+function Categoria_Estado(ID_CATEGORIA, CHECK) {
     var item = {
-        ID_SUCURSAL: ID_SUCURSAL,
+        ID_CATEGORIA: ID_CATEGORIA,
         FLG_ESTADO: CHECK.checked == true ? '1' : '0',
         USU_MODIFICACION: $('#input_hdcodusuario').val(),
     };

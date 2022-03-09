@@ -30,22 +30,20 @@ $('.quixnav .metismenu li .not-before').click(function () {
 
 // block ui
 function blockUI_(message) {
-    message == "" ? "Procesando..." : message; 
-    jQuery.blockUI({
-        message: "<div class=\"css_center_block\">  <div class=\"Loader_block\"> "
-                        + "<div class=\"spinner2\">"
-                            + " <div class=\"circle1\"></div>"
-                            + " <div class=\"circle2\"></div>"
-                        + " </div>"
-                    + " </div> <p style=\"color:white;\">" + message + "</p>  </div> ",
-    css: { width: "20px", left: "45%", top: "40%", background: "none" }
-    });
+message == "" ? "Procesando..." : message; 
+jQuery.blockUI({
+    message: "<div class=\"css_center_block\">  <div class=\"Loader_block\"> "
+                    + "<div class=\"spinner2\">"
+                        + " <div class=\"circle1\"></div>"
+                        + " <div class=\"circle2\"></div>"
+                    + " </div>"
+                + " </div> <p style=\"color:white;\">" + message + "</p>  </div> ",
+css: { width: "20px", left: "45%", top: "40%", background: "none" }
+});
 }
 
 
 // validaciones
-
-
 
 function CountCharactersControlTxt(obj, lblObject, max) {
     try {
@@ -62,7 +60,6 @@ function CountCharactersControlTxt(obj, lblObject, max) {
         alert(e.Message);
     }
 }
-
 
 /**********************************************     VALIDACION DE FECHAS          
 
@@ -161,4 +158,35 @@ function ValidarFechasInicioFin(fechaini, fechafin, tipo) {
     }
 
     return valido;
+}
+
+
+
+function SoloDecimal(e, field) {
+    debugger; 
+    key = e.keyCode ? e.keyCode : e.which
+    // backspace
+    if (key == 8) return true
+    // 0-9
+    if (key > 47 && key < 58) {
+        if (field.value == "") return true
+        regexp = /.[0-9]{3}$/     // configurar cuantos numeros como max 
+        return !(regexp.test(field.value))
+    }
+    // .
+    if (key == 46) {
+        if (field.value == "") return false
+        regexp = /^[0-9]+$/
+        return regexp.test(field.value)
+    }
+}
+
+function rand_code(lon) {
+    var chars = "0123456789abcdefABCDEF";
+    code = "";
+    for (x = 0; x < lon; x++) {
+        rand = Math.floor(Math.random() * chars.length);
+        code += chars.substr(rand, 1);
+    }
+    return code.toUpperCase();
 }

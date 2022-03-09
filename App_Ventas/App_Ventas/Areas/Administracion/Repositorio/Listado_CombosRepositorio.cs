@@ -39,6 +39,21 @@ namespace App_Ventas.Areas.Administracion.Repositorio
             }
         }
 
+        public List<Cls_Ent_Unidad_Medida> Unidad_Medida_Listar(ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                return _rule.Unidad_Medida_Listar(ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                return new List<Cls_Ent_Unidad_Medida>();
+            }
+        }
+
+        
+
 
         
         public void Dispose()

@@ -169,7 +169,6 @@
     <Compile Include="Areas\Administracion\Controllers\ProveedorController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ListadoComboController.cs" />
     <Compile Include="Areas\Administracion\Controllers\PerfilController.cs" />
-    <Compile Include="Areas\Administracion\Controllers\PersonalController.cs" />
     <Compile Include="Areas\Administracion\Controllers\SucursalController.cs" />
     <Compile Include="Areas\Administracion\Controllers\UsuariosController.cs" />
     <Compile Include="Areas\Administracion\Models\ClientesModelView.cs" />
@@ -200,6 +199,7 @@
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
     <Compile Include="Areas\Inventario\Models\CategoriaModelView.cs" />
     <Compile Include="Areas\Inventario\Models\ProductoModelView.cs" />
+    <Compile Include="Areas\Inventario\Repositorio\CategoriaRepositorio.cs" />
     <Compile Include="Areas\Servicios\Controllers\ServiciosWebController.cs" />
     <Compile Include="Areas\Servicios\ServiciosAreaRegistration.cs" />
     <Compile Include="Areas\Ventas\Controllers\VentasController.cs" />
@@ -222,6 +222,7 @@
   <ItemGroup>
     <Content Include="assets\css\animate.min.css" />
     <Content Include="assets\css\Changes_estilos\theme_dark.css" />
+    <Content Include="assets\css\RadioButton.css" />
     <Content Include="assets\css\spinnerloader.css" />
     <Content Include="assets\css\File_image.css" />
     <Content Include="assets\css\General.css" />

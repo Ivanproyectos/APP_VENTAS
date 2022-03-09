@@ -1,60 +1,53 @@
 ﻿@model App_Ventas.Areas.Inventario.Models.ProductoModelView
 
 <script>
-    $(document).ready(function () {
-        $('#FLG_VENCE').bootstrapToggle({
-            on: 'Si',
-            off: 'No',
-            size: "mini",
-            width: "50",
-            onstyle: "danger"
-        });
-
-        $('#FLG_SERIVICIO').bootstrapToggle({
-            on: 'Servicio',
-            off: 'Producto',
-            onstyle: "info",
-            size: "normal",
-            width: "90",
-        });
-
-
-        Usuarios_Perfil_ConfigurarGrilla();
+$(document).ready(function () {
+    $('#FLG_VENCE').bootstrapToggle({
+    on: 'Si',
+    off: 'No',
+    size: "mini",
+    width: "50",
+    onstyle: "danger"
     });
-
-    $('#Usuarios_btn_Guardar').click(function () {
-        Preguntar();
+    $('#FLG_SERIVICIO').bootstrapToggle({
+    on: 'Servicio',
+    off: 'Producto',
+    onstyle: "info",
+    size: "normal",
+    width: "90",
     });
+    $('#STOCK').numeric();
+    $('#STOCK_MINIMO').numeric();
+    $('#ID_UNIDAD_MEDIDA').select2();
+});
 
-    $('#FEC_ACTIVACION, #FEC_DESACTIVACION').datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: "dd/mm/yy",
-        firstDay: 1,
-        changeFirstDay: false,
-        showAnim: 'slideDown'
-    });
-
-    $('#FLG_SERIVICIO').change(function () {
-        if ($(this).is(':checked')) {
-            $('#frmMantenimiento_Productos').hide();
-            $('#frmMantenimiento_Servicios').show('slow');
-            $('#frmMantenimiento_ImagenProducto').hide();
-            
-        } else {
-            $('#frmMantenimiento_Servicios').hide();
-            $('#frmMantenimiento_Productos').show('slow');
-            $('#frmMantenimiento_ImagenProducto').show('slow');
-        }
+$('#Usuarios_btn_Guardar').click(function () {
+    Preguntar();    
+});
 
 
-    });
+$('input:radio[name=Producto_FlgServicio]').change(function () {
+    var _valor = $('input:radio[name=Producto_FlgServicio]:checked').val();
+    if (_valor == 1) {
+    $('#frmMantenimiento_Productos').hide();
+    $('#frmMantenimiento_Servicios').show('slow');
+    $('#frmMantenimiento_ImagenProducto').hide();
+
+    } else if (_valor == 0) {
+    $('#frmMantenimiento_Servicios').hide();
+    $('#frmMantenimiento_Productos').show('slow');
+    $('#frmMantenimiento_ImagenProducto').show('slow');
+    }
+});
+
+function GenerarCodigoProucto() {
+    var Codigo = rand_code(8);
+    $('#COD_PRODUCTO').val(Codigo);
+}
+    
 
 
 </script>
-
-
-
 
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -63,11 +56,11 @@
             @if (Model.ID_PRODUCTO == 0)
             {
                     
-                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Registrar Nuevo&nbsp; </h5> @Html.CheckBoxFor(model => model.FLG_SERIVICIO, new { @class = "form-control", @maxlength = "200", @checked = "false" })
+                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Registrar producto </h5> 
             }
             else
             {
-                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Actualiza&nbsp;</h5> @Html.CheckBoxFor(model => model.FLG_SERIVICIO, new { @class = "form-control", @maxlength = "200" })
+                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Actualiza producto;</h5> 
             }
 
             <button type="button" class="close" data-dismiss="modal">
@@ -75,6 +68,38 @@
             </button>
         </div>
         <div class="modal-body">
+            <div class="form-row border-bottom-head">
+                <div class="col-sm-6">
+
+                    <div class="_Content_Radio">
+                        <input type="radio" id="f-option" checked name="Producto_FlgServicio" value="0">
+                        <label for="f-option">Producto</label>
+
+                        <div class="check"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+
+                    <div class="_Content_Radio">
+                        <input type="radio" id="s-option" name="Producto_FlgServicio" value="1">
+                        <div class="check">
+                            <div class="inside"></div>
+                        </div>
+
+                        <label for="s-option">Servicio</label>
+
+                    </div>
+                </div>
+            </div>
+            <br />
+
+      @*      <ul class="nav nav-tabs" style="margin-bottom: 10px;">
+                <li class="nav-item"><a href="#Usuariospanel" id="UsuariosTab" onclick="Tab_Click(this);" data-toggle="tab" class="nav-link active"><i class="bi bi-person-lines-fill"></i>&nbsp; Usuario</a>
+                </li>
+                <li class="nav-item"><a href="#UsuariosAccesoPanel" id="UsuariosAccesoTab" onclick="Tab_Click(this);" data-toggle="tab" class="nav-link DisabledContent"><i class="bi bi-person-check"></i>&nbsp;Usuario Acceso</a>
+                </li>
+            </ul>*@
+
             @using (Html.BeginForm("Producto", "Producto", new { @area = "Inventario" }, FormMethod.Post, new { @id = "frmMantenimiento_Productos" }))
             {
                 @Html.ValidationSummary(true)
@@ -84,7 +109,7 @@
 
                         <div class="input-group mb-3">
                             @Html.TextBoxFor(model => model.COD_PRODUCTO, new { @class = "form-control", @maxlength = "100" })
-                            <div class="input-group-append" title="generar código">
+                            <div class="input-group-append btn-hover-shine waves-effect waves-light" title="generar código" onclick="GenerarCodigoProucto();">
                                 <span class="input-group-text"><i class="bi bi-arrow-clockwise"></i>&nbsp; Generar Código</span>
                             </div>
                         </div>
@@ -112,7 +137,7 @@
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.PRECIO_VENTA)
-                        @Html.TextBoxFor(model => model.PRECIO_VENTA, new { @class = "form-control", @maxlength = "200" })
+                        @Html.TextBoxFor(model => model.PRECIO_VENTA, new { @class = "form-control", @maxlength = "200", @onkeypress = "return SoloDecimal(event, this)" })
                         @Html.ValidationMessageFor(model => model.PRECIO_VENTA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
@@ -140,7 +165,7 @@
                         @Html.ValidationMessageFor(model => model.MODELO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
-                       <div class="form-group col-md-6">
+                    <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.FLG_VENCE)  @Html.CheckBoxFor(model => model.FLG_VENCE, new { @class = "form-control", @maxlength = "200" })
                         @Html.TextBoxFor(model => model.FECHA_VENCIMIENTO, new { @class = "form-control", @maxlength = "7" })
                         @Html.ValidationMessageFor(model => model.FECHA_VENCIMIENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
@@ -189,7 +214,7 @@
 
                         <div class="input-group mb-3">
                             @Html.TextBoxFor(model => model.COD_PRODUCTO, new { @class = "form-control", @maxlength = "100" })
-                            <div class="input-group-append" title="generar código">
+                            <div class="input-group-append btn-hover-shine waves-effect waves-light" title="generar código" onclick="GenerarCodigoProucto();">
                                 <span class="input-group-text"><i class="bi bi-arrow-clockwise"></i>&nbsp; Generar Código</span>
                             </div>
                         </div>
@@ -228,8 +253,9 @@
 
         </div>
         <div class="modal-footer">
+            <button type="button" id="Usuarios_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>&nbsp;Guardar</button>
             <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
-            <button type="button" id="Usuarios_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
+
         </div>
     </div>
 </div>

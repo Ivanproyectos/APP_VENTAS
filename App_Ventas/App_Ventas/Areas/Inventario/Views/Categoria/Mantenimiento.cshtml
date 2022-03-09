@@ -4,12 +4,17 @@
     $(document).ready(function () {
 
     });
+    $('#Categoria_btn_Guardar').click(function () {
+        Categoria_Ingresar();
+    });
+
+
 
 </script>
 
 
 
-@using (Html.BeginForm("Cargo", "Cargo", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmMantenimientoCargo", @class = "form-horizontal" }))
+@using (Html.BeginForm("Categoria", "Categoria", new { @area = "Inventario" }, FormMethod.Post, new { @id = "frmMantenimiento_Categoria", @class = "form-horizontal" }))
 {
     @Html.ValidationSummary(true)
 
@@ -33,20 +38,21 @@
 
                     <div class="form-group col-md-12">
                         @Html.LabelFor(model => model.DESCRIPCION)
-                        @Html.TextAreaFor(model => model.DESCRIPCION, new { @class = "form-control", @maxlength = "1000" })
+                        @Html.TextAreaFor(model => model.DESCRIPCION, new { @class = "form-control", @maxlength = "1000" , @onkeyup = "CountCharactersControlTxt(this.id,'lbl_countcategoria', 1000)" })
                         @Html.ValidationMessageFor(model => model.DESCRIPCION, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                         <label id="lbl_countcategoria" style="width: 100%" class="Formato" runat="server">Nº Caracteres: 0 restan 1000</label>
                     </div>
 
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" id="Btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
+                <button type="button" id="Categoria_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
                 <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
 }
 
-@Html.Hidden("hfd_ID_SUCURSAL", Model.ID_CATEGORIA)
+@Html.Hidden("hfd_ID_CATEGORIA", Model.ID_CATEGORIA)
 @Html.Hidden("AccionCategoria", Model.Accion)

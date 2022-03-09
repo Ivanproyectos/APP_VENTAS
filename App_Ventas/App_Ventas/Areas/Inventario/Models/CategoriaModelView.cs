@@ -10,7 +10,7 @@ namespace App_Ventas.Areas.Inventario.Models
 {
     public class CategoriaModelView
     {
-        public string ID_CATEGORIA { get; set; }
+       public int  ID_CATEGORIA { get; set; }
    
 
         [Display(Name = "Categoria: ")]

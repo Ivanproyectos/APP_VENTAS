@@ -155,9 +155,10 @@ function Usuarios_CargarGrilla() {
 ///*********************************************** Actualiza  cargos  ************************************************/
 
 function Usuarios_Actualizar() {
-    if ($("#frmMantenimientoUsuarios").valid()) {
+    if ($("#frmMantenimiento_Usuarios").valid()) {
         var item =
                 {
+                    ID_USUARIO: $("#hfd_ID_USUARIO").val(),
                     DNI: $("#DNI").val(),
                     NOMBRE: $("#NOMBRE").val(),
                     APE_PATERNO: $("#APE_PATERNO").val(),
@@ -172,7 +173,7 @@ function Usuarios_Actualizar() {
                     USU_MODIFICACION: $('#input_hdcodusuario').val(),
                     Accion: $("#AccionUsuarios").val()
                 };
-        jConfirm("¿ Desea actualizar este cargo ?", "Atención", function (r) {
+        jConfirm("¿ Desea actualizar este usuario ?", "Atención", function (r) {
             if (r) {
                 var url = baseUrl + 'Administracion/Usuarios/Usuario_Actualizar';
                 var auditoria = SICA.Ajax(url, item, false);
@@ -204,7 +205,7 @@ function Usuarios_Ingresar() {
         Usuarios_Actualizar();
     } else {
         if ($("#frmMantenimiento_Usuarios").valid()) {
-            jConfirm("¿ Desea registrar este cargo ?", "Atención", function (r) {
+            jConfirm("¿ Desea registrar este usuario ?", "Atención", function (r) {
                 if (r) {
                     var item =
                         {
@@ -259,7 +260,7 @@ function Usuarios_Ingresar() {
 ///*********************************************** Elimina cargos  ***************************************************/
 
 function Usuarios_Eliminar(ID_USUARIO) {
-    jConfirm("¿ Desea eliminar este cargo ?", "Atención", function (r) {
+    jConfirm("¿ Desea eliminar este usuario ?", "Atención", function (r) {
         if (r) {
             var item = {
                 ID_USUARIO: ID_USUARIO

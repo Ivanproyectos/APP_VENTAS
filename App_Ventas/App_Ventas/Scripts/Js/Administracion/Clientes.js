@@ -9,7 +9,7 @@ function Clientes_Cerrar() {
 function Clientes_Limpiar() {
     $("#Cliente_NombreYape").val('');
     $('#Cliente_NumeroDocumento').val('');
-    $('#Clientes_Estado').val('');
+    $('#Clientes_Estado').val(2);
 
     Clientes_CargarGrilla();
 }

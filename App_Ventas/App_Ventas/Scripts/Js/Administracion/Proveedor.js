@@ -9,7 +9,7 @@ function Proveedor_Cerrar() {
 function Proveedor_Limpiar() {
     $("#Proveedor_NombreYape").val('');
     $('#Proveedor_NumeroDocumento').val('');
-    $('#Proveedor_Estado').val('');
+    $('#Proveedor_Estado').val(2);
 
     Proveedor_CargarGrilla();
 }

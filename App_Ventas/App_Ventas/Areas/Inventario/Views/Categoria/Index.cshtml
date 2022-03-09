@@ -3,7 +3,7 @@
 
     $(document).ready(function () {
         Categoria_ConfigurarGrilla();
-        //Categoria_CargarGrilla();
+        Categoria_CargarGrilla();
     });
 
     $("#Categoria_btnBuscar").click(function (e) {
@@ -39,7 +39,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label>Categoria:</label>
-                            <input type="text" class="form-control" placeholder="Ejm: Bebidas">
+                            <input type="text" id="Categoria_Desc" class="form-control" placeholder="Ejm: Bebidas">
                         </div>
 
                   
@@ -48,7 +48,7 @@
                              <select   class="form-control" id="Categoria_Estado" >
                                  <option value="2">-- Seleccione --</option>
                                  <option value="1">Activo</option>
-                                 <option value="1">Inactivo</option>
+                                 <option value="0">Inactivo</option>
                              </select>
                         </div>
                     </div>
@@ -72,7 +72,8 @@
         <div class="card">
             <div class="card-header">
 
-                <button id="Categoria_btnNuevo" type="button" class="btn btn-hover-shine btn-square btn-primary " ><i class="bi bi-plus-square"></i>&nbsp Nuevo</button>
+                <button id="Categoria_btnNuevo" type="button" class="btn btn-hover-shine btn-square btn-primary " ><i class="bi bi-plus-square"></i>&nbsp Nueva Categoria
+                </button>
             </div>
             <div class="card-body">
                 <div class="jqGrid">

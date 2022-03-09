@@ -40,23 +40,23 @@ namespace App_Ventas.Areas.Inventario.Models
         [Display(Name = "Precio Compra: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Precio Compra] es obligatorio")]
-        public decimal PRECIO_COMPRA { get; set; }
+        public string PRECIO_COMPRA { get; set; }
 
         [Display(Name = "Precio Venta: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Precio Venta] es obligatorio")]
-        public decimal PRECIO_VENTA { get; set; }
+        public string PRECIO_VENTA { get; set; }
 
         [Display(Name = "Stock Inicial: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Stock Inicial] es obligatorio")]
-        public decimal STOCK { get; set; }
+        public int STOCK { get; set; }
 
 
         [Display(Name = "Stock Minimo: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Stock Minimo] es obligatorio")]
-        public decimal STOCK_MINIMO { get; set; }
+        public int STOCK_MINIMO { get; set; }
 
 
         [Display(Name = "¿Producto Vence?: ")]
