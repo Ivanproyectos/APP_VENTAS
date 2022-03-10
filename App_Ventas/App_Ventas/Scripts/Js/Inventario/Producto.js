@@ -17,7 +17,7 @@ function Producto_Limpiar() {
 
 function Producto_ConfigurarGrilla() {
     $("#" + Producto_Grilla).GridUnload();
-    var colNames = ['Editar', 'Eliminar', 'Estado', 'codigo', 'ID', 'Código','Producto' ,'Unidad Medida', 'Pre. Compra', 'Pre. Venta', 'Stock',
+    var colNames = ['Editar', 'Eliminar', 'Estado', 'codigo', 'ID', 'Código','Producto' ,'Unidad Medida', 'Pre. Compra', 'Pre. Venta', 'Stock','stock min',
         'Fec. Vencimiento','Marca','Modelo','Detalle',
         'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación'];
     var colModels = [
@@ -31,7 +31,8 @@ function Producto_ConfigurarGrilla() {
             { name: 'DESC_UNIDAD_MEDIDA', index: 'DESC_UNIDAD_MEDIDA', width: 200, hidden: false, align: "left" },
             { name: 'PRECIO_COMPRA', index: 'PRECIO_COMPRA', width: 150, hidden: false, align: "left" },
             { name: 'PRECIO_VENTA', index: 'PRECIO_VENTA', width: 150, hidden: false, align: "left" },
-            { name: 'STOCK', index: 'STOCK', width: 100, hidden: false, align: "left" },
+            { name: 'STOCK', index: 'STOCK', width: 100, hidden: false, align: "left", formatter: Producto_StatuStock },
+            { name: 'STOCK_MINIMO', index: 'STOCK_MINIMO', width: 150, hidden: true, align: "left" },
             { name: 'FECHA_VENCIMIENTO', index: 'FECHA_VENCIMIENTO', width: 150, hidden: false, align: "left" },
             { name: 'MARCA', index: 'MARCA', width: 200, hidden: false, align: "left" },
             { name: 'MODELO', index: 'MODELO', width: 200, hidden: false, align: "left" },
@@ -45,7 +46,7 @@ function Producto_ConfigurarGrilla() {
     var opciones = {
         GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
     };
-    SICA.Grilla(Producto_Grilla, Producto_Barra, '', 400, '', "Lista de Producto", '', 'ID_PRODUCTO', colNames, colModels, '', opciones);
+    SICA.Grilla(Producto_Grilla, Producto_Barra, Producto_Grilla, 400, '', "Lista de Producto", '', 'ID_PRODUCTO', colNames, colModels, '', opciones);
 }
 
 function Producto_actionActivo(cellvalue, options, rowObject) {
@@ -60,6 +61,24 @@ function Producto_actionActivo(cellvalue, options, rowObject) {
             + "</label>";
     return _btn;
 }
+
+
+
+function Producto_StatuStock(cellvalue, options, rowObject) {
+    var _Stock = parseInt(rowObject.STOCK); 
+    var _StockMinimo = parseInt(rowObject.STOCK_MINIMO);
+    debugger;
+    var _text = ""; 
+    if (_StockMinimo <= _Stock) {
+        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto con el stock minimo\">" + rowObject.STOCK + "</span>";
+    } else {
+        _text = "<span class=\"badge badge-success\">" + rowObject.STOCK + "</span>";
+    }
+
+    return _text;
+}
+
+
 
 function Producto_actionEditar(cellvalue, options, rowObject) {
     var _btn = "<button title='Editar'  onclick='Producto_MostrarEditar(" + rowObject.ID_PRODUCTO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
@@ -77,9 +96,10 @@ function Producto_MostrarNuevo() {
     var _ID_SUCURSAL = $('#ID_SUCURSAL').val();
     var _DESC_SUCURSAL = $('select[name="ID_SUCURSAL"] option:selected').text(); 
     if (_ID_SUCURSAL != "") {
+        _DESC_SUCURSAL = _DESC_SUCURSAL.replace(/ /g, "+");
         jQuery("#myModalNuevo").html('');
         jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/Mantenimiento?id=0&Accion=N&ID_SUCURSAL=" + _ID_SUCURSAL + "&DESC_SUCURSAL=" + _DESC_SUCURSAL, function (responseText, textStatus, request) {
-            $('#myModalNuevo').modal({ show: true });
+            $('#myModalNuevo').modal({ show: true , backdrop: 'static', keyboard: false  });
             $.validator.unobtrusive.parse('#myModalNuevo');
             if (request.status != 200) return;
         });
@@ -91,7 +111,7 @@ function Producto_MostrarNuevo() {
 function Producto_MostrarEditar(ID_PRODUCTO) {
     jQuery("#myModalNuevo").html('');
     jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/Mantenimiento?id=" + ID_PRODUCTO + "&Accion=M", function (responseText, textStatus, request) {
-        $('#myModalNuevo').modal({ show: true });
+        $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
         $.validator.unobtrusive.parse('#myModalNuevo');
         if (request.status != 200) return;
     });
@@ -108,7 +128,7 @@ function Producto_CargarGrilla() {
            DESC_PRODUCTO: $('#Producto_Desc').val(),
            COD_PRODUCTO: $('#Producto_codigo').val(),
            ID_CATEGORIA: $('#ID_CATEGORIA_SEARCH').val(),
-           FLG_SERIVICIO: $('#Producto_flg_servicio').val(),
+           FLG_SERVICIO: $('#Producto_flg_servicio').val(),
            FLG_ESTADO: $('#Producto_Estado').val()
        };
     var url = baseUrl + 'Inventario/Producto/Producto_Listar';
@@ -116,8 +136,8 @@ function Producto_CargarGrilla() {
     jQuery("#" + Producto_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
     if (auditoria.EJECUCION_PROCEDIMIENTO) {
         if (!auditoria.RECHAZAR) {
-            $.each(auditoria.OBJETO, function (i, v) {
-                var idgrilla = i + 1;
+            $.each(auditoria.OBJETO, function (i, v)   {
+                var idgrilla = i + 1;               
                 var myData =
                  {
                      CODIGO: idgrilla,
@@ -136,6 +156,7 @@ function Producto_CargarGrilla() {
                      MARCA: v.MARCA,
                      MODELO: v.MODELO,
                      DETALLE: v.DETALLE,
+                     FLG_ESTADO : v.FLG_ESTADO,
                      FEC_CREACION: v.FEC_CREACION,
                      USU_CREACION: v.USU_CREACION,
                      FEC_MODIFICACION: v.FEC_MODIFICACION,
@@ -159,13 +180,14 @@ function Producto_CargarGrilla() {
 
 function Producto_Actualizar() {
     if ($("#frmMantenimiento_Productos").valid()) {
-
-        if (_FlgServicio) {
+        
+        if (!_FlgServicio) {
             var item =
                 {
                     COD_PRODUCTO: $("#COD_PRODUCTO").val(),
                     DESC_PRODUCTO: $("#DESC_PRODUCTO").val(),
-                    ID_UNIDAD_MEDIDA: $("#ID_UNIDAD_MEDIDA").val(),
+                    ID_UNIDAD_MEDIDA: $("#ID_UNIDAD_MEDIDA").val(),  
+                    ID_SUCURSAL: $("#hfd_ID_SUCURSAL").val(),
                     STOCK: $("#STOCK").val(),
                     PRECIO_COMPRA: $("#PRECIO_COMPRA").val(),
                     PRECIO_VENTA: $("#PRECIO_VENTA").val(),
@@ -186,6 +208,7 @@ function Producto_Actualizar() {
                     COD_PRODUCTO: $("#COD_PRODUCTO_SERVICIO").val(),
                     DESC_PRODUCTO: $("#DESC_SERVICIO").val(),
                     ID_UNIDAD_MEDIDA: $("#ID_UNIDAD_MEDIDA_SERVICIO").val(),
+                    ID_SUCURSAL: $("#hfd_ID_SUCURSAL").val(),
                     PRECIO_VENTA: $("#PRECIO_VENTA_SERVICIO").val(),
                     DETALLE: $("#DETALLE").val(),
                     FLG_SERVICIO: 1, // producto                         
@@ -227,12 +250,13 @@ function Producto_Ingresar() {
             jConfirm("¿ Desea registrar este producto ?", "Atención", function (r) {
                 if (r) {
 
-                    if (_FlgServicio) {
+                    if (!_FlgServicio) {
                         var item =
                             {
                                 COD_PRODUCTO: $("#COD_PRODUCTO").val(),
                                 DESC_PRODUCTO: $("#DESC_PRODUCTO").val(),
                                 ID_UNIDAD_MEDIDA: $("#ID_UNIDAD_MEDIDA").val(),
+                                ID_SUCURSAL: $("#hfd_ID_SUCURSAL").val(),
                                 STOCK: $("#STOCK").val(),
                                 PRECIO_COMPRA: $("#PRECIO_COMPRA").val(),
                                 PRECIO_VENTA: $("#PRECIO_VENTA").val(),
@@ -253,6 +277,7 @@ function Producto_Ingresar() {
                                 COD_PRODUCTO: $("#COD_PRODUCTO_SERVICIO").val(),
                                 DESC_PRODUCTO: $("#DESC_SERVICIO").val(),
                                 ID_UNIDAD_MEDIDA: $("#ID_UNIDAD_MEDIDA_SERVICIO").val(),
+                                ID_SUCURSAL: $("#hfd_ID_SUCURSAL").val(),
                                 PRECIO_VENTA: $("#PRECIO_VENTA_SERVICIO").val(),
                                 DETALLE: $("#DETALLE").val(),
                                 FLG_SERVICIO: 1, // producto                         

@@ -1,10 +1,10 @@
 ﻿@model App_Ventas.Areas.Inventario.Models.ProductoModelView
 
 <script>
-    var _FlgServicio = false; 
-    var CambioImg= false;
+    var _FlgServicio = false;
+    var CambioImg = false;
     var Img_Array = new Array();
-    var Frm_Archivo_Img = @Html.Raw(Json.Encode(Model.MiArchivo))
+    @*var Frm_Archivo_Img = @Html.Raw(Json.Encode(Model.MiArchivo))*@
 
     $(document).ready(function () {
 
@@ -53,12 +53,12 @@
             $('#frmMantenimiento_Productos').hide();
             $('#frmMantenimiento_Servicios').show('slow');
             $('#frmMantenimiento_ImagenProducto').hide();
-            _FlgServicio = false; 
+            _FlgServicio = true;
         } else if (_valor == 0) {
             $('#frmMantenimiento_Servicios').hide();
             $('#frmMantenimiento_Productos').show('slow');
             $('#frmMantenimiento_ImagenProducto').show('slow');
-            _FlgServicio = true; 
+            _FlgServicio = false;
         }
     });
 
@@ -79,9 +79,9 @@
         }
     });
 
-   
+
     $("#fileField_imgen").change(function () {
-        debugger; 
+        debugger;
         var input = document.getElementById('fileField_imgen');
         var file = input.files[0];
         if (file != undefined) {
@@ -139,9 +139,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <div class="alert alert-info alert-dismissible alert-alt fade show">
-                <strong><i class="bi bi-info-lg"></i></strong> You have got 5 new email.                        
-            </div>
+
 
 
             <div class="form-row border-bottom-head">
@@ -168,6 +166,9 @@
                 </div>
             </div>
             <br />
+            <div class="alert alert-info alert-dismissible alert-alt fade show">
+                <strong><i class="bi bi-exclamation-lg"></i></strong>Este producto sera registrado para el sucursal:<b> @Model.DESC_SUCURSAL.</b>
+            </div>
 
             @*      <ul class="nav nav-tabs" style="margin-bottom: 10px;">
                 <li class="nav-item"><a href="#Usuariospanel" id="UsuariosTab" onclick="Tab_Click(this);" data-toggle="tab" class="nav-link active"><i class="bi bi-person-lines-fill"></i>&nbsp; Usuario</a>
@@ -341,3 +342,4 @@
 
 @Html.Hidden("hfd_ID_PRODUCTO", Model.ID_PRODUCTO)
 @Html.Hidden("AccionProducto", Model.Accion)
+@Html.Hidden("hfd_ID_SUCURSAL", Model.ID_SUCURSAL)

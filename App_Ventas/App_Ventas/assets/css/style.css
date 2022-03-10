@@ -14806,7 +14806,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .alert-info {
   background: #bef5e8;
   border-color: #bef5e8;
-  color: #50E3C2; }
+  color:#424242; }
 
 .alert-dark {
   background: #dedede;

@@ -6,6 +6,7 @@
     $(document).ready(function () {
         Producto_ConfigurarGrilla();
         Producto_CargarGrilla();
+        $(".badge").tooltip({ placement: "bottom" ,delay: {show: 100, hide: 400} });
     });
 
     $("#Producto_btnBuscar").click(function (e) {
