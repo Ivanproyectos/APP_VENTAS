@@ -13575,8 +13575,10 @@ svg text {
   height: 100%; }
 
 .form-control:disabled, .form-control[readonly] {
-  background: #fff;
-  opacity: 1; }
+  background: #f7f7f7;
+  opacity: 1; 
+  cursor: not-allowed;
+}
 
 .custom-file-label {
   background: #fff;

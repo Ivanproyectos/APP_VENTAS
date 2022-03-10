@@ -1,51 +1,122 @@
 ﻿@model App_Ventas.Areas.Inventario.Models.ProductoModelView
 
 <script>
-$(document).ready(function () {
-    $('#FLG_VENCE').bootstrapToggle({
-    on: 'Si',
-    off: 'No',
-    size: "mini",
-    width: "50",
-    onstyle: "danger"
+    var _FlgServicio = false; 
+    var CambioImg= false;
+    var Img_Array = new Array();
+    var Frm_Archivo_Img = @Html.Raw(Json.Encode(Model.MiArchivo))
+
+    $(document).ready(function () {
+
+        $('#FLG_VENCE').bootstrapToggle({
+            on: 'Si',
+            off: 'No',
+            size: "mini",
+            width: "50",
+            onstyle: "danger"
+        });
+        $('#FLG_SERIVICIO').bootstrapToggle({
+            on: 'Servicio',
+            off: 'Producto',
+            onstyle: "info",
+            size: "normal",
+            width: "90",
+        });
+        $('#STOCK').numeric();
+        $('#STOCK_MINIMO').numeric();
+        $('#ID_UNIDAD_MEDIDA').select2();
+        $('#ID_UNIDAD_MEDIDA_SERVICIO').select2();
+
+        if ($('#AccionProducto').val() == "N") {
+            $('#ID_UNIDAD_MEDIDA').val(7).trigger('change');
+            $('#ID_UNIDAD_MEDIDA_SERVICIO').val(7).trigger('change');
+        }
     });
-    $('#FLG_SERIVICIO').bootstrapToggle({
-    on: 'Servicio',
-    off: 'Producto',
-    onstyle: "info",
-    size: "normal",
-    width: "90",
+    $('#FECHA_VENCIMIENTO').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        firstDay: 1,
+        changeFirstDay: false,
+        showAnim: 'slideDown'
     });
-    $('#STOCK').numeric();
-    $('#STOCK_MINIMO').numeric();
-    $('#ID_UNIDAD_MEDIDA').select2();
-});
-
-$('#Usuarios_btn_Guardar').click(function () {
-    Preguntar();    
-});
 
 
-$('input:radio[name=Producto_FlgServicio]').change(function () {
-    var _valor = $('input:radio[name=Producto_FlgServicio]:checked').val();
-    if (_valor == 1) {
-    $('#frmMantenimiento_Productos').hide();
-    $('#frmMantenimiento_Servicios').show('slow');
-    $('#frmMantenimiento_ImagenProducto').hide();
+    $('#Usuarios_btn_Guardar').click(function () {
+        Producto_Ingresar();
+    });
 
-    } else if (_valor == 0) {
-    $('#frmMantenimiento_Servicios').hide();
-    $('#frmMantenimiento_Productos').show('slow');
-    $('#frmMantenimiento_ImagenProducto').show('slow');
+
+    $('input:radio[name=Producto_FlgServicio]').change(function () {
+        var _valor = $('input:radio[name=Producto_FlgServicio]:checked').val();
+        if (_valor == 1) {
+            $('#frmMantenimiento_Productos').hide();
+            $('#frmMantenimiento_Servicios').show('slow');
+            $('#frmMantenimiento_ImagenProducto').hide();
+            _FlgServicio = false; 
+        } else if (_valor == 0) {
+            $('#frmMantenimiento_Servicios').hide();
+            $('#frmMantenimiento_Productos').show('slow');
+            $('#frmMantenimiento_ImagenProducto').show('slow');
+            _FlgServicio = true; 
+        }
+    });
+
+    function GenerarCodigoProucto() {
+        var Codigo = rand_code(8);
+        $('#COD_PRODUCTO').val(Codigo);
+        $('#COD_PRODUCTO_SERVICIO').val(Codigo);
     }
-});
 
-function GenerarCodigoProucto() {
-    var Codigo = rand_code(8);
-    $('#COD_PRODUCTO').val(Codigo);
-}
-    
+    $('#FLG_VENCE').change(function () {
+        if ($(this).is(':checked')) {
+            $('#FECHA_VENCIMIENTO').prop('disabled', false);
+            $('#FECHA_VENCIMIENTO').datepicker('show');
+        }
+        else {
+            $('#FECHA_VENCIMIENTO').prop('disabled', true);
+            $('#FECHA_VENCIMIENTO').val('');
+        }
+    });
 
+   
+    $("#fileField_imgen").change(function () {
+        debugger; 
+        var input = document.getElementById('fileField_imgen');
+        var file = input.files[0];
+        if (file != undefined) {
+            var PesodeArchivo = parseFloat(file.size);
+            var ext = input.files[0].name.split('.').pop();
+            var nombre = input.files[0].name;
+            if (nombre.length > 100) {
+                jWarning("El nombre del documento es muy largo", 'Alerta');
+                $(this).val('');
+                return false;
+            }
+            else {
+                var valido = false;
+                if (ext.toLowerCase() == "png" || ext.toLowerCase() == "jpeg" || ext.toLowerCase() == "jpg")
+                    valido = true;
+                if (PesodeArchivo > Tamanio_Valido || !valido) {
+                    $(this).val('');
+                    if (!valido)
+                        jWarning("Solo se permite documentos en formato Imagen(.png,.jpeg,.jpg)", 'Alerta');
+                    else
+                        jWarning("La cantidad de el archivo que va adjuntar no pueden pesar más de " + Tamanio_Valido / 1024 / 1024 + "Mb", 'Alerta');
+                    return false;
+                } else {
+                    //$("#lbl_file").html(nombre);
+                    _GuardarTemporal();
+                }
+                //archivo_cambiado = true;
+            }
+        } else {
+            $(this).val('');
+            //DocumentoArchivo_Error();
+            return false;
+        }
+
+    });
 
 </script>
 
@@ -68,6 +139,11 @@ function GenerarCodigoProucto() {
             </button>
         </div>
         <div class="modal-body">
+            <div class="alert alert-info alert-dismissible alert-alt fade show">
+                <strong><i class="bi bi-info-lg"></i></strong> You have got 5 new email.                        
+            </div>
+
+
             <div class="form-row border-bottom-head">
                 <div class="col-sm-6">
 
@@ -93,7 +169,7 @@ function GenerarCodigoProucto() {
             </div>
             <br />
 
-      @*      <ul class="nav nav-tabs" style="margin-bottom: 10px;">
+            @*      <ul class="nav nav-tabs" style="margin-bottom: 10px;">
                 <li class="nav-item"><a href="#Usuariospanel" id="UsuariosTab" onclick="Tab_Click(this);" data-toggle="tab" class="nav-link active"><i class="bi bi-person-lines-fill"></i>&nbsp; Usuario</a>
                 </li>
                 <li class="nav-item"><a href="#UsuariosAccesoPanel" id="UsuariosAccesoTab" onclick="Tab_Click(this);" data-toggle="tab" class="nav-link DisabledContent"><i class="bi bi-person-check"></i>&nbsp;Usuario Acceso</a>
@@ -130,6 +206,12 @@ function GenerarCodigoProucto() {
                     </div>
 
                     <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.STOCK)
+                        @Html.TextBoxFor(model => model.STOCK, new { @class = "form-control", @maxlength = "200" })
+                        @Html.ValidationMessageFor(model => model.STOCK, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+                    <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.PRECIO_COMPRA)
                         @Html.TextBoxFor(model => model.PRECIO_COMPRA, new { @class = "form-control", @maxlength = "200" })
                         @Html.ValidationMessageFor(model => model.PRECIO_COMPRA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
@@ -141,11 +223,7 @@ function GenerarCodigoProucto() {
                         @Html.ValidationMessageFor(model => model.PRECIO_VENTA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
-                    <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.STOCK)
-                        @Html.TextBoxFor(model => model.STOCK, new { @class = "form-control", @maxlength = "200" })
-                        @Html.ValidationMessageFor(model => model.STOCK, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
-                    </div>
+
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.STOCK_MINIMO)
@@ -156,18 +234,17 @@ function GenerarCodigoProucto() {
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.MARCA)
                         @Html.TextBoxFor(model => model.MARCA, new { @class = "form-control", @maxlength = "7" })
-                        @Html.ValidationMessageFor(model => model.MARCA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.MODELO)
                         @Html.TextBoxFor(model => model.MODELO, new { @class = "form-control", @maxlength = "100" })
-                        @Html.ValidationMessageFor(model => model.MODELO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+
                     </div>
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.FLG_VENCE)  @Html.CheckBoxFor(model => model.FLG_VENCE, new { @class = "form-control", @maxlength = "200" })
-                        @Html.TextBoxFor(model => model.FECHA_VENCIMIENTO, new { @class = "form-control", @maxlength = "7" })
+                        @Html.TextBoxFor(model => model.FECHA_VENCIMIENTO, new { @class = "form-control", @maxlength = "10", @placeholder = "dd/mm/yyyy", @disabled = "true" })
                         @Html.ValidationMessageFor(model => model.FECHA_VENCIMIENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
                 </div>
@@ -184,9 +261,9 @@ function GenerarCodigoProucto() {
                 @Html.ValidationSummary(true)
                 <div class="form-row">
                     <div class="form-group col-md-12 css_center_block">
-                        <label for="fileField-logo" class="attachment">
+                        <label for="fileField_imgen" class="attachment">
                             <div class="row btn-file">
-                                <div class="btn-file__preview" id="Logo_Img"></div>
+                                <div class="btn-file__preview" id="Img_Producto"></div>
                                 <div class="btn-file__actions">
                                     <div class="btn-file__actions__item col-xs-12 text-center">
                                         <div class="btn-file__actions__item--shadow">
@@ -197,7 +274,7 @@ function GenerarCodigoProucto() {
                                     </div>
                                 </div>
                             </div>
-                            <input name="MifileArchivo" type="file" id="fileField-logo" class="file_image">
+                            <input name="MifileArchivo" type="file" id="fileField_imgen" class="file_image">
                         </label>
                     </div>
                 </div>
@@ -210,41 +287,42 @@ function GenerarCodigoProucto() {
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.COD_PRODUCTO)
+                        @Html.LabelFor(model => model.COD_PRODUCTO_SERVICIO)
 
                         <div class="input-group mb-3">
-                            @Html.TextBoxFor(model => model.COD_PRODUCTO, new { @class = "form-control", @maxlength = "100" })
+                            @Html.TextBoxFor(model => model.COD_PRODUCTO_SERVICIO, new { @class = "form-control", @maxlength = "100" })
                             <div class="input-group-append btn-hover-shine waves-effect waves-light" title="generar código" onclick="GenerarCodigoProucto();">
                                 <span class="input-group-text"><i class="bi bi-arrow-clockwise"></i>&nbsp; Generar Código</span>
                             </div>
                         </div>
-                        @Html.ValidationMessageFor(model => model.COD_PRODUCTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                        @Html.ValidationMessageFor(model => model.COD_PRODUCTO_SERVICIO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
 
                     <div class="form-group col-md-6">
-                        <label>Servicio:</label>
-                        @Html.TextBoxFor(model => model.DESC_PRODUCTO, new { @class = "form-control", @maxlength = "200" })
-                        @Html.ValidationMessageFor(model => model.DESC_PRODUCTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                        @Html.LabelFor(model => model.DESC_SERVICIO)
+                        @Html.TextBoxFor(model => model.DESC_SERVICIO, new { @class = "form-control", @maxlength = "200" })
+                        @Html.ValidationMessageFor(model => model.DESC_SERVICIO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.ID_UNIDAD_MEDIDA)
-                        @Html.DropDownListFor(model => model.ID_UNIDAD_MEDIDA, Model.Lista_Unidad_Medida, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
-                        @Html.ValidationMessageFor(model => model.ID_UNIDAD_MEDIDA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                        @Html.LabelFor(model => model.ID_UNIDAD_MEDIDA_SERVICIO)
+                        @Html.DropDownListFor(model => model.ID_UNIDAD_MEDIDA_SERVICIO, Model.Lista_Unidad_Medida, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.ID_UNIDAD_MEDIDA_SERVICIO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
 
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.PRECIO_VENTA)
-                        @Html.TextBoxFor(model => model.PRECIO_VENTA, new { @class = "form-control", @maxlength = "10" })
-                        @Html.ValidationMessageFor(model => model.PRECIO_VENTA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                        @Html.LabelFor(model => model.PRECIO_VENTA_SERVICIO)
+                        @Html.TextBoxFor(model => model.PRECIO_VENTA_SERVICIO, new { @class = "form-control", @maxlength = "10" })
+                        @Html.ValidationMessageFor(model => model.PRECIO_VENTA_SERVICIO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
                     <div class="form-group col-md-12">
                         @Html.LabelFor(model => model.DETALLE)
-                        @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "1000" })
+                        @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "1000", @onkeyup = "CountCharactersControlTxt(this.id,'lbl_countproducto', 1000)" })
                         @Html.ValidationMessageFor(model => model.DETALLE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                        <label id="lbl_countproducto" style="width: 100%" class="Formato" runat="server">Nº Caracteres: 0 restan 1000</label>
                     </div>
 
                 </div>
@@ -261,5 +339,5 @@ function GenerarCodigoProucto() {
 </div>
 
 
-@Html.Hidden("hfd_ID_SUCURSAL", Model.ID_PRODUCTO)
-@Html.Hidden("AccionCategoria", Model.Accion)
+@Html.Hidden("hfd_ID_PRODUCTO", Model.ID_PRODUCTO)
+@Html.Hidden("AccionProducto", Model.Accion)

@@ -5,11 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Capa_Entidad.Base; 
 
 namespace App_Ventas.Areas.Inventario.Models
 {
     public class ProductoModelView
     {
+       
         public long ID_PRODUCTO { get; set; }
    
 
@@ -35,6 +37,14 @@ namespace App_Ventas.Areas.Inventario.Models
         [Required(ErrorMessage = "[Unidad Medida] es obligatorio")]
         public int ID_UNIDAD_MEDIDA { get; set; }
         public List<SelectListItem> Lista_Unidad_Medida{ get; set; }
+
+        [Display(Name = "Categoria: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Categoria] es obligatorio")]
+        public int ID_CATEGORIA { get; set; }
+        public List<SelectListItem> Lista_Categoria { get; set; }
+
+        public int ID_CATEGORIA_SEARCH { get; set; }
 
 
         [Display(Name = "Precio Compra: ")]
@@ -80,10 +90,34 @@ namespace App_Ventas.Areas.Inventario.Models
         [DataType(DataType.Text)]
         public string MODELO { get; set; }
 
+
+        [Display(Name = "Código: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Código] es obligatorio")]
+        public string COD_PRODUCTO_SERVICIO { get; set; }
+
+        [Display(Name = "Servicio: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Servicio] es obligatorio")]
+        public string DESC_SERVICIO { get; set; }
+
+        [Display(Name = "Precio Venta: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Precio Venta] es obligatorio")]
+        public string PRECIO_VENTA_SERVICIO { get; set; }
+
+        [Display(Name = "Unidad Medida: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Unidad Medida] es obligatorio")]
+        public int ID_UNIDAD_MEDIDA_SERVICIO { get; set; }
+
         [Display(Name = "Detalle: ")]
         [DataType(DataType.Text)]
         public string DETALLE { get; set; }
 
         public string Accion { get; set; }
+        public string DESC_SUCURSAL { get; set; }
+        
+        public Cls_Ent_Archivo MiArchivo { get; set; }
     }
 }

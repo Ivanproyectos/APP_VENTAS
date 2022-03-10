@@ -1,7 +1,6 @@
 ﻿
 
 $("#fileField-isotipo").change(function () {
-   
     var TIPO = 1; // ISOTIPO
     var input = document.getElementById('fileField-isotipo');
     var file = input.files[0];

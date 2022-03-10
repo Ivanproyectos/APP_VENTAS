@@ -48,6 +48,18 @@ jError = function (message, title){
 }
 
 
+jInfo = function (message, title){
+    Swal.fire({
+        title: title,
+        text : message,
+        icon:'info',
+        confirmButtonText: 'Aceptar'
+    }
+  ); 
+}
+
+
+
 
 jWarning = function (message, title){
     toastr.warning(message, title, {

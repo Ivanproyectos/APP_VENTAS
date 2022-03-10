@@ -200,6 +200,7 @@
     <Compile Include="Areas\Inventario\Models\CategoriaModelView.cs" />
     <Compile Include="Areas\Inventario\Models\ProductoModelView.cs" />
     <Compile Include="Areas\Inventario\Repositorio\CategoriaRepositorio.cs" />
+    <Compile Include="Areas\Inventario\Repositorio\ProductoRepositorio.cs" />
     <Compile Include="Areas\Servicios\Controllers\ServiciosWebController.cs" />
     <Compile Include="Areas\Servicios\ServiciosAreaRegistration.cs" />
     <Compile Include="Areas\Ventas\Controllers\VentasController.cs" />
@@ -4160,6 +4161,7 @@
     <Content Include="Scripts\Js\CuentasCobrar\CuentasCobrar.js" />
     <Content Include="Scripts\Js\Inventario\Categoria.js" />
     <Content Include="Scripts\Js\Inventario\Producto.js" />
+    <Content Include="Scripts\Js\Inventario\Producto_Recursos.js" />
     <Content Include="Scripts\Js\Prueba.js" />
     <Content Include="Scripts\Js\Servicio\ServicioPersona.js" />
     <Content Include="Scripts\Js\Ventas\Ventas.js" />
@@ -4222,6 +4224,7 @@
     <Folder Include="Areas\Servicios\Models\" />
     <Folder Include="Areas\Servicios\Views\Shared\" />
     <Folder Include="Areas\Ventas\Views\Shared\" />
+    <Folder Include="Recursos\ImagenProducto\" />
     <Folder Include="Recursos\Logo_Empresa\" />
     <Folder Include="Recursos\Log\" />
     <Folder Include="Recursos\Temporales\" />

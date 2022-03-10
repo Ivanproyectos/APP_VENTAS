@@ -59,6 +59,7 @@
     <Compile Include="Base\Cls_Ent_Titulo.cs" />
     <Compile Include="Cls_Ent_Auditoria.cs" />
     <Compile Include="Inventario\Cls_Ent_Categoria.cs" />
+    <Compile Include="Inventario\Cls_Ent_Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
