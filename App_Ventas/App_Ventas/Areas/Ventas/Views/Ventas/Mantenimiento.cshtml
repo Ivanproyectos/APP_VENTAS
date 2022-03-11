@@ -1,10 +1,7 @@
 ﻿@model App_Ventas.Areas.Ventas.Models.VentasModelView
-
 <script>
-
-
-
     $(document).ready(function () {
+        ConfigurarFormulario();
         var Fecha_Actual = moment().format('DD/MM/YYYY');
         $('#FECHA_VENTA').val(Fecha_Actual);
         $('#FLG_TIPO_VENTA').bootstrapToggle({
@@ -18,9 +15,8 @@
         });
         Ventas_Detalle_ConfigurarGrilla();
         $('#ID_CLIENTE').select2();
-        $('#ID_TIPO_COMPROBANTE').val('03');  
+        $('#ID_TIPO_COMPROBANTE').val('03');
     });
-
     $('#FECHA_VENTA').datepicker({
         changeMonth: true,
         changeYear: true,
@@ -29,8 +25,6 @@
         changeFirstDay: false,
         showAnim: 'slideDown'
     });
-
-
 
     $('#Ventas_btn_Guardar').click(function () {
         Preguntar();
@@ -78,6 +72,11 @@
         color: #000;
         border: 1px solid #c7c6c6;
     }
+
+    ._Montos {
+        float: right;
+        text-align: right;
+    }
 </style>
 
 <div class="modal fade" id="myModalBuscarProduc" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
@@ -92,37 +91,26 @@
         </div>
         <div class="modal-body">
             @using (Html.BeginForm("Ventas", "Ventas", new { @area = "Ventas" }, FormMethod.Post, new { @id = "frmMantenimiento_Ventas" }))
-            {
-                       
+            {                
                 @Html.ValidationSummary(true) 
                 <div class="form-row">
-                    @*   <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.COD_VENTA)
-                        @Html.TextBoxFor(model => model.COD_VENTA, new { @class = "form-control", @maxlength = "100", @disabled = "true" })
-                        @Html.ValidationMessageFor(model => model.COD_VENTA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
-                    </div>*@
-
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.ID_TIPO_COMPROBANTE)
                         @Html.DropDownListFor(model => model.ID_TIPO_COMPROBANTE, Model.Lista_Tipo_Comprobante, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         @Html.ValidationMessageFor(model => model.ID_TIPO_COMPROBANTE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
-                     <div class="form-group col-md-6">
+                    <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.FECHA_VENTA)
                         @Html.TextBoxFor(model => model.FECHA_VENTA, new { @class = "form-control", @maxlength = "100" })
                         @Html.ValidationMessageFor(model => model.FECHA_VENTA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
-
 
                     <div class="form-group col-md-12">
                         @Html.LabelFor(model => model.ID_CLIENTE)
                         @Html.DropDownListFor(model => model.ID_CLIENTE, Model.Lista_Cliente, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         @Html.ValidationMessageFor(model => model.ID_CLIENTE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
-
-                   
-
                 </div>
             }
             <br />
@@ -154,7 +142,7 @@
                             @Html.LabelFor(model => model.DESCUENTO)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">S/.</span>
+                                    <span class="input-group-text"><span class="simboloMoneda"></span></span>
                                 </div>
                                 @Html.TextBoxFor(model => model.DESCUENTO, new { @class = "form-control ignore", @maxlength = "200", @requiered = "false" })
                             </div>
@@ -164,7 +152,7 @@
                             @Html.LabelFor(model => model.TOTAL_RECIBIDO)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">S/.</span>
+                                    <span class="input-group-text"><span class="simboloMoneda"></span></span>
                                 </div>
                                 @Html.TextBoxFor(model => model.TOTAL_RECIBIDO, new { @class = "form-control", @maxlength = "200" })
                             </div>
@@ -174,7 +162,7 @@
                             @Html.LabelFor(model => model.VUELTO)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">S/.</span>
+                                    <span class="input-group-text"><span class="simboloMoneda"></span></span>
                                 </div>
                                 @Html.TextBoxFor(model => model.VUELTO, new { @class = "form-control", @maxlength = "200" })
                             </div>
@@ -192,7 +180,7 @@
                             @Html.LabelFor(model => model.ADELANTO)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">S/.</span>
+                                    <span class="input-group-text"><span class="simboloMoneda"></span></span>
                                 </div>
                                 @Html.TextBoxFor(model => model.ADELANTO, new { @class = "form-control", @maxlength = "200" })
                             </div>
@@ -211,15 +199,26 @@
                     <div class="basic-list-group">
                         <ul class="list-group list-group-flush" style="color: #5a5a5a;">
                             <li class="list-group-item"><strong><b>Resumen:</b> </strong></li>
-                            <li class="list-group-item"><span class="_text_detalle"><span class="text-danger">(-) </span>Descuento Total:</span> <span class="_text_detalle_monto">0</span></li>
-                            <li class="list-group-item"><span class="_text_detalle">Igv():</span> <span class="_text_detalle_monto">0</span> </li>
-                            <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;"><span class="_text_detalle">Total:</span> <span class="_text_detalle_monto">0</span></li>
+                            <li class="list-group-item">
+                                <span class="_text_detalle"><span class="text-danger">(-) </span>Descuento Total:</span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Descuento"><span class="simboloMoneda"></span>0.0</span></span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="_text_detalle">Subtotal:</span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Subtotal"><span class="simboloMoneda"></span>0.0</span></span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="_text_detalle"><span id="NomImpuesto"></span>(<span id="Impuesto"></span>%):</span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Igv"><span class="simboloMoneda"></span>0.0</span></span>
+                            </li>
+                            <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;">
+                                <span class="_text_detalle">Total:</span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Total"><span class="simboloMoneda"></span>0.0</span></span>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
-
-
 
         </div>
         <div class="modal-footer">

@@ -76,7 +76,7 @@ function Ventas_MostrarNuevo() {
 function Ventas_MostarBuscarProducto() {
     var _ID_SUCURSAL = $('#inputL_Id_Sucursal').val();
     jQuery("#myModalBuscarProduc").html('');
-    jQuery("#myModalBuscarProduc").load(baseUrl + "Recursiva/Productos/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + _ID_SUCURSAL + "&GrillaCarga=" + Ventas_Detalle_Grilla, function (responseText, textStatus, request) {
+    jQuery("#myModalBuscarProduc").load(baseUrl + "Ventas/Ventas/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + _ID_SUCURSAL + "&GrillaCarga=" + Ventas_Detalle_Grilla, function (responseText, textStatus, request) {
         $('#myModalBuscarProduc').modal({ show: true, backdrop: 'static', keyboard: false });
         $.validator.unobtrusive.parse('#myModalBuscarProduc');
         if (request.status != 200) return;

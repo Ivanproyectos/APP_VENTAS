@@ -4,15 +4,14 @@ var Ventas_Detalle_Barra = 'Ventas_Detalle_Barra';
 
 function Ventas_Detalle_ConfigurarGrilla() {
     $("#" +  Ventas_Detalle_Grilla).GridUnload();
-    var colNames = [ 'Eliminar','codigo', 'ID','Producto','Precio', 'Cantidad', 'Igv', 'Importe'];
+    var colNames = [ 'Eliminar','codigo', 'ID','Producto','Precio', 'Cantidad','Importe'];
     var colModels = [
             { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: false, formatter: Cargo_actionEliminar, sortable: false },
             { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
-            { name: 'ID_CARGO', index: 'ID_CARGO', align: 'center', width: 100, hidden: true, key: true },
+            { name: 'ID_PRODUCTO', index: 'ID_PRODUCTO', align: 'center', width: 100, hidden: true, key: true },
             { name: 'PRODUCTO', index: 'PRODUCTO', align: 'left', width: 300, hidden: false },
             { name: 'PRECIO', index: 'PRECIO', align: 'left', width: 100, hidden: false },
             { name: 'CANTIDAD', index: 'CANTIDAD', align: 'left', width: 100, hidden: false },
-            { name: 'IGV', index: 'IGV', align: 'left', width: 100, hidden: false },
             { name: 'IMPORTE', index: 'IMPORTE', align: 'left', width: 100, hidden: false },
     ];
     var opciones = {
@@ -47,4 +46,38 @@ function Cargo_actionEliminar(cellvalue, options, rowObject) {
 }
 
 
+function Ventas_Detalle_BuscarProducto_Grilla(ID_PRODUCTO) {
+    debugger;
+    var buscado = false;
+    var ids = $("#" + Ventas_Detalle_Grilla).getDataIDs();
+    for (var i = 0; i < ids.length; i++) {
+        var rowId = ids[i];
+        var rowData = $("#" + Ventas_Detalle_Grilla).jqGrid('getRowData', rowId);
+        if (rowData.ID_PRODUCTO == ID_PRODUCTO) return true;
+    }
+    return buscado;
+}
+
+
+
+function CalcularMontoTotalDetalle() {
+    var ids = $("#" + Ventas_Detalle_Grilla).getDataIDs();
+    var _subtotal = 0;
+    var _descuento = 0;
+    var _Igv = 0; 
+
+    var _Total = 0;
+    for (var i = 0; i < ids.length; i++) {
+        var rowId = ids[i];
+        var rowData = $("#" + Ventas_Detalle_Grilla).jqGrid('getRowData', rowId);
+        _Total += parseFloat(rowData.IMPORTE)
+    }
+
+    _Igv = Math.floor(_Total * 18) / 100;
+    _subtotal =_Total - _Igv ;
+
+    $('#Venta_Igv').text( Number(_Igv).toFixed(2));
+    $('#Venta_Subtotal').text( Number(_subtotal).toFixed(2));
+    $('#Venta_Total').text( Number(_Total).toFixed(2));
+}
 

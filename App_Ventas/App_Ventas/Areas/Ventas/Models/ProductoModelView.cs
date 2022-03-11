@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using Capa_Entidad.Base; 
 
 
-namespace App_Ventas.Areas.Recursiva.Models
+namespace App_Ventas.Areas.Ventas.Models
 {
     public class ProductoModelView
     {

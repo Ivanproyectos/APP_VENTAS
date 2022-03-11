@@ -1,20 +1,51 @@
-﻿@model App_Ventas.Areas.Recursiva.Models.ProductoModelView
+﻿@model App_Ventas.Areas.Ventas.Models.ProductoModelView
 <script src="@Url.Content("~/Scripts/Js/Recursiva/BuscarProcutos.js")" type="text/javascript"></script>
 <script>
     var _Valido = false;
+    var _Grilla = $('#hdf_Grilla').val();
     $(document).ready(function () {
+        ConfigurarFormulario();
         $('#CANTIDAD').numeric();
         setTimeout(function () { $('#SEARCH_PRODUCTO').focus(); }, 500)
     });
-
     // al cerrar el modal hijo el padre sigue con la clase modal open. 
     $(document).on('hidden.bs.modal', '.modal', function () {
         $('.modal:visible').length && $(document.body).addClass('modal-open');
     });
 
     $('#Sucursal_Btn_Guardar').click(function () {
-        //Sucursal_Ingresar();
+        if (_Valido) {
+            if ($('#frmMantenimiento_BuscarProducto').valid()) {
+                var rowKey = jQuery("#" + _Grilla).getDataIDs();
+                var ix = rowKey.length;
+                ix++;
+                var myData =
+                      {
+                          CODIGO: ix,
+                          ID_PRODUCTO: $("#hfd_ID_PRODUCTO").val(),
+                          PRODUCTO: $("#SEARCH_PRODUCTO").val(),
+                          PRECIO: Number($("#PRECIO_VENTA").val()).toFixed(2),
+                          CANTIDAD: $("#CANTIDAD").val(),
+                          IMPORTE: Number($("#TOTAL").val()).toFixed(2)
+                      };
+
+                if (Ventas_Detalle_BuscarProducto_Grilla($('#hfd_ID_PRODUCTO').val())) {
+                    jError('Producto seleccionado ya se encuentra en la lista.', 'Atención');
+                } else {
+                    jQuery("#" + _Grilla).jqGrid('addRowData', ix, myData);
+                    CalcularMontoTotalDetalle();
+                }
+                LimpiarFormulario();
+                $('#_DetallePorductos').hide('');
+                $('#SEARCH_PRODUCTO').val('');
+                $('#SEARCH_PRODUCTO').focus();
+            }
+        } else {
+            jError('Debe buscar un producto para ingresar a la lista. No seas imbecil', 'Atención');
+        }
+
     });
+
 
     $('#Btn_CerrarModal').click(function () {
         $('#myModalBuscarProduc').modal('hide');
@@ -23,13 +54,10 @@
         $(".modal-content").draggable();
     });
 
-    /*autocomplete*/
-
     $('#CANTIDAD').keyup(function () {
         var _valor = $(this).val();
         if (_valor == "") {
             _valor = 1
-            //$('#CANTIDAD').val(1)
         }
         var _precio = $('#PRECIO_VENTA').val();
         var _stock = parseInt($('#hfd_STOCK').val());
@@ -45,26 +73,58 @@
         }
     });
 
+    function LimpiarFormulario() {
+        $('#Alert_Error').hide();
+        $('#mensaje_Error').text('');
+        $('#hfd_ID_PRODUCTO').val('');
+        $('#hfd_STOCK').val('');
+        _Valido = false;
+    }
 
 
+
+    /*autocomplete*/
     $('#SEARCH_PRODUCTO').autocomplete(
     {
         source: function (request, response) {
-            $.getJSON('@Url.Action("Producto_Buscar_Listar", "Productos", new { area = "Recursiva" })', { DESC_PRODUCTO: request.term.toUpperCase(), COD_PRODUCTO: '' },
+            $.getJSON('@Url.Action("Producto_Buscar_Listar", "Ventas", new { area = "Ventas" })', { DESC_PRODUCTO: request.term.toUpperCase(), COD_PRODUCTO: '' },
         response);
         },
         minLength: 4,
         select: function (event, ui) {
-            $('#_DetallePorductos').show('slow');
-            $("#SEARCH_PRODUCTO").val(ui.item.DESC_PRODUCTO);
-            $("#ID_UNIDAD_MEDIDA").val(ui.item.ID_UNIDAD_MEDIDA);
-            $("#COD_PRODUCTO").val(ui.item.COD_PRODUCTO);
-            $("#INPUT_STOCK").text(ui.item.STOCK);
-            $("#PRECIO_VENTA").val(ui.item.PRECIO_VENTA);
-            $("#DETALLE").val(ui.item.DETALLE);
-            $("#hfd_STOCK").val(ui.item.STOCK);
-            $('#TOTAL').val(ui.item.PRECIO_VENTA);
-            $('#CANTIDAD').val(1);
+            LimpiarFormulario();
+            if (parseInt(ui.item.STOCK) > 0 && ui.item.FLG_SERVICIO == 0) {
+                $('#_DetallePorductos').show('slow');
+                $("#SEARCH_PRODUCTO").val(ui.item.DESC_PRODUCTO);
+                $("#ID_UNIDAD_MEDIDA").val(ui.item.ID_UNIDAD_MEDIDA);
+                $("#COD_PRODUCTO").val(ui.item.COD_PRODUCTO);
+                $("#INPUT_STOCK").text(ui.item.STOCK);
+                $("#PRECIO_VENTA").val(Number(ui.item.PRECIO_VENTA).toFixed(2));
+                $("#DETALLE").val(ui.item.DETALLE);
+                $("#hfd_STOCK").val(ui.item.STOCK);
+                $('#TOTAL').val(Number(ui.item.PRECIO_VENTA).toFixed(2));
+                $('#hfd_ID_PRODUCTO').val(ui.item.ID_PRODUCTO);
+                $('#CANTIDAD').val(1);
+                _Valido = true;
+            } else if (ui.item.FLG_SERVICIO == 1) {
+                $('#_DetallePorductos').show('slow');
+                $("#SEARCH_PRODUCTO").val(ui.item.DESC_PRODUCTO);
+                $("#ID_UNIDAD_MEDIDA").val(ui.item.ID_UNIDAD_MEDIDA);
+                $("#COD_PRODUCTO").val(ui.item.COD_PRODUCTO);
+                $("#INPUT_STOCK").text(ui.item.STOCK);
+                $("#PRECIO_VENTA").val(Number(ui.item.PRECIO_VENTA).toFixed(2));
+                $("#DETALLE").val(ui.item.DETALLE);
+                $("#hfd_STOCK").val(ui.item.STOCK);
+                $('#TOTAL').val(Number(ui.item.PRECIO_VENTA).toFixed(2));
+                $('#hfd_ID_PRODUCTO').val(ui.item.ID_PRODUCTO);
+                $('#CANTIDAD').val(1);
+                _Valido = true;
+            }
+            else {
+                $('#Alert_Error').show('slow');
+                $('#mensaje_Error').text('Producto selecionado sin stock ):.');
+                _Valido = false;
+            }
             return false;
         },
         response: function (event, ui) {
@@ -88,9 +148,6 @@
 
             )).appendTo(ul);
     }
-
-
-
 
 </script>
 <style>
@@ -145,16 +202,9 @@
     <div class="modal-content">
         <div class="modal-header" id="modal-header_this">
             <h5 class="modal-title"><i class="bi bi-search"></i>&nbsp; Buscar producto</h5>
-            @*     <button type="button" class="close" data-dismiss="modal">
-                <span>&times;</span>
-            </button>*@
         </div>
-
-
         <div class="modal-body">
-
-
-            @using (Html.BeginForm("Cargo", "Cargo", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmMantenimiento_BuscarProducto" }))
+            @using (Html.BeginForm("", "", new { @area = "" }, FormMethod.Post, new { @id = "frmMantenimiento_BuscarProducto" }))
             {
                 @Html.ValidationSummary(true)
                 <div class="form-row">
@@ -181,14 +231,11 @@
                         @Html.DropDownListFor(model => model.ID_UNIDAD_MEDIDA, Model.Lista_Unidad_Medida, new { @class = "form-control", @maxlength = "150", @style = "width:100%", @disabled = "true" })
                         @Html.ValidationMessageFor(model => model.ID_UNIDAD_MEDIDA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
-
-
-
                     <div class="form-group col-md-4">
                         @Html.LabelFor(model => model.PRECIO_VENTA)
                         <div class="input-group ">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">S/.</span>
+                                <span class="input-group-text"><span class="simboloMoneda"></span></span>
                             </div>
                             @Html.TextBoxFor(model => model.PRECIO_VENTA, new { @class = "form-control", @maxlength = "100", @aucomplete = "off", @disabled = "true" })
                         </div>
@@ -206,12 +253,11 @@
                         @Html.ValidationMessageFor(model => model.CANTIDAD, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
-
                     <div class="form-group col-md-4">
                         @Html.LabelFor(model => model.TOTAL)
                         <div class="input-group ">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">S/.</span>
+                                <span class="input-group-text"><span class="simboloMoneda"></span></span>
                             </div>
                             @Html.TextBoxFor(model => model.TOTAL, new { @class = "form-control", @maxlength = "100", @aucomplete = "off", @disabled = "true" })
                         </div>
@@ -221,15 +267,19 @@
 
                     <div class="form-group col-md-12">
                         @Html.LabelFor(model => model.DETALLE)
-                        @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "1000", @aucomplete = "off" })
+                        @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "1000", @aucomplete = "off", @disabled = "true" })
                         @Html.ValidationMessageFor(model => model.DETALLE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
                 </div>
 
-                <div class="alert alert-danger alert-dismissible alert-alt fade show col-md-12">
-                    <strong><i class="bi bi-exclamation-circle"></i></strong>Message Sending failed.                     
+                <div id="Alert_Error" class="alert alert-danger alert-dismissible alert-alt fade show col-md-12" style="display: none;">
+                    <strong><i class="bi bi-exclamation-circle"></i>&nbsp;</strong><span id="mensaje_Error"></span>
                 </div>
 
+                <div id="Alert_Warning " class="alert alert-warning alert-dismissible alert-alt fade show col-md-12" style="display: none;">
+                    <strong><i class="bi bi-exclamation-triangle"></i>&nbsp;</strong><span id="mensaje_Alerta"></span>
+                </div>
+                
 @*     <div class="" style="width: 417px">
                         <div class='_cListProductos   border-bottom-head'>
                             <div class='_text_producto'>item.DESC_PRODUCTO </div>
@@ -240,14 +290,8 @@
                                 <div class='_FotoPro'>  </div>
                             </div>
                         </div>
-                    </div>*@
-
-
-
-                
+                    </div>*@        
             }
-
-
         </div>
         <div class="modal-footer">
             <button type="button" id="Sucursal_Btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-basket"></i>&nbsp; Agregar Producto</button>
@@ -255,7 +299,6 @@
         </div>
     </div>
 </div>
-
 @Html.Hidden("hfd_ID_PRODUCTO", Model.ID_PRODUCTO)
 @Html.Hidden("hfd_STOCK", Model.STOCK)
 @Html.Hidden("hdf_Grilla", Model.GrillaCarga)

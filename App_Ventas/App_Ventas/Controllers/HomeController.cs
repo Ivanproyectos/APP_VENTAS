@@ -10,7 +10,9 @@ namespace App_Ventas.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.SimboloMoneda = "S/"; 
+            ViewBag.SimboloMoneda = "S/.";
+            ViewBag.IMPUESTO = "18";
+            ViewBag.NOMBRE_IMPUESTO = "IGV"; 
 
             return View();
         }
