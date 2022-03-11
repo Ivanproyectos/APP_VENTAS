@@ -98,7 +98,7 @@ namespace Capa_Datos.Inventario
                             else obj.DESC_CATEGORIA = dr.GetString(pos_DESC_CATEGORIA);
 
                             if (dr.IsDBNull(pos_PRECIO_COMPRA)) obj.PRECIO_COMPRA = 0;
-                            else obj.PRECIO_COMPRA = decimal.Parse(dr[pos_ID_PRODUCTO].ToString());
+                            else obj.PRECIO_COMPRA = decimal.Parse(dr[pos_PRECIO_COMPRA].ToString());
 
                             if (dr.IsDBNull(pos_PRECIO_VENTA)) obj.PRECIO_VENTA = 0;
                             else obj.PRECIO_VENTA = decimal.Parse(dr[pos_PRECIO_VENTA].ToString());
@@ -212,7 +212,7 @@ namespace Capa_Datos.Inventario
 
 
                             if (dr.IsDBNull(pos_PRECIO_COMPRA)) obj.PRECIO_COMPRA = 0;
-                            else obj.PRECIO_COMPRA = decimal.Parse(dr[pos_ID_PRODUCTO].ToString());
+                            else obj.PRECIO_COMPRA = decimal.Parse(dr[pos_PRECIO_COMPRA].ToString());
 
                             if (dr.IsDBNull(pos_PRECIO_VENTA)) obj.PRECIO_VENTA = 0;
                             else obj.PRECIO_VENTA = decimal.Parse(dr[pos_PRECIO_VENTA].ToString());
@@ -225,6 +225,9 @@ namespace Capa_Datos.Inventario
 
                             if (dr.IsDBNull(pos_FLG_SERIVICIO)) obj.FLG_SERVICIO = 0;
                             else obj.FLG_SERVICIO = int.Parse(dr[pos_FLG_SERIVICIO].ToString());
+
+                            if (dr.IsDBNull(pos_FLG_VENCE)) obj.FLG_VENCE = 0;
+                            else obj.FLG_VENCE = int.Parse(dr[pos_FLG_VENCE].ToString());
 
                             if (dr.IsDBNull(pos_FECHA_VENCIMIENTO)) obj.FECHA_VENCIMIENTO = "";
                             else obj.FECHA_VENCIMIENTO = dr.GetString(pos_FECHA_VENCIMIENTO);
@@ -358,6 +361,8 @@ namespace Capa_Datos.Inventario
             auditoria.Limpiar();
             try
             {
+                if (entidad.MiArchivo == null)
+                    entidad.MiArchivo = new Cls_Ent_Archivo(); 
                 using (SqlConnection cn = this.GetNewConnection())
                 {
                     SqlCommand cmd = new SqlCommand("USP_INVEN_PRODUCTO_ACTUALIZAR", cn);
@@ -365,7 +370,6 @@ namespace Capa_Datos.Inventario
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_PRODUCTO", SqlDbType.Int)).Value = entidad.ID_PRODUCTO;
                     cmd.Parameters.Add(new SqlParameter("@PI_COD_PRODUCTO", SqlDbType.VarChar, 200)).Value = entidad.COD_PRODUCTO;
                     cmd.Parameters.Add(new SqlParameter("@PI_DESC_PRODUCTO", SqlDbType.VarChar, 200)).Value = entidad.DESC_PRODUCTO;
-                    cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = entidad.ID_SUCURSAL;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_UNIDAD_MEDIDA", SqlDbType.Int)).Value = entidad.ID_UNIDAD_MEDIDA;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_CATEGORIA", SqlDbType.Int)).Value = entidad.ID_CATEGORIA;
                     cmd.Parameters.Add(new SqlParameter("@PI_PRECIO_COMPRA", SqlDbType.Decimal)).Value = entidad.PRECIO_COMPRA;

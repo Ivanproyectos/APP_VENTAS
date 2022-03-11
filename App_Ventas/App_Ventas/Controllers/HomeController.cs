@@ -10,7 +10,7 @@ namespace App_Ventas.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modifique esta plantilla para poner en marcha su aplicación ASP.NET MVC.";
+            ViewBag.SimboloMoneda = "S/"; 
 
             return View();
         }

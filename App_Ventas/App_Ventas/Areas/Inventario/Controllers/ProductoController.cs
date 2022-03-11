@@ -132,6 +132,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                             model.MARCA = lista.MARCA;
                             model.MODELO = lista.MODELO;
                             model.FLG_VENCE = lista.FLG_VENCE ==1 ? true : false;
+                            model.FLG_SERIVICIO = lista.FLG_SERVICIO == 1 ? true : false;
                             model.FECHA_VENCIMIENTO = lista.FECHA_VENCIMIENTO;
                             if(lista.MiArchivo != null)
                                 model.MiArchivo = lista.MiArchivo; 
@@ -141,8 +142,10 @@ namespace App_Ventas.Areas.Inventario.Controllers
 
                             model.ID_PRODUCTO = lista.ID_PRODUCTO;
                             model.COD_PRODUCTO_SERVICIO = lista.COD_PRODUCTO;
+                            model.DESC_SERVICIO = lista.DESC_PRODUCTO;
                             model.ID_UNIDAD_MEDIDA_SERVICIO = lista.ID_UNIDAD_MEDIDA;
                             model.PRECIO_VENTA_SERVICIO = Convert.ToString(lista.PRECIO_VENTA);
+                            model.FLG_SERIVICIO = lista.FLG_SERVICIO == 1 ? true : false;
                             model.DETALLE = lista.DETALLE;
                         }
 
@@ -167,7 +170,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                 {
                     string _archivo = entidad.MiArchivo.CODIGO_ARCHIVO + entidad.MiArchivo.EXTENSION;
                     ruta_temporal = Recursos.Clases.Css_Ruta.Ruta_Temporal() + @"" + _archivo;
-                    string ruta_Logo = Recursos.Clases.Css_Ruta.Ruta_Logo() + @"" + _archivo;
+                    string ruta_Logo = Recursos.Clases.Css_Ruta.Ruta_ImagenProducto() + @"" + _archivo;
                     System.IO.File.Create(ruta_Logo).Close();
                     System.IO.File.WriteAllBytes(ruta_Logo, System.IO.File.ReadAllBytes(ruta_temporal));
 
@@ -205,7 +208,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                 {
                     string _archivo = entidad.MiArchivo.CODIGO_ARCHIVO + entidad.MiArchivo.EXTENSION;
                     ruta_temporal = Recursos.Clases.Css_Ruta.Ruta_Temporal() + @"" + _archivo;
-                    string ruta_Logo = Recursos.Clases.Css_Ruta.Ruta_Logo() + @"" + _archivo;
+                    string ruta_Logo = Recursos.Clases.Css_Ruta.Ruta_ImagenProducto() + @"" + _archivo;
                     System.IO.File.Create(ruta_Logo).Close();
                     System.IO.File.WriteAllBytes(ruta_Logo, System.IO.File.ReadAllBytes(ruta_temporal));
 

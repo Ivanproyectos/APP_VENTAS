@@ -65,21 +65,23 @@ function Ventas_actionEliminar(cellvalue, options, rowObject) {
 function Ventas_MostrarNuevo() {
     jQuery("#myModalNuevo").html('');
     jQuery("#myModalNuevo").load(baseUrl + "Ventas/Ventas/Mantenimiento?id=0&Accion=N", function (responseText, textStatus, request) {
-        $('#myModalNuevo').modal({ show: true });
+        $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
         $.validator.unobtrusive.parse('#myModalNuevo');
         if (request.status != 200) return;
     });
 }
 
-function Ventas_MostrarEditar(ID_VENTA) {
-    jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Ventas/Ventas/Mantenimiento?id=" + ID_VENTA + "&Accion=M", function (responseText, textStatus, request) {
-        $('#myModalNuevo').modal({ show: true });
-        $.validator.unobtrusive.parse('#myModalNuevo');
+
+
+function Ventas_MostarBuscarProducto() {
+    var _ID_SUCURSAL = $('#inputL_Id_Sucursal').val();
+    jQuery("#myModalBuscarProduc").html('');
+    jQuery("#myModalBuscarProduc").load(baseUrl + "Recursiva/Productos/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + _ID_SUCURSAL + "&GrillaCarga=" + Ventas_Detalle_Grilla, function (responseText, textStatus, request) {
+        $('#myModalBuscarProduc').modal({ show: true, backdrop: 'static', keyboard: false });
+        $.validator.unobtrusive.parse('#myModalBuscarProduc');
         if (request.status != 200) return;
     });
 }
-
 
 ///*********************************************** ----------------- *************************************************/
 

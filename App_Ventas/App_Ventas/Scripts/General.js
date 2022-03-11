@@ -190,3 +190,13 @@ function rand_code(lon) {
     }
     return code.toUpperCase();
 }
+
+
+/* card collapse*/
+function CollapsearchCard (_this) {
+    var _this = $(_this).parent().children(); // listado card
+    var _body = _this[1]; // body card
+    $(_this).toggleClass('rotate-icon'); 
+    $(_body).toggleClass('card-body-hide');
+}
+  

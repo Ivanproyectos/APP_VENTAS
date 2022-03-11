@@ -201,8 +201,10 @@
     <Compile Include="Areas\Inventario\Models\ProductoModelView.cs" />
     <Compile Include="Areas\Inventario\Repositorio\CategoriaRepositorio.cs" />
     <Compile Include="Areas\Inventario\Repositorio\ProductoRepositorio.cs" />
-    <Compile Include="Areas\Servicios\Controllers\ServiciosWebController.cs" />
-    <Compile Include="Areas\Servicios\ServiciosAreaRegistration.cs" />
+    <Compile Include="Areas\Recursiva\Controllers\ProductosController.cs" />
+    <Compile Include="Areas\Recursiva\Controllers\ServiciosWebController.cs" />
+    <Compile Include="Areas\Recursiva\Models\ProductoModelView.cs" />
+    <Compile Include="Areas\Recursiva\RecursivaAreaRegistration.cs" />
     <Compile Include="Areas\Ventas\Controllers\VentasController.cs" />
     <Compile Include="Areas\Ventas\Models\VentasModelView.cs" />
     <Compile Include="Areas\Ventas\VentasAreaRegistration.cs" />
@@ -4121,7 +4123,8 @@
     <Content Include="Areas\Ventas\Views\Ventas\Mantenimiento.cshtml" />
     <Content Include="Areas\CuentasCobrar\Views\Web.config" />
     <Content Include="Areas\CuentasCobrar\Views\CuentasCobrar\Index.cshtml" />
-    <Content Include="Areas\Servicios\Views\Web.config" />
+    <Content Include="Areas\Recursiva\Views\Web.config" />
+    <Content Include="Areas\Recursiva\Views\Productos\Mantenimiento_BuscarProducto.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\inicializacion.js" />
@@ -4164,6 +4167,7 @@
     <Content Include="Scripts\Js\Inventario\Producto_Recursos.js" />
     <Content Include="Scripts\Js\Prueba.js" />
     <Content Include="Scripts\Js\Servicio\ServicioPersona.js" />
+    <Content Include="Scripts\Js\Ventas\Ventas_Recursos.js" />
     <Content Include="Scripts\Js\Ventas\Ventas.js" />
     <Content Include="Scripts\Js\Ventas\Ventas_Detalle.js" />
     <Content Include="Scripts\WavesEffect.js" />
@@ -4221,8 +4225,7 @@
     <Folder Include="Areas\Compras\Views\Shared\" />
     <Folder Include="Areas\CuentasCobrar\Views\Shared\" />
     <Folder Include="Areas\Inventario\Views\Shared\" />
-    <Folder Include="Areas\Servicios\Models\" />
-    <Folder Include="Areas\Servicios\Views\Shared\" />
+    <Folder Include="Areas\Recursiva\Views\Shared\" />
     <Folder Include="Areas\Ventas\Views\Shared\" />
     <Folder Include="Recursos\ImagenProducto\" />
     <Folder Include="Recursos\Logo_Empresa\" />

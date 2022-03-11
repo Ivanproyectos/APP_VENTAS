@@ -37,10 +37,17 @@ namespace Capa_Datos.Administracion
                     else
                     { cmd.Parameters.Add(new SqlParameter("@PI_NUMERO_DOCUMENTO", SqlDbType.VarChar, 200)).Value = entidad_param.NUMERO_DOCUMENTO; }
 
+                    if (entidad_param.ID_TIPO_DOCUMENTO == 0)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_ID_TIPO_DOCUMENTO", SqlDbType.Int)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_ID_TIPO_DOCUMENTO", SqlDbType.Int)).Value = entidad_param.ID_TIPO_DOCUMENTO; }
+
                     if (entidad_param.FLG_ESTADO == 2)
                     { cmd.Parameters.Add(new SqlParameter("@PI_FLG_ESTADO", SqlDbType.Int)).Value = DBNull.Value; }
                     else
                     { cmd.Parameters.Add(new SqlParameter("@PI_FLG_ESTADO", SqlDbType.Int)).Value = entidad_param.FLG_ESTADO; }
+
+
                     dr = cmd.ExecuteReader();
                     int pos_ID_CLIENTE = dr.GetOrdinal("ID_CLIENTE");
                     int pos_NOMBRES_APE = dr.GetOrdinal("NOMBRES_APE");

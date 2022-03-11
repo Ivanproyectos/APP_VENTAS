@@ -73,6 +73,11 @@ namespace App_Ventas.Areas.Ventas.Models
         [DataType(DataType.Text)]
         public decimal ADELANTO { get; set; }
 
+        [Display(Name = "Fecha venta: ")]
+        [DataType(DataType.Text)]
+        public string FECHA_VENTA { get; set; }
+        
+
         public string Accion { get; set; }
 
 

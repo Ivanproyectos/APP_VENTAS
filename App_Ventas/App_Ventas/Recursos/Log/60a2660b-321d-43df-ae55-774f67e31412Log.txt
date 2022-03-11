@@ -1,0 +1,4 @@
+System.IndexOutOfRangeException: COD_PRODUCTO
+   en System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   en System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   en Capa_Datos.Inventario.Cls_Dat_Producto.Producto_Listar_Uno(Cls_Ent_Producto entidad_param, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Inventario\Cls_Dat_Producto.cs:línea 172

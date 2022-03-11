@@ -11,12 +11,18 @@ using System.Text;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 
-namespace App_Ventas.Areas.Servicios.Controllers
+
+namespace App_Ventas.Areas.Recursiva.Controllers
 {
     public class ServiciosWebController : Controller
     {
         //
-        // GET: /Servicios/ServiciosWeb/
+        // GET: /Recursiva/ServiciosWeb/
+
+        public ActionResult Index()
+        {
+            return View();
+        }
 
 
         public ActionResult ConsultaRuc(Cls_Ent_Cliente entidad)
@@ -55,7 +61,7 @@ namespace App_Ventas.Areas.Servicios.Controllers
         }
 
 
-    
+
 
     }
 }

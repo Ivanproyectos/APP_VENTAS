@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace App_Ventas.Areas.Servicios
+namespace App_Ventas.Areas.Recursiva
 {
-    public class ServiciosAreaRegistration : AreaRegistration
+    public class RecursivaAreaRegistration : AreaRegistration
     {
         public override string AreaName
         {
             get
             {
-                return "Servicios";
+                return "Recursiva";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "Servicios_default",
-                "Servicios/{controller}/{action}/{id}",
+                "Recursiva_default",
+                "Recursiva/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

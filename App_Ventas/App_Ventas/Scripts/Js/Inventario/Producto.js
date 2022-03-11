@@ -30,10 +30,10 @@ function Producto_ConfigurarGrilla() {
             { name: 'DESC_PRODUCTO', index: 'DESC_PRODUCTO', width: 250, hidden: false, align: "left" },
             { name: 'DESC_UNIDAD_MEDIDA', index: 'DESC_UNIDAD_MEDIDA', width: 200, hidden: false, align: "left" },
             { name: 'PRECIO_COMPRA', index: 'PRECIO_COMPRA', width: 150, hidden: false, align: "left" },
-            { name: 'PRECIO_VENTA', index: 'PRECIO_VENTA', width: 150, hidden: false, align: "left" },
+            { name: 'PRECIO_VENTA', index: 'PRECIO_VENTA', width: 150, hidden: false, align: "left"  ,formatter: Producto_PrecioVentaConcat },
             { name: 'STOCK', index: 'STOCK', width: 100, hidden: false, align: "left", formatter: Producto_StatuStock },
             { name: 'STOCK_MINIMO', index: 'STOCK_MINIMO', width: 150, hidden: true, align: "left" },
-            { name: 'FECHA_VENCIMIENTO', index: 'FECHA_VENCIMIENTO', width: 150, hidden: false, align: "left" },
+            { name: 'FECHA_VENCIMIENTO', index: 'FECHA_VENCIMIENTO', width: 150, hidden: false, align: "left", formatter: Producto_FechaVencimiento },
             { name: 'MARCA', index: 'MARCA', width: 200, hidden: false, align: "left" },
             { name: 'MODELO', index: 'MODELO', width: 200, hidden: false, align: "left" },
             { name: 'DETALLE', index: 'DETALLE', width: 250, hidden: false, align: "left" },
@@ -64,24 +64,49 @@ function Producto_actionActivo(cellvalue, options, rowObject) {
 
 
 
-function Producto_StatuStock(cellvalue, options, rowObject) {
-    var _Stock = parseInt(rowObject.STOCK); 
-    var _StockMinimo = parseInt(rowObject.STOCK_MINIMO);
+
+function Producto_PrecioVentaConcat(cellvalue, options, rowObject) {
+    var _Precioventa = rowObject.PRECIO_VENTA;
+     var _text = _SimboloMoneda +' '+ _Precioventa;  
+    return _text;
+}
+
+
+function Producto_FechaVencimiento(cellvalue, options, rowObject) {
+    var _FechaVencimiento= rowObject.FECHA_VENCIMIENTO;
+    var _FechaActual = moment().format('DD/MM/YYYY');
     debugger;
     var _text = ""; 
-    if (_StockMinimo <= _Stock) {
-        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto con el stock minimo\">" + rowObject.STOCK + "</span>";
+    if (_FechaActual == _FechaVencimiento) {
+        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto vencido\">" + rowObject.FECHA_VENCIMIENTO + " <i class=\"bi bi-exclamation-circle\"></i></span>";
     } else {
-        _text = "<span class=\"badge badge-success\">" + rowObject.STOCK + "</span>";
+        var Dias= DifferenceDaysFechas(_FechaActual, _FechaVencimiento);
+        if (Dias == 0) {
+            _text = rowObject.FECHA_VENCIMIENTO;
+        } else if (Dias <= 5) {
+            _text = "<span class=\"badge badge-warning \" data-bs-toggle=\"tooltip\" title=\"Producto a punto de vencer!\">" + rowObject.FECHA_VENCIMIENTO + " <i class=\"bi bi-exclamation-triangle\"></i></span>";
+        }
+
     }
 
     return _text;
 }
 
-
+function Producto_StatuStock(cellvalue, options, rowObject) {
+    var _Stock = parseInt(rowObject.STOCK);
+    var _StockMinimo = parseInt(rowObject.STOCK_MINIMO);
+    debugger;
+    var _text = "";
+    if (_Stock <= _StockMinimo) {
+        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto con el stock minimo\">" + rowObject.STOCK + "</span>";
+    } else {      
+        _text = "<span class=\"badge badge-success\">" + rowObject.STOCK + "</span>";
+    }
+    return _text;
+}
 
 function Producto_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Producto_MostrarEditar(" + rowObject.ID_PRODUCTO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
+    var _btn = "<button title='Editar'  onclick='Producto_MostrarEditar(" + rowObject.ID_PRODUCTO + ");' class=\"btn btn-outline-light\" type=\"button\" > <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
     return _btn;
 }
 
@@ -92,7 +117,6 @@ function Producto_actionEliminar(cellvalue, options, rowObject) {
 
 
 function Producto_MostrarNuevo() {
-    debugger;
     var _ID_SUCURSAL = $('#ID_SUCURSAL').val();
     var _DESC_SUCURSAL = $('select[name="ID_SUCURSAL"] option:selected').text(); 
     if (_ID_SUCURSAL != "") {
@@ -110,7 +134,7 @@ function Producto_MostrarNuevo() {
 
 function Producto_MostrarEditar(ID_PRODUCTO) {
     jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/Mantenimiento?id=" + ID_PRODUCTO + "&Accion=M", function (responseText, textStatus, request) {
+    jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/Mantenimiento?id=" + ID_PRODUCTO + "&Accion=M&ID_SUCURSAL=0&DESC_SUCURSAL=x", function (responseText, textStatus, request) {
         $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
         $.validator.unobtrusive.parse('#myModalNuevo');
         if (request.status != 200) return;
@@ -146,8 +170,8 @@ function Producto_CargarGrilla() {
                      COD_PRODUCTO: v.COD_PRODUCTO,
                      DESC_UNIDAD_MEDIDA: v.DESC_UNIDAD_MEDIDA,
                      DESC_CATEGORIA: v.DESC_CATEGORIA,
-                     PRECIO_COMPRA: v.PRECIO_COMPRA ,
-                     PRECIO_VENTA: v.PRECIO_VENTA,
+                     PRECIO_COMPRA:   Number(v.PRECIO_COMPRA).toFixed(2),
+                     PRECIO_VENTA:    Number(v.PRECIO_VENTA).toFixed(2), 
                      STOCK: v.STOCK,
                      STOCK_MINIMO: v.STOCK_MINIMO,
                      FLG_SERIVICIO: v.FLG_SERIVICIO,
@@ -184,6 +208,7 @@ function Producto_Actualizar() {
         if (!_FlgServicio) {
             var item =
                 {
+                    ID_PRODUCTO: $("#hfd_ID_PRODUCTO").val(),
                     COD_PRODUCTO: $("#COD_PRODUCTO").val(),
                     DESC_PRODUCTO: $("#DESC_PRODUCTO").val(),
                     ID_UNIDAD_MEDIDA: $("#ID_UNIDAD_MEDIDA").val(),  
@@ -199,12 +224,13 @@ function Producto_Actualizar() {
                     FLG_SERVICIO: 0, // producto
                     MiArchivo: CambioImg == true ? Img_Array[0] : null,
 
-                    USU_CREACION: $('#input_hdcodusuario').val(),
+                    USU_MODIFICACION: $('#input_hdcodusuario').val(),
                     ACCION: $("#AccionProducto").val()
                 };
         } else {
             var item =
                 {
+                    ID_PRODUCTO: $("#hfd_ID_PRODUCTO").val(),
                     COD_PRODUCTO: $("#COD_PRODUCTO_SERVICIO").val(),
                     DESC_PRODUCTO: $("#DESC_SERVICIO").val(),
                     ID_UNIDAD_MEDIDA: $("#ID_UNIDAD_MEDIDA_SERVICIO").val(),
@@ -212,7 +238,7 @@ function Producto_Actualizar() {
                     PRECIO_VENTA: $("#PRECIO_VENTA_SERVICIO").val(),
                     DETALLE: $("#DETALLE").val(),
                     FLG_SERVICIO: 1, // producto                         
-                    USU_CREACION: $('#input_hdcodusuario').val(),
+                    USU_MODIFICACION: $('#input_hdcodusuario').val(),
                     ACCION: $("#AccionProducto").val()
                 };
         }
@@ -263,7 +289,7 @@ function Producto_Ingresar() {
                                 STOCK_MINIMO: $("#STOCK_MINIMO").val(),
                                 MARCA: $("#MARCA").val(),
                                 MODELO: $("#MODELO").val(),
-                                FLG_VENCE: $("#FLG_VENCE").is(':checked') ? 1 :0,
+                                FLG_VENCE: $("#FLG_VENCE").is(':checked') ? 1 : 0,
                                 FECHA_VENCIMIENTO: $("#FECHA_VENCIMIENTO").val(),
                                 FLG_SERVICIO: 0 , // producto
                                 MiArchivo: CambioImg == true ? Img_Array[0] : null,
@@ -360,3 +386,26 @@ function Producto_Estado(ID_PRODUCTO, CHECK) {
 }
 
 ///*********************************************** ----------------- *************************************************/
+
+
+
+function DifferenceDaysFechas(Fecha_ini, Fecha_fin) {
+    // First we split the values to arrays date1[0] is the year, [1] the month and [2] the day date1 = date1.split('-'); date2 = date2.split('-'); // Now we convert the array to a Date object, which has several helpful methods date1 = new Date(date1[0], date1[1], date1[2]); date2 = new Date(date2[0], date2[1], date2[2]); // We use the getTime() method and get the unixtime (in milliseconds, but we want seconds, therefore we divide it through 1000) date1_unixtime = parseInt(date1.getTime() / 1000); date2_unixtime = parseInt(date2.getTime() / 1000); // This is the calculated difference in seconds var timeDifference = date2_unixtime - date1_unixtime; // in Hours var timeDifferenceInHours = timeDifference / 60 / 60; // and finaly, in days :) var timeDifferenceInDays = timeDifferenceInHours / 24; alert(timeDifferenceInDays);
+    var date1 = Fecha_ini;
+    var date2 = Fecha_fin;
+    // First we split the values to arrays date1[0] is the year, [1] the month and [2] the day 
+    date1 = date1.split('/'); date2 = date2.split('/'); // Now we convert the array to a Date object, which has several helpful methods 
+    date1 = new Date(date1[2], date1[1], date1[0]);
+    date2 = new Date(date2[2], date2[1], date2[0]); // We use the getTime() method and get the unixtime (in milliseconds, but we want seconds, therefore we divide it through 1000) 
+    date1_unixtime = parseInt(date1.getTime() / 1000);
+    date2_unixtime = parseInt(date2.getTime() / 1000); // This is the calculated difference in seconds 
+    var timeDifference = date2_unixtime - date1_unixtime; // in Hours 
+    var timeDifferenceInHours = timeDifference / 60 / 60; // and finaly, in days :)
+    var timeDifferenceInDays = timeDifferenceInHours / 24;
+
+    if ( isNaN(timeDifferenceInDays) || timeDifferenceInDays < 0)
+        timeDifferenceInDays = 0;
+ 
+    return timeDifferenceInDays;
+
+}

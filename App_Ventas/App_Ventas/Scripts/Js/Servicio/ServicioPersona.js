@@ -60,7 +60,7 @@ function BuscarPersonalJuridica(_NumerDocumento) {
         var item = {
             NUMERO_DOCUMENTO: _NumerDocumento
         };
-        var url = baseUrl + 'Servicios/ServiciosWeb/ConsultaRuc';
+        var url = baseUrl + 'Recursiva/ServiciosWeb/ConsultaRuc';
         var auditoria = SICA.Ajax(url, item, false);
         if (auditoria != null && auditoria != "") {
             if (auditoria.EJECUCION_PROCEDIMIENTO) {

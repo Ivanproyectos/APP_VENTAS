@@ -194,6 +194,7 @@ border: 1px solid #f1f3fa;
 .modal-header {
     background: var(--color-dark);
     align-items: center !important;
+    cursor:move; 
 }
 
 .modal-dialog {
@@ -205,5 +206,7 @@ border: 1px solid #f1f3fa;
 .modal-header .close{
     color: white;
 }
-
-
+.modal-content {
+-webkit-box-shadow: 0 5px 15px rgba(0 ,0, 0, 0.50);
+    box-shadow: 0 5px 15px rgba(0 ,0 ,0, 0.50);
+}

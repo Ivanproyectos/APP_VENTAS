@@ -15,7 +15,7 @@
     padding-right: 2.25rem;
     background-repeat: no-repeat;
     background-position: center right calc(2.25rem / 4);
-    background-size: calc(2.25rem / 2) calc(2.25rem / 2);
+    background-size: calc(1.5rem / 2) calc(1.5rem / 2);
     background-image: url('../images/error.png');
 }
 
@@ -34,7 +34,7 @@
     padding-right: 2.25rem;
     background-repeat: no-repeat;
     background-position: center right calc(2.25rem / 4);
-    background-size: calc(2.25rem / 2) calc(2.25rem / 2);
+    background-size: calc(1.5rem / 2) calc(1.5rem / 2);
     background-image:  url('../images/valid.png');
 }
 
@@ -84,6 +84,32 @@ label {
 .blockUI {
  z-index: 1060 !important; 
 }
+
+/* card collapse*/
+.card-collapse {
+      cursor:pointer; 
+}
+
+.card-collapse::after {
+   font-family: bootstrap-icons !important;
+  content: "\F286"; 
+  float: right; 
+   transition: transform .2s ease-in-out;
+}
+
+.card-body-hide {
+    height:0px; 
+    padding:0px; 
+    overflow:hidden; 
+    transition: height .35s ease;
+}
+
+
+.rotate-icon::after {
+   transform:rotate(180deg); 
+   transition: transform .2s ease-in-out;
+}
+
 
 
 

@@ -142,6 +142,52 @@ namespace Capa_Datos.Listados_Combos
         }
 
 
+        ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** Lista tipo comprobante *************************************************/
+        ///
+        public List<Cls_Ent_Tipo_Comprobante> Tipo_Comprobante_Listar(ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            List<Cls_Ent_Tipo_Comprobante> lista = new List<Cls_Ent_Tipo_Comprobante>();
+            try
+            {
+                using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlDataReader dr = null;
+                    SqlCommand cmd = new SqlCommand("USP_CONS_TIPO_COMPROBANTE_LISTAR", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    dr = cmd.ExecuteReader();
+                    int pos_ID_TIPO_COMPROBANTE = dr.GetOrdinal("ID_TIPO_COMPROBANTE");
+                    int pos_DESC_TIPO_COMPROBANTE = dr.GetOrdinal("DESC_TIPO_COMPROBANTE");
+
+                    if (dr.HasRows)
+                    {
+                        Cls_Ent_Tipo_Comprobante obj = null;
+                        while (dr.Read())
+                        {
+                            obj = new Cls_Ent_Tipo_Comprobante();
+                      
+                            if (dr.IsDBNull(pos_ID_TIPO_COMPROBANTE)) obj.ID_TIPO_COMPROBANTE = "";
+                            else obj.ID_TIPO_COMPROBANTE = dr.GetString(pos_ID_TIPO_COMPROBANTE);
+
+                            if (dr.IsDBNull(pos_DESC_TIPO_COMPROBANTE)) obj.DESC_TIPO_COMPROBANTE = "";
+                            else obj.DESC_TIPO_COMPROBANTE = dr.GetString(pos_DESC_TIPO_COMPROBANTE);
+                            lista.Add(obj);
+                        }
+                    }
+                    dr.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+            return lista;
+        }
+
+
+
 
     }
 }

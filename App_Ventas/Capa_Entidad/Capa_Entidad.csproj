@@ -47,6 +47,7 @@
     <Compile Include="Administracion\Cls_Ent_Sistemas_Perfiles.cs" />
     <Compile Include="Administracion\Cls_Ent_sistemas_Usuarios.cs" />
     <Compile Include="Administracion\Cls_Ent_Sucursal.cs" />
+    <Compile Include="Administracion\Cls_Ent_Tipo_Comprobante.cs" />
     <Compile Include="Administracion\Cls_Ent_Tipo_Documento.cs" />
     <Compile Include="Administracion\Cls_Ent_Ubigeo.cs" />
     <Compile Include="Administracion\Cls_Ent_Usuario.cs" />

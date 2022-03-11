@@ -14984,7 +14984,10 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 
 .badge {
   line-height: 1.5;
-  padding: 5px 10px; }
+  padding: 5px 10px;
+  font-size: 12px;
+
+}
 
 .badge-rounded {
   border-radius: 20px;
