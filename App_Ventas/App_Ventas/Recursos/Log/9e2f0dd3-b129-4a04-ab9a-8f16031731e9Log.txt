@@ -1,0 +1,4 @@
+System.Data.SqlTypes.SqlNullValueException: Los datos tienen valor Null. No se puede llamar a este método o propiedad con valores Null.
+   en System.Data.SqlClient.SqlBuffer.get_String()
+   en System.Data.SqlClient.SqlDataReader.GetString(Int32 i)
+   en Capa_Datos.Inventario.Cls_Dat_Producto.Producto_Buscar_Listar(Cls_Ent_Producto entidad_param, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Inventario\Cls_Dat_Producto.cs:línea 252

@@ -7,6 +7,9 @@ using App_Ventas.Areas.Recursiva.Models;
 using App_Ventas.Areas.Administracion.Repositorio;
 using Capa_Entidad;
 using Capa_Entidad.Administracion;
+using Capa_Entidad.Inventario;
+using App_Ventas.Areas.Recursiva.Repositorio;
+
 
 namespace App_Ventas.Areas.Recursiva.Controllers
 {
@@ -38,11 +41,44 @@ namespace App_Ventas.Areas.Recursiva.Controllers
                 }).ToList();
                 model.Lista_Unidad_Medida.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
             }
-
-
-
-            return View(model);
+               return View(model);
         }
+
+        public ActionResult Producto_Buscar_Listar(string DESC_PRODUCTO, string COD_PRODUCTO)
+        {
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            Cls_Ent_Producto entidad = new Cls_Ent_Producto(); 
+           entidad.DESC_PRODUCTO = DESC_PRODUCTO;
+           entidad.COD_PRODUCTO = COD_PRODUCTO; 
+          
+            try
+            {
+                using (ProductosRepostiorio repositorio = new ProductosRepostiorio())
+                {
+                    auditoria.OBJETO = repositorio.Producto_Buscar_Listar(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+            }
+            return Json(auditoria.OBJETO, JsonRequestBehavior.AllowGet);
+        }
+
+
+            
+
+
+
+         
+        
 
     }
 }

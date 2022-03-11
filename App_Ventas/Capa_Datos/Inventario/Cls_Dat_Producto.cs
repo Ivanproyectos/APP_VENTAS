@@ -150,6 +150,132 @@ namespace Capa_Datos.Inventario
             return lista;
         }
 
+
+          ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** Lista los  cargo *************************************************/
+
+        public List<Cls_Ent_Producto> Producto_Buscar_Listar(Cls_Ent_Producto entidad_param, ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            List<Cls_Ent_Producto> lista = new List<Cls_Ent_Producto>();
+            try
+            {
+                using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlDataReader dr = null;
+                    SqlCommand cmd = new SqlCommand("USP_CONS_BUSCAR_PRUDUCTO_LISTAR", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    if (entidad_param.DESC_PRODUCTO == null)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_DESC_PRODUCTO", SqlDbType.VarChar, 200)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_DESC_PRODUCTO", SqlDbType.VarChar, 200)).Value = entidad_param.DESC_PRODUCTO; }
+
+                    if (entidad_param.COD_PRODUCTO == null)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_COD_PRODUCTO", SqlDbType.VarChar, 200)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_COD_PRODUCTO", SqlDbType.VarChar, 200)).Value = entidad_param.COD_PRODUCTO; }
+                    dr = cmd.ExecuteReader();
+                    int pos_ID_PRODUCTO = dr.GetOrdinal("ID_PRODUCTO");
+                    int pos_DESC_PRODUCTO = dr.GetOrdinal("DESC_PRODUCTO");
+                    int pos_COD_PRODUCTO = dr.GetOrdinal("COD_PRODUCTO");
+                    int pos_DESC_UNIDAD_MEDIDA = dr.GetOrdinal("DESC_UNIDAD_MEDIDA");
+                    int pos_ID_UNIDAD_MEDIDA = dr.GetOrdinal("ID_UNIDAD_MEDIDA");
+                    int pos_DESC_CATEGORIA = dr.GetOrdinal("DESC_CATEGORIA");
+                    int pos_PRECIO_COMPRA = dr.GetOrdinal("PRECIO_COMPRA");
+                    int pos_PRECIO_VENTA = dr.GetOrdinal("PRECIO_VENTA");
+                    int pos_STOCK = dr.GetOrdinal("STOCK");
+                    int pos_STOCK_MINIMO = dr.GetOrdinal("STOCK_MINIMO");
+                    int pos_FLG_SERIVICIO = dr.GetOrdinal("FLG_SERIVICIO");
+                    int pos_FLG_VENCE = dr.GetOrdinal("FLG_VENCE");
+                    int pos_FECHA_VENCIMIENTO = dr.GetOrdinal("FECHA_VENCIMIENTO");
+                    int pos_MARCA = dr.GetOrdinal("MARCA");
+                    int pos_MODELO = dr.GetOrdinal("MODELO");
+                    int pos_DETALLE = dr.GetOrdinal("DETALLE");
+                    int pos_COD_ARCHIVO = dr.GetOrdinal("COD_ARCHIVO");
+                    int pos_NOMBRE_ARCHIVO = dr.GetOrdinal("NOMBRE_ARCHIVO");
+                    int pos_EXTENSION = dr.GetOrdinal("EXTENSION");
+
+                    if (dr.HasRows)
+                    {
+                        Cls_Ent_Producto obj = null;
+                        while (dr.Read())
+                        {
+                            obj = new Cls_Ent_Producto();
+                            if (dr.IsDBNull(pos_ID_PRODUCTO)) obj.ID_PRODUCTO = 0;
+                            else obj.ID_PRODUCTO = int.Parse(dr[pos_ID_PRODUCTO].ToString());
+                            if (dr.IsDBNull(pos_DESC_PRODUCTO)) obj.DESC_PRODUCTO = "";
+                            else obj.DESC_PRODUCTO = dr.GetString(pos_DESC_PRODUCTO);
+
+                            if (dr.IsDBNull(pos_COD_PRODUCTO)) obj.COD_PRODUCTO = "";
+                            else obj.COD_PRODUCTO = dr.GetString(pos_COD_PRODUCTO);
+
+                            if (dr.IsDBNull(pos_DESC_UNIDAD_MEDIDA)) obj.DESC_UNIDAD_MEDIDA = "";
+                            else obj.DESC_UNIDAD_MEDIDA = dr.GetString(pos_DESC_UNIDAD_MEDIDA);
+
+                            if (dr.IsDBNull(pos_DESC_CATEGORIA)) obj.DESC_CATEGORIA = "";
+                            else obj.DESC_CATEGORIA = dr.GetString(pos_DESC_CATEGORIA);
+
+                            if (dr.IsDBNull(pos_PRECIO_COMPRA)) obj.PRECIO_COMPRA = 0;
+                            else obj.PRECIO_COMPRA = decimal.Parse(dr[pos_PRECIO_COMPRA].ToString());
+
+                            if (dr.IsDBNull(pos_PRECIO_VENTA)) obj.PRECIO_VENTA = 0;
+                            else obj.PRECIO_VENTA = decimal.Parse(dr[pos_PRECIO_VENTA].ToString());
+
+                            if (dr.IsDBNull(pos_STOCK)) obj.STOCK = 0;
+                            else obj.STOCK = int.Parse(dr[pos_STOCK].ToString());
+
+                            if (dr.IsDBNull(pos_STOCK_MINIMO)) obj.STOCK_MINIMO = 0;
+                            else obj.STOCK_MINIMO = int.Parse(dr[pos_STOCK_MINIMO].ToString());
+
+                            if (dr.IsDBNull(pos_FLG_SERIVICIO)) obj.FLG_SERVICIO = 0;
+                            else obj.FLG_SERVICIO = int.Parse(dr[pos_FLG_SERIVICIO].ToString());
+
+                            if (dr.IsDBNull(pos_ID_UNIDAD_MEDIDA)) obj.ID_UNIDAD_MEDIDA = 0;
+                            else obj.ID_UNIDAD_MEDIDA = int.Parse(dr[pos_ID_UNIDAD_MEDIDA].ToString());
+
+                            if (dr.IsDBNull(pos_FECHA_VENCIMIENTO)) obj.FECHA_VENCIMIENTO = "";
+                            else obj.FECHA_VENCIMIENTO = dr.GetString(pos_FECHA_VENCIMIENTO);
+
+                            if (dr.IsDBNull(pos_MARCA)) obj.MARCA = "";
+                            else obj.MARCA = dr.GetString(pos_MARCA);
+
+                            if (dr.IsDBNull(pos_MODELO)) obj.MODELO = "";
+                            else obj.MODELO = dr.GetString(pos_MODELO);
+
+                            if (dr.IsDBNull(pos_DETALLE)) obj.DETALLE = "";
+                            else obj.DETALLE = dr.GetString(pos_DETALLE);
+
+                            obj.MiArchivo = new Cls_Ent_Archivo(); 
+                           {
+
+                               if (dr.IsDBNull(pos_EXTENSION)) obj.MiArchivo.CODIGO_ARCHIVO = "";
+                               else obj.MiArchivo.CODIGO_ARCHIVO = dr.GetString(pos_COD_ARCHIVO);
+
+                               if (dr.IsDBNull(pos_COD_ARCHIVO)) obj.MiArchivo.EXTENSION = "";
+                               else obj.MiArchivo.EXTENSION = dr.GetString(pos_EXTENSION);
+
+                           }
+
+ 
+                            lista.Add(obj);
+                        }
+                    }
+                    dr.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+            return lista;
+        }
+
+
+        
+
+
+
         ///*********************************************** ----------------- **************************************************/
 
         ///*********************************************** Lista sucursal por id *************************************************/

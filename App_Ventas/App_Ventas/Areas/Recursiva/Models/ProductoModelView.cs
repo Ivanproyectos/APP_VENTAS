@@ -55,15 +55,15 @@ namespace App_Ventas.Areas.Recursiva.Models
         [Required(ErrorMessage = "[Precio Venta] es obligatorio")]
         public string PRECIO_VENTA { get; set; }
 
-        [Display(Name = "Stock Inicial: ")]
+        [Display(Name = "Stock: ")]
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "[Stock Inicial] es obligatorio")]
+        [Required(ErrorMessage = "[Stock] es obligatorio")]
         public int STOCK { get; set; }
 
 
-        [Display(Name = "Stock Minimo: ")]
+        [Display(Name = "Stock: ")]
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "[Stock Minimo] es obligatorio")]
+        [Required(ErrorMessage = "[Stock] es obligatorio")]
         public int STOCK_MINIMO { get; set; }
 
 
@@ -112,6 +112,13 @@ namespace App_Ventas.Areas.Recursiva.Models
         [Display(Name = "Detalle: ")]
         [DataType(DataType.Text)]
         public string DETALLE { get; set; }
+
+
+
+        [Display(Name = "Total: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Total] es obligatorio")]
+        public string TOTAL { get; set; }
 
           [Display(Name = "Buscar Producto: ")]
         public string SEARCH_PRODUCTO { get; set; }
