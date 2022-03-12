@@ -175,6 +175,9 @@ namespace Capa_Datos.Inventario
                     { cmd.Parameters.Add(new SqlParameter("@PI_COD_PRODUCTO", SqlDbType.VarChar, 200)).Value = DBNull.Value; }
                     else
                     { cmd.Parameters.Add(new SqlParameter("@PI_COD_PRODUCTO", SqlDbType.VarChar, 200)).Value = entidad_param.COD_PRODUCTO; }
+
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = entidad_param.ID_SUCURSAL;
+
                     dr = cmd.ExecuteReader();
                     int pos_ID_PRODUCTO = dr.GetOrdinal("ID_PRODUCTO");
                     int pos_DESC_PRODUCTO = dr.GetOrdinal("DESC_PRODUCTO");

@@ -12,38 +12,8 @@
     $(document).on('hidden.bs.modal', '.modal', function () {
         $('.modal:visible').length && $(document.body).addClass('modal-open');
     });
-
     $('#Sucursal_Btn_Guardar').click(function () {
-        if (_Valido) {
-            if ($('#frmMantenimiento_BuscarProducto').valid()) {
-                var rowKey = jQuery("#" + _Grilla).getDataIDs();
-                var ix = rowKey.length;
-                ix++;
-                var myData =
-                      {
-                          CODIGO: ix,
-                          ID_PRODUCTO: $("#hfd_ID_PRODUCTO").val(),
-                          PRODUCTO: $("#SEARCH_PRODUCTO").val(),
-                          PRECIO: Number($("#PRECIO_VENTA").val()).toFixed(2),
-                          CANTIDAD: $("#CANTIDAD").val(),
-                          IMPORTE: Number($("#TOTAL").val()).toFixed(2)
-                      };
-
-                if (Ventas_Detalle_BuscarProducto_Grilla($('#hfd_ID_PRODUCTO').val())) {
-                    jError('Producto seleccionado ya se encuentra en la lista.', 'Atención');
-                } else {
-                    jQuery("#" + _Grilla).jqGrid('addRowData', ix, myData);
-                    CalcularMontoTotalDetalle();
-                }
-                LimpiarFormulario();
-                $('#_DetallePorductos').hide('');
-                $('#SEARCH_PRODUCTO').val('');
-                $('#SEARCH_PRODUCTO').focus();
-            }
-        } else {
-            jError('Debe buscar un producto para ingresar a la lista. No seas imbecil', 'Atención');
-        }
-
+        Ventas_Detalle_Insertar();
     });
 
 
@@ -72,7 +42,6 @@
             $('#TOTAL').val(Number(_total).toFixed(2));
         }
     });
-
     function LimpiarFormulario() {
         $('#Alert_Error').hide();
         $('#mensaje_Error').text('');
@@ -81,13 +50,30 @@
         _Valido = false;
     }
 
+    $('#SEARCH_PRODUCTO').keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            if (!_Valido) {
+                Ventas_BuscarProducto($('#SEARCH_PRODUCTO').val(), _Id_Sucursal);
+            }
+        }
+    });
+
+    $('#CANTIDAD').keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            if (_Valido) {
+                Ventas_Detalle_Insertar();
+            }
+        }
+    });
 
 
     /*autocomplete*/
     $('#SEARCH_PRODUCTO').autocomplete(
     {
         source: function (request, response) {
-            $.getJSON('@Url.Action("Producto_Buscar_Listar", "Ventas", new { area = "Ventas" })', { DESC_PRODUCTO: request.term.toUpperCase(), COD_PRODUCTO: '' },
+            $.getJSON('@Url.Action("Producto_Buscar_Listar", "Ventas", new { area = "Ventas" })', { DESC_PRODUCTO: request.term.toUpperCase(), ID_SUCURSAL: _Id_Sucursal },
         response);
         },
         minLength: 4,

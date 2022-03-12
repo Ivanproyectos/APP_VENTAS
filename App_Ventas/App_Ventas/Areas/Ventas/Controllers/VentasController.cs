@@ -77,12 +77,12 @@ namespace App_Ventas.Areas.Ventas.Controllers
             return View(model);
         }
 
-        public ActionResult Producto_Buscar_Listar(string DESC_PRODUCTO, string COD_PRODUCTO)
+        public ActionResult Producto_Buscar_Listar(Cls_Ent_Producto entidad)
         {
             Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
-            Cls_Ent_Producto entidad = new Cls_Ent_Producto();
-            entidad.DESC_PRODUCTO = DESC_PRODUCTO;
-            entidad.COD_PRODUCTO = COD_PRODUCTO;
+            //Cls_Ent_Producto entidad = new Cls_Ent_Producto();
+            //entidad.DESC_PRODUCTO = DESC_PRODUCTO;
+            //entidad.ID_SUCURSAL = ID_SUCURSAL;
             try
             {
                 using (ProductoRepositorio repositorio = new ProductoRepositorio())
