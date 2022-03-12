@@ -61,6 +61,7 @@
     <Compile Include="Cls_Ent_Auditoria.cs" />
     <Compile Include="Inventario\Cls_Ent_Categoria.cs" />
     <Compile Include="Inventario\Cls_Ent_Producto.cs" />
+    <Compile Include="Login\Cls_Ent_Modulo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

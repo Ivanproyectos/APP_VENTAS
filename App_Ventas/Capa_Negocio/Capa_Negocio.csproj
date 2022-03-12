@@ -50,6 +50,7 @@
     <Compile Include="Inventario\Cls_Rule_Categoria.cs" />
     <Compile Include="Inventario\Cls_Rule_Producto.cs" />
     <Compile Include="Listados_Combos\Cls_Rule_Listados.cs" />
+    <Compile Include="Login\Cls_Rule_Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

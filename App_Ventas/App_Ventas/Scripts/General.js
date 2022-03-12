@@ -4,6 +4,7 @@ var MiSistema =  $("#inputHddNombre_Sistema").val() == "" ? "":  "/" +$("#inputH
 
 /////////// para los menus active open; 
 $('.quixnav .metismenu ul a ').click(function () {
+    debugger; 
     var _this = $(this).parent().children(); 
     $('.quixnav .metismenu ul a ').removeClass('quixnav_a_active quixnav_a_active_before');
     $(this).addClass('quixnav_a_active quixnav_a_active_before');

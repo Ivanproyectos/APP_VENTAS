@@ -212,9 +212,7 @@
         ***********************************-->
         <div class="quixnav">
             <div class="quixnav-scroll">
-                <ul class="metismenu" id="menu" @*id="menuPrincipal"*@>
-
-
+                <ul class="metismenu" id="menu" >
                     <li><a class="has-arrow not-before" name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aDasboard" aria-expanded="false">
                         <i class="icon icon-app-store"></i><span class="nav-text">Dasboard </span></a>
                         <ul aria-expanded="false">
@@ -222,8 +220,8 @@
                     </li>
 
 
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                        class="bi bi-gear-wide-connected"></i><span class="nav-text">Administración</span></a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="bi bi-gear-wide-connected"></i><span class="nav-text">Administración</span></a>
                         <ul aria-expanded="false">
                             <li><a name="Administracion/ConfigurarEmpresa/Index" onclick="_LayoutInvocar(this)">Configuracion Empresa </a></li>
                             <li><a name="Administracion/Usuarios/Index" onclick="_LayoutInvocar(this)" id="aPrueba">Usuarios</a></li>
@@ -411,14 +409,37 @@
         };
 
 
+        function ListarMenu(ID_PERFIL) {
+            debugger;
+            blockUI_('Generando modulos del usuario..');
+            var urlListar = baseUrl + 'Modulos/Usuario_Modulos?ID_PERFIL=' + ID_PERFIL;
+            $.ajax({
+                url: urlListar,
+                type: 'post',
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                success: function (auditoria) {
+                    jQuery.unblockUI();
+                    if (auditoria.EJECUCION_PROCEDIMIENTO) {
+                        if (!auditoria.RECHAZAR) {
+                            $('#menu').html('');
+                            $('#menu').append(auditoria.OBJETO);
+                            $("#menu").metisMenu(); // inicia menu 
+                        }
+                    }
+                }
+            });
+        }
+
+
+
+
         $(document).ready(function () {
             $('[data-bs-toggle="tooltip"]').tooltip();
+          
+            setTimeout("ListarMenu(1)", 500);
         });
-
     </script>
-
-
-
 </body>
 
 </html>
