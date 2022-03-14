@@ -52,6 +52,7 @@
     <Compile Include="Listados_Combos\Cls_Rule_Listados.cs" />
     <Compile Include="Login\Cls_Rule_Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ventas\Cls_Rule_Ventas.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Capa_Datos\Capa_Datos.csproj">

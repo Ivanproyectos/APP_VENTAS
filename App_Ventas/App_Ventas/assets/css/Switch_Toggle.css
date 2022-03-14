@@ -121,7 +121,7 @@ input:checked + .slider:before {
   display: inline-block;
   width: 50px;
   height: 23px;
-  margin-top: 5px;
+  margin-top: 0px;
 
   /*background: rgba(43, 43, 43, 1);*/
   position: relative;

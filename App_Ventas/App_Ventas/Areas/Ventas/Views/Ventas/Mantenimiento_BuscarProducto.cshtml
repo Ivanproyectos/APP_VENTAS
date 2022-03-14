@@ -73,7 +73,7 @@
     $('#SEARCH_PRODUCTO').autocomplete(
     {
         source: function (request, response) {
-            $.getJSON('@Url.Action("Producto_Buscar_Listar", "Ventas", new { area = "Ventas" })', { DESC_PRODUCTO: request.term.toUpperCase(), ID_SUCURSAL: _Id_Sucursal },
+            $.getJSON('@Url.Action("Producto_Buscar_Listar", "Ventas", new { area = "Ventas" })', { DESC_PRODUCTO: request.term.toUpperCase().trim(), ID_SUCURSAL: _Id_Sucursal },
         response);
         },
         minLength: 4,
@@ -91,6 +91,7 @@
                 $('#TOTAL').val(Number(ui.item.PRECIO_VENTA).toFixed(2));
                 $('#hfd_ID_PRODUCTO').val(ui.item.ID_PRODUCTO);
                 $('#CANTIDAD').val(1);
+                $('#CANTIDAD').focus();
                 _Valido = true;
             } else if (ui.item.FLG_SERVICIO == 1) {
                 $('#_DetallePorductos').show('slow');
@@ -104,6 +105,7 @@
                 $('#TOTAL').val(Number(ui.item.PRECIO_VENTA).toFixed(2));
                 $('#hfd_ID_PRODUCTO').val(ui.item.ID_PRODUCTO);
                 $('#CANTIDAD').val(1);
+                $('#CANTIDAD').focus();
                 _Valido = true;
             }
             else {

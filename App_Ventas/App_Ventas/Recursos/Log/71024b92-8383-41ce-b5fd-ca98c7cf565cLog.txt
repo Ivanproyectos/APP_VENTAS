@@ -1,0 +1,2 @@
+System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en Capa_Datos.Ventas.Cls_Dat_Ventas.Ventas_Insertar(Cls_Ent_Ventas entidad, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Ventas\Cls_Dat_Ventas.cs:línea 59

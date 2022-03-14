@@ -27,12 +27,9 @@
     });
 
     $('#Ventas_btn_Guardar').click(function () {
-        Preguntar();
+        Ventas_Ingresar();
     });
 
-    $('#Ventas_btn_Guardar').click(function () {
-        Preguntar();
-    });
 
     $('#Ventas_btn_BuscarProductos').click(function () {
         Ventas_MostarBuscarProducto();
@@ -42,6 +39,20 @@
         $(".modal-content").draggable();
     });
 
+    $('#DESCUENTO').keyup(function () {
+        CalcularMontoTotalDetalle();
+    });
+
+    $('#TOTAL_RECIBIDO').keyup(function () {
+        Fn_Ventas_Vuelto();
+    });
+
+    $('#FLG_TIPO_VENTA').change(function () {
+        if ($(this).is(':checked'))
+            $('#Venta_Adelanto').show('slow');
+        else
+            $('#Venta_Adelanto').hide(); 
+    }); 
 
 </script>
 
@@ -176,7 +187,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group col-md-8">
+                        <div class="form-group col-md-8" id="Venta_Adelanto" style="display:none;">
                             @Html.LabelFor(model => model.ADELANTO)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
@@ -201,19 +212,19 @@
                             <li class="list-group-item"><strong><b>Resumen:</b> </strong></li>
                             <li class="list-group-item">
                                 <span class="_text_detalle"><span class="text-danger">(-) </span>Descuento Total:</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Descuento"><span class="simboloMoneda"></span>0.0</span></span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Descuento">0.0</span><span class="simboloMoneda _Montos"></span></span>
                             </li>
                             <li class="list-group-item">
                                 <span class="_text_detalle">Subtotal:</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Subtotal"><span class="simboloMoneda"></span>0.0</span></span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Subtotal">0.0</span> <span class="simboloMoneda _Montos"></span></span>
                             </li>
                             <li class="list-group-item">
                                 <span class="_text_detalle"><span id="NomImpuesto"></span>(<span id="Impuesto"></span>%):</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Igv"><span class="simboloMoneda"></span>0.0</span></span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Igv">0.0</span><span class="simboloMoneda _Montos"></span></span>
                             </li>
                             <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;">
                                 <span class="_text_detalle">Total:</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Total"><span class="simboloMoneda"></span>0.0</span></span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Total">0.0</span><span class="simboloMoneda _Montos"></span></span>
                             </li>
                         </ul>
                     </div>

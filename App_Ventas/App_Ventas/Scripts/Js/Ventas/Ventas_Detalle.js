@@ -63,19 +63,25 @@ function Ventas_Detalle_BuscarProducto_Grilla(ID_PRODUCTO) {
 function CalcularMontoTotalDetalle() {
     var ids = $("#" + Ventas_Detalle_Grilla).getDataIDs();
     var _subtotal = 0;
-    var _descuento = 0;
+    var _descuento = isNaN(parseFloat($('#DESCUENTO').val())) ? 0 : parseFloat($('#DESCUENTO').val());
     var _Igv = 0; 
-
     var _Total = 0;
     for (var i = 0; i < ids.length; i++) {
         var rowId = ids[i];
         var rowData = $("#" + Ventas_Detalle_Grilla).jqGrid('getRowData', rowId);
         _Total += parseFloat(rowData.IMPORTE)
     }
+    if (_descuento < _Total)
+        _Total = (_Total - _descuento);
+    else {
+        jError('El descuento no puede ser mayor al total.', 'Atención');
+        _descuento = 0.0; 
+    }
 
-    _Igv = Math.floor(_Total * 18) / 100;
+    _Igv = Math.floor(_Total * _Impuesto) / 100;
     _subtotal =_Total - _Igv ;
 
+    $('#Venta_Descuento').text(Number(_descuento).toFixed(2));
     $('#Venta_Igv').text( Number(_Igv).toFixed(2));
     $('#Venta_Subtotal').text( Number(_subtotal).toFixed(2));
     $('#Venta_Total').text( Number(_Total).toFixed(2));

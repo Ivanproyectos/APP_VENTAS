@@ -1,0 +1,4 @@
+System.IndexOutOfRangeException: SqlParameterCollection no contiene SqlParameter con ParameterName 'PO_ID_VENTA'.
+   en System.Data.SqlClient.SqlParameterCollection.GetParameter(String parameterName)
+   en System.Data.SqlClient.SqlParameterCollection.get_Item(String parameterName)
+   en Capa_Datos.Ventas.Cls_Dat_Ventas.Ventas_Insertar(Cls_Ent_Ventas entidad, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Ventas\Cls_Dat_Ventas.cs:línea 60

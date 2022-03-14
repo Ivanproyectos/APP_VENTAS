@@ -50,12 +50,12 @@ namespace App_Ventas.Areas.Inventario.Models
         [Display(Name = "Precio Compra: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Precio Compra] es obligatorio")]
-        public string PRECIO_COMPRA { get; set; }
+        public decimal PRECIO_COMPRA { get; set; }
 
         [Display(Name = "Precio Venta: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Precio Venta] es obligatorio")]
-        public string PRECIO_VENTA { get; set; }
+        public decimal PRECIO_VENTA { get; set; }
 
         [Display(Name = "Stock Inicial: ")]
         [DataType(DataType.Text)]

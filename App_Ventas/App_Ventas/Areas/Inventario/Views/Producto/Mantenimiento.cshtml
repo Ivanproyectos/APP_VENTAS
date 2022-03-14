@@ -229,7 +229,7 @@
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.PRECIO_VENTA)
-                        @Html.TextBoxFor(model => model.PRECIO_VENTA, new { @class = "form-control", @maxlength = "200", @onkeypress = "return SoloDecimal(event, this)" })
+                        @Html.TextBoxFor(model => model.PRECIO_VENTA, new { @class = "form-control", @maxlength = "200" })
                         @Html.ValidationMessageFor(model => model.PRECIO_VENTA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 

@@ -63,6 +63,8 @@
     <Compile Include="Inventario\Cls_Ent_Producto.cs" />
     <Compile Include="Login\Cls_Ent_Modulo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ventas\Cls_Ent_Ventas.cs" />
+    <Compile Include="Ventas\Cls_Ent_Ventas_Detalle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -126,8 +126,8 @@ namespace App_Ventas.Areas.Inventario.Controllers
                             model.DESC_PRODUCTO = lista.DESC_PRODUCTO;
                             model.ID_UNIDAD_MEDIDA = lista.ID_UNIDAD_MEDIDA;
                             model.STOCK = lista.STOCK;
-                            model.PRECIO_COMPRA = Convert.ToString(lista.PRECIO_COMPRA); 
-                            model.PRECIO_VENTA = Convert.ToString(lista.PRECIO_VENTA);
+                            model.PRECIO_COMPRA = lista.PRECIO_COMPRA; 
+                            model.PRECIO_VENTA = lista.PRECIO_VENTA;
                             model.STOCK_MINIMO = lista.STOCK_MINIMO;
                             model.MARCA = lista.MARCA;
                             model.MODELO = lista.MODELO;

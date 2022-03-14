@@ -1,6 +1,5 @@
 ﻿
 function Ventas_BuscarProducto(COD_PRODUCTO, ID_SUCURSAL) {
-
     var item =
        {
            COD_PRODUCTO: COD_PRODUCTO,
@@ -23,6 +22,7 @@ function Ventas_BuscarProducto(COD_PRODUCTO, ID_SUCURSAL) {
             $('#TOTAL').val(Number(v.PRECIO_VENTA).toFixed(2));
             $('#hfd_ID_PRODUCTO').val(v.ID_PRODUCTO);
             $('#CANTIDAD').val(1);
+            $('#CANTIDAD').focus();
             setTimeout(function () { $("#SEARCH_PRODUCTO").autocomplete("enable") }, 800); // ACTIVA AUTOCOMPLETE
             _Valido = true;
         });
@@ -30,12 +30,7 @@ function Ventas_BuscarProducto(COD_PRODUCTO, ID_SUCURSAL) {
         jError("Se encontro mas de un producto con este codigo, verifique que el producto no tenga codigos duplicados.", "Atención");
     }
 }
-
 /*surcut enter*/
-
-
-
-
 function Ventas_Detalle_Insertar() {
     if (_Valido) {
         if ($('#frmMantenimiento_BuscarProducto').valid()) {
@@ -67,4 +62,17 @@ function Ventas_Detalle_Insertar() {
         jError('Debe buscar un producto para ingresar a la lista. No seas imbecil', 'Atención');
     }
 
+}
+
+
+function Fn_Ventas_Vuelto() {
+    var _Total = isNaN(parseFloat($('#Venta_Total').text())) ? 0 : parseFloat($('#Venta_Total').text());
+    var _PagoCon = isNaN(parseFloat($('#TOTAL_RECIBIDO').val())) ? 0 : parseFloat($('#TOTAL_RECIBIDO').val());
+    //if (_Total < _PagoCon) {
+        var _Vuelto = (_PagoCon - _Total);
+    //} else {
+    //    jError('Pago no puede ser menor al total.', 'Atención');
+    //    _Vuelto = 0.0;
+    //}
+    $('#VUELTO').val(Number(_Vuelto).toFixed(2));
 }

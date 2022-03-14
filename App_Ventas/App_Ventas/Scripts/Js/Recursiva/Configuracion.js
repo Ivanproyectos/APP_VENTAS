@@ -1,6 +1,6 @@
 ﻿
 var _SimboloMoneda = $('#inputL_SimboloMoneda').val();
-var _Impuesto = $('#inputL_Impuesto').val();
+var _Impuesto = parseInt($('#inputL_Impuesto').val());
 var _NombreImpuesto = $('#inputL_NombreImpuesto').val();
 
 function ConfigurarFormulario() {

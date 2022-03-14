@@ -210,6 +210,7 @@
     <Compile Include="Areas\Ventas\Controllers\VentasController.cs" />
     <Compile Include="Areas\Ventas\Models\ProductoModelView.cs" />
     <Compile Include="Areas\Ventas\Models\VentasModelView.cs" />
+    <Compile Include="Areas\Ventas\Repositorio\VentasRepositorio.cs" />
     <Compile Include="Areas\Ventas\VentasAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -225,6 +226,12 @@
     <Compile Include="Recursos\Clases\Css_IP.cs" />
     <Compile Include="Recursos\Clases\Css_Log.cs" />
     <Compile Include="Recursos\Clases\Css_Ruta.cs" />
+    <Compile Include="Recursos\Paginacion\Css_Filter.cs" />
+    <Compile Include="Recursos\Paginacion\Css_Paginacion.cs" />
+    <Compile Include="Recursos\Paginacion\Css_Row.cs" />
+    <Compile Include="Recursos\Paginacion\Css_Rule.cs" />
+    <Compile Include="Recursos\Paginacion\GridTable.cs" />
+    <Compile Include="Recursos\Paginacion\JQgrid.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\animate.min.css" />

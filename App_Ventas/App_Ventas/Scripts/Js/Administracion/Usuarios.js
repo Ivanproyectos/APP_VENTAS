@@ -65,7 +65,6 @@ function Usuario_TextUsuario(cellvalue, options, rowObject) {
     var Cod_usuario = rowObject.COD_USUARIO;
     var _text = '<span>' + Usuario + '</span><br><span style="font-size: 12px; color: #2c7be5;"><i class="bi bi-person"></i>&nbsp;Usuario: ' + Cod_usuario + '</span>';
 
-
     return _text
 }
 
