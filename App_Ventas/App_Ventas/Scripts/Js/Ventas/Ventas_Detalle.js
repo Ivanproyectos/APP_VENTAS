@@ -2,49 +2,64 @@
 var Ventas_Detalle_Grilla = 'Ventas_Detalle_Grilla';
 var Ventas_Detalle_Barra = 'Ventas_Detalle_Barra';
 
-function Ventas_Detalle_ConfigurarGrilla() {
+function Ventas_Detalle_ConfigurarGrilla(TIPO) {
+    var _btnBorrarHidden = false;
+    var _btnDevolverHidden = false;
+    if (TIPO == "DEVOLVER") {
+        _btnBorrarHidden = true;
+    } else if (TIPO == "DETALLE") {
+        var _btnBorrarHidden = true;
+        var _btnDevolverHidden = true;
+    }else if(TIPO == "VENTAS"){
+        var _btnBorrarHidden = false;
+        var _btnDevolverHidden = true;
+    }
+
     $("#" +  Ventas_Detalle_Grilla).GridUnload();
-    var colNames = [ 'Eliminar','codigo', 'ID','Producto','Precio', 'Cantidad','Importe'];
+    var colNames = [ 'Eliminar','ID_DETALLE','codigo', 'ID_PRODUCTO','Producto','Precio', 'Cantidad','Importe','flg_devuelto','Devolver'];
     var colModels = [
-            { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: false, formatter: Cargo_actionEliminar, sortable: false },
-            { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
-            { name: 'ID_PRODUCTO', index: 'ID_PRODUCTO', align: 'center', width: 100, hidden: true, key: true },
+            { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: _btnBorrarHidden, formatter: Ventas_Detalle_FormatterBorrar, sortable: false },
+            { name: 'ID_VENTA_DETALLE', index: 'ID_VENTA_DETALLE', align: 'center', width: 100, hidden: true, },
+            { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true,  key: true },
+            { name: 'ID_PRODUCTO', index: 'ID_PRODUCTO', align: 'center', width: 100, hidden: true },
             { name: 'PRODUCTO', index: 'PRODUCTO', align: 'left', width: 300, hidden: false },
             { name: 'PRECIO', index: 'PRECIO', align: 'left', width: 100, hidden: false },
             { name: 'CANTIDAD', index: 'CANTIDAD', align: 'left', width: 100, hidden: false },
             { name: 'IMPORTE', index: 'IMPORTE', align: 'left', width: 100, hidden: false },
+            { name: 'FLG_DEVUELTO', index: 'FLG_DEVUELTO', align: 'left', width: 100, hidden: true },
+            { name: 'DEVOLVER', index: 'DEVOLVER', align: 'center', width: 80, hidden: _btnDevolverHidden, formatter: Ventas_Detalle_FormatterDevolver, sortable: false },
+
     ];
     var opciones = {
         GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false
     };
-    SICA.Grilla( Ventas_Detalle_Grilla, Ventas_Detalle_Barra,  Ventas_Detalle_Grilla, 200, '', "", '', 'ID_CARGO', colNames, colModels, '', opciones);
+    SICA.Grilla(Ventas_Detalle_Grilla, Ventas_Detalle_Barra, Ventas_Detalle_Grilla, 200, '', "", '', 'CODIGO', colNames, colModels, '', opciones);
 }
 
 
-function Cargo_actionActivo(cellvalue, options, rowObject) {
-    var check_ = 'check';
-    if (rowObject.FLG_ESTADO == 1)
-        check_ = 'checked';
-
-    var _btn = " <label class=\"content_toggle_1\">"
-            + "<input id=\"Vehiculos_chk_" + rowObject.ID_CARGO + "\" class=\"toggle_Beatiful_1\" type=\"checkbox\" onchange=\"Cargo_Estado(" + rowObject.ID_CARGO + ",this)\" " + check_ + ">"
-            + "<div class=\"content_toggle_2\">"
-            + "  <span class=\"Label_toggle_1\" ></span>"
-             + "</div>"
-            + "</label>";
-    return _btn;
+/* eliminar fila */
+function Ventas_Detalle_FormatterBorrar(cellvalue, options, rowObject) {
+    var _btn_Eliminar = "<button title='Eliminar producto'  onclick='Ventas_Detalle_Borrar(" + rowObject.CODIGO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>"
+    return _btn_Eliminar;
+}
+    
+function Ventas_Detalle_Borrar(id) {
+    $("#" + Ventas_Detalle_Grilla).jqGrid('delRowData', id);
+    // $("#" + grillaProductos).trigger("reloadGrid");
+    CalcularMontoTotalDetalle();
+    UpdateRowId();
 }
 
-function Cargo_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Cargo_MostrarEditar(" + rowObject.ID_CARGO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
-    return _btn;
-}
+// actualizar rowid despues de eliminar un pro
+function UpdateRowId() {
+    var ListaDetalleProductos = $("#" + Ventas_Detalle_Grilla).jqGrid('getGridParam', 'data');
+    for (var i = 0; i < ListaDetalleProductos.length; i++) {
+        var resetId = i + 1;
+        var rowData = ListaDetalleProductos[i];
+        $("#" + Ventas_Detalle_Grilla).jqGrid('setCell', rowData.CODIGO, 'CODIGO', resetId);
+    }
 
-function Cargo_actionEliminar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Eliminar'  onclick='Cargo_Eliminar(" + rowObject.ID_CARGO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>";
-    return _btn;
 }
-
 
 function Ventas_Detalle_BuscarProducto_Grilla(ID_PRODUCTO) {
     debugger;
@@ -57,7 +72,6 @@ function Ventas_Detalle_BuscarProducto_Grilla(ID_PRODUCTO) {
     }
     return buscado;
 }
-
 
 
 function CalcularMontoTotalDetalle() {
@@ -85,5 +99,50 @@ function CalcularMontoTotalDetalle() {
     $('#Venta_Igv').text( Number(_Igv).toFixed(2));
     $('#Venta_Subtotal').text( Number(_subtotal).toFixed(2));
     $('#Venta_Total').text( Number(_Total).toFixed(2));
+}
+
+
+function Ventas_Detalle_FormatterDevolver(cellvalue, options, rowObject) {
+    var _FLG_DEVUELTO = rowObject.FLG_DEVUELTO
+    if (_FLG_DEVUELTO == 0) {
+        var _btn_devolver = "<button title='Devolver producto'  onclick='Ventas_DevolverProducto(" + rowObject.ID_VENTA_DETALLE + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;font-size:17px\"></i></button>"
+    } else {
+        var _btn_devolver = "<button title='Este producto ya fue devuelto.'  class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-box-arrow-in-down-left\" style=\"color:gray;font-size:17px\"></i></button>"
+    }
+    return _btn_devolver;
+}
+
+
+
+function Ventas_Detalle_CargarGrilla(ID_VENTA) {
+    var item =
+       {
+           ID_VENTA: ID_VENTA,
+       };
+    var url = baseUrl + 'Ventas/Ventas/ventas_Detalle_Listar';
+    var auditoria = SICA.Ajax(url, item, false);
+    jQuery("#" + Ventas_Detalle_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
+    if (auditoria.EJECUCION_PROCEDIMIENTO) {
+        if (!auditoria.RECHAZAR) {
+            $.each(auditoria.OBJETO, function (i, v) {
+                var idgrilla = i + 1;
+                var myData =
+                 {
+                     CODIGO: idgrilla,
+                     ID_VENTA_DETALLE : v.ID_VENTA_DETALLE,
+                     ID_PRODUCTO: v.ID_PRODUCTO,
+                     PRODUCTO: v.DESC_PRODUCTO,
+                     PRECIO: Number(v.PRECIO).toFixed(2), 
+                     CANTIDAD: v.CANTIDAD,
+                     IMPORTE:  Number(v.IMPORTE).toFixed(2), 
+                     FLG_DEVUELTO: v.FLG_DEVUELTO
+                 };
+                jQuery("#" + Ventas_Detalle_Grilla).jqGrid('addRowData', idgrilla, myData);
+            });
+            jQuery("#" + Ventas_Detalle_Grilla).trigger("reloadGrid");
+        }
+    } else {
+        jError(auditoria.MENSAJE_SALIDA, "Atención");
+    }
 }
 

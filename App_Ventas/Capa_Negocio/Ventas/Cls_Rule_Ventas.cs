@@ -29,8 +29,6 @@ namespace Capa_Negocio.Ventas
 
 
 
-
-
        public void Ventas_Insertar(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
        {
            try
@@ -56,6 +54,45 @@ namespace Capa_Negocio.Ventas
            }
        }
 
+       public void Ventas_AnularVenta(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
+       {
+           try
+           {
+               OData.Ventas_AnularVenta(entidad, ref auditoria);
+           }
+           catch (Exception ex)
+           {
+               auditoria.Error(ex);
+           }
+       }
+
+       public List<Cls_Ent_Ventas_Detalle> Ventas_Detalleventas_Listar(Cls_Ent_Ventas_Detalle entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                return OData.Ventas_Detalleventas_Listar(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                return new List<Cls_Ent_Ventas_Detalle>();
+            }
+        }
+
+
+       public void Ventas_Detalle_DevolverProducto(Cls_Ent_Ventas_Detalle entidad, ref Cls_Ent_Auditoria auditoria)
+       {
+           try
+           {
+               OData.Ventas_Detalle_DevolverProducto(entidad, ref auditoria);
+           }
+           catch (Exception ex)
+           {
+               auditoria.Error(ex);
+           }
+       }
+
+       
 
 
     }

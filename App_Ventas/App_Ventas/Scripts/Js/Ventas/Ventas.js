@@ -7,9 +7,9 @@ function Ventas_Cerrar() {
 }
 
 function Ventas_Limpiar() {
-    $("#txtdesVentas").val('');
-    $('#cboEstado').val('');
-
+    $("#Ventas_CodigoVenta").val('');
+    $('#ID_TIPO_COMPROBANTE_SEARCH').val('');
+    $('#Ventas_FLG_TIPO_VENTA').val('');
     Ventas_ConfigurarGrilla();
 }
 
@@ -19,7 +19,7 @@ function Ventas_ConfigurarGrilla() {
     var colNames = ['Acciones', 'Código', 'ID', 'Código Venta', 'Tipo Comprobante','Cliente','Descuento','Subtotal','Igv','Total','Estado Venta','Tipo Pago',
        'Fecha Venta','COD_COMPROBANTE'];
     var colModels = [
-            { name: 'ACCION', index: 'ACCION', align: 'center', width: 100, hidden: false, formatter: Ventas_actionAcciones, sortable: false, cellattr: addCellAttrEstilos }, // 0
+            { name: 'ACCION', index: 'ACCION', align: 'center', width: 100, hidden: false, formatter: Ventas_actionAcciones, sortable: false}, // 0
             { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },// 1
             { name: 'ID_VENTA', index: 'ID_VENTA', width: 100, hidden: true, key: true }, // 2
             { name: 'COD_VENTA', index: 'COD_VENTA', width: 150, hidden: false, align: "left" }, // 3
@@ -43,39 +43,43 @@ function Ventas_ConfigurarGrilla() {
 
 function GetRules(Ventas_Grilla) {
     var rules = new Array();
+    var FECHA_VENTA = moment().format('DD/MM/YYYY');
+    var ID_TIPO_COMPROBANTE = jQuery('#ID_TIPO_COMPROBANTE_SEARCH').val() == '' ? null : "'" + jQuery('#ID_TIPO_COMPROBANTE_SEARCH').val() + "'";
+    var FLG_TIPO_VENTA = jQuery('#Ventas_FLG_TIPO_VENTA').val() == '' ? null : "'" + jQuery('#Ventas_FLG_TIPO_VENTA').val() + "'";
+    var CODIGO_VENTA = "'" + jQuery('#Ventas_CodigoVenta').val() + "'";
+    var _USUARIO_LOGEADO = "'" + jQuery('#input_hdcodusuario').val() + "'"; 
 
-        rules = []
-        //rules.push({ field: 'UPPER(NRO_CUT)', data: POR + ' + ' + CUT + ' + ' + POR, op: " LIKE " });
-        //rules.push({ field: 'UPPER(NRO_DOCUMENTO)', data: POR + ' + ' + NRO_DOCUMENTO + ' + ' + POR, op: " LIKE " });
-        //rules.push({ field: 'UPPER(ASUNTO)', data: POR + ' + ' + ASUNTO + ' + ' + POR, op: " LIKE " });
-        //rules.push({ field: 'FLG_ESTADO', data: '  ISNULL(' + FLG_ESTADO + ',FLG_ESTADO) ', op: " = " });
-        //rules.push({ field: 'ID_TIPO_DOCUMENTO', data: '  ISNULL(' + ID_TIPO_DOCUMENTO + ',ID_TIPO_DOCUMENTO) ', op: " = " });
-        ////rules.push({ field: 'ID_OFICINA', data: _ID_OFICINA, op: " = " });
-        //rules.push({ field: '((ID_SEDE', data: _ID_SEDE + ' OR ID_SEDE_DIGITAL = ' + _ID_SEDE + '))', op: " = " });
-        //rules.push({ field: 'FLG_PROCESO', data: 1, op: " = " });
-        //rules.push({ field: 'FLG_ARCHIVADO', data: 0, op: " = " });
-        //rules.push({ field: 'FLG_ANEXO', data: '  ISNULL(' + FLG_ANEXO + ',FLG_ANEXO) ', op: " = " });
-        //rules.push({ field: 'FLG_TIPO', data: 1, op: " = " });
+    var POR = "'%'";
+    rules = []
+    rules.push({ field: 'UPPER(COD_COMPROBANTE)', data: POR + ' + ' + CODIGO_VENTA + ' + ' + POR, op: " LIKE " });
+    rules.push({ field: 'ID_TIPO_COMPROBANTE', data: '  ISNULL(' + ID_TIPO_COMPROBANTE + ',ID_TIPO_COMPROBANTE) ', op: " = " });
+    rules.push({ field: 'FLG_TIPO_VENTA', data: '  ISNULL(' + FLG_TIPO_VENTA + ',FLG_TIPO_VENTA) ', op: " = " });
+    rules.push({ field: 'CONVERT(DATE,FEC_CREACION,103)', data: 'CONVERT(DATE,\'' + FECHA_VENTA + '\',103) ', op: " = " });
+    rules.push({ field: 'UPPER(COD_COMPROBANTE)', data: POR + ' + ' + CODIGO_VENTA + ' + ' + POR, op: " LIKE " });
+    rules.push({ field: 'UPPER(USU_CREACION)', data: _USUARIO_LOGEADO, op: " = " });
 
     return rules;
 }
 
-function addCellAttrEstilos(rowId, val, rawObject, cm, rdata) {
-    return "style='overflow:none !important'";
-}
 
 
 function Ventas_actionAcciones(cellvalue, options, rowObject) {
-    var _btn = "<div class=\"btn-group\" role=\"group\">" +
-           " <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\">Primary</button> " +
+    var _ID_VENTA = rowObject[2];
+    var _FLG_FLG_ANULADO = rowObject[10];
+    var _btn_Anular =""; 
+    if (_FLG_FLG_ANULADO == 0)
+        _btn_Anular = " <a class=\"dropdown-item\" onclick='Ventas_AnularVenta(" + _ID_VENTA + ")'><i class=\"bi bi-bag-x\" style=\"color:red;\"></i>&nbsp;  Anular</a>"; 
+    
+
+    var _btn = "<div class=\"btn-group\" role=\"group\" title=\"Acciones \" >" +
+           " <button  style=\" background: transparent; border: none; color: #673BB7;font-size: 18px;\" type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button> " +
            " <div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
-               " <a class=\"dropdown-item\" href=\"javascript:void()\">Dropdown link</a>" +
-                "<a class=\"dropdown-item\" href=\"javascript:void()\">Dropdown link</a>" +
+            _btn_Anular +
+            "<a class=\"dropdown-item\" onclick='Ventas_MostrarDevolverProducto(" + _ID_VENTA + ")' ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>" +
             "</div>" +
         "</div>"; 
     return _btn;
 }
-
 
 function Ventas_FormaterComprobante(cellvalue, options, rowObject) {
     var _DESC_COMPROBANTE = rowObject[4];
@@ -85,8 +89,6 @@ function Ventas_FormaterComprobante(cellvalue, options, rowObject) {
     return _text;
 }
 
-
-
 function Ventas_Anulado(cellvalue, options, rowObject) {
     var _FLG_ANULADO = rowObject[10];
     var _text = "";
@@ -94,7 +96,7 @@ function Ventas_Anulado(cellvalue, options, rowObject) {
         _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Esta venta fue anulada.\">Anulado</span>";
     }
     else if (_FLG_ANULADO == 0) {
-        _text = "<span class=\"badge badge-success\">Realizado</span>";
+        _text = "<span class=\"badge badge-success\" data-bs-toggle=\"tooltip\" title=\"Venta Realiazada\">Realizado</span>";
     }
     return _text;
 }
@@ -144,96 +146,23 @@ function Ventas_MostarBuscarProducto() {
     });
 }
 
-///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Lista los  venta **************************************************/
-
-function Ventas_CargarGrilla() {
-    var item =
-       {
-           ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : 0,
-           //$("#input_hdid_entidad").val(),
-           DESC_CARGO: $('#txtdesVentas').val(),
-           FLG_ESTADO: $('#cboEstado').val()
-       };
-    var url = baseUrl + 'Ventas/Ventas/Ventas_Listar';
-    var auditoria = SICA.Ajax(url, item, false);
-    jQuery("#" + Ventas_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
-    if (auditoria.EJECUCION_PROCEDIMIENTO) {
-        if (!auditoria.RECHAZAR) {
-            $.each(auditoria.OBJETO, function (i, v) {
-                var idgrilla = i + 1;
-                var myData =
-                 {
-                     CODIGO: idgrilla,
-                     ID_VENTA: v.ID_VENTA,
-                     DESC_CARGO: v.DESC_CARGO,
-                     DESC_ENTIDAD: v.DESC_ENTIDAD,
-                     FLG_ESTADO: v.FLG_ESTADO,
-                     FEC_CREACION: v.FEC_CREACION,
-                     USU_CREACION: v.USU_CREACION,
-                     FEC_MODIFICACION: v.FEC_MODIFICACION,
-                     USU_MODIFICACION: v.USU_MODIFICACION,
-                     IP_CREACION: v.IP_CREACION,
-                     IP_MODIFICACION: v.IP_MODIFICACION
-                 };
-                jQuery("#" + Ventas_Grilla).jqGrid('addRowData', i, myData);
-            });
-            jQuery("#" + Ventas_Grilla).trigger("reloadGrid");
-        }
-    } else {
-        jError(auditoria.MENSAJE_SALIDA, "Atención");
-    }
+function Ventas_MostrarDevolverProducto(ID_VENTA) {
+    jQuery("#myModalNuevo").html('');
+    jQuery("#myModalNuevo").load(baseUrl + "Ventas/Ventas/Mantenimiento_DevolverProducto?ID_VENTA=" + ID_VENTA, function (responseText, textStatus, request) {
+        $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
+        $.validator.unobtrusive.parse('#myModalNuevo');
+        if (request.status != 200) return;
+    });
 }
 
 
 
-///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Actualiza  cargos  ************************************************/
-
-function Ventas_Actualizar() {
-    if ($("#frmMantenimiento_Ventas").valid()) {
-        var item =
-                {
-                    DESC_CARGO: $("#DESC_CARGO").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
-                    DESC_CARGO: $("#DESC_CARGO").val(),
-                    USU_MODIFICACION: $('#input_hdcodusuario').val(),
-                    Accion: $("#AccionVentas").val()
-                };
-        jConfirm("¿ Desea actualizar este venta ?", "Atención", function (r) {
-            if (r) {
-                var url = baseUrl + 'Ventas/Ventas/Ventas_Actualizar';
-                var auditoria = SICA.Ajax(url, item, false);
-                if (auditoria != null && auditoria != "") {
-                    if (auditoria.EJECUCION_PROCEDIMIENTO) {
-                        if (!auditoria.RECHAZAR) {
-                            Ventas_CargarGrilla();
-                            Ventas_Cerrar();
-                            jOkas("Ventas actualizado satisfactoriamente", "Proceso");
-                        } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
-                        }
-                    } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
-                    }
-                }
-            }
-        });
-    }
-}
 
 ///*********************************************** ----------------- *************************************************/
 
-///************************************************ Inserta cargos  **************************************************/
+///************************************************ Inserta ventas  **************************************************/
 
 function Ventas_Ingresar() {
         if ($("#frmMantenimiento_Ventas").valid()) {
@@ -296,22 +225,23 @@ function Ventas_Ingresar() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Elimina cargos  ***************************************************/
+///*********************************************** anular ventas  ***************************************************/
 
-function Ventas_Eliminar(ID_VENTA) {
-    jConfirm("¿ Desea eliminar este venta ?", "Atención", function (r) {
+function Ventas_AnularVenta(ID_VENTA) {
+    jConfirm("¿ Desea anular esta venta ?, al anular la venta todos los productos de la venta retornan.", "Anular Venta", function (r) {
         if (r) {
             var item = {
-                ID_VENTA: ID_VENTA
+                ID_VENTA: ID_VENTA,
+                USU_MODIFICACION: $('#input_hdcodusuario').val(),
             };
-            var url = baseUrl + 'Ventas/Ventas/Ventas_Eliminar';
+            var url = baseUrl + 'Ventas/Ventas/Ventas_AnularVenta';
             var auditoria = SICA.Ajax(url, item, false);
             if (auditoria != null && auditoria != "") {
                 if (auditoria.EJECUCION_PROCEDIMIENTO) {
                     if (!auditoria.RECHAZAR) {
                         Ventas_CargarGrilla();
-                        Ventas_Cerrar();
-                        jOkas("Ventas eliminado satisfactoriamente", "Proceso");
+                        //Ventas_Cerrar();
+                        jOkas("Venta anulada con exito!", "Proceso");
                     } else {
                         jError(auditoria.MENSAJE_SALIDA, "Atención");
                     }
@@ -325,25 +255,33 @@ function Ventas_Eliminar(ID_VENTA) {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Cambia estado de cargos  ******************************************/
+///*********************************************** devolver producto ******************************************/
 
-function Ventas_Estado(ID_VENTA, CHECK) {
-    var item = {
-        ID_VENTA: ID_VENTA,
-        FLG_ESTADO: CHECK.checked == true ? '1' : '0',
-        USU_MODIFICACION: $('#input_hdcodusuario').val(),
-    };
-    var url = baseUrl + 'Ventas/Ventas/Ventas_Estado';
-    var auditoria = SICA.Ajax(url, item, false);
-    if (auditoria != null && auditoria != "") {
-        if (auditoria.EJECUCION_PROCEDIMIENTO) {
-            if (auditoria.RECHAZAR) {
-                jError(auditoria.MENSAJE_SALIDA, "Atención");
+function Ventas_DevolverProducto(ID_VENTA_DETALLE) {
+    jConfirm("¿ Desea devolver este producto ?, al devolver el producto retornara al almacen.", "Devolver Producto", function (r) {
+        if (r) {
+            var item = {
+                ID_VENTA_DETALLE: ID_VENTA_DETALLE,
+                USU_MODIFICACION: $('#input_hdcodusuario').val(),
+            };
+            var url = baseUrl + 'Ventas/Ventas/Ventas_Detalle_DevolverProducto';
+            var auditoria = SICA.Ajax(url, item, false);
+            if (auditoria != null && auditoria != "") {
+                if (auditoria.EJECUCION_PROCEDIMIENTO) {
+                    if (!auditoria.RECHAZAR) {
+                        Ventas_ConfigurarGrilla();
+                        Ventas_Detalle_CargarGrilla($('#hfd_ID_VENTA').val());
+                        //Ventas_Cerrar();
+                        jOkas("Producto devuelto con exito!, la cantidad se devolvio al almacen correspondiente.", "Proceso");
+                    } else {
+                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                    }
+                } else {
+                    jError(auditoria.MENSAJE_SALIDA, "Atención");
+                }
             }
-        } else {
-            jError(auditoria.MENSAJE_SALIDA, "Atención");
         }
-    }
+    });
 }
 
-///*********************************************** ----------------- *************************************************/
+/////*********************************************** ----------------- *************************************************/

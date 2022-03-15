@@ -39,6 +39,7 @@ function Ventas_Detalle_Insertar() {
             ix++;
             var myData =
                   {
+                      ID_VENTA_DETALLE : 0, 
                       CODIGO: ix,
                       ID_PRODUCTO: $("#hfd_ID_PRODUCTO").val(),
                       PRODUCTO: $("#SEARCH_PRODUCTO").val(),

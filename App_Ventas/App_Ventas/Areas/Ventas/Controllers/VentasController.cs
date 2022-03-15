@@ -23,7 +23,19 @@ namespace App_Ventas.Areas.Ventas.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            VentasModelView model = new VentasModelView();
+            using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
+            {
+                model.Lista_Tipo_Comprobante = Repositorio.Tipo_Comprobante_Listar(ref auditoria).Where(e => e.ID_TIPO_COMPROBANTE == "01" || e.ID_TIPO_COMPROBANTE == "03" || e.ID_TIPO_COMPROBANTE == "88").Select(x => new SelectListItem()
+                {
+                    Text = x.DESC_TIPO_COMPROBANTE,
+                    Value = x.ID_TIPO_COMPROBANTE.ToString()
+                }).ToList();
+                model.Lista_Tipo_Comprobante.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+            }
+
+            return View(model);
         }
 
         public ActionResult Mantenimiento()
@@ -57,7 +69,6 @@ namespace App_Ventas.Areas.Ventas.Controllers
             return View(model);
 
         }
-
 
 
         public ActionResult Mantenimiento_BuscarProducto(int ID_SUCURSAL, string GrillaCarga)
@@ -105,9 +116,6 @@ namespace App_Ventas.Areas.Ventas.Controllers
             }
             return Json(auditoria.OBJETO, JsonRequestBehavior.AllowGet);
         }
-
-
-
 
         public JsonResult Ventas_Paginado(Recursos.Paginacion.GridTable grid)
         {
@@ -180,13 +188,6 @@ namespace App_Ventas.Areas.Ventas.Controllers
             }
         }
 
-
-
-
-
-
-
-
         public ActionResult Ventas_Insertar(Cls_Ent_Ventas entidad)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
@@ -232,10 +233,90 @@ namespace App_Ventas.Areas.Ventas.Controllers
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Ventas_AnularVenta(Cls_Ent_Ventas entidad)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            var ip_local = Recursos.Clases.Css_IP.ObtenerIp();
+            try{
+                using (VentasRepositorio Ventasrepositorio = new VentasRepositorio())
+                {
+                    entidad.IP_CREACION = ip_local;
+
+                    Ventasrepositorio.Ventas_AnularVenta(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+            } catch(Exception ex){
+                string CODIGOLOG = Recursos.Clases.Css_Log.Guardar(ex.Message);
+                auditoria.Rechazar(CODIGOLOG); 
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
 
 
+        public ActionResult Mantenimiento_DevolverProducto(int ID_VENTA)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            VentasModelView model = new VentasModelView();
+            model.ID_VENTA = ID_VENTA; 
+            return View(model);
+
+        }
 
 
+        public ActionResult ventas_Detalle_Listar(Cls_Ent_Ventas_Detalle entidad)
+        {
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            try
+            {
+                using (VentasRepositorio repositorio = new VentasRepositorio())
+                {
+                    auditoria.OBJETO = repositorio.Ventas_Detalleventas_Listar(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult Ventas_Detalle_DevolverProducto(Cls_Ent_Ventas_Detalle entidad)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            var ip_local = Recursos.Clases.Css_IP.ObtenerIp();
+            try{
+                using (VentasRepositorio Ventasrepositorio = new VentasRepositorio())
+                {
+                    entidad.IP_CREACION = ip_local;
+
+                    Ventasrepositorio.Ventas_Detalle_DevolverProducto(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+            } catch(Exception ex){
+                string CODIGOLOG = Recursos.Clases.Css_Log.Guardar(ex.Message);
+                auditoria.Rechazar(CODIGOLOG); 
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+
+        
 
 
 

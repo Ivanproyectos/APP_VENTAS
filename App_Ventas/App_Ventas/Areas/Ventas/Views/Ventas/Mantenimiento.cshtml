@@ -13,7 +13,7 @@
             onstyle: "danger",
             style: "_toggle_css"
         });
-        Ventas_Detalle_ConfigurarGrilla();
+        Ventas_Detalle_ConfigurarGrilla('VENTAS');
         $('#ID_CLIENTE').select2();
         $('#ID_TIPO_COMPROBANTE').val('03');
     });
@@ -113,7 +113,7 @@
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.FECHA_VENTA)
-                        @Html.TextBoxFor(model => model.FECHA_VENTA, new { @class = "form-control", @maxlength = "100" })
+                        @Html.TextBoxFor(model => model.FECHA_VENTA, new { @class = "form-control", @maxlength = "100" ,@disabled="true"})
                         @Html.ValidationMessageFor(model => model.FECHA_VENTA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
@@ -233,7 +233,7 @@
 
         </div>
         <div class="modal-footer">
-            <button type="button" id="Ventas_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
+            <button type="button" id="Ventas_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-cart-check"></i>&nbsp; Guardar Venta</button>
             <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
         </div>
     </div>

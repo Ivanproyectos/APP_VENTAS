@@ -80,6 +80,19 @@ namespace App_Ventas.Areas.Ventas.Models
 
         public string Accion { get; set; }
 
+        public string ID_TIPO_COMPROBANTE_SEARCH { get; set; }
+        
 
+        /*CONSULTAS*/
+         [Display(Name = "Usuario: ")]
+        [DataType(DataType.Text)]
+        public int ID_USUARIO { get; set; }
+        public List<SelectListItem> Lista_Usuarios{ get; set; }
+
+        public int ID_SUCURSAL { get; set; }
+        public List<SelectListItem> Lista_Sucursal { get; set; }
+
+
+        
     }
 }

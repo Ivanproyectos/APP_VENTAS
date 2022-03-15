@@ -45,7 +45,7 @@ namespace Capa_Datos.Ventas
                 int pos_COD_COMPROBANTE = dr.GetOrdinal("COD_COMPROBANTE");
                 int pos_FLG_ANULADO = dr.GetOrdinal("FLG_ANULADO");
                 int pos_FLG_TIPO_VENTA = dr.GetOrdinal("FLG_TIPO_VENTA");
-                int pos_FECHA_VENTA = dr.GetOrdinal("FECHA_VENTA");
+                //int pos_FECHA_VENTA = dr.GetOrdinal("STR_FECHA_VENTA");
                 int pos_ID_CLIENTE = dr.GetOrdinal("ID_CLIENTE");
                 int pos_ID_SUCURSAL = dr.GetOrdinal("ID_SUCURSAL");
                 int pos_ID_TIPO_COMPROBANTE = dr.GetOrdinal("ID_TIPO_COMPROBANTE");
@@ -57,9 +57,9 @@ namespace Capa_Datos.Ventas
                 int pos_TOTAL = dr.GetOrdinal("TOTAL");
                 int pos_DETALLE = dr.GetOrdinal("DETALLE");
                 int pos_USU_CREACION = dr.GetOrdinal("USU_CREACION");
-                int pos_FEC_CREACION = dr.GetOrdinal("FECHA_CREACION");
+                int pos_FEC_CREACION = dr.GetOrdinal("STR_FECHA_VENTA");
                 int pos_USU_MODIFICACION = dr.GetOrdinal("USU_MODIFICACION");
-                int pos_FEC_MODIFICACION = dr.GetOrdinal("FECHA_MODIFICACION");
+                int pos_FEC_MODIFICACION = dr.GetOrdinal("STR_FECHA_MODIFICACION");
 
      
                 if (dr.HasRows)
@@ -83,8 +83,8 @@ namespace Capa_Datos.Ventas
                         if (dr.IsDBNull(pos_FLG_TIPO_VENTA)) obj.FLG_TIPO_VENTA = 0;
                         else obj.FLG_TIPO_VENTA = int.Parse(dr[pos_FLG_TIPO_VENTA].ToString());
 
-                        if (dr.IsDBNull(pos_FECHA_VENTA)) obj.FECHA_VENTA = "";
-                        else obj.FECHA_VENTA = dr.GetString(pos_FECHA_VENTA);
+                        //if (dr.IsDBNull(pos_FECHA_VENTA)) obj.FECHA_VENTA = "";
+                        //else obj.FECHA_VENTA = dr.GetString(pos_FECHA_VENTA);
 
                         if (dr.IsDBNull(pos_FLG_TIPO_VENTA)) obj.FLG_TIPO_VENTA = 0;
                         else obj.FLG_TIPO_VENTA = int.Parse(dr[pos_FLG_TIPO_VENTA].ToString());
@@ -237,6 +237,150 @@ namespace Capa_Datos.Ventas
             }
         }
 
+             ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** Inserta VENTAS  *************************************************/
+
+        public void Ventas_AnularVenta(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            try
+            {
+               using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlCommand cmd = new SqlCommand("USP_VENTA_VENTAS_ANULAR", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_VENTA", SqlDbType.Int)).Value = entidad.ID_VENTA;
+                    cmd.Parameters.Add(new SqlParameter("@PI_USU_MODIFICACION", SqlDbType.VarChar, 200)).Value = entidad.USU_MODIFICACION;
+                    cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("PO_MENSAJE", SqlDbType.VarChar, 200)).Direction = System.Data.ParameterDirection.Output;
+                    if (cn.State != System.Data.ConnectionState.Open)
+                    {
+                        cn.Open();
+                    }
+                    cmd.ExecuteReader();
+                    string PO_VALIDO = cmd.Parameters["PO_VALIDO"].Value.ToString();
+                    string PO_MENSAJE = cmd.Parameters["PO_MENSAJE"].Value.ToString();
+                    if (PO_VALIDO == "0")
+                    {
+                        auditoria.Rechazar(PO_MENSAJE);
+                    }
+       
+                    cn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+        }
+
+
+        ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** Lista ventas detalle *************************************************/
+
+        public List<Cls_Ent_Ventas_Detalle> Ventas_Detalleventas_Listar(Cls_Ent_Ventas_Detalle entidad_param, ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+           List<Cls_Ent_Ventas_Detalle> Lista = new  List<Cls_Ent_Ventas_Detalle>();
+            try
+            {
+                using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlDataReader dr = null;
+                    SqlCommand cmd = new SqlCommand("USP_VENTA_VENTAS_DETALLE_LISTAR", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_VENTA", SqlDbType.BigInt)).Value = entidad_param.ID_VENTA;
+                    dr = cmd.ExecuteReader();
+                    int pos_ID_VENTA_DETALLE = dr.GetOrdinal("ID_VENTA_DETALLE");
+                    int pos_DESC_PRODUCTO = dr.GetOrdinal("DESC_PRODUCTO");
+                    int pos_PRECIO = dr.GetOrdinal("PRECIO");
+                    int pos_CANTIDAD = dr.GetOrdinal("CANTIDAD");
+                    int pos_IMPORTE = dr.GetOrdinal("IMPORTE");
+                    int pos_FLG_DEVUELTO = dr.GetOrdinal("FLG_DEVUELTO");
+                    
+                    if (dr.HasRows)
+                    {
+                        Cls_Ent_Ventas_Detalle obj = null;
+                        while (dr.Read())
+                        {
+                            obj = new Cls_Ent_Ventas_Detalle();
+                            if (dr.IsDBNull(pos_ID_VENTA_DETALLE)) obj.ID_VENTA_DETALLE = 0;
+                            else obj.ID_VENTA_DETALLE = int.Parse(dr[pos_ID_VENTA_DETALLE].ToString());
+
+                            if (dr.IsDBNull(pos_DESC_PRODUCTO)) obj.DESC_PRODUCTO = "";
+                            else obj.DESC_PRODUCTO = dr.GetString(pos_DESC_PRODUCTO);
+
+                            if (dr.IsDBNull(pos_PRECIO)) obj.PRECIO = 0;
+                            else obj.PRECIO = decimal.Parse(dr[pos_PRECIO].ToString());
+
+                            if (dr.IsDBNull(pos_CANTIDAD)) obj.CANTIDAD = 0;
+                            else obj.CANTIDAD = int.Parse(dr[pos_CANTIDAD].ToString());
+
+                            if (dr.IsDBNull(pos_IMPORTE)) obj.IMPORTE = 0;
+                            else obj.IMPORTE = decimal.Parse(dr[pos_IMPORTE].ToString());
+
+                            if (dr.IsDBNull(pos_FLG_DEVUELTO)) obj.FLG_DEVUELTO = 0;
+                            else obj.FLG_DEVUELTO = int.Parse(dr[pos_FLG_DEVUELTO].ToString());
+                            
+                            Lista.Add(obj); 
+
+                        }
+                    }
+                    dr.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+            return Lista;
+        }
+
+        
+
+        ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** DEVOLER PRODUCTO  *************************************************/
+
+        public void Ventas_Detalle_DevolverProducto(Cls_Ent_Ventas_Detalle entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            try
+            {
+               using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlCommand cmd = new SqlCommand("USP_VENTA_VENTAS_DEVOLVER_PRODUCTO", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_VENTA_DETALLE", SqlDbType.Int)).Value = entidad.ID_VENTA_DETALLE;
+                    cmd.Parameters.Add(new SqlParameter("@PI_USU_MODIFICACION", SqlDbType.VarChar, 200)).Value = entidad.USU_MODIFICACION;
+                    cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("PO_MENSAJE", SqlDbType.VarChar, 200)).Direction = System.Data.ParameterDirection.Output;
+                    if (cn.State != System.Data.ConnectionState.Open)
+                    {
+                        cn.Open();
+                    }
+                    cmd.ExecuteReader();
+                    string PO_VALIDO = cmd.Parameters["PO_VALIDO"].Value.ToString();
+                    string PO_MENSAJE = cmd.Parameters["PO_MENSAJE"].Value.ToString();
+                    if (PO_VALIDO == "0")
+                    {
+                        auditoria.Rechazar(PO_MENSAJE);
+                    }
+      
+                    cn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+        }
+
+             ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** Inserta VENTAS  *************************************************/
 
 
     }

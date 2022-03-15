@@ -8,11 +8,12 @@
     var _Id_Sucursal = $('#inputL_Id_Sucursal').val();
     $(document).ready(function () {
         Ventas_ConfigurarGrilla();
+        $(".badge").tooltip({ placement: "bottom", delay: { show: 100, hide: 400 } });
         //Ventas_CargarGrilla();
     });
 
     $("#Ventas_btnBuscar").click(function (e) {
-        Ventas_CargarGrilla();
+        Ventas_ConfigurarGrilla();
     });
 
     $("#Ventas_btnLimpiar").click(function (e) {
@@ -44,20 +45,20 @@
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label>Código Código Venta:</label>
-                            <input type="text" class="form-control" placeholder="Ejm: F55402">
+                            <input id="Ventas_CodigoVenta" type="text" class="form-control" placeholder="Ejm: F55402">
                         </div>
 
                         <div class="form-group col-md-3">
                             <label>Tipo Comprobante:</label>
-                            <input type="text" class="form-control" placeholder="Ejm: Bebidas">
+                            @Html.DropDownListFor(model => model.ID_TIPO_COMPROBANTE_SEARCH, Model.Lista_Tipo_Comprobante, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         </div>
 
                         <div class="form-group col-md-3">
                             <label>Tipo Pago:</label>
-                            <select class="form-control"  id="Ventas_TipoPago">
-                                <option id="">-- Seleccione --</option>
-                                <option id="0">Al Contado</option>
-                                <option id="1">Credito</option>
+                            <select class="form-control"  id="Ventas_FLG_TIPO_VENTA">
+                                <option value="">-- Seleccione --</option>
+                                <option value="0">Al Contado</option>
+                                <option value="1">Credito</option>
                             </select>
                         </div>
                     </div>

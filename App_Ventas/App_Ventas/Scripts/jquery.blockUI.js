@@ -248,7 +248,7 @@
 		var pageBlockEls = [];
 
 		function install(el, opts) {
-			debugger;
+		
 			var css, themedCSS;
 			var full = (el == window);
 			var msg = (opts && opts.message !== undefined ? opts.message : undefined);

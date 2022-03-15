@@ -14,7 +14,8 @@ namespace Capa_Entidad.Ventas
         public decimal PRECIO { get; set; }
         public int CANTIDAD { get; set; }
         public decimal IMPORTE { get; set; }
-
-
+        public string DESC_PRODUCTO { get; set; }
+        public int FLG_DEVUELTO { get; set; }
+        
     }
 }

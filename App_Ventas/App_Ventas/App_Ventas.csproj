@@ -207,6 +207,7 @@
     <Compile Include="Areas\Recursiva\Controllers\ServiciosWebController.cs" />
     <Compile Include="Areas\Recursiva\RecursivaAreaRegistration.cs" />
     <Compile Include="Areas\Recursiva\Repositorio\ProductosRepostiorio.cs" />
+    <Compile Include="Areas\Ventas\Controllers\Consulta_VentasController.cs" />
     <Compile Include="Areas\Ventas\Controllers\VentasController.cs" />
     <Compile Include="Areas\Ventas\Models\ProductoModelView.cs" />
     <Compile Include="Areas\Ventas\Models\VentasModelView.cs" />
@@ -4137,6 +4138,8 @@
     <Content Include="Areas\Recursiva\Views\Web.config" />
     <Content Include="Areas\Ventas\Views\Ventas\Mantenimiento_BuscarProducto.cshtml" />
     <Content Include="Areas\Login\Views\Web.config" />
+    <Content Include="Areas\Ventas\Views\Ventas\Mantenimiento_DevolverProducto.cshtml" />
+    <Content Include="Areas\Ventas\Views\Consulta_Ventas\Index.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\inicializacion.js" />
@@ -4181,6 +4184,7 @@
     <Content Include="Scripts\Js\Recursiva\BuscarProcutos.js" />
     <Content Include="Scripts\Js\Recursiva\Configuracion.js" />
     <Content Include="Scripts\Js\Servicio\ServicioPersona.js" />
+    <Content Include="Scripts\Js\Ventas\Consulta_Ventas.js" />
     <Content Include="Scripts\Js\Ventas\Ventas_Recursos.js" />
     <Content Include="Scripts\Js\Ventas\Ventas.js" />
     <Content Include="Scripts\Js\Ventas\Ventas_Detalle.js" />

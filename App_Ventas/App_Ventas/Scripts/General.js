@@ -192,7 +192,6 @@ function rand_code(lon) {
     return code.toUpperCase();
 }
 
-
 /* card collapse*/
 function CollapsearchCard (_this) {
     var _this = $(_this).parent().children(); // listado card
@@ -201,3 +200,148 @@ function CollapsearchCard (_this) {
     $(_body).toggleClass('card-body-hide');
 }
   
+
+/*export grilla a excel*/
+
+function ExportJQGridPaginacionDataToExcel(tableCtrl, excelFilename, urlListar, _ORDEN, _SORT_ORDEN) {
+
+    var migrilla = new Object();
+    migrilla.page = 1;
+    migrilla.rows = 999999;
+    migrilla.sidx = _ORDEN;
+    migrilla.sord = _SORT_ORDEN;
+    migrilla._search = false;
+    migrilla.filters = "";
+    //if (opciones.rules != false) {
+    migrilla.Rules = GetRules(tableCtrl);
+    //}
+
+    //if (migrilla._search == true) {
+    //    migrilla.searchField = postdata.searchField;
+    //    migrilla.searchOper = postdata.searchOper;
+    //    migrilla.searchString = postdata.searchString;
+    //}
+    migrilla.usu = $("#input_hdidusuario").val();
+    migrilla.ofi = $("#input_hdidoficina").val();
+    migrilla.perfil = $("#input_hdidperfil").val();
+    var params = { grid: migrilla };
+    var allJQGridData;
+    $.ajax({
+        url: urlListar,
+        type: 'post',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(params),
+        async: false,
+        success: function (data, st) {
+            if (st == 'success') {
+
+                allJQGridData = data;
+                //var jq = $('#' + grilla)[0];
+                //jq.addJSONData(data);
+            }
+        },
+        error: function (a, b, c) {
+            alert('Error with AJAX callback');
+        }
+    });
+
+    //var allJQGridData = $(tableCtrl).jqGrid('getRowData'); 
+    var jqgridRowIDs = $(tableCtrl).getDataIDs();                // Fetch the RowIDs for this grid
+    var headerData = $(tableCtrl).getRowData(jqgridRowIDs[0]);   // Fetch the list of "name" values in our colModel
+
+    //  For each visible column in our jqGrid, fetch it's Name, and it's Header-Text value
+    var columnNames = new Array();       //  The "name" values from our jqGrid colModel
+    var columnHeaders = new Array();     //  The Header-Text, from the jqGrid "colNames" section
+    var inx = 1;
+    var allColumnNames = $(tableCtrl).jqGrid('getGridParam', 'colNames');
+
+    //  If our jqGrid has "MultiSelect" set to true, remove the first (checkbox) column, otherwise we'll
+    //  create an exception of: "A potentially dangerous Request.Form value was detected from the client."
+    var bIsMultiSelect = $(tableCtrl).jqGrid('getGridParam', 'multiselect');
+    if (bIsMultiSelect) {
+        inx++;
+    }
+    var ihd = 0;
+    for (var headerValue in headerData) {
+        //  If this column ISN'T hidden, and DOES have a column-name, then we'll export its data to Excel.
+
+        var column_ = $(tableCtrl).jqGrid("getColProp", headerValue);
+        var isColumnHidden = $(tableCtrl).jqGrid("getColProp", headerValue).hidden;
+        //debugger;
+        if (!isColumnHidden && headerValue != null && column_.index != '') {
+
+            columnNames.push(headerValue);
+            columnHeaders.push(allColumnNames[inx]);
+        } else
+            ihd++;
+        inx++;
+    }
+
+    //  We now need to build up a (potentially very long) tab-separated string containing all of the data (and a header row)
+    //  which we'll want to export to Excel.
+
+    //  First, let's append the header row...
+    var excelData = '';
+    for (var k = 0; k < columnNames.length; k++) {
+        excelData += columnHeaders[k] + "\t";
+    }
+    excelData = removeLastChar(excelData) + "\r\n";
+
+    //  ..then each row of data to be exported.
+    var cellValue = ''; debugger;
+    for (i = 0; i < allJQGridData.rows.length; i++) {
+        //for (i = 0; i < 2; i++) {
+
+        var data = allJQGridData.rows[i];
+
+        for (var j = 0; j < columnNames.length; j++) {
+
+            // Fetch one jqGrid cell's data, but make sure it's a string
+            cellValue = '' + data.cell[j + ihd];
+            cellValue = cellValue.replace(/(\r\n|\n|\r|\t|\nb)/gm, "");
+            //cellValue = '-';
+            //if (cellValue == 'INFORME 0075-2021-ANA-OA-UATD') {
+            //    debugger;
+            //    var sadas  = 1;
+            //}
+            //if (j = 0) cellValue = 'Hacemos todo';
+            //if (j == 1) cellValue = 'Hacemos todo';
+            //if (j == 2) cellValue = 'Hacemos todo';
+            //if (j == 3) cellValue = 'Hacemos todo';
+            //if (j == 4) cellValue = 'Hacemos todo';
+            //if (j == 4) {
+            //    debugger;
+            //    cellValue = 'Hacemos todo';
+            //}
+            //if (j == 5) cellValue = 'Hacemos todo';
+            //if (j == 6) cellValue = 'Hacemos todo';
+            //if (j == 7) cellValue = 'Hacemos todo';
+
+            //if (cellValue == '' || cellValue == '-') cellValue = 'Hacemos todo';
+            //excelData += "\t";
+            if (cellValue == null)
+                excelData += "\t";
+            else {
+                if (cellValue.indexOf("a href") > -1) {
+                    //  Some of my cells have a jqGrid cell with a formatter in them, making them hyperlinks.
+                    //  We don't want to export the "<a href..> </a>" tags to our Excel file, just the cell's text.
+                    cellValue = $(cellValue).text();
+                }
+                //  Make sure we are able to POST data containing apostrophes in it
+                cellValue = cellValue.replace(/'/g, "&apos;");
+                cellValue = cellValue.replace(/r'/g, "&apos;");
+                excelData += cellValue + "\t";
+            }
+        }
+        excelData = removeLastChar(excelData) + "\r\n";
+    }
+
+    //  Now, we need to POST our Excel Data to our .ashx file *and* redirect to the .ashx file.
+    //postAndRedirect("/Fermin/Handlers/Exportar_Grilla_Excel.ashx?filename=" + excelFilename, { excelData: excelData });
+    postAndRedirect("/SISGED/Handlers/Exportar_Grilla_Excel.ashx?filename=" + excelFilename, { excelData: excelData });
+}
+
+function removeLastChar(str) {
+    //  Remove the last character from a string
+    return str.substring(0, str.length - 1);
+}

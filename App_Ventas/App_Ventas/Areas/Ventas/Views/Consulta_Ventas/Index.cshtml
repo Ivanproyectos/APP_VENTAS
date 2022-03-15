@@ -1,0 +1,163 @@
+﻿@model App_Ventas.Areas.Ventas.Models.VentasModelView
+<script src="@Url.Content("~/Scripts/Js/Ventas/Consulta_Ventas.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Ventas/Ventas_Detalle.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Recursiva/Configuracion.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var _Id_Sucursal = $('#inputL_Id_Sucursal').val();
+    $(document).ready(function () {
+        Ventas_ConfigurarGrilla();
+        $('#ID_USUARIO').select2();
+        $(".badge").tooltip({ placement: "bottom", delay: { show: 100, hide: 400 } });
+        //Ventas_CargarGrilla();
+    });
+
+    $('#Ventas_FechaInicio, #Ventas_FechaFin').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        firstDay: 1,
+        changeFirstDay: false,
+        showAnim: 'slideDown'
+    });
+
+
+    $("#Ventas_btnBuscar").click(function (e) {
+        Ventas_ConfigurarGrilla();
+    });
+
+    $("#Ventas_btnLimpiar").click(function (e) {
+        Ventas_Limpiar();
+    });
+
+    $("#Ventas_btnNuevo").click(function (e) {
+        Ventas_MostrarNuevo();
+    });
+
+    $('#Ventas_FechaInicio').change(function (e) {
+        var _fechafin = $('#Ventas_FechaFin').val();
+        if (_fechafin == "") {
+            $('#Ventas_FechaFin').tooltip('enable')
+            $('#Ventas_FechaFin').tooltip('show');
+        }
+        else
+            $('#Ventas_FechaFin').tooltip('disable');
+
+    });
+
+    $('#Ventas_FechaInicio').change(function (e) {
+        var _valor = $(this).val();
+        if (_valor != "")
+            $('#Ventas_FechaFin').tooltip('disable')
+    });
+
+
+</script>
+
+<div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+
+
+<div class="row ">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+        <div class="alert alert-info alert-dismissible alert-alt fade show">
+            <strong>Consulta Ventas!</strong> Aquí podras consultar las ventas en general.                         
+        </div>
+    </div>
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header border-bottom-head card-collapse " onclick="CollapsearchCard(this);">
+                <h4 class="card-title">Criterios de Busqueda</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="basic-form">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label>Código Código Venta:</label>
+                            <input id="Ventas_CodigoVenta" type="text" class="form-control" placeholder="Ejm: F55402">
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Tipo Comprobante:</label>
+                            @Html.DropDownListFor(model => model.ID_TIPO_COMPROBANTE_SEARCH, Model.Lista_Tipo_Comprobante, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Tipo Pago:</label>
+                            <select class="form-control" id="Ventas_FLG_TIPO_VENTA">
+                                <option value="">-- Seleccione --</option>
+                                <option value="0">Al Contado</option>
+                                <option value="1">Credito</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Estado Venta:</label>
+                            <select class="form-control" id="Ventas_FLG_ANULADO">
+                                <option value="">-- Seleccione --</option>
+                                <option value="0">Realizado</option>
+                                <option value="1">Anulado</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Usuario:</label>
+                            @Html.DropDownListFor(model => model.ID_USUARIO, Model.Lista_Usuarios, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Sucursal:</label>
+                            @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        </div>
+
+
+                        <div class="form-group col-md-3">
+                            <label>Fecha Inicio:</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="Ventas_FechaInicio" class="form-control" placeholder="dd/mm/yyyy">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Fecha Fin:</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="Ventas_FechaFin" class="form-control" placeholder="dd/mm/yyyy" data-toggle="tooltip" data-placement="bottom" title="Ingrese fecha fin">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <button type="button" id="Ventas_btnBuscar" class="btn btn-hover-shine  btn-square btn-primary "><i class="fa fa-search"></i>&nbsp Buscar</button>
+                            <button type="button" id="Ventas_btnLimpiar" class="btn  btn-square btn-light"><i class="bi bi-arrow-clockwise"></i>&nbsp Limpiar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row ">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="jqGrid">
+                    <table id="Ventas_Grilla"></table>
+                    <div id="Ventas_Barra"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
