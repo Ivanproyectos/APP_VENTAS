@@ -21,6 +21,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +42,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -154,6 +159,7 @@
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
@@ -219,6 +225,11 @@
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Handlers\CreateExcelFile.cs" />
+    <Compile Include="Handlers\ExcelTools.cs" />
+    <Compile Include="Handlers\Exportar_Grilla_Excel.ashx.cs">
+      <DependentUpon>Exportar_Grilla_Excel.ashx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -4140,7 +4151,9 @@
     <Content Include="Areas\Login\Views\Web.config" />
     <Content Include="Areas\Ventas\Views\Ventas\Mantenimiento_DevolverProducto.cshtml" />
     <Content Include="Areas\Ventas\Views\Consulta_Ventas\Index.cshtml" />
+    <Content Include="Handlers\Exportar_Grilla_Excel.ashx" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Recursos\Imagenes\tulogo.png" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\inicializacion.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />

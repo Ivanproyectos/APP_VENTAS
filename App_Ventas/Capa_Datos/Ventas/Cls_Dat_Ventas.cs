@@ -44,6 +44,7 @@ namespace Capa_Datos.Ventas
                 int pos_ID_VENTA = dr.GetOrdinal("ID_VENTA");
                 int pos_COD_COMPROBANTE = dr.GetOrdinal("COD_COMPROBANTE");
                 int pos_FLG_ANULADO = dr.GetOrdinal("FLG_ANULADO");
+                int pos_FLG_CRED_CANCELADO = dr.GetOrdinal("FLG_CRED_CANCELADO");
                 int pos_FLG_TIPO_VENTA = dr.GetOrdinal("FLG_TIPO_VENTA");
                 //int pos_FECHA_VENTA = dr.GetOrdinal("STR_FECHA_VENTA");
                 int pos_ID_CLIENTE = dr.GetOrdinal("ID_CLIENTE");
@@ -56,6 +57,9 @@ namespace Capa_Datos.Ventas
                 int pos_DESCUENTO = dr.GetOrdinal("DESCUENTO");
                 int pos_TOTAL = dr.GetOrdinal("TOTAL");
                 int pos_DETALLE = dr.GetOrdinal("DETALLE");
+                int pos_DESC_TIPO_VENTA = dr.GetOrdinal("DESC_TIPO_VENTA");
+                int pos_DESC_ESTADO_CREDITO = dr.GetOrdinal("DESC_ESTADO_CREDITO");
+                int pos_DESC_ESTADO_VENTA = dr.GetOrdinal("DESC_ESTADO_VENTA");
                 int pos_USU_CREACION = dr.GetOrdinal("USU_CREACION");
                 int pos_FEC_CREACION = dr.GetOrdinal("STR_FECHA_VENTA");
                 int pos_USU_MODIFICACION = dr.GetOrdinal("USU_MODIFICACION");
@@ -83,11 +87,12 @@ namespace Capa_Datos.Ventas
                         if (dr.IsDBNull(pos_FLG_TIPO_VENTA)) obj.FLG_TIPO_VENTA = 0;
                         else obj.FLG_TIPO_VENTA = int.Parse(dr[pos_FLG_TIPO_VENTA].ToString());
 
+
                         //if (dr.IsDBNull(pos_FECHA_VENTA)) obj.FECHA_VENTA = "";
                         //else obj.FECHA_VENTA = dr.GetString(pos_FECHA_VENTA);
 
-                        if (dr.IsDBNull(pos_FLG_TIPO_VENTA)) obj.FLG_TIPO_VENTA = 0;
-                        else obj.FLG_TIPO_VENTA = int.Parse(dr[pos_FLG_TIPO_VENTA].ToString());
+                        if (dr.IsDBNull(pos_FLG_CRED_CANCELADO)) obj.FLG_CRED_CANCELADO = 0;
+                        else obj.FLG_CRED_CANCELADO = int.Parse(dr[pos_FLG_CRED_CANCELADO].ToString());
 
                         if (dr.IsDBNull(pos_CLIENTE)) obj.CLIENTE = "";
                         else obj.CLIENTE = dr.GetString(pos_CLIENTE);
@@ -111,8 +116,18 @@ namespace Capa_Datos.Ventas
                         if (dr.IsDBNull(pos_USU_CREACION)) obj.DETALLE = "";
                         else obj.DETALLE = dr.GetString(pos_USU_CREACION);
 
-                        if (dr.IsDBNull(pos_DETALLE)) obj.USU_CREACION = "";
-                        else obj.USU_CREACION = dr.GetString(pos_DETALLE);
+
+                        if (dr.IsDBNull(pos_DESC_TIPO_VENTA)) obj.DESC_TIPO_VENTA = "";
+                        else obj.DESC_TIPO_VENTA = dr.GetString(pos_DESC_TIPO_VENTA);
+
+                        if (dr.IsDBNull(pos_DESC_ESTADO_CREDITO)) obj.DESC_ESTADO_CREDITO = "";
+                        else obj.DESC_ESTADO_CREDITO = dr.GetString(pos_DESC_ESTADO_CREDITO);
+
+                        if (dr.IsDBNull(pos_DESC_ESTADO_VENTA)) obj.DESC_ESTADO_VENTA = "";
+                        else obj.DESC_ESTADO_VENTA = dr.GetString(pos_DESC_ESTADO_VENTA);
+
+                        if (dr.IsDBNull(pos_USU_CREACION)) obj.USU_CREACION = "";
+                        else obj.USU_CREACION = dr.GetString(pos_USU_CREACION);
 
                         if (dr.IsDBNull(pos_FEC_CREACION)) obj.FEC_CREACION = "";
                         else obj.FEC_CREACION = dr.GetString(pos_FEC_CREACION);

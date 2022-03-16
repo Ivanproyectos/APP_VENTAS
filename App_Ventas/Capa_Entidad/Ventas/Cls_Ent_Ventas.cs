@@ -27,7 +27,11 @@ namespace Capa_Entidad.Ventas
         public List<Cls_Ent_Ventas_Detalle> ListaDetalle { get; set; }
         public int FILA { get; set; }
         public int FLG_ANULADO { get; set; }
-        
+
+        public string DESC_TIPO_VENTA { get; set; }
+        public string DESC_ESTADO_CREDITO { get; set; }
+        public string DESC_ESTADO_VENTA { get; set; }
+        public int FLG_CRED_CANCELADO { get; set; }
         
     }
 }

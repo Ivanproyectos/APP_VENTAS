@@ -1,0 +1,5 @@
+A3:System.IO.FileNotFoundException: C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Recursos\Imagenes\cabecera.png
+   en System.Drawing.Image.FromFile(String filename, Boolean useEmbeddedColorManagement)
+   en System.Drawing.Image.FromFile(String filename)
+   en App_Ventas.Handlers.CreateExcelFile.WriteExcelFile(DataSet ds, SpreadsheetDocument spreadsheet) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Handlers\CreateExcelFile.cs:línea 849
+   en App_Ventas.Handlers.CreateExcelFile.CreateExcelDocumentAsStream(DataSet ds, String filename, HttpResponse Response) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Handlers\CreateExcelFile.cs:línea 278

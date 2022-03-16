@@ -204,7 +204,7 @@ function CollapsearchCard (_this) {
 /*export grilla a excel*/
 
 function ExportJQGridPaginacionDataToExcel(tableCtrl, excelFilename, urlListar, _ORDEN, _SORT_ORDEN) {
-
+    debugger; 
     var migrilla = new Object();
     migrilla.page = 1;
     migrilla.rows = 999999;
@@ -244,7 +244,7 @@ function ExportJQGridPaginacionDataToExcel(tableCtrl, excelFilename, urlListar, 
             alert('Error with AJAX callback');
         }
     });
-
+    debugger;
     //var allJQGridData = $(tableCtrl).jqGrid('getRowData'); 
     var jqgridRowIDs = $(tableCtrl).getDataIDs();                // Fetch the RowIDs for this grid
     var headerData = $(tableCtrl).getRowData(jqgridRowIDs[0]);   // Fetch the list of "name" values in our colModel
@@ -288,7 +288,7 @@ function ExportJQGridPaginacionDataToExcel(tableCtrl, excelFilename, urlListar, 
     excelData = removeLastChar(excelData) + "\r\n";
 
     //  ..then each row of data to be exported.
-    var cellValue = ''; debugger;
+    var cellValue = ''; 
     for (i = 0; i < allJQGridData.rows.length; i++) {
         //for (i = 0; i < 2; i++) {
 
@@ -338,10 +338,33 @@ function ExportJQGridPaginacionDataToExcel(tableCtrl, excelFilename, urlListar, 
 
     //  Now, we need to POST our Excel Data to our .ashx file *and* redirect to the .ashx file.
     //postAndRedirect("/Fermin/Handlers/Exportar_Grilla_Excel.ashx?filename=" + excelFilename, { excelData: excelData });
-    postAndRedirect("/SISGED/Handlers/Exportar_Grilla_Excel.ashx?filename=" + excelFilename, { excelData: excelData });
+    postAndRedirect(MiSistema+"/Handlers/Exportar_Grilla_Excel.ashx?filename=" + excelFilename, { excelData: excelData });
 }
 
 function removeLastChar(str) {
     //  Remove the last character from a string
     return str.substring(0, str.length - 1);
+}
+
+
+function postAndRedirect(url, postData) {
+    debugger;
+    //  Redirect to a URL, and POST some data to it.
+    //  Taken from:
+    //  http://stackoverflow.com/questions/8389646/send-post-data-on-redirect-with-javascript-jquery
+    //
+    var postFormStr = "<form method='POST' action='" + url + "'>\n";
+
+    for (var key in postData) {
+        if (postData.hasOwnProperty(key)) {
+            postFormStr += "<input type='hidden' name='" + key + "' value='" + postData[key] + "'></input>";
+        }
+    }
+
+    postFormStr += "</form>";
+
+    var formElement = $(postFormStr);
+
+    $('body').append(formElement);
+    $(formElement).submit();
 }

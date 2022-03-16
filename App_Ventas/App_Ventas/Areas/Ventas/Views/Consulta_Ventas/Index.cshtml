@@ -103,19 +103,19 @@
 
                         <div class="form-group col-md-3">
                             <label>Usuario:</label>
-                            @Html.DropDownListFor(model => model.ID_USUARIO, Model.Lista_Usuarios, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                            @Html.DropDownListFor(model => model.ID_USUARIO, Model.Lista_Usuarios, new { @class = "form-control", @maxlength = "150", @style = "width:100%" , @autocomplete="off" })
                         </div>
 
                         <div class="form-group col-md-3">
                             <label>Sucursal:</label>
-                            @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                            @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" , @autocomplete="off" })
                         </div>
 
 
                         <div class="form-group col-md-3">
                             <label>Fecha Inicio:</label>
                             <div class="input-group mb-3">
-                                <input type="text" id="Ventas_FechaInicio" class="form-control" placeholder="dd/mm/yyyy">
+                                <input type="text" id="Ventas_FechaInicio" class="form-control" placeholder="dd/mm/yyyy", autocomplete="off">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
                                 </div>
@@ -124,7 +124,7 @@
                         <div class="form-group col-md-3">
                             <label>Fecha Fin:</label>
                             <div class="input-group mb-3">
-                                <input type="text" id="Ventas_FechaFin" class="form-control" placeholder="dd/mm/yyyy" data-toggle="tooltip" data-placement="bottom" title="Ingrese fecha fin">
+                                <input type="text" id="Ventas_FechaFin" class="form-control" placeholder="dd/mm/yyyy" data-toggle="tooltip" data-placement="bottom" title="Ingrese fecha fin" , autocomplete="off">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
                                 </div>

@@ -159,10 +159,15 @@ namespace App_Ventas.Areas.Ventas.Controllers
                             item.SUB_TOTAL.ToString(),
                             item.IGV.ToString(), 
                             item.TOTAL.ToString(),                               
-                            item.FLG_ANULADO.ToString(),
-                            item.FLG_TIPO_VENTA.ToString(),
+                            item.DESC_ESTADO_VENTA.ToString(),
+                            item.DESC_TIPO_VENTA.ToString(),
                             item.FEC_CREACION.ToString(),
                             item.COD_COMPROBANTE.ToString(),
+
+                            item.FLG_ANULADO.ToString(),
+                            item.FLG_TIPO_VENTA.ToString(),
+                            item.FLG_CRED_CANCELADO.ToString(),
+
                             }
                         }).ToArray();
 

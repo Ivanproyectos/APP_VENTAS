@@ -22,10 +22,10 @@ function Ventas_Limpiar() {
 function Ventas_ConfigurarGrilla() {
     var url = baseUrl + 'Ventas/Ventas/Ventas_Paginado';
     $("#" + Ventas_Grilla).GridUnload();
-    var colNames = ['Acciones', 'Código', 'ID', 'Código Venta', 'Tipo Comprobante','Cliente','Descuento','Subtotal','Igv','Total','Estado Venta','Tipo Pago',
-       'Fecha Venta','COD_COMPROBANTE'];
+    var colNames = ['Acciones', 'Código', 'ID', 'Código Venta', 'Tipo Comprobante', 'Cliente', 'Descuento', 'Subtotal', 'Igv', 'Total', 'Estado Venta', 'Tipo Pago',
+       'Fecha Venta', 'COD_COMPROBANTE', 'Flg_anulado', 'flg_tipoventa', 'flg_credito'];
     var colModels = [
-            { name: 'ACCION', index: 'ACCION', align: 'center', width: 100, hidden: false, formatter: Ventas_actionAcciones, sortable: false}, // 0
+            { name: 'ACCION', index: 'ACCION', align: 'center', width: 100, hidden: false, formatter: Ventas_actionAcciones, sortable: false }, // 0
             { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },// 1
             { name: 'ID_VENTA', index: 'ID_VENTA', width: 100, hidden: true, key: true }, // 2
             { name: 'COD_VENTA', index: 'COD_VENTA', width: 150, hidden: false, align: "left" }, // 3
@@ -35,10 +35,13 @@ function Ventas_ConfigurarGrilla() {
             { name: 'SUBTOTAL', index: 'SUBTOTAL', width: 100, hidden: false, align: "left" }, // 7
             { name: 'IGV', index: 'IGV', width: 100, hidden: false, align: "left" }, // 8
             { name: 'TOTAL', index: 'TOTAL', width: 100, hidden: false, align: "left" }, // 9       
-            { name: 'FLG_ANULADO', index: 'FLG_ANULADO', width: 150, hidden: false, align: "left", formatter: Ventas_Anulado }, // 10
-            { name: 'FLG_TIPO_VENTA', index: 'FLG_TIPO_VENTA', width: 150, hidden: false, align: "left", formatter: Ventas_TipoVenta }, // 11
+            { name: 'DESC_ESTADO_VENTA', index: 'DESC_ESTADO_VENTA', width: 150, hidden: false, align: "left", formatter: Ventas_Anulado }, // 10
+            { name: 'DESC_TIPO_VENTA', index: 'DESC_TIPO_VENTA', width: 150, hidden: false, align: "left", formatter: Ventas_TipoVenta }, // 11
             { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },//12
             { name: 'COD_COMPROBANTE', index: 'COD_COMPROBANTE', width: 150, hidden: true, align: "left" },//13
+            { name: 'FLG_ANULADO', index: 'FLG_ANULADO', width: 150, hidden: true, align: "left" },//14
+            { name: 'FLG_TIPO_VENTA', index: 'FLG_TIPO_VENTA', width: 150, hidden: true, align: "left" },//15
+            { name: 'FLG_CRED_CANCELADO', index: 'FLG_CRED_CANCELADO', width: 150, hidden: true, align: "left" },//16
 
     ];
     var opciones = {
@@ -91,7 +94,7 @@ function Ventas_actionAcciones(cellvalue, options, rowObject) {
     
 
     var _btn = "<div class=\"btn-group\" role=\"group\" title=\"Acciones \" >" +
-           " <button  style=\" background: transparent; border: none; color: #673BB7;font-size: 18px;\" type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button> " +
+           " <button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button> " +
            " <div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
             _btn_Anular +
             "<a class=\"dropdown-item\" onclick='Ventas_MostrarDevolverProducto(" + _ID_VENTA + ")' ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>" +
@@ -109,48 +112,31 @@ function Ventas_FormaterComprobante(cellvalue, options, rowObject) {
 }
 
 function Ventas_Anulado(cellvalue, options, rowObject) {
-    var _FLG_ANULADO = rowObject[10];
+    var _DESC_ESTADO_VENTA = rowObject[10];
+    var _FLG_ANULADO = rowObject[14];
     var _text = "";
     if (_FLG_ANULADO == 1) {
-        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Esta venta fue anulada.\">Anulado</span>";
+        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Esta venta fue anulada.\">" + _DESC_ESTADO_VENTA + "</span>";
     }
     else if (_FLG_ANULADO == 0) {
-        _text = "<span class=\"badge badge-success\" data-bs-toggle=\"tooltip\" title=\"Venta Realiazada\">Realizado</span>";
+        _text = "<span class=\"badge badge-success\" data-bs-toggle=\"tooltip\" title=\"Venta Realiazada\">" + _DESC_ESTADO_VENTA + "</span>";
     }
     return _text;
 }
 
 function Ventas_TipoVenta(cellvalue, options, rowObject) {
-    var _FLG_TIPO_VENTA = rowObject[11];
+    var _DESC_TIPO_VENTA = rowObject[11];
+    var _FLG_TIPO_VENTA = rowObject[15];
     var _text = "";
     if (_FLG_TIPO_VENTA == 1) {
-        _text = "<span class=\"badge badge-warning \" data-bs-toggle=\"tooltip\" title=\"Esta venta fue es al credito.\">Credito</span>";
+        _text = "<span class=\"badge badge-warning \" data-bs-toggle=\"tooltip\" title=\"Esta venta fue es al credito.\">" + _DESC_TIPO_VENTA + "</span>";
     }
     else if (_FLG_TIPO_VENTA == 0) {
-        _text = "Al Contado"
+        _text = _DESC_TIPO_VENTA;
     }
     return _text;
 }
 
-
-//function Ventas_actionEditar(cellvalue, options, rowObject) {
-//    var _btn = "<button title='Editar'  onclick='Ventas_MostrarEditar(" + rowObject.ID_VENTA + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
-//    return _btn;
-//}
-
-function Ventas_actionEliminar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Eliminar'  onclick='Ventas_Eliminar(" + rowObject.ID_VENTA + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>";
-    return _btn;
-}
-
-function Ventas_MostrarNuevo() {
-    jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Ventas/Ventas/Mantenimiento?id=0&Accion=N", function (responseText, textStatus, request) {
-        $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
-        $.validator.unobtrusive.parse('#myModalNuevo');
-        if (request.status != 200) return;
-    });
-}
 
 function Ventas_MostarBuscarProducto() {
     var _ID_SUCURSAL = $('#inputL_Id_Sucursal').val();
