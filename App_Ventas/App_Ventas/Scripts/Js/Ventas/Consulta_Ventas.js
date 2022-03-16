@@ -41,7 +41,7 @@ function Ventas_ConfigurarGrilla() {
             { name: 'COD_COMPROBANTE', index: 'COD_COMPROBANTE', width: 150, hidden: true, align: "left" },//13
             { name: 'FLG_ANULADO', index: 'FLG_ANULADO', width: 150, hidden: true, align: "left" },//14
             { name: 'FLG_TIPO_VENTA', index: 'FLG_TIPO_VENTA', width: 150, hidden: true, align: "left" },//15
-            { name: 'FLG_CRED_CANCELADO', index: 'FLG_CRED_CANCELADO', width: 150, hidden: true, align: "left" },//16
+            { name: 'FLG_ESTADO_CREDITO', index: 'FLG_ESTADO_CREDITO', width: 150, hidden: true, align: "left" },//16
 
     ];
     var opciones = {

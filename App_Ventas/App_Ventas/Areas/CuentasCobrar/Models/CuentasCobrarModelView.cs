@@ -19,7 +19,13 @@ namespace App_Ventas.Areas.CuentasCobrar.Models
         public int ID_SUCURSAL { get; set; }
         public List<SelectListItem> Lista_Sucursal { get; set; }
 
+          [Display(Name = "ID_CLIENTE: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Sucursal] es obligatorio")]
+        public int ID_CLIENTE { get; set; }
+          public List<SelectListItem> Lista_Cliente { get; set; }
 
+        
 
         public string Accion { get; set; }
 

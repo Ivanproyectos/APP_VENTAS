@@ -8,13 +8,9 @@ function CuentasCobrar_Cerrar() {
 
 function CuentasCobrar_Limpiar() {
     $("#CuentasCobrar_CodigoVenta").val('');
-    $('#ID_TIPO_COMPROBANTE_SEARCH').val('');
-    $('#CuentasCobrar_FLG_TIPO_VENTA').val('');
-    $('#CuentasCobrar_FLG_ANULADO').val('');
-    $('#ID_USUARIO').val('').trigger('change');
-    $('#ID_SUCURSAL').val('');
+    $('#CuentasCobrar_FLG_CREDITO').val('');
+    $('#ID_CLIENTE').val('');
     $('#CuentasCobrar_FechaInicio').val('');
-    $('#CuentasCobrar_FechaFin').val('');
 
     CuentasCobrar_ConfigurarGrilla();
 }
@@ -41,7 +37,7 @@ function CuentasCobrar_ConfigurarGrilla() {
             { name: 'COD_COMPROBANTE', index: 'COD_COMPROBANTE', width: 150, hidden: true, align: "left" },//13
             { name: 'FLG_ANULADO', index: 'FLG_ANULADO', width: 150, hidden: true, align: "left" },//14
             { name: 'FLG_TIPO_VENTA', index: 'FLG_TIPO_VENTA', width: 150, hidden: true, align: "left" },//15
-            { name: 'FLG_CRED_CANCELADO', index: 'FLG_CRED_CANCELADO', width: 150, hidden: true, align: "left" },//16
+            { name: 'FLG_ESTADO_CREDITO', index: 'FLG_CRED_CANCELADO', width: 150, hidden: true, align: "left" },//16
 
     ];
     var opciones = {
@@ -53,25 +49,22 @@ function CuentasCobrar_ConfigurarGrilla() {
 
 function GetRules(CuentasCobrar_Grilla) {
     var rules = new Array();
-    var FECHA_INICIO = jQuery('#CuentasCobrar_FechaInicio').val() == '' ? null : "'" + jQuery('#CuentasCobrar_FechaInicio').val() + "'";
-    var FECHA_FIN = jQuery('#CuentasCobrar_FechaFin').val() == '' ? null : "'" + jQuery('#CuentasCobrar_FechaFin').val() + "'";
-    var ID_TIPO_COMPROBANTE = jQuery('#ID_TIPO_COMPROBANTE_SEARCH').val() == '' ? null : "'" + jQuery('#ID_TIPO_COMPROBANTE_SEARCH').val() + "'";
-    var FLG_TIPO_VENTA = jQuery('#CuentasCobrar_FLG_TIPO_VENTA').val() == '' ? null : "'" + jQuery('#CuentasCobrar_FLG_TIPO_VENTA').val() + "'";
-    var CODIGO_VENTA = "'" + jQuery('#CuentasCobrar_CodigoVenta').val() + "'";
-    var _USUARIO = jQuery('#ID_USUARIO').val() == '' ? null : "'" + jQuery('#ID_USUARIO').val() + "'";
-    var _ID_SUCURSAL = jQuery('#ID_SUCURSAL').val() == '' ? null : "'" + jQuery('#ID_SUCURSAL').val() + "'";
-    var _FLG_ANULADO = jQuery('#CuentasCobrar_FLG_ANULADO').val() == '' ? null : "'" + jQuery('#CuentasCobrar_FLG_ANULADO').val() + "'";
+    var CODIGO_COMPROBANTE = jQuery('#CuentasCobrar_CodigoVenta').val();
+    var FECHA_VENTA = jQuery('#CuentasCobrar_FechaInicio').val();
+    var ID_CLIENTE = jQuery('#ID_CLIENTE').val() == '' ? null : "'" + jQuery('#ID_CLIENTE').val() + "'";
+    var FLG_ESTADO_CREDITO = jQuery('#CuentasCobrar_FLG_CREDITO').val() == '' ? null : "'" + jQuery('#CuentasCobrar_FLG_CREDITO').val() + "'";
+    var ID_SUCURSAL = "'" + jQuery('#ID_SUCURSAL').val() + "'";
+
 
     var POR = "'%'";
     rules = []
+    rules.push({ field: 'UPPER(COD_COMPROBANTE)', data: POR + ' + ' + CODIGO_COMPROBANTE + ' + ' + POR, op: " LIKE " });
+    rules.push({ field: 'FLG_CRED_CANCELADO', data: '  ISNULL(' + FLG_ESTADO_CREDITO + ',FLG_ESTADO_CREDITO) ', op: " = " });
+    rules.push({ field: 'ID_CLIENTE', data: '  ISNULL(' + ID_CLIENTE + ',ID_CLIENTE) ', op: " = " });
+    rules.push({ field: 'CONVERT(DATE,FEC_CREACION,103)', data: 'CONVERT(DATE,\'' + FECHA_VENTA + '\',103) ', op: " = " });
     rules.push({ field: 'UPPER(COD_COMPROBANTE)', data: POR + ' + ' + CODIGO_VENTA + ' + ' + POR, op: " LIKE " });
-    rules.push({ field: 'ID_TIPO_COMPROBANTE', data: '  ISNULL(' + ID_TIPO_COMPROBANTE + ',ID_TIPO_COMPROBANTE) ', op: " = " });
-    rules.push({ field: 'FLG_TIPO_VENTA', data: '  ISNULL(' + FLG_TIPO_VENTA + ',FLG_TIPO_VENTA) ', op: " = " });
-    rules.push({ field: 'USU_CREACION', data: '  ISNULL(' + _USUARIO + ',USU_CREACION) ', op: " = " });
-    rules.push({ field: 'ID_SUCURSAL', data: '  ISNULL(' + _ID_SUCURSAL + ',ID_SUCURSAL) ', op: " = " });
-    rules.push({ field: 'FLG_ANULADO', data: '  ISNULL(' + _FLG_ANULADO + ',FLG_ANULADO) ', op: " = " });
-    rules.push({ field: 'CONVERT(DATE,FEC_CREACION,103)', data: 'CONVERT(DATE,ISNULL(' + FECHA_INICIO + ',FEC_CREACION),103)  AND CONVERT(DATE,ISNULL(' + FECHA_FIN + ',FEC_CREACION),103)  ', op: " BETWEEN " });
-    rules.push({ field: 'UPPER(COD_COMPROBANTE)', data: POR + ' + ' + CODIGO_VENTA + ' + ' + POR, op: " LIKE " });
+    rules.push({ field: 'UPPER(ID_SUCURSAL)', data: ID_SUCURSAL, op: " = " });
+    rules.push({ field: 'UPPER(FLG_TIPO_VENTA)', data: 1, op: " = " }); // CREDITO
 
     return rules;
 }

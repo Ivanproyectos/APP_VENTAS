@@ -31,7 +31,7 @@ namespace Capa_Entidad.Ventas
         public string DESC_TIPO_VENTA { get; set; }
         public string DESC_ESTADO_CREDITO { get; set; }
         public string DESC_ESTADO_VENTA { get; set; }
-        public int FLG_CRED_CANCELADO { get; set; }
+        public int FLG_ESTADO_CREDITO { get; set; }
         
     }
 }

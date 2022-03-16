@@ -20,6 +20,9 @@
         CuentasCobrar_MostrarNuevo();
     });
 
+    $('#ID_SUCURSAL').change(function () {
+        CuentasCobrar_ConfigurarGrilla();
+    }); 
 
 
 </script>
@@ -38,18 +41,35 @@
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label>Código Código Venta:</label>
-                            <input type="text" class="form-control" placeholder="Ejm: F55402">
+                            <input id="CuentasCobrar_CodigoVenta" type="text" class="form-control" placeholder="Ejm: F55402">
                         </div>
 
                         <div class="form-group col-md-3">
-                            <label>Tipo Comprobante:</label>
-                            <input type="text" class="form-control" placeholder="Ejm: Bebidas">
+                            <label>Estado Credito:</label>
+                            <select class="form-control" id="CuentasCobrar_FLG_CREDITO">
+                                <option value="">-- Seleccione --</option>
+                                <option value="0">Pendiente</option>
+                                <option value="1">Cancelado</option>
+                            </select>
                         </div>
 
+
                         <div class="form-group col-md-3">
-                            <label>Tipo Pago:</label>
-                            <input type="text" class="form-control" placeholder="Ejm: Bebidas">
+                            <label>Cliente:</label>
+                            @Html.DropDownListFor(model => model.ID_CLIENTE, Model.Lista_Cliente, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         </div>
+
+                        
+                        <div class="form-group col-md-3">
+                            <label>Fecha Inicio:</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="CuentasCobrar_FechaInicio" class="form-control" placeholder="dd/mm/yyyy", autocomplete="off" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                </div>
+                            </div>
+                       </div>
+                     
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-3">
@@ -70,7 +90,7 @@
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-header">
-               @* <button type="button" id="CuentasCobrar_btnNuevo" class="btn btn-rounded btn-primary btn-hover-shine" style="margin-bottom: 5px;">
+                @* <button type="button" id="CuentasCobrar_btnNuevo" class="btn btn-rounded btn-primary btn-hover-shine" style="margin-bottom: 5px;">
                     <span class="btn-icon-left  text-primary "><i class="fa fa-plus color-primary"></i></span>Nueva Venta</button>*@
             </div>
             <div class="card-body">

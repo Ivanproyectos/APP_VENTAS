@@ -44,7 +44,7 @@ namespace Capa_Datos.Ventas
                 int pos_ID_VENTA = dr.GetOrdinal("ID_VENTA");
                 int pos_COD_COMPROBANTE = dr.GetOrdinal("COD_COMPROBANTE");
                 int pos_FLG_ANULADO = dr.GetOrdinal("FLG_ANULADO");
-                int pos_FLG_CRED_CANCELADO = dr.GetOrdinal("FLG_CRED_CANCELADO");
+                int pos_FLG_ESTADO_CREDITO = dr.GetOrdinal("FLG_ESTADO_CREDITO");
                 int pos_FLG_TIPO_VENTA = dr.GetOrdinal("FLG_TIPO_VENTA");
                 //int pos_FECHA_VENTA = dr.GetOrdinal("STR_FECHA_VENTA");
                 int pos_ID_CLIENTE = dr.GetOrdinal("ID_CLIENTE");
@@ -91,8 +91,8 @@ namespace Capa_Datos.Ventas
                         //if (dr.IsDBNull(pos_FECHA_VENTA)) obj.FECHA_VENTA = "";
                         //else obj.FECHA_VENTA = dr.GetString(pos_FECHA_VENTA);
 
-                        if (dr.IsDBNull(pos_FLG_CRED_CANCELADO)) obj.FLG_CRED_CANCELADO = 0;
-                        else obj.FLG_CRED_CANCELADO = int.Parse(dr[pos_FLG_CRED_CANCELADO].ToString());
+                        if (dr.IsDBNull(pos_FLG_ESTADO_CREDITO)) obj.FLG_ESTADO_CREDITO = 0;
+                        else obj.FLG_ESTADO_CREDITO = int.Parse(dr[pos_FLG_ESTADO_CREDITO].ToString());
 
                         if (dr.IsDBNull(pos_CLIENTE)) obj.CLIENTE = "";
                         else obj.CLIENTE = dr.GetString(pos_CLIENTE);

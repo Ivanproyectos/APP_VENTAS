@@ -166,7 +166,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
 
                             item.FLG_ANULADO.ToString(),
                             item.FLG_TIPO_VENTA.ToString(),
-                            item.FLG_CRED_CANCELADO.ToString(),
+                            item.FLG_ESTADO_CREDITO.ToString(),
 
                             }
                         }).ToArray();
