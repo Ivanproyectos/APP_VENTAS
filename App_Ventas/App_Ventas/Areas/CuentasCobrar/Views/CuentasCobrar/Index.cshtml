@@ -1,14 +1,17 @@
 ﻿@model App_Ventas.Areas.CuentasCobrar.Models.CuentasCobrarModelView
 <script src="@Url.Content("~/Scripts/Js/CuentasCobrar/CuentasCobrar.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Ventas/Ventas_Detalle.js")" type="text/javascript"></script>
+
 <script type="text/javascript">
 
     $(document).ready(function () {
         CuentasCobrar_ConfigurarGrilla();
+        $('#ID_CLIENTE').select2(); 
         //CuentasCobrar_CargarGrilla();
     });
 
     $("#CuentasCobrar_btnBuscar").click(function (e) {
-        CuentasCobrar_CargarGrilla();
+        CuentasCobrar_ConfigurarGrilla();
     });
 
     $("#CuentasCobrar_btnLimpiar").click(function (e) {
@@ -61,9 +64,9 @@
 
                         
                         <div class="form-group col-md-3">
-                            <label>Fecha Inicio:</label>
+                            <label>Fecha Venta:</label>
                             <div class="input-group mb-3">
-                                <input type="text" id="CuentasCobrar_FechaInicio" class="form-control" placeholder="dd/mm/yyyy", autocomplete="off" />
+                                <input type="text" id="CuentasCobrar_FechaVenta" class="form-control" placeholder="dd/mm/yyyy", autocomplete="off" />
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
                                 </div>
@@ -96,7 +99,7 @@
             <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label>Sucursal:</label>
+                        <label>Sucursal:<span class="text-danger">(*)</span></label>
                         @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                     </div>
                 </div>

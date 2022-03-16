@@ -67,11 +67,10 @@ namespace App_Ventas.Areas.Ventas.Controllers
                 model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
             }
 
-
-            
-
             return View(model);
         }
+
+
 
 
 

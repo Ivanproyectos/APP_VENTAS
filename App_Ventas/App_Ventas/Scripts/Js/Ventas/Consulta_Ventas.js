@@ -87,7 +87,7 @@ function GetRules(Ventas_Grilla) {
 
 function Ventas_actionAcciones(cellvalue, options, rowObject) {
     var _ID_VENTA = rowObject[2];
-    var _FLG_FLG_ANULADO = rowObject[10];
+    var _FLG_FLG_ANULADO = rowObject[14];
     var _btn_Anular =""; 
     if (_FLG_FLG_ANULADO == 0)
         _btn_Anular = " <a class=\"dropdown-item\" onclick='Ventas_AnularVenta(" + _ID_VENTA + ")'><i class=\"bi bi-bag-x\" style=\"color:red;\"></i>&nbsp;  Anular</a>"; 

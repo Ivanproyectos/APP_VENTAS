@@ -119,11 +119,6 @@ function Ventas_TipoVenta(cellvalue, options, rowObject) {
 }
 
 
-//function Ventas_actionEditar(cellvalue, options, rowObject) {
-//    var _btn = "<button title='Editar'  onclick='Ventas_MostrarEditar(" + rowObject.ID_VENTA + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
-//    return _btn;
-//}
-
 function Ventas_actionEliminar(cellvalue, options, rowObject) {
     var _btn = "<button title='Eliminar'  onclick='Ventas_Eliminar(" + rowObject.ID_VENTA + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>";
     return _btn;
@@ -197,7 +192,7 @@ function Ventas_Ingresar() {
                             ID_CLIENTE: $("#ID_CLIENTE").val(),
                             ID_SUCURSAL: $("#inputL_Id_Sucursal").val(),
                             //TOTAL_RECIBIDO: $("#TOTAL_RECIBIDO").val(),
-                            //VUELTO: $("#VUELTO").val(),
+                            //ADELANTO: $("#ADELANTO").val(),
                             FLG_TIPO_VENTA: $("#FLG_TIPO_VENTA").is(':checked')? 1 : 0,
                             DESCUENTO: parseFloat($("#Venta_Descuento").text()),
                             SUB_TOTAL: parseFloat($("#Venta_Subtotal").text()),

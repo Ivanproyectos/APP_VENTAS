@@ -57,6 +57,8 @@ namespace Capa_Datos.Ventas
                 int pos_DESCUENTO = dr.GetOrdinal("DESCUENTO");
                 int pos_TOTAL = dr.GetOrdinal("TOTAL");
                 int pos_DETALLE = dr.GetOrdinal("DETALLE");
+                int pos_DEBE = dr.GetOrdinal("DEBE");
+                int pos_ADELANTO = dr.GetOrdinal("ADELANTO");               
                 int pos_DESC_TIPO_VENTA = dr.GetOrdinal("DESC_TIPO_VENTA");
                 int pos_DESC_ESTADO_CREDITO = dr.GetOrdinal("DESC_ESTADO_CREDITO");
                 int pos_DESC_ESTADO_VENTA = dr.GetOrdinal("DESC_ESTADO_VENTA");
@@ -111,6 +113,12 @@ namespace Capa_Datos.Ventas
 
                         if (dr.IsDBNull(pos_TOTAL)) obj.TOTAL = 0;
                         else obj.TOTAL = decimal.Parse(dr[pos_TOTAL].ToString());
+
+                        if (dr.IsDBNull(pos_DEBE)) obj.DEBE = 0;
+                        else obj.DEBE = decimal.Parse(dr[pos_DEBE].ToString());
+
+                        if (dr.IsDBNull(pos_ADELANTO)) obj.ADELANTO = 0;
+                        else obj.ADELANTO = decimal.Parse(dr[pos_ADELANTO].ToString());
 
        
                         if (dr.IsDBNull(pos_USU_CREACION)) obj.DETALLE = "";

@@ -129,8 +129,8 @@
             + "<div class='_text_producto'>" + item.DESC_PRODUCTO + "</div>"
             + "<div class='_InfoProd'> "
             + "<div class='_Stock'> <span> <i class='bi bi-box-seam'></i> stock: </span>" + item.STOCK + "</div>"
-            + "<div class='_Precio'> <span> <i class='bi bi-cash-stack'></i> precio: </span>" + item.PRECIO_VENTA + "</div>"
-            + "<div class='_Tipo'> <span> <i class='bi bi-cash-stack'></i> tipo: </span>" + tipo + "</div>"
+            + "<div class='_Precio'> <span> <i class='bi bi-cash-stack'></i> precio: </span>" + Number(item.PRECIO_VENTA).toFixed(2) + "</div>"
+            + "<div class='_Tipo'> <span> <i class='bi bi-back'></i> tipo: </span>" + tipo + "</div>"
             + "<div class='_FotoPro' style=\" background-image: url(@Url.Content("~/Recursos/ImagenProducto/")" + item.MiArchivo.CODIGO_ARCHIVO + item.MiArchivo.EXTENSION + ") \">  </div>"
             + " </div></div>"
 
