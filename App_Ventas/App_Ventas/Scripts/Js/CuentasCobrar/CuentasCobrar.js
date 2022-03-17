@@ -114,7 +114,6 @@ function CuentasCobrar_formatterEstadoCredito(cellvalue, options, rowObject) {
     return _text;
 }
 
-
 function CuentasCobrar_MostrarCobrarCredito(ID_VENTA) {
     jQuery("#myModalNuevo").html('');
     jQuery("#myModalNuevo").load(baseUrl + "CuentasCobrar/CuentasCobrar/Mantenimiento?ID_VENTA=" + ID_VENTA, function (responseText, textStatus, request) {
@@ -124,12 +123,10 @@ function CuentasCobrar_MostrarCobrarCredito(ID_VENTA) {
     });
 }
 
-
-
 function CuentasCobrar_MostarBuscarProducto() {
     var _ID_SUCURSAL = $('#inputL_Id_Sucursal').val();
     jQuery("#myModalBuscarProduc").html('');
-    jQuery("#myModalBuscarProduc").load(baseUrl + "Ventas/Ventas/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + _ID_SUCURSAL + "&GrillaCarga=" + CuentasCobrar_Detalle_Grilla, function (responseText, textStatus, request) {
+    jQuery("#myModalBuscarProduc").load(baseUrl + "CuentasCobrar/CuentasCobrar/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + _ID_SUCURSAL, function (responseText, textStatus, request) {
         $('#myModalBuscarProduc').modal({ show: true, backdrop: 'static', keyboard: false });
         $.validator.unobtrusive.parse('#myModalBuscarProduc');
         if (request.status != 200) return;
@@ -208,4 +205,15 @@ function CuentasCobrar_DevolverProducto(ID_VENTA_DETALLE) {
     });
 }
 
-/////*********************************************** ----------------- ************************
+/////*********************************************** ----------------- ************************////
+
+
+
+
+//// calcular vuelto
+function Fn_CuentasCobrar_Vuelto() {
+    var _Total = isNaN(parseFloat($('#Venta_TotalDebe').text())) ? 0 : parseFloat($('#Venta_TotalDebe').text());
+    var _PagoCon = isNaN(parseFloat($('#TOTAL_RECIBIDO').val())) ? 0 : parseFloat($('#TOTAL_RECIBIDO').val());
+    var _Vuelto = (_PagoCon - _Total); +
+    $('#VUELTO').val(Number(_Vuelto).toFixed(2));
+}

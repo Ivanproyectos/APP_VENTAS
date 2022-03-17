@@ -34,7 +34,7 @@ function Ventas_BuscarProducto(COD_PRODUCTO, ID_SUCURSAL) {
 function Ventas_Detalle_Insertar() {
     if (_Valido) {
         if ($('#frmMantenimiento_BuscarProducto').valid()) {
-            var rowKey = jQuery("#" + _Grilla).getDataIDs();
+            var rowKey = jQuery("#" + Ventas_Detalle_Grilla).getDataIDs();
             var ix = rowKey.length;
             ix++;
             var myData =
@@ -45,13 +45,14 @@ function Ventas_Detalle_Insertar() {
                       PRODUCTO: $("#SEARCH_PRODUCTO").val(),
                       PRECIO: Number($("#PRECIO_VENTA").val()).toFixed(2),
                       CANTIDAD: $("#CANTIDAD").val(),
-                      IMPORTE: Number($("#TOTAL").val()).toFixed(2)
+                      IMPORTE: Number($("#TOTAL").val()).toFixed(2),
+                      ACCION: "N"
                   };
 
             if (Ventas_Detalle_BuscarProducto_Grilla($('#hfd_ID_PRODUCTO').val())) {
                 jError('Producto seleccionado ya se encuentra en la lista.', 'Atención');
             } else {
-                jQuery("#" + _Grilla).jqGrid('addRowData', ix, myData);
+                jQuery("#" + Ventas_Detalle_Grilla).jqGrid('addRowData', ix, myData);
                 CalcularMontoTotalDetalle();
             }
             LimpiarFormulario();
@@ -66,14 +67,3 @@ function Ventas_Detalle_Insertar() {
 }
 
 
-function Fn_Ventas_Vuelto() {
-    var _Total = isNaN(parseFloat($('#Venta_Total').text())) ? 0 : parseFloat($('#Venta_Total').text());
-    var _PagoCon = isNaN(parseFloat($('#TOTAL_RECIBIDO').val())) ? 0 : parseFloat($('#TOTAL_RECIBIDO').val());
-    //if (_Total < _PagoCon) {
-        var _Vuelto = (_PagoCon - _Total);
-    //} else {
-    //    jError('Pago no puede ser menor al total.', 'Atención');
-    //    _Vuelto = 0.0;
-    //}
-    $('#VUELTO').val(Number(_Vuelto).toFixed(2));
-}

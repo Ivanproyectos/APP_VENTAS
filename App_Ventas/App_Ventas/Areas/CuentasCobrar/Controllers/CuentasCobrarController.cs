@@ -197,8 +197,25 @@ namespace App_Ventas.Areas.CuentasCobrar.Controllers
 
         }
 
-
         
+         public ActionResult Mantenimiento_BuscarProducto(int ID_SUCURSAL)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            ProductoModelView model = new ProductoModelView();
+            model.ID_SUCURSAL = ID_SUCURSAL;
+
+            using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
+            {
+                model.Lista_Unidad_Medida = Repositorio.Unidad_Medida_Listar(ref auditoria).Select(x => new SelectListItem()
+                {
+                    Text = x.DESC_UNIDAD_MEDIDA,
+                    Value = x.ID_UNIDAD_MEDIDA.ToString()
+                }).ToList();
+                model.Lista_Unidad_Medida.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+            }
+            return View(model);
+        }
+
 
 
 

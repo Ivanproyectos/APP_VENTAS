@@ -5,7 +5,7 @@
         ConfigurarFormulario();
         //var Fecha_Actual = moment().format('DD/MM/YYYY');
         //$('#FECHA_VENTA').val(Fecha_Actual);
-        Ventas_Detalle_ConfigurarGrilla('DETALLE');
+        Ventas_Detalle_ConfigurarGrilla('VENTAS');
         Ventas_Detalle_CargarGrilla(@Model.ID_VENTA);
         $('#ID_CLIENTE').select2();
         //$('#ID_TIPO_COMPROBANTE').val('03');
@@ -80,7 +80,7 @@
 <div class="modal-dialog modal-lg_" role="document">
     <div class="modal-content">
         <div class="modal-header" style="background: #2c7be5">
-            <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp;Cobrar Venta Nrº @Model.ID_VENTA </h5>
+            <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp;Cobrar Venta nrº @Model.ID_VENTA </h5>
             <button type="button" class="close" data-dismiss="modal">
                 <span>&times;</span>
             </button>
@@ -210,7 +210,8 @@
 
         </div>
         <div class="modal-footer">
-            <button type="button" id="CuentasCobrar_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-cart-check"></i>&nbsp; Cancelar Credito</button>
+             <button type="button" id="CuentasCobrar_btn_CancelarVenta" class="btn btn-hover-shine btn-square btn-success"><i class="bi bi-cash-coin"></i>&nbsp; Cancelar Credito</button>
+            <button type="button" id="CuentasCobrar_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-cart-check"></i>&nbsp; Actualizar Venta</button>
             <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
         </div>
     </div>
@@ -218,3 +219,4 @@
 
 
 @Html.Hidden("hfd_ID_VENTA", Model.ID_VENTA)
+@Html.Hidden("ADELANTO", Model.ADELANTO)

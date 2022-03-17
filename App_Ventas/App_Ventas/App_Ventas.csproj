@@ -4153,6 +4153,7 @@
     <Content Include="Areas\Ventas\Views\Consulta_Ventas\Index.cshtml" />
     <Content Include="Handlers\Exportar_Grilla_Excel.ashx" />
     <Content Include="Areas\CuentasCobrar\Views\CuentasCobrar\Mantenimiento.cshtml" />
+    <Content Include="Areas\CuentasCobrar\Views\CuentasCobrar\Mantenimiento_BuscarProducto.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Recursos\Imagenes\tulogo.png" />
     <Content Include="Scripts\General.js" />
@@ -4191,7 +4192,6 @@
     <Content Include="Scripts\Js\Compras\Compras.js" />
     <Content Include="Scripts\Js\Compras\Compras_Detalle.js" />
     <Content Include="Scripts\Js\CuentasCobrar\CuentasCobrar.js" />
-    <Content Include="Scripts\Js\CuentasCobrar\CuentasCobrar_Recursos.js" />
     <Content Include="Scripts\Js\Inventario\Categoria.js" />
     <Content Include="Scripts\Js\Inventario\Producto.js" />
     <Content Include="Scripts\Js\Inventario\Producto_Recursos.js" />

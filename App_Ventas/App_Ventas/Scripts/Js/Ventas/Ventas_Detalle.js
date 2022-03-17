@@ -16,7 +16,7 @@ function Ventas_Detalle_ConfigurarGrilla(TIPO) {
     }
 
     $("#" +  Ventas_Detalle_Grilla).GridUnload();
-    var colNames = [ 'Eliminar','ID_DETALLE','codigo', 'ID_PRODUCTO','Producto','Precio', 'Cantidad','Importe','flg_devuelto','Devolver'];
+    var colNames = [ 'Eliminar','ID_DETALLE','codigo', 'ID_PRODUCTO','Producto','Precio', 'Cantidad','Importe','flg_devuelto','Devolver','Accion'];
     var colModels = [
             { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: _btnBorrarHidden, formatter: Ventas_Detalle_FormatterBorrar, sortable: false },
             { name: 'ID_VENTA_DETALLE', index: 'ID_VENTA_DETALLE', align: 'center', width: 100, hidden: true, },
@@ -28,6 +28,7 @@ function Ventas_Detalle_ConfigurarGrilla(TIPO) {
             { name: 'IMPORTE', index: 'IMPORTE', align: 'left', width: 100, hidden: false },
             { name: 'FLG_DEVUELTO', index: 'FLG_DEVUELTO', align: 'left', width: 100, hidden: true },
             { name: 'DEVOLVER', index: 'DEVOLVER', align: 'center', width: 80, hidden: _btnDevolverHidden, formatter: Ventas_Detalle_FormatterDevolver, sortable: false },
+            { name: 'ACCION', index: 'ACCION', align: 'left', width: 100, hidden: true },
 
     ];
     var opciones = {
@@ -36,10 +37,15 @@ function Ventas_Detalle_ConfigurarGrilla(TIPO) {
     SICA.Grilla(Ventas_Detalle_Grilla, Ventas_Detalle_Barra, Ventas_Detalle_Grilla, 200, '', "", '', 'CODIGO', colNames, colModels, '', opciones);
 }
 
-
 /* eliminar fila */
 function Ventas_Detalle_FormatterBorrar(cellvalue, options, rowObject) {
-    var _btn_Eliminar = "<button title='Eliminar producto'  onclick='Ventas_Detalle_Borrar(" + rowObject.CODIGO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>"
+    var _accion = rowObject.ACCION;
+    if (_accion == "N") {
+       var _btn_Eliminar = "<button title='Eliminar producto'  onclick='Ventas_Detalle_Borrar(" + rowObject.CODIGO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>"
+    } else {
+       var _btn_Eliminar = "<button title='Eliminar producto'   class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:gray;font-size:17px\"></i></button>"
+    }
+
     return _btn_Eliminar;
 }
     
@@ -78,8 +84,10 @@ function CalcularMontoTotalDetalle() {
     var ids = $("#" + Ventas_Detalle_Grilla).getDataIDs();
     var _subtotal = 0;
     var _descuento = isNaN(parseFloat($('#DESCUENTO').val())) ? 0 : parseFloat($('#DESCUENTO').val());
+    var _Adelanto = isNaN(parseFloat($('#ADELANTO').val())) ? 0 : parseFloat($('#ADELANTO').val());
     var _Igv = 0; 
     var _Total = 0;
+    var _TotalDebe = 0; 
     for (var i = 0; i < ids.length; i++) {
         var rowId = ids[i];
         var rowData = $("#" + Ventas_Detalle_Grilla).jqGrid('getRowData', rowId);
@@ -93,12 +101,15 @@ function CalcularMontoTotalDetalle() {
     }
 
     _Igv = Math.floor(_Total * _Impuesto) / 100;
-    _subtotal =_Total - _Igv ;
+    _subtotal = _Total - _Igv;
+    _TotalDebe = (_Total - _Adelanto);
 
     $('#Venta_Descuento').text(Number(_descuento).toFixed(2));
     $('#Venta_Igv').text( Number(_Igv).toFixed(2));
     $('#Venta_Subtotal').text( Number(_subtotal).toFixed(2));
-    $('#Venta_Total').text( Number(_Total).toFixed(2));
+    $('#Venta_Total').text(Number(_Total).toFixed(2));
+
+    $('#Venta_TotalDebe').text(Number(_TotalDebe).toFixed(2));
 }
 
 
@@ -135,7 +146,8 @@ function Ventas_Detalle_CargarGrilla(ID_VENTA) {
                      PRECIO: Number(v.PRECIO).toFixed(2), 
                      CANTIDAD: v.CANTIDAD,
                      IMPORTE:  Number(v.IMPORTE).toFixed(2), 
-                     FLG_DEVUELTO: v.FLG_DEVUELTO
+                     FLG_DEVUELTO: v.FLG_DEVUELTO,
+                     ACCION : "M"
                  };
                 jQuery("#" + Ventas_Detalle_Grilla).jqGrid('addRowData', idgrilla, myData);
             });

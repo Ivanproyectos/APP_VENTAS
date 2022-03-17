@@ -285,3 +285,17 @@ function Ventas_DevolverProducto(ID_VENTA_DETALLE) {
 }
 
 /////*********************************************** ----------------- *************************************************/
+
+
+// CALUCLAR VUELTO VENTA
+function Fn_Ventas_Vuelto() {
+    var _Total = isNaN(parseFloat($('#Venta_Total').text())) ? 0 : parseFloat($('#Venta_Total').text());
+    var _PagoCon = isNaN(parseFloat($('#TOTAL_RECIBIDO').val())) ? 0 : parseFloat($('#TOTAL_RECIBIDO').val());
+    //if (_Total < _PagoCon) {
+    var _Vuelto = (_PagoCon - _Total);
+    //} else {
+    //    jError('Pago no puede ser menor al total.', 'Atención');
+    //    _Vuelto = 0.0;
+    //}
+    $('#VUELTO').val(Number(_Vuelto).toFixed(2));
+}
