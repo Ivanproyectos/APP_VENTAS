@@ -71,13 +71,21 @@ function GetRules(CuentasCobrar_Grilla) {
 function CuentasCobrar_actionAcciones(cellvalue, options, rowObject) {
     var _ID_VENTA = rowObject[2];
     var _FLG_FLG_ANULADO = rowObject[14];
+    var _FLG_ESTADO_CREDITO = rowObject[12];
+
+    var _btn_Cobrar =""; 
     var _btn_Anular = "";
     if (_FLG_FLG_ANULADO == 0)
-        _btn_Anular = " <a class=\"dropdown-item\" onclick='CuentasCobrar_AnularVenta(" + _ID_VENTA + ")'><i class=\"bi bi-bag-x\" style=\"color:red;\"></i>&nbsp;  Anular</a>";
+        _btn_Anular = "<a class=\"dropdown-item\" onclick='CuentasCobrar_AnularVenta(" + _ID_VENTA + ")'><i class=\"bi bi-bag-x\" style=\"color:red;\"></i>&nbsp;Anular</a>";
+
+    if (_FLG_ESTADO_CREDITO == 0)
+        _btn_Cobrar = "<a class=\"dropdown-item\" onclick='CuentasCobrar_MostrarCobrarCredito(" + _ID_VENTA + ")'><i class=\"bi bi-cash-coin\" style=\"color:#2c7be5\"></i>&nbsp;Cobrar</a>";
+
     var _btn = "<div class=\"btn-group\" role=\"group\" title=\"Acciones \" >" +
            " <button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button> " +
            " <div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
-            _btn_Anular +
+               _btn_Cobrar +
+               _btn_Anular +              
             "<a class=\"dropdown-item\" onclick='CuentasCobrar_MostrarDevolverProducto(" + _ID_VENTA + ")' ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>" +
             "</div>" +
         "</div>";
@@ -105,6 +113,17 @@ function CuentasCobrar_formatterEstadoCredito(cellvalue, options, rowObject) {
     }
     return _text;
 }
+
+
+function CuentasCobrar_MostrarCobrarCredito(ID_VENTA) {
+    jQuery("#myModalNuevo").html('');
+    jQuery("#myModalNuevo").load(baseUrl + "CuentasCobrar/CuentasCobrar/Mantenimiento?ID_VENTA=" + ID_VENTA, function (responseText, textStatus, request) {
+        $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
+        $.validator.unobtrusive.parse('#myModalNuevo');
+        if (request.status != 200) return;
+    });
+}
+
 
 
 function CuentasCobrar_MostarBuscarProducto() {

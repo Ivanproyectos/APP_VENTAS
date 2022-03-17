@@ -4152,6 +4152,7 @@
     <Content Include="Areas\Ventas\Views\Ventas\Mantenimiento_DevolverProducto.cshtml" />
     <Content Include="Areas\Ventas\Views\Consulta_Ventas\Index.cshtml" />
     <Content Include="Handlers\Exportar_Grilla_Excel.ashx" />
+    <Content Include="Areas\CuentasCobrar\Views\CuentasCobrar\Mantenimiento.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Recursos\Imagenes\tulogo.png" />
     <Content Include="Scripts\General.js" />
