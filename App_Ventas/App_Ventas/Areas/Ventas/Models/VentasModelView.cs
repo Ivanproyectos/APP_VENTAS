@@ -35,7 +35,7 @@ namespace App_Ventas.Areas.Ventas.Models
         [Display(Name = "Comprobante: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Comprobante] es obligatorio")]
-        public int ID_TIPO_COMPROBANTE { get; set; }
+        public string ID_TIPO_COMPROBANTE { get; set; }
         public List<SelectListItem> Lista_Tipo_Comprobante { get; set; }
 
         [Display(Name = "Descuento: ")]
@@ -92,7 +92,8 @@ namespace App_Ventas.Areas.Ventas.Models
         public int ID_SUCURSAL { get; set; }
         public List<SelectListItem> Lista_Sucursal { get; set; }
 
-
+        public decimal DEBE { get; set; }
+       
         
     }
 }

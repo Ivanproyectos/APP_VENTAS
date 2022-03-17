@@ -1,21 +1,14 @@
 ﻿@model App_Ventas.Areas.Ventas.Models.VentasModelView
 <script>
     $(document).ready(function () {
+
         ConfigurarFormulario();
-        var Fecha_Actual = moment().format('DD/MM/YYYY');
-        $('#FECHA_VENTA').val(Fecha_Actual);
-        $('#FLG_TIPO_VENTA').bootstrapToggle({
-            on: 'Credito',
-            off: 'Al Contado',
-            size: "small",
-            width: "100",
-            height: "35",
-            onstyle: "danger",
-            style: "_toggle_css"
-        });
-        Ventas_Detalle_ConfigurarGrilla('VENTAS');
+        //var Fecha_Actual = moment().format('DD/MM/YYYY');
+        //$('#FECHA_VENTA').val(Fecha_Actual);
+        Ventas_Detalle_ConfigurarGrilla('DETALLE');
+        Ventas_Detalle_CargarGrilla(@Model.ID_VENTA);
         $('#ID_CLIENTE').select2();
-        $('#ID_TIPO_COMPROBANTE').val('03');
+        //$('#ID_TIPO_COMPROBANTE').val('03');
     });
     $('#FECHA_VENTA').datepicker({
         changeMonth: true,
@@ -26,33 +19,25 @@
         showAnim: 'slideDown'
     });
 
-    $('#Ventas_btn_Guardar').click(function () {
-        Ventas_Ingresar();
+    $('#CuentasCobrar_btn_Guardar').click(function () {
+        CuentasCobrar_Ingresar();
     });
 
 
-    $('#Ventas_btn_BuscarProductos').click(function () {
-        Ventas_MostarBuscarProducto();
+    $('#CuentasCobrar_btn_BuscarProductos').click(function () {
+        CuentasCobrar_MostarBuscarProducto();
     });
 
     $(function () {
         $(".modal-content").draggable();
     });
 
-    $('#DESCUENTO').keyup(function () {
-        CalcularMontoTotalDetalle();
-    });
 
     $('#TOTAL_RECIBIDO').keyup(function () {
-        Fn_Ventas_Vuelto();
+        Fn_CuentasCobrar_Vuelto();
     });
 
-    $('#FLG_TIPO_VENTA').change(function () {
-        if ($(this).is(':checked'))
-            $('#Venta_Adelanto').show('slow');
-        else
-            $('#Venta_Adelanto').hide(); 
-    }); 
+
 
 </script>
 
@@ -94,32 +79,32 @@
 
 <div class="modal-dialog modal-lg_" role="document">
     <div class="modal-content">
-        <div class="modal-header" style="background:#2c7be5">
+        <div class="modal-header" style="background: #2c7be5">
             <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp;Cobrar Venta Nrº @Model.ID_VENTA </h5>
             <button type="button" class="close" data-dismiss="modal">
                 <span>&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            @using (Html.BeginForm("Ventas", "Ventas", new { @area = "Ventas" }, FormMethod.Post, new { @id = "frmMantenimiento_Ventas" }))
+            @using (Html.BeginForm("CuentasCobrar", "CuentasCobrar", new { @area = "CuentasCobrar" }, FormMethod.Post, new { @id = "frmMantenimiento_CuentasCobrar" }))
             {                
                 @Html.ValidationSummary(true) 
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.ID_TIPO_COMPROBANTE)
-                        @Html.DropDownListFor(model => model.ID_TIPO_COMPROBANTE, Model.Lista_Tipo_Comprobante, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.DropDownListFor(model => model.ID_TIPO_COMPROBANTE, Model.Lista_Tipo_Comprobante, new { @class = "form-control", @maxlength = "150", @style = "width:100%", @disabled = "true" })
                         @Html.ValidationMessageFor(model => model.ID_TIPO_COMPROBANTE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.FECHA_VENTA)
-                        @Html.TextBoxFor(model => model.FECHA_VENTA, new { @class = "form-control", @maxlength = "100" ,@disabled="true"})
+                        @Html.TextBoxFor(model => model.FECHA_VENTA, new { @class = "form-control", @maxlength = "100", @disabled = "true" })
                         @Html.ValidationMessageFor(model => model.FECHA_VENTA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
                     <div class="form-group col-md-12">
                         @Html.LabelFor(model => model.ID_CLIENTE)
-                        @Html.DropDownListFor(model => model.ID_CLIENTE, Model.Lista_Cliente, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.DropDownListFor(model => model.ID_CLIENTE, Model.Lista_Cliente, new { @class = "form-control", @maxlength = "150", @style = "width:100%", @disabled = "true" })
                         @Html.ValidationMessageFor(model => model.ID_CLIENTE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
                 </div>
@@ -130,7 +115,7 @@
             </div>
             <div class="form-row">
                 <div class=" col-md-12" style="display: flex; justify-content: flex-end; margin-bottom: 5px;">
-                    <button type="button" class="btn btn-rounded btn-secondary btn-hover-shine" id="Ventas_btn_BuscarProductos" data-toggle="modal">
+                    <button type="button" class="btn btn-rounded btn-secondary btn-hover-shine" id="CuentasCobrar_btn_BuscarProductos" data-toggle="modal">
                         <span class="btn-icon-left text-secondary"><i class="fa fa-plus color-secondary"></i>
                         </span>Agregar Producto</button>
                 </div>
@@ -149,7 +134,7 @@
             <div class="form-row">
                 <div class="col-xl-8 col-xxl-6 col-lg-6 col-md-12">
                     <div class="form-row">
-               @*         <div class="form-group col-md-3">
+                        @*         <div class="form-group col-md-3">
                             @Html.LabelFor(model => model.DESCUENTO)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
@@ -159,7 +144,7 @@
                             </div>
                         </div>*@
 
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             @Html.LabelFor(model => model.TOTAL_RECIBIDO)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
@@ -169,7 +154,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             @Html.LabelFor(model => model.VUELTO)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
@@ -178,18 +163,6 @@
                                 @Html.TextBoxFor(model => model.VUELTO, new { @class = "form-control", @maxlength = "200" })
                             </div>
                         </div>
-
-
-                        <div class="form-group col-md-4" id="Venta_Adelanto" >
-                            @Html.LabelFor(model => model.ADELANTO)
-                            <div class="input-group mb-12">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><span class="simboloMoneda"></span></span>
-                                </div>
-                                @Html.TextBoxFor(model => model.ADELANTO, new { @class = "form-control", @maxlength = "200" })
-                            </div>
-                        </div>
-
 
                         <div class="form-group col-md-12">
                             @Html.LabelFor(model => model.DETALLE)
@@ -205,20 +178,31 @@
                             <li class="list-group-item"><strong><b>Resumen:</b> </strong></li>
                             <li class="list-group-item">
                                 <span class="_text_detalle"><span class="text-danger">(-) </span>Descuento Total:</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Descuento">0.0</span><span class="simboloMoneda _Montos"></span></span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Descuento">@Model.DESCUENTO</span><span class="simboloMoneda _Montos"></span></span>
                             </li>
                             <li class="list-group-item">
                                 <span class="_text_detalle">Subtotal:</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Subtotal">0.0</span> <span class="simboloMoneda _Montos"></span></span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Subtotal">@Model.SUBTOTAL</span> <span class="simboloMoneda _Montos"></span></span>
                             </li>
                             <li class="list-group-item">
                                 <span class="_text_detalle"><span id="NomImpuesto"></span>(<span id="Impuesto"></span>%):</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Igv">0.0</span><span class="simboloMoneda _Montos"></span></span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Igv">@Model.IGV</span><span class="simboloMoneda _Montos"></span></span>
                             </li>
+
                             <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;">
                                 <span class="_text_detalle">Total:</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Total">0.0</span><span class="simboloMoneda _Montos"></span></span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Total">@Model.TOTAL</span><span class="simboloMoneda _Montos"></span></span>
                             </li>
+
+                            <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;">
+                                <span class="_text_detalle"><span class="text-danger">(-) </span>Adelanto:</span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Adelanto">@Model.ADELANTO</span><span class="simboloMoneda _Montos"></span></span>
+                            </li>
+                            <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;">
+                                <span class="_text_detalle">Total Debe:</span>
+                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_TotalDebe">@Model.DEBE</span><span class="simboloMoneda _Montos"></span></span>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -226,7 +210,7 @@
 
         </div>
         <div class="modal-footer">
-            <button type="button" id="Ventas_btn_Guardar" class="btn btn-hover-shine btn-square btn-success"><i class="bi bi-cart-check"></i>&nbsp; Cancelar Credito</button>
+            <button type="button" id="CuentasCobrar_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-cart-check"></i>&nbsp; Cancelar Credito</button>
             <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
         </div>
     </div>

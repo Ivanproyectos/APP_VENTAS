@@ -4191,6 +4191,7 @@
     <Content Include="Scripts\Js\Compras\Compras.js" />
     <Content Include="Scripts\Js\Compras\Compras_Detalle.js" />
     <Content Include="Scripts\Js\CuentasCobrar\CuentasCobrar.js" />
+    <Content Include="Scripts\Js\CuentasCobrar\CuentasCobrar_Recursos.js" />
     <Content Include="Scripts\Js\Inventario\Categoria.js" />
     <Content Include="Scripts\Js\Inventario\Producto.js" />
     <Content Include="Scripts\Js\Inventario\Producto_Recursos.js" />

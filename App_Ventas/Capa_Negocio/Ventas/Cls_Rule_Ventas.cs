@@ -27,8 +27,6 @@ namespace Capa_Negocio.Ventas
            }
        }
 
-
-
        public void Ventas_Insertar(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
        {
            try
@@ -92,7 +90,19 @@ namespace Capa_Negocio.Ventas
            }
        }
 
-       
+       public Cls_Ent_Ventas Ventas_Listar_Uno(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
+       {
+           try
+           {
+               return OData.Ventas_Listar_Uno(entidad, ref auditoria);
+           }
+           catch (Exception ex)
+           {
+               auditoria.Error(ex);
+               return new Cls_Ent_Ventas();
+           }
+       }
+
 
 
     }

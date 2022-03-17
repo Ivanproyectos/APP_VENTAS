@@ -401,9 +401,106 @@ namespace Capa_Datos.Ventas
             }
         }
 
-             ///*********************************************** ----------------- **************************************************/
 
-        ///*********************************************** Inserta VENTAS  *************************************************/
+        ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** listar venta uno  *************************************************/
+        public Cls_Ent_Ventas Ventas_Listar_Uno(Cls_Ent_Ventas entidad_param, ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            Cls_Ent_Ventas obj = new Cls_Ent_Ventas();
+            try
+            {
+                using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlDataReader dr = null;
+                    SqlCommand cmd = new SqlCommand("USP_VENTA_VENTA_LISTAR_UNO", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_VENTA", SqlDbType.BigInt)).Value = entidad_param.ID_VENTA;
+                    dr = cmd.ExecuteReader();
+                    int pos_ID_VENTA = dr.GetOrdinal("ID_VENTA");
+                    int pos_COD_COMPROBANTE = dr.GetOrdinal("COD_COMPROBANTE");
+                    int pos_FLG_ANULADO = dr.GetOrdinal("FLG_ANULADO");
+                    int pos_FLG_TIPO_VENTA = dr.GetOrdinal("FLG_TIPO_VENTA");
+                    int pos_ID_CLIENTE = dr.GetOrdinal("ID_CLIENTE");
+                    int pos_ID_TIPO_COMPROBANTE = dr.GetOrdinal("ID_TIPO_COMPROBANTE");
+                    int pos_SUB_TOTAL = dr.GetOrdinal("SUB_TOTAL");
+                    int pos_IGV = dr.GetOrdinal("IGV");
+                    int pos_DESCUENTO = dr.GetOrdinal("DESCUENTO");
+                    int pos_TOTAL = dr.GetOrdinal("TOTAL");
+                    int pos_DEBE = dr.GetOrdinal("DEBE");
+                    int pos_DETALLE = dr.GetOrdinal("DETALLE");
+                    int pos_ADELANTO = dr.GetOrdinal("ADELANTO");
+                    int pos_FLG_ESTADO_CREDITO = dr.GetOrdinal("FLG_ESTADO_CREDITO");
+                    int pos_FECHA_CREACION = dr.GetOrdinal("FECHA_CREACION");
+
+                    
+                    if (dr.HasRows)
+                    {
+                        //Cls_Ent_Cliente obj = null;
+                        while (dr.Read())
+                        {
+                            obj = new Cls_Ent_Ventas();
+                            if (dr.IsDBNull(pos_ID_VENTA)) obj.ID_VENTA = 0;
+                            else obj.ID_VENTA = int.Parse(dr[pos_ID_VENTA].ToString());
+
+
+                            if (dr.IsDBNull(pos_COD_COMPROBANTE)) obj.COD_COMPROBANTE = "";
+                            else obj.COD_COMPROBANTE = dr.GetString(pos_COD_COMPROBANTE);
+
+                            if (dr.IsDBNull(pos_FLG_ANULADO)) obj.FLG_ANULADO = 0;
+                            else obj.FLG_ANULADO = int.Parse(dr[pos_FLG_ANULADO].ToString());
+
+                            if (dr.IsDBNull(pos_FLG_TIPO_VENTA)) obj.FLG_TIPO_VENTA = 0;
+                            else obj.FLG_TIPO_VENTA = int.Parse(dr[pos_FLG_TIPO_VENTA].ToString());
+
+                            if (dr.IsDBNull(pos_ID_CLIENTE)) obj.ID_CLIENTE = 0;
+                            else obj.ID_CLIENTE = int.Parse(dr[pos_ID_CLIENTE].ToString());
+
+
+                            if (dr.IsDBNull(pos_ID_TIPO_COMPROBANTE)) obj.ID_TIPO_COMPROBANTE = "";
+                            else obj.ID_TIPO_COMPROBANTE = dr.GetString(pos_ID_TIPO_COMPROBANTE);
+
+                            if (dr.IsDBNull(pos_SUB_TOTAL)) obj.SUB_TOTAL = 0;
+                            else obj.SUB_TOTAL = decimal.Parse(dr[pos_SUB_TOTAL].ToString());
+
+                            if (dr.IsDBNull(pos_IGV)) obj.IGV = 0;
+                            else obj.IGV = decimal.Parse(dr[pos_IGV].ToString());
+
+                            if (dr.IsDBNull(pos_DESCUENTO)) obj.DESCUENTO = 0;
+                            else obj.DESCUENTO = decimal.Parse(dr[pos_DESCUENTO].ToString());
+
+                            if (dr.IsDBNull(pos_TOTAL)) obj.TOTAL = 0;
+                            else obj.TOTAL = decimal.Parse(dr[pos_TOTAL].ToString());
+
+                            if (dr.IsDBNull(pos_ADELANTO)) obj.ADELANTO = 0;
+                            else obj.ADELANTO = decimal.Parse(dr[pos_ADELANTO].ToString());
+
+                            if (dr.IsDBNull(pos_DEBE)) obj.DEBE = 0;
+                            else obj.DEBE = decimal.Parse(dr[pos_DEBE].ToString());
+
+                            if (dr.IsDBNull(pos_DETALLE)) obj.DETALLE = "";
+                            else obj.DETALLE = dr.GetString(pos_DETALLE);
+
+                            if (dr.IsDBNull(pos_FLG_ESTADO_CREDITO)) obj.FLG_ESTADO_CREDITO = 0;
+                            else obj.FLG_ESTADO_CREDITO = int.Parse(dr[pos_FLG_ESTADO_CREDITO].ToString());
+
+                            if (dr.IsDBNull(pos_FECHA_CREACION)) obj.FEC_CREACION = "";
+                            else obj.FEC_CREACION = dr.GetString(pos_FECHA_CREACION);
+
+
+                        }
+                    }
+                    dr.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+            return obj;
+        }
+
 
 
     }

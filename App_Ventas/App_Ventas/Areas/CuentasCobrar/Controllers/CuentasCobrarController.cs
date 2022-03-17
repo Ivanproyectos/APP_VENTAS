@@ -163,9 +163,34 @@ namespace App_Ventas.Areas.CuentasCobrar.Controllers
                 }).ToList();
                 model.Lista_Tipo_Comprobante.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
             }
+                Cls_Ent_Ventas lista = new Cls_Ent_Ventas();
+               using (VentasRepositorio repositorioCliente = new VentasRepositorio())
+                {
+                    Cls_Ent_Ventas entidad = new Cls_Ent_Ventas();
+                    auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
 
+                    entidad.ID_VENTA = ID_VENTA;
+                    lista = repositorioCliente.Ventas_Listar_Uno(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                    else
+                    {
+                        model.ID_CLIENTE = lista.ID_CLIENTE;
+                        model.ID_TIPO_COMPROBANTE = lista.ID_TIPO_COMPROBANTE;
+                        model.TOTAL = lista.TOTAL;
+                        model.ADELANTO = lista.ADELANTO;
+                        model.FECHA_VENTA = lista.FEC_CREACION;
+                        model.SUBTOTAL = lista.SUB_TOTAL;
+                        model.IGV = lista.IGV;
+                        model.DESCUENTO = lista.DESCUENTO;
+                        model.DEBE = lista.DEBE;                
+                    }
+                }
 
-
+            
 
 
             return View(model);
