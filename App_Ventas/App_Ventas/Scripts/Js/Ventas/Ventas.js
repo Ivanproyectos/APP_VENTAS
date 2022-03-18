@@ -135,9 +135,10 @@ function Ventas_MostrarNuevo() {
 
 
 function Ventas_MostarBuscarProducto() {
-    var _ID_SUCURSAL = _Id_Sucursal;
+    var ID_SUCURSAL = _Id_Sucursal; 
     jQuery("#myModalBuscarProduc").html('');
-    jQuery("#myModalBuscarProduc").load(baseUrl + "Ventas/Ventas/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + _ID_SUCURSAL + "&ID_PRODUCTO=0" + "&Accion=N", function (responseText, textStatus, request) {
+    jQuery("#myModalBuscarProduc").load(baseUrl + "Ventas/Ventas/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + ID_SUCURSAL + "&ID_PRODUCTO=0&PRECIO=0&IMPORTE=0&CANTIDAD=0&Accion=N" , 
+        function (responseText, textStatus, request) {
         $('#myModalBuscarProduc').modal({ show: true, backdrop: 'static', keyboard: false });
         $.validator.unobtrusive.parse('#myModalBuscarProduc');
         if (request.status != 200) return;

@@ -9,7 +9,7 @@ namespace Capa_Entidad.Inventario
 {
     public class Cls_Ent_Producto : Base.Cls_Ent_Base
     {
-        public int ID_PRODUCTO { get; set; }
+        public long ID_PRODUCTO { get; set; }
         public string COD_PRODUCTO { get; set; }
         public string DESC_PRODUCTO { get; set; }
         public int ID_SUCURSAL { get; set; }
@@ -31,5 +31,8 @@ namespace Capa_Entidad.Inventario
         public string DESC_CATEGORIA { get; set; }
 
         public Cls_Ent_Archivo MiArchivo { get; set; }
+        public string Accion { get; set; }
+      
+        
     }
 }

@@ -4,12 +4,14 @@
     var _Valido = false;
     var _Grilla = $('#hdf_Grilla').val();
     var _Accion = $('#AccionBuscarProducto').val();
+
     $(document).ready(function () {
         ConfigurarFormulario();
         $('#CANTIDAD').numeric();
         setTimeout(function () { $('#SEARCH_PRODUCTO').focus(); }, 500)
-        if (_Accion != "N") {
-            Ventas_BuscarProductoxId(@Model.ID_PRODUCTO); 
+       if (_Accion != "N") {
+           $('#_DetallePorductos').show('slow');
+           _Valido = true; 
          }
     });
     // al cerrar el modal hijo el padre sigue con la clase modal open. 
@@ -29,21 +31,23 @@
     });
 
     $('#CANTIDAD').keyup(function () {
-        var _valor = $(this).val();
-        if (_valor == "") {
-            _valor = 1
-        }
-        var _precio = $('#PRECIO_VENTA').val();
-        var _stock = parseInt($('#hfd_STOCK').val());
-        var _total = 0.0;
-        if (_valor < _stock) {
-            _total = (_valor * _precio);
-            $('#TOTAL').val(Number(_total).toFixed(2));
-        } else {
-            jError('La cantidad no puede ser mayor al stock.', 'Atención');
-            _total = (1 * _precio);
-            $('#CANTIDAD').val(1)
-            $('#TOTAL').val(Number(_total).toFixed(2));
+        if ($('#Hdf_flg_Servicio').val() == 0) { // si es servicio no valida :.1
+            var _valor = $(this).val();
+            if (_valor == "") {
+                _valor = 1
+            }
+            var _precio = $('#PRECIO_VENTA').val();
+            var _stock = parseInt($('#hfd_STOCK').val());
+            var _total = 0.0;
+            if (_valor <= _stock) {
+                _total = (_valor * _precio);
+                $('#TOTAL').val(Number(_total).toFixed(2));
+            } else {
+                jError('La cantidad no puede ser mayor al stock.', 'Atención');
+                _total = (1 * _precio);
+                $('#CANTIDAD').val(1)
+                $('#TOTAL').val(Number(_total).toFixed(2));
+            }
         }
     });
     function LimpiarFormulario() {
@@ -52,6 +56,8 @@
         $('#hfd_ID_PRODUCTO').val('');
         $('#hfd_STOCK').val('');
         _Valido = false;
+        _Accion = "N";
+        _Flg_servicio = false; 
     }
 
     $('#SEARCH_PRODUCTO').keypress(function (event) {
@@ -83,34 +89,38 @@
         minLength: 4,
         select: function (event, ui) {
             LimpiarFormulario();
-            if (parseInt(ui.item.STOCK) > 0 && ui.item.FLG_SERVICIO == 0) {
+            if (parseInt(ui.item.STOCK) > 0 && ui.item.FLG_SERVICIO == 0) { // productos
                 $('#_DetallePorductos').show('slow');
+                $("#Hdf_flg_Servicio").val(ui.item.FLG_SERVICIO);
+                $("#hfd_STOCK").val(ui.item.STOCK);
                 $("#SEARCH_PRODUCTO").val(ui.item.DESC_PRODUCTO);
                 $("#ID_UNIDAD_MEDIDA").val(ui.item.ID_UNIDAD_MEDIDA);
                 $("#COD_PRODUCTO").val(ui.item.COD_PRODUCTO);
                 $("#INPUT_STOCK").text(ui.item.STOCK);
                 $("#PRECIO_VENTA").val(Number(ui.item.PRECIO_VENTA).toFixed(2));
-                $("#DETALLE").val(ui.item.DETALLE);
-                $("#hfd_STOCK").val(ui.item.STOCK);
+                $("#DETALLE").val(ui.item.DETALLE);            
                 $('#TOTAL').val(Number(ui.item.PRECIO_VENTA).toFixed(2));
                 $('#hfd_ID_PRODUCTO').val(ui.item.ID_PRODUCTO);
                 $('#CANTIDAD').val(1);
                 $('#CANTIDAD').focus();
                 _Valido = true;
-            } else if (ui.item.FLG_SERVICIO == 1) {
+                _Accion = "N";
+            } else if (ui.item.FLG_SERVICIO == 1) { // servicios
                 $('#_DetallePorductos').show('slow');
+                $("#Hdf_flg_Servicio").val(ui.item.FLG_SERVICIO);
+                $("#hfd_STOCK").val(ui.item.STOCK);
                 $("#SEARCH_PRODUCTO").val(ui.item.DESC_PRODUCTO);
                 $("#ID_UNIDAD_MEDIDA").val(ui.item.ID_UNIDAD_MEDIDA);
                 $("#COD_PRODUCTO").val(ui.item.COD_PRODUCTO);
                 $("#INPUT_STOCK").text(ui.item.STOCK);
                 $("#PRECIO_VENTA").val(Number(ui.item.PRECIO_VENTA).toFixed(2));
-                $("#DETALLE").val(ui.item.DETALLE);
-                $("#hfd_STOCK").val(ui.item.STOCK);
+                $("#DETALLE").val(ui.item.DETALLE);          
                 $('#TOTAL').val(Number(ui.item.PRECIO_VENTA).toFixed(2));
                 $('#hfd_ID_PRODUCTO').val(ui.item.ID_PRODUCTO);
-                $('#CANTIDAD').val(1);
+                $('#CANTIDAD').val(1);         
                 $('#CANTIDAD').focus();
                 _Valido = true;
+                _Accion = "N"; 
             }
             else {
                 $('#Alert_Error').show('slow');
@@ -135,7 +145,9 @@
             + "<div class='_Stock'> <span> <i class='bi bi-box-seam'></i> stock: </span>" + item.STOCK + "</div>"
             + "<div class='_Precio'> <span> <i class='bi bi-cash-stack'></i> precio: </span>" + Number(item.PRECIO_VENTA).toFixed(2) + "</div>"
             + "<div class='_Tipo'> <span> <i class='bi bi-back'></i> tipo: </span>" + tipo + "</div>"
+
             + "<div class='_FotoPro' style=\" background-image: url(@Url.Content("~/Recursos/ImagenProducto/")" + item.MiArchivo.CODIGO_ARCHIVO + item.MiArchivo.EXTENSION + ") \">  </div>"
+
             + " </div></div>"
 
             )).appendTo(ul);
@@ -235,7 +247,7 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.CANTIDAD) <span class="text-success">(stock:<span id="INPUT_STOCK"></span>)</span>
+                        @Html.LabelFor(model => model.CANTIDAD) <span class="text-success">(stock:<span id="INPUT_STOCK">@Model.STOCK</span>)</span>
                         <div class="input-group  ">
                             @Html.TextBoxFor(model => model.CANTIDAD, new { @class = "form-control", @maxlength = "10", @autocomplete = "off" })
                             <div class="input-group-append  btn-hover-shine waves-effect waves-light">
@@ -281,5 +293,5 @@
 </div>
 @Html.Hidden("hfd_ID_PRODUCTO", Model.ID_PRODUCTO)
 @Html.Hidden("hfd_STOCK", Model.STOCK)
-@Html.Hidden("hdf_CodigoGrilla", Model.GrillaCarga)
+@Html.Hidden("Hdf_flg_Servicio", Model.FLG_SERIVICIO)
 @Html.Hidden("AccionBuscarProducto", Model.Accion)

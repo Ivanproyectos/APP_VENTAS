@@ -70,8 +70,8 @@ namespace App_Ventas.Areas.Ventas.Controllers
 
         }
 
-
-        public ActionResult Mantenimiento_BuscarProducto(int ID_SUCURSAL, int ID_PRODUCTO, string Accion)
+        [HttpGet]
+        public ActionResult Mantenimiento_BuscarProducto(int ID_SUCURSAL, int ID_PRODUCTO, decimal PRECIO, decimal IMPORTE, int CANTIDAD, string Accion)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             ProductoModelView model = new ProductoModelView();
@@ -88,6 +88,39 @@ namespace App_Ventas.Areas.Ventas.Controllers
                 }).ToList();
                 model.Lista_Unidad_Medida.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
             }
+
+            if (Accion == "M")
+            {
+                Cls_Ent_Producto lista = new Cls_Ent_Producto();
+                using (ProductoRepositorio repositorioCliente = new ProductoRepositorio())
+                {
+                    Cls_Ent_Producto entidad = new Cls_Ent_Producto();
+                    auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+
+                    entidad.ID_PRODUCTO = ID_PRODUCTO;
+                    lista = repositorioCliente.Producto_Listar_Uno(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                    else
+                    {
+                        model.ID_PRODUCTO = ID_PRODUCTO;
+                        model.SEARCH_PRODUCTO = lista.DESC_PRODUCTO;
+                        model.ID_UNIDAD_MEDIDA = lista.ID_UNIDAD_MEDIDA;
+                        model.COD_PRODUCTO = lista.COD_PRODUCTO;
+                        model.PRECIO_VENTA = PRECIO; 
+                        model.STOCK = lista.STOCK;
+                        model.CANTIDAD = CANTIDAD;
+                        model.TOTAL = IMPORTE;
+                        model.FLG_SERIVICIO = lista.FLG_SERVICIO; 
+                    }
+                }
+
+            }
+
+
             return View(model);
         }
 

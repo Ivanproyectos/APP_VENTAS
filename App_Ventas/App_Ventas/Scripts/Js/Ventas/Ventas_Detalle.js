@@ -1,6 +1,7 @@
 ﻿
 var Ventas_Detalle_Grilla = 'Ventas_Detalle_Grilla';
 var Ventas_Detalle_Barra = 'Ventas_Detalle_Barra';
+var _CODIGO_GRILLA = 0;
 
 function Ventas_Detalle_ConfigurarGrilla(TIPO) {
     var _btnBorrarHidden = false;
@@ -44,33 +45,34 @@ function Ventas_Detalle_FormatterBorrar(cellvalue, options, rowObject) {
 }
 
 function Ventas_Detalle_actionEditar(cellvalue, options, rowObject) {
-    var _btn_Editar = "<button title='Editar'  onclick='Ventas_Detalle_MostarEditarProducto(" + rowObject.ID_PRODUCTO + ");' class=\"btn btn-outline-light\" type=\"button\"style=\"text-decoration: none !important; height: 35px; line-height: 3px;\" > <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:14px\"></i></button>";
+    var _btn_Editar = "<button title='Editar'  onclick='Ventas_Detalle_MostarEditarProducto(" + rowObject.CODIGO + ");' class=\"btn btn-outline-light\" type=\"button\"style=\"text-decoration: none !important; height: 35px; line-height: 3px;\" > <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:14px\"></i></button>";
     return _btn_Editar;
 }
 
 
-function Ventas_Detalle_MostarEditarProducto(ID_PRODUCTO) {
-    var _ID_SUCURSAL = _Id_Sucursal;
+function Ventas_Detalle_MostarEditarProducto(CODIGO) {
+    var ID_SUCURSAL = _Id_Sucursal;
+     _CODIGO_GRILLA = CODIGO; 
+    var data = jQuery("#" + Ventas_Detalle_Grilla).jqGrid('getRowData', CODIGO);
     jQuery("#myModalBuscarProduc").html('');
-    jQuery("#myModalBuscarProduc").load(baseUrl + "Ventas/Ventas/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + _ID_SUCURSAL + "&ID_PRODUCTO=" + ID_PRODUCTO + "&Accion=M", function (responseText, textStatus, request) {
+    jQuery("#myModalBuscarProduc").load(baseUrl + "Ventas/Ventas/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + ID_SUCURSAL + "&ID_PRODUCTO=" + data.ID_PRODUCTO +
+            "&PRECIO="+ data.PRECIO +"&IMPORTE="+  data.IMPORTE +"&CANTIDAD="+ data.CANTIDAD+"&Accion=M", function (responseText, textStatus, request) {
         $('#myModalBuscarProduc').modal({ show: true, backdrop: 'static', keyboard: false });
         $.validator.unobtrusive.parse('#myModalBuscarProduc');
         if (request.status != 200) return;
     });
 }
 
-
-
     
 function Ventas_Detalle_Borrar(id) {
     $("#" + Ventas_Detalle_Grilla).jqGrid('delRowData', id);
     // $("#" + grillaProductos).trigger("reloadGrid");
-    CalcularMontoTotalDetalle();
-    UpdateRowId();
+    Ventas_Detalle_CalcularMontoTotalDetalle();
+    Ventas_Detalle_UpdateRowId();
 }
 
 // actualizar rowid despues de eliminar un pro
-function UpdateRowId() {
+function Ventas_Detalle_UpdateRowId() {
     var ListaDetalleProductos = $("#" + Ventas_Detalle_Grilla).jqGrid('getGridParam', 'data');
     for (var i = 0; i < ListaDetalleProductos.length; i++) {
         var resetId = i + 1;
@@ -93,7 +95,7 @@ function Ventas_Detalle_BuscarProducto_Grilla(ID_PRODUCTO) {
 }
 
 
-function CalcularMontoTotalDetalle() {
+function Ventas_Detalle_CalcularMontoTotalDetalle() {
     var ids = $("#" + Ventas_Detalle_Grilla).getDataIDs();
     var _subtotal = 0;
     var _descuento = isNaN(parseFloat($('#DESCUENTO').val())) ? 0 : parseFloat($('#DESCUENTO').val());
@@ -207,25 +209,34 @@ function Ventas_BuscarProducto(COD_PRODUCTO, ID_SUCURSAL) {
 function Ventas_Detalle_Insertar() {
     if (_Valido) {
         if ($('#frmMantenimiento_BuscarProducto').valid()) {
-            var rowKey = jQuery("#" + Ventas_Detalle_Grilla).getDataIDs();
-            var ix = rowKey.length;
-            ix++;
-            var myData =
-                  {
-                      ID_VENTA_DETALLE: 0,
-                      CODIGO: ix,
-                      ID_PRODUCTO: $("#hfd_ID_PRODUCTO").val(),
-                      PRODUCTO: $("#SEARCH_PRODUCTO").val(),
-                      PRECIO: Number($("#PRECIO_VENTA").val()).toFixed(2),
-                      CANTIDAD: $("#CANTIDAD").val(),
-                      IMPORTE: Number($("#TOTAL").val()).toFixed(2),
-                  };
+            if (_Accion == "N") { // nuevo  producto al detalle 
+                var rowKey = jQuery("#" + Ventas_Detalle_Grilla).getDataIDs();
+                var ix = rowKey.length;
+                ix++;
+                var myData =
+                      {
+                          ID_VENTA_DETALLE: 0,
+                          CODIGO: ix,
+                          ID_PRODUCTO: $("#hfd_ID_PRODUCTO").val(),
+                          PRODUCTO: $("#SEARCH_PRODUCTO").val(),
+                          PRECIO: Number($("#PRECIO_VENTA").val()).toFixed(2),
+                          CANTIDAD: $("#CANTIDAD").val(),
+                          IMPORTE: Number($("#TOTAL").val()).toFixed(2),
+                      };
 
-            if (Ventas_Detalle_BuscarProducto_Grilla($('#hfd_ID_PRODUCTO').val())) {
-                jError('Producto seleccionado ya se encuentra en la lista.', 'Atención');
-            } else {
-                jQuery("#" + Ventas_Detalle_Grilla).jqGrid('addRowData', ix, myData);
-                CalcularMontoTotalDetalle();
+                if (Ventas_Detalle_BuscarProducto_Grilla($('#hfd_ID_PRODUCTO').val())) {
+                    jError('Producto seleccionado ya se encuentra en la lista.', 'Atención');
+                } else {
+                    jQuery("#" + Ventas_Detalle_Grilla).jqGrid('addRowData', ix, myData);
+                    Ventas_Detalle_CalcularMontoTotalDetalle();
+                }
+            } else {  // actualizar  producto al detalle  
+                debugger; 
+                var _IdGrilla = _CODIGO_GRILLA;
+                $("#" + Ventas_Detalle_Grilla).jqGrid('setCell', _IdGrilla, 'PRECIO', Number($("#PRECIO_VENTA").val()).toFixed(2));
+                $("#" + Ventas_Detalle_Grilla).jqGrid('setCell', _IdGrilla, 'CANTIDAD', $("#CANTIDAD").val());
+                $("#" + Ventas_Detalle_Grilla).jqGrid('setCell', _IdGrilla, 'IMPORTE', Number($("#TOTAL").val()).toFixed(2));
+                Ventas_Detalle_CalcularMontoTotalDetalle();
             }
             LimpiarFormulario();
             $('#_DetallePorductos').hide('');

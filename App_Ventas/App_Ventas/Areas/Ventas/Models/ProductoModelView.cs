@@ -12,7 +12,7 @@ namespace App_Ventas.Areas.Ventas.Models
 {
     public class ProductoModelView
     {
-        public long ID_PRODUCTO { get; set; }
+        public int ID_PRODUCTO { get; set; }
 
 
         [Display(Name = "Código: ")]
@@ -53,7 +53,7 @@ namespace App_Ventas.Areas.Ventas.Models
         [Display(Name = "Precio Venta: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Precio Venta] es obligatorio")]
-        public string PRECIO_VENTA { get; set; }
+        public decimal PRECIO_VENTA { get; set; }
 
         [Display(Name = "Stock: ")]
         [DataType(DataType.Text)]
@@ -71,7 +71,7 @@ namespace App_Ventas.Areas.Ventas.Models
         [DataType(DataType.Text)]
         public bool FLG_VENCE { get; set; }
 
-        public bool FLG_SERIVICIO { get; set; }
+        public int FLG_SERIVICIO { get; set; }
 
 
         [Display(Name = "Fecha Vencimiento: ")]
@@ -79,46 +79,15 @@ namespace App_Ventas.Areas.Ventas.Models
         [Required(ErrorMessage = "[Fecha Vencimiento] es obligatorio")]
         public string FECHA_VENCIMIENTO { get; set; }
 
-
-        [Display(Name = "Marca: ")]
-        [DataType(DataType.Text)]
-        public string MARCA { get; set; }
-
-        [Display(Name = "Modelo: ")]
-        [DataType(DataType.Text)]
-        public string MODELO { get; set; }
-
-
-        [Display(Name = "Código: ")]
-        [DataType(DataType.Text)]
-        [Required(ErrorMessage = "[Código] es obligatorio")]
-        public string COD_PRODUCTO_SERVICIO { get; set; }
-
-        [Display(Name = "Servicio: ")]
-        [DataType(DataType.Text)]
-        [Required(ErrorMessage = "[Servicio] es obligatorio")]
-        public string DESC_SERVICIO { get; set; }
-
-        [Display(Name = "Precio Venta: ")]
-        [DataType(DataType.Text)]
-        [Required(ErrorMessage = "[Precio Venta] es obligatorio")]
-        public string PRECIO_VENTA_SERVICIO { get; set; }
-
-        [Display(Name = "Unidad Medida: ")]
-        [DataType(DataType.Text)]
-        [Required(ErrorMessage = "[Unidad Medida] es obligatorio")]
-        public int ID_UNIDAD_MEDIDA_SERVICIO { get; set; }
-
         [Display(Name = "Detalle: ")]
         [DataType(DataType.Text)]
         public string DETALLE { get; set; }
 
 
-
         [Display(Name = "Total: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Total] es obligatorio")]
-        public string TOTAL { get; set; }
+        public decimal TOTAL { get; set; }
 
           [Display(Name = "Buscar Producto: ")]
         public string SEARCH_PRODUCTO { get; set; }
