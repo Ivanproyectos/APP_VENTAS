@@ -49,11 +49,33 @@ namespace App_Ventas.Areas.Inventario.Controllers
                 model.Lista_Categoria.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
             }
 
-
             return View(model);
        
         }
 
+        public ActionResult Producto_ListarxId(Cls_Ent_Producto entidad)
+        {
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            try
+            {
+                using (ProductoRepositorio repositorio = new ProductoRepositorio())
+                {
+                    auditoria.OBJETO = repositorio.Producto_Listar_Uno(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+            }
+            return Json(auditoria.OBJETO, JsonRequestBehavior.AllowGet);
+        }
 
 
         public ActionResult Producto_Listar(Cls_Ent_Producto entidad)

@@ -131,6 +131,8 @@ namespace App_Ventas.Areas.Ventas.Models
         public int CANTIDAD { get; set; }
 
         public Cls_Ent_Archivo MiArchivo { get; set; }
+        public string Accion { get; set; }
+        
 
     }
 }

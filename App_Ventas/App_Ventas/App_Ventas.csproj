@@ -4200,7 +4200,6 @@
     <Content Include="Scripts\Js\Recursiva\Configuracion.js" />
     <Content Include="Scripts\Js\Servicio\ServicioPersona.js" />
     <Content Include="Scripts\Js\Ventas\Consulta_Ventas.js" />
-    <Content Include="Scripts\Js\Ventas\Ventas_Recursos.js" />
     <Content Include="Scripts\Js\Ventas\Ventas.js" />
     <Content Include="Scripts\Js\Ventas\Ventas_Detalle.js" />
     <Content Include="Scripts\WavesEffect.js" />

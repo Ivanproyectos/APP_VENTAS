@@ -71,12 +71,13 @@ namespace App_Ventas.Areas.Ventas.Controllers
         }
 
 
-        public ActionResult Mantenimiento_BuscarProducto(int ID_SUCURSAL, string GrillaCarga)
+        public ActionResult Mantenimiento_BuscarProducto(int ID_SUCURSAL, int ID_PRODUCTO, string Accion)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             ProductoModelView model = new ProductoModelView();
             model.ID_SUCURSAL = ID_SUCURSAL;
-            model.GrillaCarga = GrillaCarga;
+            model.ID_PRODUCTO = ID_PRODUCTO;
+            model.Accion = Accion; 
 
             using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
             {

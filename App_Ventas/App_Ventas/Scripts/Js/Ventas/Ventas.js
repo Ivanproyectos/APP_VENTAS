@@ -64,8 +64,6 @@ function GetRules(Ventas_Grilla) {
     return rules;
 }
 
-
-
 function Ventas_actionAcciones(cellvalue, options, rowObject) {
     var _ID_VENTA = rowObject[2];
     var _FLG_FLG_ANULADO = rowObject[14];
@@ -137,9 +135,9 @@ function Ventas_MostrarNuevo() {
 
 
 function Ventas_MostarBuscarProducto() {
-    var _ID_SUCURSAL = $('#inputL_Id_Sucursal').val();
+    var _ID_SUCURSAL = _Id_Sucursal;
     jQuery("#myModalBuscarProduc").html('');
-    jQuery("#myModalBuscarProduc").load(baseUrl + "Ventas/Ventas/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + _ID_SUCURSAL + "&GrillaCarga=" + Ventas_Detalle_Grilla, function (responseText, textStatus, request) {
+    jQuery("#myModalBuscarProduc").load(baseUrl + "Ventas/Ventas/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + _ID_SUCURSAL + "&ID_PRODUCTO=0" + "&Accion=N", function (responseText, textStatus, request) {
         $('#myModalBuscarProduc').modal({ show: true, backdrop: 'static', keyboard: false });
         $.validator.unobtrusive.parse('#myModalBuscarProduc');
         if (request.status != 200) return;
@@ -155,10 +153,6 @@ function Ventas_MostrarDevolverProducto(ID_VENTA) {
         if (request.status != 200) return;
     });
 }
-
-
-
-
 
 ///*********************************************** ----------------- *************************************************/
 

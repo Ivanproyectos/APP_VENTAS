@@ -2,7 +2,7 @@
 var _SimboloMoneda = $('#inputL_SimboloMoneda').val();
 var _Impuesto = parseInt($('#inputL_Impuesto').val());
 var _NombreImpuesto = $('#inputL_NombreImpuesto').val();
-var _Id_sucursal = $('#inputL_Id_Sucursal').val();
+var _Id_Sucursal = $('#inputL_Id_Sucursal').val();
 
 function ConfigurarFormulario() {
     $('#NomImpuesto').text(_NombreImpuesto);

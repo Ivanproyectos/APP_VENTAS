@@ -317,6 +317,7 @@ namespace Capa_Datos.Ventas
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_VENTA", SqlDbType.BigInt)).Value = entidad_param.ID_VENTA;
                     dr = cmd.ExecuteReader();
                     int pos_ID_VENTA_DETALLE = dr.GetOrdinal("ID_VENTA_DETALLE");
+                    int pos_ID_PRODUCTO = dr.GetOrdinal("ID_PRODUCTO");
                     int pos_DESC_PRODUCTO = dr.GetOrdinal("DESC_PRODUCTO");
                     int pos_PRECIO = dr.GetOrdinal("PRECIO");
                     int pos_CANTIDAD = dr.GetOrdinal("CANTIDAD");
@@ -331,6 +332,9 @@ namespace Capa_Datos.Ventas
                             obj = new Cls_Ent_Ventas_Detalle();
                             if (dr.IsDBNull(pos_ID_VENTA_DETALLE)) obj.ID_VENTA_DETALLE = 0;
                             else obj.ID_VENTA_DETALLE = int.Parse(dr[pos_ID_VENTA_DETALLE].ToString());
+
+                            if (dr.IsDBNull(pos_ID_PRODUCTO)) obj.ID_PRODUCTO = 0;
+                            else obj.ID_PRODUCTO = int.Parse(dr[pos_ID_PRODUCTO].ToString());
 
                             if (dr.IsDBNull(pos_DESC_PRODUCTO)) obj.DESC_PRODUCTO = "";
                             else obj.DESC_PRODUCTO = dr.GetString(pos_DESC_PRODUCTO);

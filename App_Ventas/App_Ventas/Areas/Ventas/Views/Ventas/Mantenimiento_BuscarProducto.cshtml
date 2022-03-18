@@ -3,10 +3,14 @@
 <script>
     var _Valido = false;
     var _Grilla = $('#hdf_Grilla').val();
+    var _Accion = $('#AccionBuscarProducto').val();
     $(document).ready(function () {
         ConfigurarFormulario();
         $('#CANTIDAD').numeric();
         setTimeout(function () { $('#SEARCH_PRODUCTO').focus(); }, 500)
+        if (_Accion != "N") {
+            Ventas_BuscarProductoxId(@Model.ID_PRODUCTO); 
+         }
     });
     // al cerrar el modal hijo el padre sigue con la clase modal open. 
     $(document).on('hidden.bs.modal', '.modal', function () {
@@ -266,19 +270,7 @@
 
                 <div id="Alert_Warning " class="alert alert-warning alert-dismissible alert-alt fade show col-md-12" style="display: none;">
                     <strong><i class="bi bi-exclamation-triangle"></i>&nbsp;</strong><span id="mensaje_Alerta"></span>
-                </div>
-                
-@*     <div class="" style="width: 417px">
-                        <div class='_cListProductos   border-bottom-head'>
-                            <div class='_text_producto'>item.DESC_PRODUCTO </div>
-                            <div class='_InfoProd'>
-                                <div class='_Stock'><span><i class='bi bi-box-seam'></i>&nbsp;stock: </span> 20.43 </div>
-                                <div class='_Precio'><span><i class='bi bi-cash-stack'></i>&nbsp;precio: </span> 12.25 </div>
-                                <div class='_Tipo'><span><i class='bi bi-collection'></i>&nbsp;tipo: </span> servicio  </div>
-                                <div class='_FotoPro'>  </div>
-                            </div>
-                        </div>
-                    </div>*@        
+                </div>    
             }
         </div>
         <div class="modal-footer">
@@ -289,5 +281,5 @@
 </div>
 @Html.Hidden("hfd_ID_PRODUCTO", Model.ID_PRODUCTO)
 @Html.Hidden("hfd_STOCK", Model.STOCK)
-@Html.Hidden("hdf_Grilla", Model.GrillaCarga)
-
+@Html.Hidden("hdf_CodigoGrilla", Model.GrillaCarga)
+@Html.Hidden("AccionBuscarProducto", Model.Accion)
