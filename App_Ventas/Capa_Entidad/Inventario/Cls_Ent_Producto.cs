@@ -31,7 +31,7 @@ namespace Capa_Entidad.Inventario
         public string DESC_CATEGORIA { get; set; }
 
         public Cls_Ent_Archivo MiArchivo { get; set; }
-        public string Accion { get; set; }
+        public string COD_UNIDAD_MEDIDA { get; set; }
       
         
     }

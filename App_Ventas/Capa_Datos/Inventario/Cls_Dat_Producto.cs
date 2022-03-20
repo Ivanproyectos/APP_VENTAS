@@ -183,6 +183,7 @@ namespace Capa_Datos.Inventario
                     int pos_DESC_PRODUCTO = dr.GetOrdinal("DESC_PRODUCTO");
                     int pos_COD_PRODUCTO = dr.GetOrdinal("COD_PRODUCTO");
                     int pos_DESC_UNIDAD_MEDIDA = dr.GetOrdinal("DESC_UNIDAD_MEDIDA");
+                    int pos_COD_UNIDAD_MEDIDA = dr.GetOrdinal("COD_UNIDAD_MEDIDA");
                     int pos_ID_UNIDAD_MEDIDA = dr.GetOrdinal("ID_UNIDAD_MEDIDA");
                     int pos_DESC_CATEGORIA = dr.GetOrdinal("DESC_CATEGORIA");
                     int pos_PRECIO_COMPRA = dr.GetOrdinal("PRECIO_COMPRA");
@@ -248,6 +249,9 @@ namespace Capa_Datos.Inventario
 
                             if (dr.IsDBNull(pos_DETALLE)) obj.DETALLE = "";
                             else obj.DETALLE = dr.GetString(pos_DETALLE);
+
+                            if (dr.IsDBNull(pos_COD_UNIDAD_MEDIDA)) obj.COD_UNIDAD_MEDIDA = "";
+                            else obj.COD_UNIDAD_MEDIDA = dr.GetString(pos_COD_UNIDAD_MEDIDA);
 
                             obj.MiArchivo = new Cls_Ent_Archivo(); 
                            {

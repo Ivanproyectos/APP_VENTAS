@@ -41,6 +41,7 @@
 
     $('#DESCUENTO').keyup(function () {
         Ventas_Detalle_CalcularMontoTotalDetalle();
+        Fn_Ventas_Vuelto(); 
     });
 
     $('#TOTAL_RECIBIDO').keyup(function () {
@@ -52,8 +53,11 @@
             $('#Venta_Adelanto').show('slow');
         else
             $('#Venta_Adelanto').hide(); 
-    }); 
+    });
 
+
+
+   
 </script>
 
 <style>

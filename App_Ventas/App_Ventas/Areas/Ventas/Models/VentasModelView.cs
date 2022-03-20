@@ -81,7 +81,7 @@ namespace App_Ventas.Areas.Ventas.Models
         public string Accion { get; set; }
 
         public string ID_TIPO_COMPROBANTE_SEARCH { get; set; }
-        
+   
 
         /*CONSULTAS*/
          [Display(Name = "Usuario: ")]
@@ -93,7 +93,7 @@ namespace App_Ventas.Areas.Ventas.Models
         public List<SelectListItem> Lista_Sucursal { get; set; }
 
         public decimal DEBE { get; set; }
-       
+        public string TIPO_GRILLA { get; set; }
         
     }
 }

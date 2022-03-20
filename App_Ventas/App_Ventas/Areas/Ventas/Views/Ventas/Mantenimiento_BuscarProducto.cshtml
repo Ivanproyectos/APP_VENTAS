@@ -95,6 +95,7 @@
                 $("#hfd_STOCK").val(ui.item.STOCK);
                 $("#SEARCH_PRODUCTO").val(ui.item.DESC_PRODUCTO);
                 $("#ID_UNIDAD_MEDIDA").val(ui.item.ID_UNIDAD_MEDIDA);
+                $("#HDF_COD_UNIDAD_MEDIDA").val(ui.item.COD_UNIDAD_MEDIDA);               
                 $("#COD_PRODUCTO").val(ui.item.COD_PRODUCTO);
                 $("#INPUT_STOCK").text(ui.item.STOCK);
                 $("#PRECIO_VENTA").val(Number(ui.item.PRECIO_VENTA).toFixed(2));
@@ -111,6 +112,7 @@
                 $("#hfd_STOCK").val(ui.item.STOCK);
                 $("#SEARCH_PRODUCTO").val(ui.item.DESC_PRODUCTO);
                 $("#ID_UNIDAD_MEDIDA").val(ui.item.ID_UNIDAD_MEDIDA);
+                $("#HDF_COD_UNIDAD_MEDIDA").val(ui.item.COD_UNIDAD_MEDIDA);
                 $("#COD_PRODUCTO").val(ui.item.COD_PRODUCTO);
                 $("#INPUT_STOCK").text(ui.item.STOCK);
                 $("#PRECIO_VENTA").val(Number(ui.item.PRECIO_VENTA).toFixed(2));
@@ -295,3 +297,4 @@
 @Html.Hidden("hfd_STOCK", Model.STOCK)
 @Html.Hidden("Hdf_flg_Servicio", Model.FLG_SERIVICIO)
 @Html.Hidden("AccionBuscarProducto", Model.Accion)
+@Html.Hidden("HDF_COD_UNIDAD_MEDIDA", Model.COD_UNIDAD_MEDIDA)

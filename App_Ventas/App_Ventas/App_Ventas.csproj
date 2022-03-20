@@ -4149,7 +4149,7 @@
     <Content Include="Areas\Recursiva\Views\Web.config" />
     <Content Include="Areas\Ventas\Views\Ventas\Mantenimiento_BuscarProducto.cshtml" />
     <Content Include="Areas\Login\Views\Web.config" />
-    <Content Include="Areas\Ventas\Views\Ventas\Mantenimiento_DevolverProducto.cshtml" />
+    <Content Include="Areas\Ventas\Views\Ventas\Mantenimiento_ViewDetalleProducto.cshtml" />
     <Content Include="Areas\Ventas\Views\Consulta_Ventas\Index.cshtml" />
     <Content Include="Handlers\Exportar_Grilla_Excel.ashx" />
     <Content Include="Areas\CuentasCobrar\Views\CuentasCobrar\Mantenimiento.cshtml" />

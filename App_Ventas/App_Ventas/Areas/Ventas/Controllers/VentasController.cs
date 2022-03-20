@@ -114,7 +114,8 @@ namespace App_Ventas.Areas.Ventas.Controllers
                         model.STOCK = lista.STOCK;
                         model.CANTIDAD = CANTIDAD;
                         model.TOTAL = IMPORTE;
-                        model.FLG_SERIVICIO = lista.FLG_SERVICIO; 
+                        model.FLG_SERIVICIO = lista.FLG_SERVICIO;
+                        model.COD_UNIDAD_MEDIDA = lista.COD_UNIDAD_MEDIDA; 
                     }
                 }
 
@@ -299,11 +300,34 @@ namespace App_Ventas.Areas.Ventas.Controllers
         }
 
 
-        public ActionResult Mantenimiento_DevolverProducto(int ID_VENTA)
+        public ActionResult Mantenimiento_ViewDetalleProducto(int ID_VENTA, string TIPO)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             VentasModelView model = new VentasModelView();
-            model.ID_VENTA = ID_VENTA; 
+            model.ID_VENTA = ID_VENTA;
+            model.TIPO_GRILLA = TIPO;
+            Cls_Ent_Ventas lista = new Cls_Ent_Ventas();
+            using (VentasRepositorio repositotioventas = new VentasRepositorio())
+            {
+                Cls_Ent_Ventas entidad = new Cls_Ent_Ventas();
+                auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+
+                entidad.ID_VENTA = ID_VENTA;
+                lista = repositotioventas.Ventas_Listar_Uno(entidad, ref auditoria);
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                }
+                else
+                {
+                    model.TOTAL = lista.TOTAL;
+                    model.SUBTOTAL = lista.SUB_TOTAL;
+                    model.IGV = lista.IGV;
+                    model.DESCUENTO = lista.DESCUENTO;
+                }
+            }
+
             return View(model);
 
         }
