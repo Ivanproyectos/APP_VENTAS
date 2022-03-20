@@ -69,7 +69,7 @@ function Usuario_TextUsuario(cellvalue, options, rowObject) {
 }
 
 function Usuarios_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Usuarios_MostrarEditar(" + rowObject.ID_USUARIO + ");' class=\"btn btn-outline-light\" type=\"button\"> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
+    var _btn = "<button title='Editar'  onclick='Usuarios_MostrarEditar(" + rowObject.ID_USUARIO + ");' class=\"btn btn-outline-light\" type=\"button\"  style=\"height: 39px;line-height: 5px;\"> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
     return _btn;
 }
 

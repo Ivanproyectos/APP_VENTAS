@@ -61,7 +61,7 @@ function Proveedor_actionActivo(cellvalue, options, rowObject) {
 }
 
 function Proveedor_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Proveedor_MostrarEditar(" + rowObject.ID_PROVEEDOR + ");' class=\"btn btn-outline-light\" type=\"button\" > <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
+    var _btn = "<button title='Editar'  onclick='Proveedor_MostrarEditar(" + rowObject.ID_PROVEEDOR + ");' class=\"btn btn-outline-light\" type=\"button\"  style=\"height: 39px;line-height: 5px;\" > <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
     return _btn;
 }
 

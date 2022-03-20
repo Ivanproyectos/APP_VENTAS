@@ -52,7 +52,7 @@ function Categoria_actionActivo(cellvalue, options, rowObject) {
 }
 
 function Categoria_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Categoria_MostrarEditar(" + rowObject.ID_CATEGORIA + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
+    var _btn = "<button title='Editar'  onclick='Categoria_MostrarEditar(" + rowObject.ID_CATEGORIA + ");' class=\"btn btn-outline-light\" type=\"button\"  style=\"height: 39px;line-height: 5px;\"> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
     return _btn;
 }
 

@@ -17,5 +17,7 @@ namespace Capa_Entidad.Ventas
         public string DESC_PRODUCTO { get; set; }
         public int FLG_DEVUELTO { get; set; }
         public string COD_UNIDAD_MEDIDA { get; set; }
+        public string MOTIVO { get; set; }
+        
     }
 }

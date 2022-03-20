@@ -233,9 +233,9 @@ input:checked + .slider:before {
 }
 
 .toggle_Beatiful_1:checked ~ .content_toggle_2 .Label_toggle_1::after{
-      width: 4px;
-    top: calc(95% - 6.5px);
-    left: calc(30% - 3px);
+    width: 4px;
+    top: calc(95% - 6px);
+    left: calc(30% - 2px);
     background: rgba(73,168,68,1);
     transition: 400ms all ease-in-out 50ms;
     box-sizing: border-box;

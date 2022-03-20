@@ -387,6 +387,7 @@ namespace Capa_Datos.Ventas
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_VENTA_DETALLE", SqlDbType.Int)).Value = entidad.ID_VENTA_DETALLE;
                     cmd.Parameters.Add(new SqlParameter("@PI_CANTIDAD", SqlDbType.Int)).Value = entidad.CANTIDAD;
+                    cmd.Parameters.Add(new SqlParameter("@PI_MOTIVO", SqlDbType.VarChar, 1000)).Value = entidad.MOTIVO;
                     cmd.Parameters.Add(new SqlParameter("@PI_USU_MODIFICACION", SqlDbType.VarChar, 200)).Value = entidad.USU_MODIFICACION;
                     cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("PO_MENSAJE", SqlDbType.VarChar, 200)).Direction = System.Data.ParameterDirection.Output;
