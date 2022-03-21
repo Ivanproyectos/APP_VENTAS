@@ -89,7 +89,7 @@ namespace App_Ventas.Areas.Ventas.Models
         [Required(ErrorMessage = "[Total] es obligatorio")]
         public decimal TOTAL { get; set; }
 
-          [Display(Name = "Buscar Producto: ")]
+        [Display(Name = "Buscar Producto: ")]
         public string SEARCH_PRODUCTO { get; set; }
 
         public string GrillaCarga { get; set; }

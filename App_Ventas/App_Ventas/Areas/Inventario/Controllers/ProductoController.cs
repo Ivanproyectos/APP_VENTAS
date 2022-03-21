@@ -147,10 +147,10 @@ namespace App_Ventas.Areas.Inventario.Controllers
                             model.COD_PRODUCTO = lista.COD_PRODUCTO;
                             model.DESC_PRODUCTO = lista.DESC_PRODUCTO;
                             model.ID_UNIDAD_MEDIDA = lista.ID_UNIDAD_MEDIDA;
-                            model.STOCK = lista.STOCK;
+                            model.STOCK = ConvertirUnidadMedida( lista.ID_UNIDAD_MEDIDA , lista.STOCK);
                             model.PRECIO_COMPRA = lista.PRECIO_COMPRA; 
                             model.PRECIO_VENTA = lista.PRECIO_VENTA;
-                            model.STOCK_MINIMO = lista.STOCK_MINIMO;
+                            model.STOCK_MINIMO = ConvertirUnidadMedida(lista.ID_UNIDAD_MEDIDA, lista.STOCK_MINIMO);
                             model.MARCA = lista.MARCA;
                             model.MODELO = lista.MODELO;
                             model.FLG_VENCE = lista.FLG_VENCE ==1 ? true : false;
@@ -289,6 +289,19 @@ namespace App_Ventas.Areas.Inventario.Controllers
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
+        public string ConvertirUnidadMedida(int Id_unida_medida, decimal STOCK)
+        {
+            string Stock;
+            if (Id_unida_medida == 1)
+            {
+                Stock = Convert.ToString(STOCK / 1000); // valor en kilos cuando sea kilos
+            }
+            else {
+                Stock = Convert.ToString(Convert.ToUInt32(STOCK));
+            }
+            return Stock; 
+
+        }
 
 
 

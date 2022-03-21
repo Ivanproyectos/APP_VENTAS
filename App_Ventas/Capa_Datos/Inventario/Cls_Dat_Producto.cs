@@ -58,6 +58,7 @@ namespace Capa_Datos.Inventario
                     int pos_DESC_PRODUCTO = dr.GetOrdinal("DESC_PRODUCTO");
                     int pos_COD_PRODUCTO = dr.GetOrdinal("COD_PRODUCTO");
                     int pos_DESC_UNIDAD_MEDIDA = dr.GetOrdinal("DESC_UNIDAD_MEDIDA");
+                    int pos_ID_UNIDAD_MEDIDA = dr.GetOrdinal("ID_UNIDAD_MEDIDA");                  
                     int pos_DESC_CATEGORIA = dr.GetOrdinal("DESC_CATEGORIA");
                     int pos_PRECIO_COMPRA = dr.GetOrdinal("PRECIO_COMPRA");
                     int pos_PRECIO_VENTA = dr.GetOrdinal("PRECIO_VENTA");
@@ -99,6 +100,10 @@ namespace Capa_Datos.Inventario
 
                             if (dr.IsDBNull(pos_PRECIO_COMPRA)) obj.PRECIO_COMPRA = 0;
                             else obj.PRECIO_COMPRA = decimal.Parse(dr[pos_PRECIO_COMPRA].ToString());
+
+                            if (dr.IsDBNull(pos_ID_UNIDAD_MEDIDA)) obj.ID_UNIDAD_MEDIDA = 0;
+                            else obj.ID_UNIDAD_MEDIDA = int.Parse(dr[pos_ID_UNIDAD_MEDIDA].ToString());
+                            
 
                             if (dr.IsDBNull(pos_PRECIO_VENTA)) obj.PRECIO_VENTA = 0;
                             else obj.PRECIO_VENTA = decimal.Parse(dr[pos_PRECIO_VENTA].ToString());
@@ -426,8 +431,8 @@ namespace Capa_Datos.Inventario
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_CATEGORIA", SqlDbType.Int)).Value = entidad.ID_CATEGORIA;
                     cmd.Parameters.Add(new SqlParameter("@PI_PRECIO_COMPRA", SqlDbType.Decimal)).Value = entidad.PRECIO_COMPRA;
                     cmd.Parameters.Add(new SqlParameter("@PI_PRECIO_VENTA ", SqlDbType.Decimal)).Value = entidad.PRECIO_VENTA;
-                    cmd.Parameters.Add(new SqlParameter("@PI_STOCK", SqlDbType.Int)).Value = entidad.STOCK;
-                    cmd.Parameters.Add(new SqlParameter("@PI_STOCK_MINIMO", SqlDbType.Int)).Value = entidad.STOCK_MINIMO;
+                    cmd.Parameters.Add(new SqlParameter("@PI_STOCK", SqlDbType.Decimal)).Value = entidad.STOCK;
+                    cmd.Parameters.Add(new SqlParameter("@PI_STOCK_MINIMO", SqlDbType.Decimal)).Value = entidad.STOCK_MINIMO;
                     cmd.Parameters.Add(new SqlParameter("@PI_FLG_SERVICIO", SqlDbType.Int)).Value = entidad.FLG_SERVICIO;
                     cmd.Parameters.Add(new SqlParameter("@PI_FLG_VENCE", SqlDbType.Int)).Value = entidad.FLG_VENCE;
 
@@ -511,8 +516,8 @@ namespace Capa_Datos.Inventario
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_CATEGORIA", SqlDbType.Int)).Value = entidad.ID_CATEGORIA;
                     cmd.Parameters.Add(new SqlParameter("@PI_PRECIO_COMPRA", SqlDbType.Decimal)).Value = entidad.PRECIO_COMPRA;
                     cmd.Parameters.Add(new SqlParameter("@PI_PRECIO_VENTA ", SqlDbType.Decimal)).Value = entidad.PRECIO_VENTA;
-                    cmd.Parameters.Add(new SqlParameter("@PI_STOCK", SqlDbType.Int)).Value = entidad.STOCK;
-                    cmd.Parameters.Add(new SqlParameter("@PI_STOCK_MINIMO", SqlDbType.Int)).Value = entidad.STOCK_MINIMO;
+                    cmd.Parameters.Add(new SqlParameter("@PI_STOCK", SqlDbType.Decimal)).Value = entidad.STOCK;
+                    cmd.Parameters.Add(new SqlParameter("@PI_STOCK_MINIMO", SqlDbType.Decimal)).Value = entidad.STOCK_MINIMO;
                     cmd.Parameters.Add(new SqlParameter("@PI_FLG_SERVICIO", SqlDbType.Int)).Value = entidad.FLG_SERVICIO;
                     cmd.Parameters.Add(new SqlParameter("@PI_FLG_VENCE", SqlDbType.Int)).Value = entidad.FLG_VENCE;
 

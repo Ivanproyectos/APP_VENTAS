@@ -116,7 +116,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
                         model.ID_UNIDAD_MEDIDA = lista.ID_UNIDAD_MEDIDA;
                         model.COD_PRODUCTO = lista.COD_PRODUCTO;
                         model.PRECIO_VENTA = PRECIO; 
-                        model.STOCK = lista.STOCK;
+                        //model.STOCK = lista.STOCK;
                         model.CANTIDAD = _CANTIDAD;
                         model.TOTAL = IMPORTE;
                         model.FLG_SERIVICIO = lista.FLG_SERVICIO;

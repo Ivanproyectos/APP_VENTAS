@@ -63,8 +63,6 @@ function Producto_actionActivo(cellvalue, options, rowObject) {
 }
 
 
-
-
 function Producto_PrecioVentaConcat(cellvalue, options, rowObject) {
     var _Precioventa = rowObject.PRECIO_VENTA;
      var _text = _SimboloMoneda +' '+ _Precioventa;  
@@ -161,7 +159,8 @@ function Producto_CargarGrilla() {
     if (auditoria.EJECUCION_PROCEDIMIENTO) {
         if (!auditoria.RECHAZAR) {
             $.each(auditoria.OBJETO, function (i, v)   {
-                var idgrilla = i + 1;               
+                var idgrilla = i + 1;
+                if()
                 var myData =
                  {
                      CODIGO: idgrilla,
@@ -206,6 +205,14 @@ function Producto_Actualizar() {
     if ($("#frmMantenimiento_Productos").valid()) {
         
         if (!_FlgServicio) {
+
+                var STOCK = $("#STOCK").val();
+                var STOCK_MINIMO = $("#STOCK_MINIMO").val();
+                if ($("#ID_UNIDAD_MEDIDA").val() == 1) // si es kilos guardo en gramos 
+                {
+                    STOCK = (STOCK * 1000) // convertir a gramos 
+                    STOCK_MINIMO = (STOCK_MINIMO * 1000) // convertir a gramos 
+                }
             var item =
                 {
                     ID_PRODUCTO: $("#hfd_ID_PRODUCTO").val(),
@@ -275,18 +282,26 @@ function Producto_Ingresar() {
         if ($("#frmMantenimiento_Productos").valid()) {
             jConfirm("¿ Desea registrar este producto ?", "Atención", function (r) {
                 if (r) {
-
                     if (!_FlgServicio) {
+
+                        var STOCK = $("#STOCK").val(); 
+                        var STOCK_MINIMO = $("#STOCK_MINIMO").val();
+                        if ($("#ID_UNIDAD_MEDIDA").val() == 1) // si es kilos guardo en gramos 
+                            {
+                                STOCK = (STOCK * 1000) // convertir a gramos 
+                                STOCK_MINIMO = (STOCK_MINIMO * 1000) // convertir a gramos 
+                            }
+
                         var item =
                             {
                                 COD_PRODUCTO: $("#COD_PRODUCTO").val(),
                                 DESC_PRODUCTO: $("#DESC_PRODUCTO").val(),
                                 ID_UNIDAD_MEDIDA: $("#ID_UNIDAD_MEDIDA").val(),
                                 ID_SUCURSAL: $("#hfd_ID_SUCURSAL").val(),
-                                STOCK: $("#STOCK").val(),
+                                STOCK: STOCK,
                                 PRECIO_COMPRA: $("#PRECIO_COMPRA").val(),
                                 PRECIO_VENTA: $("#PRECIO_VENTA").val(),
-                                STOCK_MINIMO: $("#STOCK_MINIMO").val(),
+                                STOCK_MINIMO: STOCK_MINIMO,
                                 MARCA: $("#MARCA").val(),
                                 MODELO: $("#MODELO").val(),
                                 FLG_VENCE: $("#FLG_VENCE").is(':checked') ? 1 : 0,

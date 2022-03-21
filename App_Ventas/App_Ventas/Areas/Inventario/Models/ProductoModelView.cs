@@ -60,13 +60,13 @@ namespace App_Ventas.Areas.Inventario.Models
         [Display(Name = "Stock Inicial: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Stock Inicial] es obligatorio")]
-        public int STOCK { get; set; }
+        public string STOCK { get; set; }
 
 
         [Display(Name = "Stock Minimo: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Stock Minimo] es obligatorio")]
-        public int STOCK_MINIMO { get; set; }
+        public string STOCK_MINIMO { get; set; }
 
 
         [Display(Name = "¿Producto Vence?: ")]
