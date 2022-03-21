@@ -114,7 +114,7 @@ function Ventas_Detalle_CalcularMontoTotalDetalle() {
         var rowData = $("#" + Ventas_Detalle_Grilla).jqGrid('getRowData', rowId);
         _Total += parseFloat(rowData.IMPORTE)
     }
-    if (_descuento < _Total)
+    if (_descuento <= _Total)
         _Total = (_Total - _descuento);
     else {
         jError('El descuento no puede ser mayor al total.', 'Atención');
