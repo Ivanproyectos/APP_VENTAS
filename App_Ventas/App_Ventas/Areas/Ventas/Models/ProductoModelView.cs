@@ -97,7 +97,7 @@ namespace App_Ventas.Areas.Ventas.Models
 
         [Display(Name = "Cantidad: ")]
         [DataType(DataType.Text)]
-        public int CANTIDAD { get; set; }
+        public string CANTIDAD { get; set; }
 
         public Cls_Ent_Archivo MiArchivo { get; set; }
         public string Accion { get; set; }

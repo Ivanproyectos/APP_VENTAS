@@ -319,7 +319,8 @@ namespace Capa_Datos.Inventario
                     int pos_COD_ARCHIVO = dr.GetOrdinal("COD_ARCHIVO");
                     int pos_NOMBRE_ARCHIVO = dr.GetOrdinal("NOMBRE_ARCHIVO");
                     int pos_EXTENSION = dr.GetOrdinal("EXTENSION");
-
+                    int pos_COD_UNIDAD_MEDIDA = dr.GetOrdinal("COD_UNIDAD_MEDIDA");
+                    
                     if (dr.HasRows)
                     {
                         //Cls_Ent_Producto obj = null;
@@ -373,6 +374,9 @@ namespace Capa_Datos.Inventario
 
                             if (dr.IsDBNull(pos_DETALLE)) obj.DETALLE = "";
                             else obj.DETALLE = dr.GetString(pos_DETALLE);
+
+                            if (dr.IsDBNull(pos_COD_UNIDAD_MEDIDA)) obj.COD_UNIDAD_MEDIDA = "";
+                            else obj.COD_UNIDAD_MEDIDA = dr.GetString(pos_COD_UNIDAD_MEDIDA);
 
                             obj.MiArchivo = new Cls_Ent_Archivo(); 
                             {

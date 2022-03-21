@@ -71,7 +71,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
         }
 
         [HttpGet]
-        public ActionResult Mantenimiento_BuscarProducto(int ID_SUCURSAL, int ID_PRODUCTO, decimal PRECIO, decimal IMPORTE, int CANTIDAD, string Accion)
+        public ActionResult Mantenimiento_BuscarProducto(int ID_SUCURSAL, int ID_PRODUCTO, decimal PRECIO, decimal IMPORTE, string _CANTIDAD, string Accion)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             ProductoModelView model = new ProductoModelView();
@@ -88,7 +88,6 @@ namespace App_Ventas.Areas.Ventas.Controllers
                 }).ToList();
                 model.Lista_Unidad_Medida.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
             }
-
             if (Accion == "M")
             {
                 Cls_Ent_Producto lista = new Cls_Ent_Producto();
@@ -106,16 +105,22 @@ namespace App_Ventas.Areas.Ventas.Controllers
                     }
                     else
                     {
+                        //string _CANTIDAD = CANTIDAD; 
+                        if (lista.ID_UNIDAD_MEDIDA == 1) // convertir gramos a kilos para editar
+                        {
+                            _CANTIDAD = Convert.ToString(Convert.ToInt32(Convert.ToDecimal(_CANTIDAD) * 1000));
+                            lista.STOCK = (lista.STOCK * 1000);                  
+                        }
                         model.ID_PRODUCTO = ID_PRODUCTO;
                         model.SEARCH_PRODUCTO = lista.DESC_PRODUCTO;
                         model.ID_UNIDAD_MEDIDA = lista.ID_UNIDAD_MEDIDA;
                         model.COD_PRODUCTO = lista.COD_PRODUCTO;
                         model.PRECIO_VENTA = PRECIO; 
                         model.STOCK = lista.STOCK;
-                        model.CANTIDAD = CANTIDAD;
+                        model.CANTIDAD = _CANTIDAD;
                         model.TOTAL = IMPORTE;
                         model.FLG_SERIVICIO = lista.FLG_SERVICIO;
-                        model.COD_UNIDAD_MEDIDA = lista.COD_UNIDAD_MEDIDA; 
+                        model.COD_UNIDAD_MEDIDA = lista.COD_UNIDAD_MEDIDA == "Kg" ? "Gr." : lista.COD_UNIDAD_MEDIDA; 
                     }
                 }
 

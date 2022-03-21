@@ -62,7 +62,7 @@ function Ventas_Detalle_MostarEditarProducto(CODIGO) {
     var data = jQuery("#" + Ventas_Detalle_Grilla).jqGrid('getRowData', CODIGO);
     jQuery("#myModalBuscarProduc").html('');
     jQuery("#myModalBuscarProduc").load(baseUrl + "Ventas/Ventas/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + ID_SUCURSAL + "&ID_PRODUCTO=" + data.ID_PRODUCTO +
-            "&PRECIO="+ data.PRECIO +"&IMPORTE="+  data.IMPORTE +"&CANTIDAD="+ data.CANTIDAD+"&Accion=M", function (responseText, textStatus, request) {
+            "&PRECIO=" + data.PRECIO + "&IMPORTE=" + data.IMPORTE + "&_CANTIDAD=" + data.CANTIDAD + "&Accion=M", function (responseText, textStatus, request) {
         $('#myModalBuscarProduc').modal({ show: true, backdrop: 'static', keyboard: false });
         $.validator.unobtrusive.parse('#myModalBuscarProduc');
         if (request.status != 200) return;
@@ -197,6 +197,7 @@ function Ventas_BuscarProducto(COD_PRODUCTO, ID_SUCURSAL) {
             $("#SEARCH_PRODUCTO").val(v.DESC_PRODUCTO);
             $("#ID_UNIDAD_MEDIDA").val(v.ID_UNIDAD_MEDIDA);
             $("#HDF_COD_UNIDAD_MEDIDA").val(ui.item.COD_UNIDAD_MEDIDA);
+            $("#_Info_codigoUnidad").text(ui.item.COD_UNIDAD_MEDIDA == "Kg" ? "Gr." : ui.item.COD_UNIDAD_MEDIDA);
             $("#COD_PRODUCTO").val(v.COD_PRODUCTO);
             $("#INPUT_STOCK").text(v.STOCK);
             $("#PRECIO_VENTA").val(Number(v.PRECIO_VENTA).toFixed(2));
@@ -217,10 +218,16 @@ function Ventas_BuscarProducto(COD_PRODUCTO, ID_SUCURSAL) {
 function Ventas_Detalle_Insertar() {
     if (_Valido) {
         if ($('#frmMantenimiento_BuscarProducto').valid()) {
+            var _ID_UNIDAD_MEDIDA = $('#ID_UNIDAD_MEDIDA').val();
+            var _CANTIDAD = $("#CANTIDAD").val();
+            if (_ID_UNIDAD_MEDIDA == 1) // convertir gramos a kilos :: 1 kilos
+                {
+                    _CANTIDAD = (_CANTIDAD / 1000); 
+                }         
             if (_Accion == "N") { // nuevo  producto al detalle 
                 var rowKey = jQuery("#" + Ventas_Detalle_Grilla).getDataIDs();
                 var ix = rowKey.length;
-                ix++;
+                ix++;              
                 var myData =
                       {
                           ID_VENTA_DETALLE: 0,
@@ -228,7 +235,7 @@ function Ventas_Detalle_Insertar() {
                           ID_PRODUCTO: $("#hfd_ID_PRODUCTO").val(),
                           PRODUCTO: $("#SEARCH_PRODUCTO").val(),
                           PRECIO: Number($("#PRECIO_VENTA").val()).toFixed(2),
-                          CANTIDAD: $("#CANTIDAD").val(),
+                          CANTIDAD: _CANTIDAD,
                           IMPORTE: Number($("#TOTAL").val()).toFixed(2), 
                           COD_UNIDAD_MEDIDA: $("#HDF_COD_UNIDAD_MEDIDA").val(),
                       };
@@ -240,10 +247,9 @@ function Ventas_Detalle_Insertar() {
                     Ventas_Detalle_CalcularMontoTotalDetalle();
                 }
             } else {  // actualizar  producto al detalle  
-                debugger; 
                 var _IdGrilla = _CODIGO_GRILLA;
                 $("#" + Ventas_Detalle_Grilla).jqGrid('setCell', _IdGrilla, 'PRECIO', Number($("#PRECIO_VENTA").val()).toFixed(2));
-                $("#" + Ventas_Detalle_Grilla).jqGrid('setCell', _IdGrilla, 'CANTIDAD', $("#CANTIDAD").val());
+                $("#" + Ventas_Detalle_Grilla).jqGrid('setCell', _IdGrilla, 'CANTIDAD', _CANTIDAD);
                 $("#" + Ventas_Detalle_Grilla).jqGrid('setCell', _IdGrilla, 'IMPORTE', Number($("#TOTAL").val()).toFixed(2));
                 Ventas_Detalle_CalcularMontoTotalDetalle();
             }
@@ -289,3 +295,40 @@ function Ventas_BuscarProductoxId(ID_PRODUCTO) {
         jError("Se encontro mas de un producto con este codigo, verifique que el producto no tenga codigos duplicados.", "Atención");
     }
 }
+
+function Ventas_Detalle_CalcularPrecio(_ID_UNIDAD_MEDIDA) {
+    if ($('#Hdf_flg_Servicio').val() == 0) { // si es servicio no valida :.1
+        var _Cantidad = $('#CANTIDAD').val();
+        if (_Cantidad == "") 
+            _Cantidad = 1
+        var _precio = $('#PRECIO_VENTA').val();
+        var _stock = parseInt($('#hfd_STOCK').val());
+        var _total = 0.0;
+        switch (parseInt(_ID_UNIDAD_MEDIDA)) {
+         
+            case 1: // kilos 
+                if (_Cantidad <= _stock) {
+                    _total = (_Cantidad * _precio) / 1000; // calcular precio por gramos 
+                    $('#TOTAL').val(Number(_total).toFixed(2));
+                } else {
+                    jError('La cantidad no puede ser mayor al stock.', 'Atención');
+                    _total = (0 * _precio) / 1000;
+                    $('#CANTIDAD').val(0)
+                    $('#TOTAL').val(Number(_total).toFixed(2));
+                }
+                break;
+            default: // unidades
+                if (_Cantidad <= _stock) {
+                    _total = (_Cantidad * _precio);
+                    $('#TOTAL').val(Number(_total).toFixed(2));
+
+                } else {
+                    jError('La cantidad no puede ser mayor al stock.', 'Atención');
+                    _total = (1 * _precio);
+                    $('#CANTIDAD').val(1)
+                    $('#TOTAL').val(Number(_total).toFixed(2));
+                }
+        }
+    }
+}
+
