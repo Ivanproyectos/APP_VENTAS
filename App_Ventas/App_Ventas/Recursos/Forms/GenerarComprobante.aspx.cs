@@ -6,7 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.Reporting.WebForms;
 using App_Ventas.Areas.Ventas.Repositorio;
+using App_Ventas.Areas.Administracion.Repositorio;
 using Capa_Entidad;
+using Capa_Entidad.Administracion; 
 using Capa_Entidad.Ventas; 
 using System.Data;
 using System.Configuration;
@@ -35,6 +37,7 @@ namespace App_Ventas.Recursos.Forms
             entidad.ID_VENTA = ID_VENTA;
             entidad2.ID_VENTA = ID_VENTA;
             Cls_Ent_Ventas ListaCabecera = null;
+            Cls_Ent_configurarEmpresa Empresa = null; 
             List<Cls_Ent_Ventas_Detalle> ListaDetalle = null;
             using (VentasRepositorio repositorio = new VentasRepositorio())
             {
@@ -55,14 +58,29 @@ namespace App_Ventas.Recursos.Forms
                 }
             }
 
+            using (ConfigurarEmpresaRepositorio repositorio = new ConfigurarEmpresaRepositorio())
+            {
+                Empresa = repositorio.configurarEmpresa_Listar( ref auditoria);
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                }
+            }
+
             this.ReportViewer1.LocalReport.EnableExternalImages = true;
             this.ReportViewer1.LocalReport.DataSources.Clear();
             if (ListaCabecera!= null)
             {
+                string Ruta_logo = Recursos.Clases.Css_Ruta.Ruta_Logo()  + Empresa.CODIGO_ARCHIVO_LOGO + Empresa.EXTENSION_ARCHIVO_LOGO;
+                byte[] ImagenBytes = FileToByteArray(Ruta_logo); //convertir imagen bytes
+                string strB64 = Convert.ToBase64String(ImagenBytes); // convertir bytes en base64
                 ReportViewer1.LocalReport.DataSources.Clear();
                 ReportViewer1.ProcessingMode = ProcessingMode.Local;
                 ReportViewer1.LocalReport.ReportPath = Server.MapPath("rvTicket.rdlc");
-                ReportParameter[] parameters = new ReportParameter[0];
+                ReportParameter[] parameters = new ReportParameter[1];
+                parameters[0] = new ReportParameter("RutaLogo", strB64);
+
                 ReportViewer1.LocalReport.SetParameters(parameters);
                 //ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("CabeceraCotiazacion", ListaCabecera));
                 //ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("Detalle", ListaDetalle));
@@ -100,7 +118,17 @@ namespace App_Ventas.Recursos.Forms
 
         }
 
+        public static byte[] FileToByteArray(string fileName)
+        {
+            byte[] fileData = null;
 
+            using (FileStream fs = File.OpenRead(fileName))
+            {
+                var binaryReader = new BinaryReader(fs);
+                fileData = binaryReader.ReadBytes((int)fs.Length);
+            }
+            return fileData;
+        }
 
 
     }
