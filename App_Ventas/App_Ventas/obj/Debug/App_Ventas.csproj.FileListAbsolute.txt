@@ -132,3 +132,5 @@ C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\bin\C
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\bin\Capa_Datos.pdb
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\bin\DocumentFormat.OpenXml.dll
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\bin\DocumentFormat.OpenXml.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\obj\Debug\RdlCompile.cache
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\obj\Debug\RdlCompile.compiled

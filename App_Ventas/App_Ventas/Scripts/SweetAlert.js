@@ -28,7 +28,7 @@
 jOkas = function (message, title){
     Swal.fire({
         title: title,
-        text : message,
+        html : message,
         icon:'success',
         confirmButtonText: 'Aceptar'
     }

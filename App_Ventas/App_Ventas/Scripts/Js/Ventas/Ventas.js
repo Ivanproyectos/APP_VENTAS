@@ -236,7 +236,7 @@ function Ventas_Ingresar() {
 
 
 
-// CALUCLAR VUELTO VENTA
+// CALCULAR VUELTO VENTA
 function Fn_Ventas_Vuelto() {
     var _Total = isNaN(parseFloat($('#Venta_Total').text())) ? 0 : parseFloat($('#Venta_Total').text());
     var _PagoCon = isNaN(parseFloat($('#TOTAL_RECIBIDO').val())) ? 0 : parseFloat($('#TOTAL_RECIBIDO').val());

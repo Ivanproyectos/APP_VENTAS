@@ -46,6 +46,7 @@
       <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -240,6 +241,13 @@
     <Compile Include="Recursos\Clases\Css_IP.cs" />
     <Compile Include="Recursos\Clases\Css_Log.cs" />
     <Compile Include="Recursos\Clases\Css_Ruta.cs" />
+    <Compile Include="Recursos\Forms\GenerarComprobante.aspx.cs">
+      <DependentUpon>GenerarComprobante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Recursos\Forms\GenerarComprobante.aspx.designer.cs">
+      <DependentUpon>GenerarComprobante.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\Paginacion\Css_Filter.cs" />
     <Compile Include="Recursos\Paginacion\Css_Paginacion.cs" />
     <Compile Include="Recursos\Paginacion\Css_Row.cs" />
@@ -4157,6 +4165,7 @@
     <Content Include="Areas\CuentasCobrar\Views\CuentasCobrar\Mantenimiento.cshtml" />
     <Content Include="Areas\CuentasCobrar\Views\CuentasCobrar\Mantenimiento_BuscarProducto.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Recursos\Forms\GenerarComprobante.aspx" />
     <Content Include="Recursos\Imagenes\tulogo.png" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\inicializacion.js" />
@@ -4283,6 +4292,9 @@
       <Project>{0b627b60-26a9-4b68-ab1e-cee89b4e72fa}</Project>
       <Name>Capa_Negocio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Recursos\Forms\rvTicket.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

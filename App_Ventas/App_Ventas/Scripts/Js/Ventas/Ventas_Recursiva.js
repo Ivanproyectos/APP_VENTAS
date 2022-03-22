@@ -185,3 +185,15 @@ function Ventas_Llenar_ComboMotivo() {
         jError(auditoria.MENSAJE_SALIDA, "Atención");
     }
 }
+
+function Ventas_GenerarVistaComprobante(ID_VENTA) {
+    //Ventas_Cerrar();
+    var _Html = " xd"
+              + "<iframe width=\"100%\" height=\"400\" src='" + MiSistema + "Recursos/Forms/GenerarComprobante.aspx?ID_VENTA=" + ID_VENTA + "&TIPO_COMPROBANTE=0' frameborder=\"0\"></iframe>";
+    jOkas(_Html, "Venta realizada!");
+
+}
+
+///*********************************************** ----------------- *************************************************/
+
+///*********************************************** devolver producto ******************************************/
