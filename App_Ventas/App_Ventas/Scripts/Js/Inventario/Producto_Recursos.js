@@ -32,3 +32,13 @@ function _GuardarTemporal() {
 
 }
 
+function ConvertKilos_Gramos(_KILOS) {
+    var Gramos = (_KILOS * 1000);
+    return Gramos; 
+}
+
+function ConvertGramos_Kilos(_GRAMOS) {
+    var Kilos = (_GRAMOS / 1000);
+    return Kilos;
+}
+

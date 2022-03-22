@@ -75,57 +75,63 @@ namespace App_Ventas.Areas.Ventas.Controllers
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             ProductoModelView model = new ProductoModelView();
-            model.ID_SUCURSAL = ID_SUCURSAL;
-            model.ID_PRODUCTO = ID_PRODUCTO;
-            model.Accion = Accion; 
-
-            using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
+            try
             {
-                model.Lista_Unidad_Medida = Repositorio.Unidad_Medida_Listar(ref auditoria).Select(x => new SelectListItem()
-                {
-                    Text = x.DESC_UNIDAD_MEDIDA,
-                    Value = x.ID_UNIDAD_MEDIDA.ToString()
-                }).ToList();
-                model.Lista_Unidad_Medida.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
-            }
-            if (Accion == "M")
-            {
-                Cls_Ent_Producto lista = new Cls_Ent_Producto();
-                using (ProductoRepositorio repositorioCliente = new ProductoRepositorio())
-                {
-                    Cls_Ent_Producto entidad = new Cls_Ent_Producto();
-                    auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+                model.ID_SUCURSAL = ID_SUCURSAL;
+                model.ID_PRODUCTO = ID_PRODUCTO;
+                model.Accion = Accion;
 
-                    entidad.ID_PRODUCTO = ID_PRODUCTO;
-                    lista = repositorioCliente.Producto_Listar_Uno(entidad, ref auditoria);
-                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
+                {
+                    model.Lista_Unidad_Medida = Repositorio.Unidad_Medida_Listar(ref auditoria).Select(x => new SelectListItem()
                     {
-                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
-                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
-                    }
-                    else
-                    {
-                        //string _CANTIDAD = CANTIDAD; 
-                        if (lista.ID_UNIDAD_MEDIDA == 1) // convertir gramos a kilos para editar
-                        {
-                            _CANTIDAD = Convert.ToString(Convert.ToInt32(Convert.ToDecimal(_CANTIDAD) * 1000));
-                            lista.STOCK = (lista.STOCK * 1000);                  
-                        }
-                        model.ID_PRODUCTO = ID_PRODUCTO;
-                        model.SEARCH_PRODUCTO = lista.DESC_PRODUCTO;
-                        model.ID_UNIDAD_MEDIDA = lista.ID_UNIDAD_MEDIDA;
-                        model.COD_PRODUCTO = lista.COD_PRODUCTO;
-                        model.PRECIO_VENTA = PRECIO; 
-                        //model.STOCK = lista.STOCK;
-                        model.CANTIDAD = _CANTIDAD;
-                        model.TOTAL = IMPORTE;
-                        model.FLG_SERIVICIO = lista.FLG_SERVICIO;
-                        model.COD_UNIDAD_MEDIDA = lista.COD_UNIDAD_MEDIDA == "Kg" ? "Gr." : lista.COD_UNIDAD_MEDIDA; 
-                    }
+                        Text = x.DESC_UNIDAD_MEDIDA,
+                        Value = x.ID_UNIDAD_MEDIDA.ToString()
+                    }).ToList();
+                    model.Lista_Unidad_Medida.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
                 }
+                if (Accion == "M")
+                {
+                    Cls_Ent_Producto lista = new Cls_Ent_Producto();
+                    using (ProductoRepositorio repositorioCliente = new ProductoRepositorio())
+                    {
+                        Cls_Ent_Producto entidad = new Cls_Ent_Producto();
+                        auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
 
+                        entidad.ID_PRODUCTO = ID_PRODUCTO;
+                        lista = repositorioCliente.Producto_Listar_Uno(entidad, ref auditoria);
+                        if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                        {
+                            string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                            auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                        }
+                        else
+                        {
+                            //string _CANTIDAD = CANTIDAD; 
+                            if (lista.ID_UNIDAD_MEDIDA == 1) // convertir gramos a kilos para editar
+                            {
+                                _CANTIDAD = Convert.ToString(Convert.ToInt32(Convert.ToDecimal(_CANTIDAD) * 1000));
+                                lista.STOCK = (lista.STOCK * 1000);
+                            }
+                            model.ID_PRODUCTO = ID_PRODUCTO;
+                            model.SEARCH_PRODUCTO = lista.DESC_PRODUCTO;
+                            model.ID_UNIDAD_MEDIDA = lista.ID_UNIDAD_MEDIDA;
+                            model.COD_PRODUCTO = lista.COD_PRODUCTO;
+                            model.PRECIO_VENTA = PRECIO;
+                            model.STOCK = lista.STOCK;
+                            model.CANTIDAD = Convert.ToUInt16(_CANTIDAD);
+                            model.TOTAL = IMPORTE;
+                            model.FLG_SERIVICIO = lista.FLG_SERVICIO;
+                            model.COD_UNIDAD_MEDIDA = lista.COD_UNIDAD_MEDIDA == "Kg" ? "Gr." : lista.COD_UNIDAD_MEDIDA;
+                        }
+                    }
+
+                }
             }
-
+            catch (Exception ex) {
+                string Mensaje = Recursos.Clases.Css_Log.Guardar(ex.Message);
+                auditoria.Rechazar(Mensaje); 
+            }
 
             return View(model);
         }

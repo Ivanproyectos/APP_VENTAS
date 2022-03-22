@@ -84,22 +84,23 @@ function GetRules(Ventas_Grilla) {
 }
 
 
-
 function Ventas_actionAcciones(cellvalue, options, rowObject) {
     var _ID_VENTA = rowObject[2];
     var _FLG_FLG_ANULADO = rowObject[14];
-    var _btn_Anular =""; 
-    if (_FLG_FLG_ANULADO == 0)
-        _btn_Anular = " <a class=\"dropdown-item\" onclick='Ventas_AnularVenta(" + _ID_VENTA + ")'><i class=\"bi bi-bag-x\" style=\"color:red;\"></i>&nbsp;  Anular</a>"; 
-    
-
+    var _btn_Anular = "";
+    var _btn_Devolver = "";
+    if (_FLG_FLG_ANULADO == 0) {
+        _btn_Anular = "<a class=\"dropdown-item\" onclick='Ventas_AnularVenta(" + _ID_VENTA + ")'><i class=\"bi bi-cart-x-fill\" style=\"color:red;\"></i>&nbsp;  Anular Venta</a>";
+        _btn_Devolver = "<a class=\"dropdown-item\" onclick='Ventas_MostrarDevolverProducto(" + _ID_VENTA + ")' ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>";
+    }
     var _btn = "<div class=\"btn-group\" role=\"group\" title=\"Acciones \" >" +
-           " <button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button> " +
-           " <div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
+           "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
+           "<div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
+           "<a class=\"dropdown-item\" onclick='Ventas_ViewDetalleVenta(" + _ID_VENTA + ")'><i class=\"bi bi-stickies\" style=\"color:#2c7be5\"></i>&nbsp;  Detalle Venta</a>" +
             _btn_Anular +
-            "<a class=\"dropdown-item\" onclick='Ventas_MostrarDevolverProducto(" + _ID_VENTA + ")' ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>" +
+            _btn_Devolver +
             "</div>" +
-        "</div>"; 
+        "</div>";
     return _btn;
 }
 
@@ -137,7 +138,6 @@ function Ventas_TipoVenta(cellvalue, options, rowObject) {
     return _text;
 }
 
-
 function Ventas_MostarBuscarProducto() {
     var _ID_SUCURSAL = $('#inputL_Id_Sucursal').val();
     jQuery("#myModalBuscarProduc").html('');
@@ -148,10 +148,20 @@ function Ventas_MostarBuscarProducto() {
     });
 }
 
-
 function Ventas_MostrarDevolverProducto(ID_VENTA) {
+    var _TIPO_DETALLE = "DEVOLVER";
     jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Ventas/Ventas/Mantenimiento_DevolverProducto?ID_VENTA=" + ID_VENTA, function (responseText, textStatus, request) {
+    jQuery("#myModalNuevo").load(baseUrl + "Ventas/Ventas/Mantenimiento_ViewDetalleProducto?ID_VENTA=" + ID_VENTA + "&TIPO=" + _TIPO_DETALLE, function (responseText, textStatus, request) {
+        $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
+        $.validator.unobtrusive.parse('#myModalNuevo');
+        if (request.status != 200) return;
+    });
+}
+
+function Ventas_ViewDetalleVenta(ID_VENTA) {
+    var _TIPO_DETALLE = "DETALLE";
+    jQuery("#myModalNuevo").html('');
+    jQuery("#myModalNuevo").load(baseUrl + "Ventas/Ventas/Mantenimiento_ViewDetalleProducto?ID_VENTA=" + ID_VENTA + "&TIPO=" + _TIPO_DETALLE, function (responseText, textStatus, request) {
         $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
         $.validator.unobtrusive.parse('#myModalNuevo');
         if (request.status != 200) return;
@@ -159,65 +169,3 @@ function Ventas_MostrarDevolverProducto(ID_VENTA) {
 }
 
 
-///*********************************************** ----------------- *************************************************/
-
-///*********************************************** anular ventas  ***************************************************/
-
-function Ventas_AnularVenta(ID_VENTA) {
-    jConfirm("¿ Desea anular esta venta ?, al anular la venta todos los productos de la venta retornan.", "Anular Venta", function (r) {
-        if (r) {
-            var item = {
-                ID_VENTA: ID_VENTA,
-                USU_MODIFICACION: $('#input_hdcodusuario').val(),
-            };
-            var url = baseUrl + 'Ventas/Ventas/Ventas_AnularVenta';
-            var auditoria = SICA.Ajax(url, item, false);
-            if (auditoria != null && auditoria != "") {
-                if (auditoria.EJECUCION_PROCEDIMIENTO) {
-                    if (!auditoria.RECHAZAR) {
-                        Ventas_CargarGrilla();
-                        //Ventas_Cerrar();
-                        jOkas("Venta anulada con exito!", "Proceso");
-                    } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
-                    }
-                } else {
-                    jError(auditoria.MENSAJE_SALIDA, "Atención");
-                }
-            }
-        }
-    });
-}
-
-///*********************************************** ----------------- *************************************************/
-
-///*********************************************** devolver producto ******************************************/
-
-function Ventas_DevolverProducto(ID_VENTA_DETALLE) {
-    jConfirm("¿ Desea devolver este producto ?, al devolver el producto retornara al almacen.", "Devolver Producto", function (r) {
-        if (r) {
-            var item = {
-                ID_VENTA_DETALLE: ID_VENTA_DETALLE,
-                USU_MODIFICACION: $('#input_hdcodusuario').val(),
-            };
-            var url = baseUrl + 'Ventas/Ventas/Ventas_Detalle_DevolverProducto';
-            var auditoria = SICA.Ajax(url, item, false);
-            if (auditoria != null && auditoria != "") {
-                if (auditoria.EJECUCION_PROCEDIMIENTO) {
-                    if (!auditoria.RECHAZAR) {
-                        Ventas_ConfigurarGrilla();
-                        Ventas_Detalle_CargarGrilla($('#hfd_ID_VENTA').val());
-                        //Ventas_Cerrar();
-                        jOkas("Producto devuelto con exito!, la cantidad se devolvio al almacen correspondiente.", "Proceso");
-                    } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
-                    }
-                } else {
-                    jError(auditoria.MENSAJE_SALIDA, "Atención");
-                }
-            }
-        }
-    });
-}
-
-/////*********************************************** ----------------- *************************************************/

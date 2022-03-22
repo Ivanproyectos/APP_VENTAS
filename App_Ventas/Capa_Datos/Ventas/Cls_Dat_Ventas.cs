@@ -324,7 +324,7 @@ namespace Capa_Datos.Ventas
                     int pos_IMPORTE = dr.GetOrdinal("IMPORTE");
                     int pos_FLG_DEVUELTO = dr.GetOrdinal("FLG_DEVUELTO");
                     int pos_COD_UNIDAD_MEDIDA = dr.GetOrdinal("COD_UNIDAD_MEDIDA");
-                    
+                    int pos_ID_UNIDAD_MEDIDA = dr.GetOrdinal("ID_UNIDAD_MEDIDA");
                     
                     if (dr.HasRows)
                     {
@@ -355,6 +355,9 @@ namespace Capa_Datos.Ventas
 
                             if (dr.IsDBNull(pos_COD_UNIDAD_MEDIDA)) obj.COD_UNIDAD_MEDIDA = "";
                             else obj.COD_UNIDAD_MEDIDA = dr.GetString(pos_COD_UNIDAD_MEDIDA);
+
+                            if (dr.IsDBNull(pos_ID_UNIDAD_MEDIDA)) obj.ID_UNIDAD_MEDIDA = 0;
+                            else obj.ID_UNIDAD_MEDIDA = int.Parse(dr[pos_ID_UNIDAD_MEDIDA].ToString());
                             
                             Lista.Add(obj); 
 
@@ -387,7 +390,7 @@ namespace Capa_Datos.Ventas
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_VENTA_DETALLE", SqlDbType.Int)).Value = entidad.ID_VENTA_DETALLE;
                     cmd.Parameters.Add(new SqlParameter("@PI_CANTIDAD", SqlDbType.Int)).Value = entidad.CANTIDAD;
-                    cmd.Parameters.Add(new SqlParameter("@PI_MOTIVO", SqlDbType.VarChar, 1000)).Value = entidad.MOTIVO;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_DEVOLUCION", SqlDbType.VarChar, 1000)).Value = entidad.ID_DEVOLUCION;
                     cmd.Parameters.Add(new SqlParameter("@PI_USU_MODIFICACION", SqlDbType.VarChar, 200)).Value = entidad.USU_MODIFICACION;
                     cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("PO_MENSAJE", SqlDbType.VarChar, 200)).Direction = System.Data.ParameterDirection.Output;

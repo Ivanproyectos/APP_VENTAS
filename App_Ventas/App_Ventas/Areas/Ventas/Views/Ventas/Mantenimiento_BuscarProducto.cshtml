@@ -2,7 +2,6 @@
 <script src="@Url.Content("~/Scripts/Js/Recursiva/BuscarProcutos.js")" type="text/javascript"></script>
 <script>
     var _Valido = false;
-    var _Grilla = $('#hdf_Grilla').val();
     var _Accion = $('#AccionBuscarProducto').val();
 
     $(document).ready(function () {
@@ -21,7 +20,6 @@
     $('#Sucursal_Btn_Guardar').click(function () {
         Ventas_Detalle_Insertar();
     });
-
 
     $('#Btn_CerrarModal').click(function () {
         $('#myModalBuscarProduc').modal('hide');
@@ -73,22 +71,34 @@
         minLength: 4,
         select: function (event, ui) {
             LimpiarFormulario();
-            if (parseInt(ui.item.STOCK) > 0 && ui.item.FLG_SERVICIO == 0) { // productos
+            if (parseInt(ui.item.STOCK) > 0 && ui.item.FLG_SERVICIO == 0) { // productos          
                 $('#_DetallePorductos').show('slow');
-                $("#Hdf_flg_Servicio").val(ui.item.FLG_SERVICIO);
-                $("#hfd_STOCK").val(ui.item.STOCK);
+                var _STOCK = ui.item.STOCK;
+                var _Cantidad = 1; 
+                $("#Hdf_flg_Servicio").val(ui.item.FLG_SERVICIO);           
                 $("#SEARCH_PRODUCTO").val(ui.item.DESC_PRODUCTO);
                 $("#ID_UNIDAD_MEDIDA").val(ui.item.ID_UNIDAD_MEDIDA);
                 $("#HDF_COD_UNIDAD_MEDIDA").val(ui.item.COD_UNIDAD_MEDIDA);
                 $("#_Info_codigoUnidad").text(ui.item.COD_UNIDAD_MEDIDA == "Kg" ? "Gr." : ui.item.COD_UNIDAD_MEDIDA);
                 $("#COD_PRODUCTO").val(ui.item.COD_PRODUCTO);
-                $("#INPUT_STOCK").text(ui.item.STOCK);
+                if (ui.item.ID_UNIDAD_MEDIDA == 1)
+                {
+                    if (_STOCK > 1000) // mayor a 1 kilo
+                    {
+                        _Cantidad = 1000; // gramos
+                    } else {
+                        _Cantidad = _STOCK;               
+                    }                  
+                 }
+                $("#hfd_STOCK").val(ui.item.STOCK);
+                $("#Label_Stock").text(ui.item.STOCK);
                 $("#PRECIO_VENTA").val(Number(ui.item.PRECIO_VENTA).toFixed(2));
                 $("#DETALLE").val(ui.item.DETALLE);
                 $('#TOTAL').val(Number(ui.item.PRECIO_VENTA).toFixed(2));
                 $('#hfd_ID_PRODUCTO').val(ui.item.ID_PRODUCTO);
-                $('#CANTIDAD').val(1);
+                $('#CANTIDAD').val(_Cantidad);
                 $('#CANTIDAD').focus();
+                Ventas_Detalle_CalcularPrecio(ui.item.ID_UNIDAD_MEDIDA);
                 _Valido = true;
                 _Accion = "N";
             } else if (ui.item.FLG_SERVICIO == 1) { // servicios
@@ -98,9 +108,8 @@
                 $("#SEARCH_PRODUCTO").val(ui.item.DESC_PRODUCTO);
                 $("#ID_UNIDAD_MEDIDA").val(ui.item.ID_UNIDAD_MEDIDA);
                 $("#HDF_COD_UNIDAD_MEDIDA").val(ui.item.COD_UNIDAD_MEDIDA);
-                $("#_Info_codigoUnidad").text(ui.item.COD_UNIDAD_MEDIDA == "kg" ? "Gr." : ui.item.COD_UNIDAD_MEDIDA);
                 $("#COD_PRODUCTO").val(ui.item.COD_PRODUCTO);
-                $("#INPUT_STOCK").text(ui.item.STOCK);
+                $("#Label_Stock").text(ui.item.STOCK);
                 $("#PRECIO_VENTA").val(Number(ui.item.PRECIO_VENTA).toFixed(2));
                 $("#DETALLE").val(ui.item.DETALLE);
                 $('#TOTAL').val(Number(ui.item.PRECIO_VENTA).toFixed(2));
@@ -126,20 +135,23 @@
         debugger;
         var _html_FotoProducto = "";
         var _Tipodesc = item.FLG_SERVICIO == 1 ? 'servicio' : 'producto';
-        if (item.FLG_SERVICIO == 0) {
+        if (item.FLG_SERVICIO == 0 && item.MiArchivo.CODIGO_ARCHIVO !="0") {
             _html_FotoProducto = "<div class='_FotoPro' style=\" background-image: url(@Url.Content("~/Recursos/ImagenProducto/")" + item.MiArchivo.CODIGO_ARCHIVO + item.MiArchivo.EXTENSION + ") \">  </div>";
+        }
+        var _Stock = item.STOCK; 
+        if (item.ID_UNIDAD_MEDIDA == 1) {
+            _Stock = ConvertGramos_Kilos(_Stock);
         }
         return $("<li id='autocom'></li>")
         .data("item.autocomplete", item)
         .append($("<a></a>").html("<div class='_cListProductos   border-bottom-head'>"
             + "<div class='_text_producto'>" + item.DESC_PRODUCTO + "</div>"
             + "<div class='_InfoProd'> "
-            + "<div class='_Stock'> <span> <i class='bi bi-box-seam'></i> stock: </span>" + item.STOCK + "</div>"
+            + "<div class='_Stock'> <span> <i class='bi bi-box-seam'></i> stock: </span>" + _Stock + "</div>"
             + "<div class='_Precio'> <span> <i class='bi bi-cash-stack'></i> precio: </span>" + Number(item.PRECIO_VENTA).toFixed(2) + "</div>"
             + "<div class='_Tipo'> <span> <i class='bi bi-back'></i> tipo: </span>" + _Tipodesc + "</div>"
             + _html_FotoProducto
             + " </div></div>"
-
             )).appendTo(ul);
     }
 
@@ -250,7 +262,7 @@
                                 </span>
                             </div>
                         </div>
-                        <span class="text-success">(stock:<span id="INPUT_STOCK">@Model.STOCK</span>)</span>
+                        <span class="text-success">(stock:<span id="Label_Stock">@Model.STOCK</span>)</span>
                         @Html.ValidationMessageFor(model => model.CANTIDAD, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
@@ -293,5 +305,3 @@
 @Html.Hidden("Hdf_flg_Servicio", Model.FLG_SERIVICIO)
 @Html.Hidden("AccionBuscarProducto", Model.Accion)
 @Html.Hidden("HDF_COD_UNIDAD_MEDIDA", Model.COD_UNIDAD_MEDIDA)
-
-@Html.Hidden("cantidad", Model.CANTIDAD)

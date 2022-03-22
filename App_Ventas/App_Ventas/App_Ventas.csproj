@@ -171,6 +171,7 @@
     <Compile Include="Areas\Administracion\Controllers\ArchivoController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ClientesController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ConfigurarEmpresaController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\DevolucionController.cs" />
     <Compile Include="Areas\Administracion\Controllers\Usuarios_PerfilController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ProveedorController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ListadoComboController.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="Areas\Administracion\Models\PersonalModelView.cs" />
     <Compile Include="Areas\Administracion\Repositorio\ConfigurarEmpresaRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\ClienteRepositorio.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\DevolucionRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\UsuarioPerfilRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\UsuarioRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\ProveedorRepositorio.cs" />
@@ -4200,6 +4202,7 @@
     <Content Include="Scripts\Js\Recursiva\Configuracion.js" />
     <Content Include="Scripts\Js\Servicio\ServicioPersona.js" />
     <Content Include="Scripts\Js\Ventas\Consulta_Ventas.js" />
+    <Content Include="Scripts\Js\Ventas\Ventas_Recursiva.js" />
     <Content Include="Scripts\Js\Ventas\Ventas.js" />
     <Content Include="Scripts\Js\Ventas\Ventas_Detalle.js" />
     <Content Include="Scripts\WavesEffect.js" />

@@ -48,6 +48,7 @@
     <Compile Include="Administracion\Cls_Dat_Proveedor.cs" />
     <Compile Include="Administracion\Cls_Dat_Usuario.cs" />
     <Compile Include="Administracion\Cls_Dat_Usuario_Perfil.cs" />
+    <Compile Include="Administracion\Cls_Dat_Devolucion.cs" />
     <Compile Include="Inventario\Cls_Dat_Categoria.cs" />
     <Compile Include="Inventario\Cls_Dat_Producto.cs" />
     <Compile Include="Listados_Combos\Cls_Dat_Listados.cs" />

@@ -1,5 +1,6 @@
 ﻿var Ventas_Grilla = 'Ventas_Grilla';
 var Ventas_Barra = 'Ventas_Barra';
+var Items_Motivo = ""; 
 
 function Ventas_Cerrar() {
     $('#myModalNuevo').modal('hide');
@@ -170,10 +171,6 @@ function Ventas_ViewDetalleVenta(ID_VENTA) {
 }
 
 
-
-
-
-
 ///*********************************************** ----------------- *************************************************/
 
 ///************************************************ Inserta ventas  **************************************************/
@@ -185,11 +182,15 @@ function Ventas_Ingresar() {
             ListaDetalleProductos = $("#" + Ventas_Detalle_Grilla).jqGrid('getGridParam', 'data');
             for (var i = 0; i < ListaDetalleProductos.length; i++) {
                 var rowData = ListaDetalleProductos[i];
+                var _CANTIDAD = rowData.CANTIDAD; 
+                if (rowData.ID_UNIDAD_MEDIDA == 1) { // si es kilos convertir a gramos
+                    _CANTIDAD = ConvertKilos_Gramos(_CANTIDAD);
+                }
                 var myData =
                 {
                     ID_PRODUCTO: rowData.ID_PRODUCTO,
                     PRECIO: parseFloat(rowData.PRECIO),
-                    CANTIDAD: rowData.CANTIDAD,
+                    CANTIDAD: _CANTIDAD,
                     IMPORTE: parseFloat(rowData.IMPORTE),
                 };
                 ListaDetalle.push(myData);
@@ -233,154 +234,6 @@ function Ventas_Ingresar() {
         }
 }
 
-///*********************************************** ----------------- *************************************************/
-
-///*********************************************** anular ventas  ***************************************************/
-
-function Ventas_AnularVenta(ID_VENTA) {
-    jConfirm("¿ Desea anular esta venta ?, al anular la venta todos los productos de la venta retornan al almacen.", "Anular Venta", function (r) {
-        if (r) {
-            var item = {
-                ID_VENTA: ID_VENTA,
-                USU_MODIFICACION: $('#input_hdcodusuario').val(),
-            };
-            var url = baseUrl + 'Ventas/Ventas/Ventas_AnularVenta';
-            var auditoria = SICA.Ajax(url, item, false);
-            if (auditoria != null && auditoria != "") {
-                if (auditoria.EJECUCION_PROCEDIMIENTO) {
-                    if (!auditoria.RECHAZAR) {
-                        Ventas_ConfigurarGrilla();
-                        //Ventas_Cerrar();
-                        jOkas("Venta anulada con exito!", "Proceso");
-                    } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
-                    }
-                } else {
-                    jError(auditoria.MENSAJE_SALIDA, "Atención");
-                }
-            }
-        }
-    });
-}
-
-///*********************************************** ----------------- *************************************************/
-
-///*********************************************** devolver producto ******************************************/
-
-function Ventas_DevolverProducto(CODIGO) {
-    var data = jQuery("#" + Ventas_Detalle_Grilla).jqGrid('getRowData', CODIGO);
-    var _CANTIDAD_GRID = data.CANTIDAD;
-    var _ID_VENTA_DETALLE = data.ID_VENTA_DETALLE;
-    var url = baseUrl + 'Ventas/Ventas/Ventas_Detalle_DevolverProducto';
-
-    var _html = "¿ Desea devolver este producto ?, al devolver el producto la cantidad ingresada retornara al almacen. </br>"
-                + "  <div class=\"basic-list-group\">"
-                + "  <ul class=\"list-group list-group-flush\" style=\"color: #5a5a5a;text-align: left;\">"
-                + "    <li class=\"list-group-item\"><strong><b>Resumen:</b> </strong></li>"
-                + "    <li class=\"list-group-item\">"
-                + "    <span class=\"\">Producto:</span> <span>" + data.PRODUCTO + "</span>"
-                + "  </li>    "
-                + "    <li class=\"list-group-item\">"
-                + "    <span class=\"\">Cantidad Vendida:</span> <span> " + data.CANTIDAD + "</span>"
-                + "  </li>    "
-                + "  </li>    "
-                + "  </ul>"
-                + "<div class=\"form-row\" style=\"margin-top:20px;width:454px;padding: 0px 20px;\"> "
-                + "  <div class=\"form-group col-md-3\">"
-                + " <label style=\"width: 100%; text-align: left;\">Cantidad:</label>"
-                + "<input id=\"CANTIDAD\" class=\"form-control\" autocomplete=\"off\" value=\"" + _CANTIDAD_GRID + "\">"
-                + "</div>"
-                + "  <div class=\"form-group col-md-9\">"
-                + " <label style=\"width: 100%; text-align: left;\">Motivo:</label>"
-                + "<input id=\"MOTIVO\" class=\"form-control\" >"
-                + "</div>"
-                + "</div>"
-                "</div> ";
-    swal.fire({
-        title: "Devolver Producto",
-        showCancelButton: true,
-        confirmButtonText: 'Cancelar',
-        confirmButtonText: 'Devolver',
-        icon: "warning",
-        html: _html,
-        preConfirm: function () {
-            return new Promise(function (resolve) {
-                // Validate input
-                var _CANTIDAD = $('#CANTIDAD').val();
-                var _MOTIVO = $('#MOTIVO').val();
-                var _Mensaje = "";
-                var _valido = false; 
-
-                if (_CANTIDAD == "")
-                    _Mensaje += "Cantidad es oblitario. </br>"
-                if (_MOTIVO == "")
-                    _Mensaje += "Motivo es oblitario. </br>"
-
-                if (_Mensaje != "") {
-                    swal.showValidationMessage(_Mensaje);
-                    $(".swal2-confirm").attr('disabled', false);
-                    $(".swal2-cancel").attr('disabled', false);
-                    return null; 
-                } else {
-                    debugger;
-                    if (_CANTIDAD_GRID < _CANTIDAD) {
-                        swal.showValidationMessage("La cantidad a devolver no puede ser mayor a la cantidad vendida.");
-                        $(".swal2-confirm").attr('disabled', false);
-                        $(".swal2-cancel").attr('disabled', false);
-                        return null;
-                    }
-                    else
-                        _valido = true;
-                }
-
-                if (_valido) {
-                      swal.resetValidationMessage();
-                        var item = {
-                            ID_VENTA_DETALLE: _ID_VENTA_DETALLE,
-                            USU_MODIFICACION: $('#input_hdcodusuario').val(),
-                            CANTIDAD: _CANTIDAD,
-                            MOTIVO: _MOTIVO
-                        };
-                    debugger; 
-                    var auditoria = SICA.Ajax(url, item, false); 
-                    if (auditoria != null && auditoria != "") {
-                        if (auditoria.EJECUCION_PROCEDIMIENTO) {
-                            if (!auditoria.RECHAZAR) {
-                                resolve(auditoria);
-                            }else{
-                                swal.showValidationMessage(auditoria.MENSAJE_SALIDA)
-                            }
-                        }
-                    }else{
-                        resolve(auditoria);
-                    }
-                 
-                } else {
-                    debugger;
-                    swal.showValidationMessage("Error al validar");
-                }
-            })
-        },
-        onOpen: function () {
-            setTimeout(function () {
-                $('#swal-input1').focus();
-                $('#swal-input1').val(_CANTIDAD_GRID);
-            }, 500)    
-        }
-    }).then(function (result) {
-        debugger;
-        //If validation fails, the value is undefined. Break out here.
-        if (typeof (result.value) == 'undefined') {
-            return false;
-        }
-        jOkas("Producto devuelto con exito!", "Proceso");
-        Ventas_ConfigurarGrilla();
-        Ventas_Detalle_CargarGrilla($('#hfd_ID_VENTA').val());
-        //swal(JSON.stringify(result))
-    }).catch(swal.noop)
-}
-
-/////*********************************************** ----------------- *************************************************/
 
 
 // CALUCLAR VUELTO VENTA
@@ -388,7 +241,8 @@ function Fn_Ventas_Vuelto() {
     var _Total = isNaN(parseFloat($('#Venta_Total').text())) ? 0 : parseFloat($('#Venta_Total').text());
     var _PagoCon = isNaN(parseFloat($('#TOTAL_RECIBIDO').val())) ? 0 : parseFloat($('#TOTAL_RECIBIDO').val());
     var _Vuelto = (_PagoCon - _Total);
-    if(_Vuelto < 0 )
-        _Vuelto = 0; 
+    if (_Vuelto < 0)
+        _Vuelto = 0;
     $('#VUELTO').val(Number(_Vuelto).toFixed(2));
 }
+

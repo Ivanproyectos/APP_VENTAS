@@ -160,7 +160,13 @@ function Producto_CargarGrilla() {
         if (!auditoria.RECHAZAR) {
             $.each(auditoria.OBJETO, function (i, v)   {
                 var idgrilla = i + 1;
-                if()
+                var _STOCK = v.STOCK;
+                var _STOCK_MINIMO = v.STOCK_MINIMO;
+                if (v.ID_UNIDAD_MEDIDA == 1) // si es kilos
+                {
+                    _STOCK = (v.STOCK / 1000) // gramo a kilos
+                    _STOCK_MINIMO = (v.STOCK_MINIMO / 1000) // gramo a kilos
+                }
                 var myData =
                  {
                      CODIGO: idgrilla,
@@ -171,8 +177,8 @@ function Producto_CargarGrilla() {
                      DESC_CATEGORIA: v.DESC_CATEGORIA,
                      PRECIO_COMPRA:   Number(v.PRECIO_COMPRA).toFixed(2),
                      PRECIO_VENTA:    Number(v.PRECIO_VENTA).toFixed(2), 
-                     STOCK: v.STOCK,
-                     STOCK_MINIMO: v.STOCK_MINIMO,
+                     STOCK: _STOCK,
+                     STOCK_MINIMO: _STOCK_MINIMO,
                      FLG_SERIVICIO: v.FLG_SERIVICIO,
                      FLG_VENCE: v.FLG_VENCE,
                      FECHA_VENCIMIENTO: v.FECHA_VENCIMIENTO,

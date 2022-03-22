@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Administracion\Cls_Rule_Cliente.cs" />
+    <Compile Include="Administracion\Cls_Rule_Devolucion.cs" />
     <Compile Include="Administracion\Cls_Rule_Perfil.cs" />
     <Compile Include="Administracion\Cls_Rule_ConfigurarEmpresa.cs" />
     <Compile Include="Administracion\Cls_Rule_Sucursal.cs" />

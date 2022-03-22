@@ -22,7 +22,7 @@ function Ventas_Detalle_ConfigurarGrilla(TIPO) {
     }
 
     $("#" +  Ventas_Detalle_Grilla).GridUnload();
-    var colNames = [ 'Eliminar','Editar','ID_DETALLE','codigo', 'ID_PRODUCTO','Producto','Unid. Medida','Precio', 'Cantidad','Importe','flg_devuelto','Devolver'];
+    var colNames = [ 'Eliminar','Editar','ID_DETALLE','codigo', 'ID_PRODUCTO','Producto','Unid. Medida','Precio', 'Cantidad','Importe','flg_devuelto','Devolver','id_unidadMedida'];
     var colModels = [
             { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 70, hidden: _btnBorrarHidden, formatter: Ventas_Detalle_FormatterBorrar, sortable: false },
             { name: 'EDITAR', index: 'EDITAR', align: 'center', width: 60, hidden: _btnEditar, formatter: Ventas_Detalle_actionEditar, sortable: false },
@@ -36,6 +36,7 @@ function Ventas_Detalle_ConfigurarGrilla(TIPO) {
             { name: 'IMPORTE', index: 'IMPORTE', align: 'left', width: 100, hidden: false },
             { name: 'FLG_DEVUELTO', index: 'FLG_DEVUELTO', align: 'left', width: 100, hidden: true },
             { name: 'DEVOLVER', index: 'DEVOLVER', align: 'center', width: 80, hidden: _btnDevolverHidden, formatter: Ventas_Detalle_FormatterDevolver, sortable: false },
+            { name: 'ID_UNIDAD_MEDIDA', index: 'ID_UNIDAD_MEDIDA', align: 'left', width: 100, hidden: true },
 
     ];
     var opciones = {
@@ -59,7 +60,7 @@ function Ventas_Detalle_actionEditar(cellvalue, options, rowObject) {
 function Ventas_Detalle_MostarEditarProducto(CODIGO) {
     var ID_SUCURSAL = _Id_Sucursal;
      _CODIGO_GRILLA = CODIGO; 
-    var data = jQuery("#" + Ventas_Detalle_Grilla).jqGrid('getRowData', CODIGO);
+     var data = jQuery("#" + Ventas_Detalle_Grilla).jqGrid('getRowData', CODIGO);
     jQuery("#myModalBuscarProduc").html('');
     jQuery("#myModalBuscarProduc").load(baseUrl + "Ventas/Ventas/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + ID_SUCURSAL + "&ID_PRODUCTO=" + data.ID_PRODUCTO +
             "&PRECIO=" + data.PRECIO + "&IMPORTE=" + data.IMPORTE + "&_CANTIDAD=" + data.CANTIDAD + "&Accion=M", function (responseText, textStatus, request) {
@@ -158,6 +159,11 @@ function Ventas_Detalle_CargarGrilla(ID_VENTA) {
         if (!auditoria.RECHAZAR) {
             $.each(auditoria.OBJETO, function (i, v) {
                 var idgrilla = i + 1;
+                var _Cantidad = v.CANTIDAD;
+                if (v.ID_UNIDAD_MEDIDA == 1) // gramos a kilos 
+                {
+                    _Cantidad = ConvertGramos_Kilos(_Cantidad);
+                }
                 var myData =
                  {
                      CODIGO: idgrilla,
@@ -165,10 +171,11 @@ function Ventas_Detalle_CargarGrilla(ID_VENTA) {
                      ID_PRODUCTO: v.ID_PRODUCTO,
                      PRODUCTO: v.DESC_PRODUCTO,
                      PRECIO: Number(v.PRECIO).toFixed(2), 
-                     CANTIDAD: v.CANTIDAD,
+                     CANTIDAD: _Cantidad,
                      IMPORTE:  Number(v.IMPORTE).toFixed(2), 
                      FLG_DEVUELTO: v.FLG_DEVUELTO,
                      COD_UNIDAD_MEDIDA: v.COD_UNIDAD_MEDIDA,
+                     ID_UNIDAD_MEDIDA: v.ID_UNIDAD_MEDIDA,
                      ACCION : "M"
                  };
                 jQuery("#" + Ventas_Detalle_Grilla).jqGrid('addRowData', idgrilla, myData);
@@ -193,22 +200,34 @@ function Ventas_BuscarProducto(COD_PRODUCTO, ID_SUCURSAL) {
     if (Lista.length < 2) {
         $.each(Lista, function (i, v) {
             $('#_DetallePorductos').show('slow');
+            var _STOCK = v.STOCK;
+            var _Cantidad = 1;
             $("#SEARCH_PRODUCTO").autocomplete("disable"); // DESACTIVA AUTOCOMPLETE
             $("#SEARCH_PRODUCTO").val(v.DESC_PRODUCTO);
             $("#ID_UNIDAD_MEDIDA").val(v.ID_UNIDAD_MEDIDA);
-            $("#HDF_COD_UNIDAD_MEDIDA").val(ui.item.COD_UNIDAD_MEDIDA);
-            $("#_Info_codigoUnidad").text(ui.item.COD_UNIDAD_MEDIDA == "Kg" ? "Gr." : ui.item.COD_UNIDAD_MEDIDA);
+            $("#HDF_COD_UNIDAD_MEDIDA").val(v.COD_UNIDAD_MEDIDA);
+            $("#_Info_codigoUnidad").text(v.COD_UNIDAD_MEDIDA == "Kg" ? "Gr." : v.COD_UNIDAD_MEDIDA);
             $("#COD_PRODUCTO").val(v.COD_PRODUCTO);
-            $("#INPUT_STOCK").text(v.STOCK);
+            if (v.ID_UNIDAD_MEDIDA == 1) {
+                if (_STOCK > 1000) // mayor a 1 kilo
+                {
+                    _Cantidad = 1000; // gramos
+                } else {
+                    _Cantidad = _STOCK;
+                }
+            }
+            $("#hfd_STOCK").val(v.STOCK);
+            $("#Label_Stock").text(v.STOCK);
             $("#PRECIO_VENTA").val(Number(v.PRECIO_VENTA).toFixed(2));
             $("#DETALLE").val(v.DETALLE);
-            $("#hfd_STOCK").val(v.STOCK);
             $('#TOTAL').val(Number(v.PRECIO_VENTA).toFixed(2));
             $('#hfd_ID_PRODUCTO').val(v.ID_PRODUCTO);
-            $('#CANTIDAD').val(1);
+            $('#CANTIDAD').val(_Cantidad);
             $('#CANTIDAD').focus();
             setTimeout(function () { $("#SEARCH_PRODUCTO").autocomplete("enable") }, 800); // ACTIVA AUTOCOMPLETE
+            Ventas_Detalle_CalcularPrecio(v.ID_UNIDAD_MEDIDA);
             _Valido = true;
+            _Accion = "N";
         });
     } else {
         jError("Se encontro mas de un producto con este codigo, verifique que el producto no tenga codigos duplicados.", "Atención");
@@ -238,6 +257,7 @@ function Ventas_Detalle_Insertar() {
                           CANTIDAD: _CANTIDAD,
                           IMPORTE: Number($("#TOTAL").val()).toFixed(2), 
                           COD_UNIDAD_MEDIDA: $("#HDF_COD_UNIDAD_MEDIDA").val(),
+                          ID_UNIDAD_MEDIDA: $("#ID_UNIDAD_MEDIDA").val(),
                       };
 
                 if (Ventas_Detalle_BuscarProducto_Grilla($('#hfd_ID_PRODUCTO').val())) {
