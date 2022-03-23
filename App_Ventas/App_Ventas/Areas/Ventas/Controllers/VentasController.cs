@@ -273,7 +273,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
                     else {
                         auditoria.Rechazar("Lista producto no puede estar vacio."); 
                     }
-                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    if (auditoria.EJECUCION_PROCEDIMIENTO)
                     {
                         auditoria.OBJETO = _ID_VENTA;
                         auditoria.OBJETO2 = _Codigo_Comprobante; 

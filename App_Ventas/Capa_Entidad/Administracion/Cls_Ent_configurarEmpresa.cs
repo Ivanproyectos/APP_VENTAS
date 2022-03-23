@@ -30,7 +30,8 @@ namespace Capa_Entidad.Administracion
         public string CODIGO_ARCHIVO_LOGO { get; set; }
         public string NOMBRE_ARCHIVO_LOGO { get; set; }
         public string EXTENSION_ARCHIVO_LOGO { get; set; }
-
+        public string DESC_UBIGEO { get; set; }
+        
         public Cls_Ent_Archivo Archivo_Logo { get; set; }
         public Cls_Ent_Archivo Archivo_Isotipo { get; set; }
     }

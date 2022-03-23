@@ -221,7 +221,8 @@ function Ventas_Ingresar() {
                             if (!auditoria.RECHAZAR) {
                                 Ventas_ConfigurarGrilla();
                                 Ventas_Cerrar();
-                                jOkas("Ventas registrado satisfactoriamente", "Proceso");
+                                //jOkas("Ventas registrado satisfactoriamente", "Proceso"); 
+                                Ventas_GenerarVistaComprobante(auditoria.OBJETO)
                             } else {
                                 jError(auditoria.MENSAJE_SALIDA, "Atención");
                             }

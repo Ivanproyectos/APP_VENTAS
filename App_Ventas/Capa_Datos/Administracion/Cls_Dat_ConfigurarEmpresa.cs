@@ -51,6 +51,8 @@ namespace Capa_Datos.Administracion
                     int pos_CODIGO_ARCHIVO_LOGO = dr.GetOrdinal("CODIGO_ARCHIVO_LOGO");
                     int pos_NOMBRE_ARCHIVO_LOGO = dr.GetOrdinal("NOMBRE_ARCHIVO_LOGO");
                     int pos_EXTENSION_ARCHIVO_LOGO = dr.GetOrdinal("EXTENSION_ARCHIVO_LOGO");
+                    int pos_DESC_UBIGEO = dr.GetOrdinal("DESC_UBIGEO");
+                    
                     if (dr.HasRows)
                     {
                         //Cls_Ent_configurarEmpresa obj = null;
@@ -115,6 +117,9 @@ namespace Capa_Datos.Administracion
 
                             if (dr.IsDBNull(pos_EXTENSION_ARCHIVO_LOGO)) obj.EXTENSION_ARCHIVO_LOGO = "";
                             else obj.EXTENSION_ARCHIVO_LOGO = dr.GetString(pos_EXTENSION_ARCHIVO_LOGO);
+
+                            if (dr.IsDBNull(pos_DESC_UBIGEO)) obj.DESC_UBIGEO = "";
+                            else obj.DESC_UBIGEO = dr.GetString(pos_DESC_UBIGEO);
 
                             //lista.Add(obj);
                         }

@@ -187,13 +187,29 @@ function Ventas_Llenar_ComboMotivo() {
 }
 
 function Ventas_GenerarVistaComprobante(ID_VENTA) {
+    debugger; 
     //Ventas_Cerrar();
-    var _Html = " xd"
-              + "<iframe width=\"100%\" height=\"400\" src='" + MiSistema + "Recursos/Forms/GenerarComprobante.aspx?ID_VENTA=" + ID_VENTA + "&TIPO_COMPROBANTE=0' frameborder=\"0\"></iframe>";
-    jOkas(_Html, "Venta realizada!");
+    var _Html = "<div class=\"row\" style=\"width: 454px;\" >"
+               + " <div class=\"form-group col-sm-12\" style=\"padding:2px;\"> "
+               + "<a href=\"xd\"><button type=\"button\" class=\"btn btn-outline-dark\" style=\"font-size: 20px;\"><i class=\"bi bi-filetype-pdf\"style=\"color:red\"></i> "
+               + " A4</button> </a>  "
+               + "<button onclick=\"Ventas_VisualizarComprobante(" + ID_VENTA +",0)\" type=\"button\" class=\"btn btn-outline-dark\" style=\"font-size: 20px;\"><i class=\"bi bi-ticket-detailed\"style=\"color:#2c7be5\"></i> "
+               + " Ticket</button>  "
+                + "</div>"  
+               +  " </div>"
+              + "<iframe width=\"100%\" height=\"300\" src='" + baseUrl + "Recursos/Forms/GenerarComprobante.aspx?ID_VENTA=" + ID_VENTA + "&TIPO_COMPROBANTE=0' frameborder=\"1\"></iframe>";
+    jOkas(_Html, "Venta realizada con exito!");
 
 }
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** devolver producto ******************************************/
+///*********************************************** abrir otra pestaña ******************************************/
+
+function Ventas_VisualizarComprobante(ID_VENTA, TIPO_COMPROBANTE) {
+    var url = baseUrl + "Recursos/Forms/GenerarComprobante.aspx?ID_VENTA=" + ID_VENTA + "&TIPO_COMPROBANTE=" + TIPO_COMPROBANTE + "";
+    // Abrir nuevo tab
+    var win = window.open(url, '_blank');
+    // Cambiar el foco al nuevo tab (punto opcional)
+    win.focus();
+}

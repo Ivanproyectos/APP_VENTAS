@@ -33,7 +33,7 @@ namespace Capa_Entidad.Ventas
         public string DESC_ESTADO_VENTA { get; set; }
         public int FLG_ESTADO_CREDITO { get; set; }
         public decimal DEBE { get; set; }
- 
-        
+        public string DOCUMENTO_CLIENTE { get; set; }
+    
     }
 }

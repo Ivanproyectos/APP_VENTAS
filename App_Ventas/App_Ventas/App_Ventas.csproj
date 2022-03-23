@@ -237,6 +237,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recursos\Clases\Css_Codigo.cs" />
+    <Compile Include="Recursos\Clases\Css_Convertir.cs" />
     <Compile Include="Recursos\Clases\Css_Encriptar.cs" />
     <Compile Include="Recursos\Clases\Css_IP.cs" />
     <Compile Include="Recursos\Clases\Css_Log.cs" />

@@ -447,8 +447,12 @@ namespace Capa_Datos.Ventas
                     int pos_ADELANTO = dr.GetOrdinal("ADELANTO");
                     int pos_FLG_ESTADO_CREDITO = dr.GetOrdinal("FLG_ESTADO_CREDITO");
                     int pos_FECHA_CREACION = dr.GetOrdinal("FECHA_CREACION");
+                    int pos_CLIENTE = dr.GetOrdinal("CLIENTE");
+                    int pos_DOCUMENTO_CLIENTE = dr.GetOrdinal("DOCUMENTO_CLIENTE");
+                    int pos_ID_SUCURSAL = dr.GetOrdinal("ID_SUCURSAL");
+                    int pos_USU_CREACION = dr.GetOrdinal("USU_CREACION");
 
-                    
+
                     if (dr.HasRows)
                     {
                         //Cls_Ent_Cliente obj = null;
@@ -501,6 +505,18 @@ namespace Capa_Datos.Ventas
 
                             if (dr.IsDBNull(pos_FECHA_CREACION)) obj.FEC_CREACION = "";
                             else obj.FEC_CREACION = dr.GetString(pos_FECHA_CREACION);
+
+                            if (dr.IsDBNull(pos_CLIENTE)) obj.CLIENTE = "";
+                            else obj.CLIENTE = dr.GetString(pos_CLIENTE);
+
+                            if (dr.IsDBNull(pos_DOCUMENTO_CLIENTE)) obj.DOCUMENTO_CLIENTE = "";
+                            else obj.DOCUMENTO_CLIENTE = dr.GetString(pos_DOCUMENTO_CLIENTE);
+
+                            if (dr.IsDBNull(pos_ID_SUCURSAL)) obj.ID_SUCURSAL = 0;
+                            else obj.ID_SUCURSAL = int.Parse(dr[pos_ID_SUCURSAL].ToString());
+
+                            if (dr.IsDBNull(pos_USU_CREACION)) obj.USU_CREACION = "";
+                            else obj.USU_CREACION = dr.GetString(pos_USU_CREACION);
 
 
                         }
