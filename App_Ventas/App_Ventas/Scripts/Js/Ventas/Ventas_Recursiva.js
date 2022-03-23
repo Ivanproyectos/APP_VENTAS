@@ -191,8 +191,8 @@ function Ventas_GenerarVistaComprobante(ID_VENTA) {
     //Ventas_Cerrar();
     var _Html = "<div class=\"row\" style=\"width: 454px;\" >"
                + " <div class=\"form-group col-sm-12\" style=\"padding:2px;\"> "
-               + "<a href=\"xd\"><button type=\"button\" class=\"btn btn-outline-dark\" style=\"font-size: 20px;\"><i class=\"bi bi-filetype-pdf\"style=\"color:red\"></i> "
-               + " A4</button> </a>  "
+               + "<button type=\"button\" onclick=\"Ventas_VisualizarComprobante(" + ID_VENTA + ",1)\" class=\"btn btn-outline-dark\" style=\"font-size: 20px;\"><i class=\"bi bi-filetype-pdf\"style=\"color:red\"></i> "
+               + " A4</button>  "
                + "<button onclick=\"Ventas_VisualizarComprobante(" + ID_VENTA +",0)\" type=\"button\" class=\"btn btn-outline-dark\" style=\"font-size: 20px;\"><i class=\"bi bi-ticket-detailed\"style=\"color:#2c7be5\"></i> "
                + " Ticket</button>  "
                 + "</div>"  

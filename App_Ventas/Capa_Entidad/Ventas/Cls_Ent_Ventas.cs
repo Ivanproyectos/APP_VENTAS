@@ -34,6 +34,8 @@ namespace Capa_Entidad.Ventas
         public int FLG_ESTADO_CREDITO { get; set; }
         public decimal DEBE { get; set; }
         public string DOCUMENTO_CLIENTE { get; set; }
-    
+        public string TIPO_DOCUMENTO_CLIENTE { get; set; }
+
+        
     }
 }

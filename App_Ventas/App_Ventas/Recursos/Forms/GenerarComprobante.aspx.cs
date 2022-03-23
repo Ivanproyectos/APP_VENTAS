@@ -77,9 +77,12 @@ namespace App_Ventas.Recursos.Forms
                 string strB64 = Convert.ToBase64String(ImagenBytes); // convertir bytes en base64
                 ReportViewer1.LocalReport.DataSources.Clear();
                 ReportViewer1.ProcessingMode = ProcessingMode.Local;
-              
+                if (TIPO_COMPROBANTE == 0)
+                ReportViewer1.LocalReport.ReportPath = Server.MapPath("rvTicket.rdlc");
+                else if(TIPO_COMPROBANTE == 1)
+                 ReportViewer1.LocalReport.ReportPath = Server.MapPath("ComprobanteA4.rdlc");
 
-                ReportParameter[] parameters = new ReportParameter[17];
+                ReportParameter[] parameters = new ReportParameter[19];
                 parameters[0] = new ReportParameter("RutaLogo", strB64);
                 parameters[1] = new ReportParameter("Razon_social",Empresa.RAZON_SOCIAL);
                 parameters[2] = new ReportParameter("Ruc", Empresa.RUC);
@@ -88,15 +91,18 @@ namespace App_Ventas.Recursos.Forms
                 parameters[5] = new ReportParameter("Ubigeo", Empresa.DESC_UBIGEO);
                 parameters[6] = new ReportParameter("Venta_CodigoComprobante", ListaCabecera.COD_COMPROBANTE);
                 parameters[7] = new ReportParameter("Venta_Cliente", ListaCabecera.CLIENTE);
-                parameters[8] = new ReportParameter("Venta_DocumentoCliente", ListaCabecera.DOCUMENTO_CLIENTE);
+                parameters[8] = new ReportParameter("Venta_DocumentoCliente",ListaCabecera.TIPO_DOCUMENTO_CLIENTE +": "+  ListaCabecera.DOCUMENTO_CLIENTE);
                 parameters[9] = new ReportParameter("Venta_Usuarioventa", ListaCabecera.USU_CREACION);
                 parameters[10] = new ReportParameter("Venta_FechaVenta", ListaCabecera.FEC_CREACION);
-                parameters[11] = new ReportParameter("Venta_Igv", ListaCabecera.IGV.ToString());
-                parameters[12] = new ReportParameter("Venta_Subtotal", ListaCabecera.SUB_TOTAL.ToString());
-                parameters[13] = new ReportParameter("Venta_Total", ListaCabecera.TOTAL.ToString());
+                parameters[11] = new ReportParameter("Venta_Igv", Empresa.SIMBOLO_MONEDA + " " + ListaCabecera.IGV.ToString());
+                parameters[12] = new ReportParameter("Venta_Subtotal", Empresa.SIMBOLO_MONEDA +" "+ ListaCabecera.SUB_TOTAL.ToString());
+                parameters[13] = new ReportParameter("Venta_Total", Empresa.SIMBOLO_MONEDA + " " + ListaCabecera.TOTAL.ToString());
                 parameters[14] = new ReportParameter("Venta_Sucursal", ListaCabecera.ID_SUCURSAL.ToString());
-                parameters[15] = new ReportParameter("Venta_Descuento", ListaCabecera.DESCUENTO.ToString());
-                parameters[16] = new ReportParameter("Venta_TotalEnLetras", Recursos.Clases.Css_Convertir.enletras(ListaCabecera.TOTAL.ToString()));
+                parameters[15] = new ReportParameter("Venta_Descuento", Empresa.SIMBOLO_MONEDA + " " + ListaCabecera.DESCUENTO.ToString());
+                parameters[16] = new ReportParameter("Venta_TotalEnLetras", Recursos.Clases.Css_Convertir.NumeroEnletras(ListaCabecera.TOTAL.ToString()));
+                parameters[17] = new ReportParameter("Venta_IdComprobante", ListaCabecera.ID_TIPO_COMPROBANTE);
+                parameters[18] = new ReportParameter("Venta_Flg_TipoVenta", ListaCabecera.FLG_TIPO_VENTA.ToString());
+
                 ReportViewer1.LocalReport.SetParameters(parameters);
                 ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DetalleVenta", ListaDetalle));
                 //ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("Detalle", ListaDetalle));

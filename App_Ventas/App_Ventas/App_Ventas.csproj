@@ -4295,6 +4295,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Recursos\Forms\ComprobanteA4.rdlc" />
     <EmbeddedResource Include="Recursos\Forms\rvTicket.rdlc" />
   </ItemGroup>
   <PropertyGroup>

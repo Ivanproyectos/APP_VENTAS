@@ -7,7 +7,7 @@ namespace App_Ventas.Recursos.Clases
 {
     public static class Css_Convertir
     {
-        public static string enletras(string num)
+        public static string NumeroEnletras(string num)
         {
             string res, dec = "";
             Int64 entero;

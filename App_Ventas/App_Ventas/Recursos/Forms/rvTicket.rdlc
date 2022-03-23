@@ -40,7 +40,7 @@
         <Source>Database</Source>
         <Value>=System.Convert.FromBase64String(Parameters!RutaLogo.Value)</Value>
         <MIMEType>image/png</MIMEType>
-        <Sizing>Fit</Sizing>
+        <Sizing>FitProportional</Sizing>
         <Top>0.44662cm</Top>
         <Left>2.52391cm</Left>
         <Height>2.32021cm</Height>
@@ -59,7 +59,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Parameters!Ruc.Value</Value>
+                <Value>="R.U.C: " + Parameters!Ruc.Value</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -208,7 +208,9 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>TICKET DE VENTA</Value>
+                <Value>=Switch(Parameters!Venta_IdComprobante.Value = "03", "BOLETA DE VENTA",
+Parameters!Venta_IdComprobante.Value = "01", "FACTURA",
+Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -417,7 +419,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>="Dni: " + Parameters!Venta_DocumentoCliente.Value</Value>
+                <Value>= Parameters!Venta_DocumentoCliente.Value</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -669,7 +671,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=IIF(Fields!ID_UNIDAD_MEDIDA.Value = 1,Fields!CANTIDAD.Value/1000,Fields!CANTIDAD.Value )</Value>
+                              <Value>=IIF(Fields!ID_UNIDAD_MEDIDA.Value = 1,Fields!CANTIDAD.Value/1000,Fields!CANTIDAD.Value )  &amp; " " &amp; Fields!COD_UNIDAD_MEDIDA.Value</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -706,7 +708,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -876,10 +877,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DetalleVenta</DataSetName>
-        <Top>9.05746cm</Top>
+        <Top>9.69246cm</Top>
         <Left>0.27495cm</Left>
         <Height>1.2cm</Height>
-        <Width>7.20958cm</Width>
+        <Width>7.20957cm</Width>
         <ZIndex>15</ZIndex>
         <Style>
           <Border>
@@ -907,7 +908,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>10.43385cm</Top>
+        <Top>11.06885cm</Top>
         <Left>5.98995cm</Left>
         <Height>0.52063cm</Height>
         <Width>1.49458cm</Width>
@@ -942,7 +943,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>10.43385cm</Top>
+        <Top>11.06885cm</Top>
         <Left>2.81967cm</Left>
         <Height>0.52063cm</Height>
         <Width>3.135cm</Width>
@@ -977,7 +978,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>10.95448cm</Top>
+        <Top>11.58948cm</Top>
         <Left>2.81967cm</Left>
         <Height>0.52063cm</Height>
         <Width>3.135cm</Width>
@@ -1012,7 +1013,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>10.95448cm</Top>
+        <Top>11.58948cm</Top>
         <Left>5.98995cm</Left>
         <Height>0.52063cm</Height>
         <Width>1.49458cm</Width>
@@ -1047,7 +1048,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>11.47511cm</Top>
+        <Top>12.11011cm</Top>
         <Left>2.81967cm</Left>
         <Height>0.52063cm</Height>
         <Width>3.135cm</Width>
@@ -1082,7 +1083,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>11.47511cm</Top>
+        <Top>12.11011cm</Top>
         <Left>5.98995cm</Left>
         <Height>0.52063cm</Height>
         <Width>1.49458cm</Width>
@@ -1117,7 +1118,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>11.99574cm</Top>
+        <Top>12.63074cm</Top>
         <Left>2.85495cm</Left>
         <Height>0.52063cm</Height>
         <Width>3.135cm</Width>
@@ -1152,7 +1153,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>11.99574cm</Top>
+        <Top>12.63074cm</Top>
         <Left>6.02523cm</Left>
         <Height>0.52063cm</Height>
         <Width>1.49458cm</Width>
@@ -1187,7 +1188,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox38</rd:DefaultName>
-        <Top>12.51637cm</Top>
+        <Top>13.15137cm</Top>
         <Left>0.27495cm</Left>
         <Height>0.6cm</Height>
         <Width>7.20957cm</Width>
@@ -1203,7 +1204,7 @@
         </Style>
       </Textbox>
       <Line Name="Line3">
-        <Top>12.51637cm</Top>
+        <Top>13.15137cm</Top>
         <Left>0.32787cm</Left>
         <Height>0cm</Height>
         <Width>7.20957cm</Width>
@@ -1215,8 +1216,41 @@
           </Border>
         </Style>
       </Line>
+      <Textbox Name="Textbox23">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=IIF(Parameters!Venta_Flg_TipoVenta.Value=1,"Tipo Pago: Al Credito","Tipo Pago: Al contado")</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox8</rd:DefaultName>
+        <Top>8.91635cm</Top>
+        <Left>0.28914cm</Left>
+        <Height>0.52063cm</Height>
+        <Width>7.20958cm</Width>
+        <ZIndex>26</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>1pt</PaddingLeft>
+          <PaddingRight>1pt</PaddingRight>
+          <PaddingTop>1pt</PaddingTop>
+          <PaddingBottom>1pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>5.42708in</Height>
+    <Height>5.82291in</Height>
     <Style />
   </Body>
   <Width>3.06609in</Width>
@@ -1369,6 +1403,8 @@
     </ReportParameter>
     <ReportParameter Name="Telefono">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="Direccion">
@@ -1444,6 +1480,15 @@
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Venta_IdComprobante">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Venta_Flg_TipoVenta">
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
