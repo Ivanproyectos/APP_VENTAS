@@ -1259,7 +1259,7 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>6.13541in</Height>
+    <Height>5.72916in</Height>
     <Style />
   </Body>
   <Width>3.06609in</Width>

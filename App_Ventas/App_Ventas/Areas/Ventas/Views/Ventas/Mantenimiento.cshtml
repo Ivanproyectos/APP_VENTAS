@@ -1,7 +1,7 @@
 ﻿@model App_Ventas.Areas.Ventas.Models.VentasModelView
 <script>
     $(document).ready(function () {
-        ConfigurarFormulario();
+        ConfiguracionEmpresa();
         var Fecha_Actual = moment().format('DD/MM/YYYY');
         $('#FECHA_VENTA').val(Fecha_Actual);
         $('#FLG_TIPO_VENTA').bootstrapToggle({

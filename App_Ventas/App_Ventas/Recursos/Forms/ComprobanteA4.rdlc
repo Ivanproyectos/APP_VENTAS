@@ -284,7 +284,7 @@ First(Fields!ID_TIPO_COMPROBANTE.Value, "Ds_Cabecera")= "88", "COTIZACIÓN")</Va
                 <Value>="Fecha Venta: " &amp; First(Fields!FEC_CREACION.Value, "Ds_Cabecera")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>11pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -292,9 +292,9 @@ First(Fields!ID_TIPO_COMPROBANTE.Value, "Ds_Cabecera")= "88", "COTIZACIÓN")</Va
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>6.98984cm</Top>
-        <Left>0.55245cm</Left>
-        <Height>0.58236cm</Height>
+        <Top>6.56651cm</Top>
+        <Left>0.51717cm</Left>
+        <Height>0.39715cm</Height>
         <Width>9.57664cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
@@ -303,8 +303,6 @@ First(Fields!ID_TIPO_COMPROBANTE.Value, "Ds_Cabecera")= "88", "COTIZACIÓN")</Va
           </Border>
           <PaddingLeft>1pt</PaddingLeft>
           <PaddingRight>1pt</PaddingRight>
-          <PaddingTop>1pt</PaddingTop>
-          <PaddingBottom>1pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Textbox9">
@@ -325,7 +323,7 @@ First(Fields!ID_TIPO_COMPROBANTE.Value, "Ds_Cabecera")= "88", "COTIZACIÓN")</Va
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>11.67281cm</Top>
+        <Top>11.03781cm</Top>
         <Left>0.55245cm</Left>
         <Height>0.52063cm</Height>
         <Width>3.95111cm</Width>
@@ -358,7 +356,7 @@ First(Fields!ID_TIPO_COMPROBANTE.Value, "Ds_Cabecera")= "88", "COTIZACIÓN")</Va
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>12.19344cm</Top>
+        <Top>11.55844cm</Top>
         <Left>0.55245cm</Left>
         <Height>0.52063cm</Height>
         <Width>3.95111cm</Width>
@@ -383,7 +381,7 @@ First(Fields!ID_TIPO_COMPROBANTE.Value, "Ds_Cabecera")= "88", "COTIZACIÓN")</Va
                 <Value>=IIF(First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 6,"Razón Social: " ,"Nombre: ") + First(Fields!NOMBRES_APE.Value, "Ds_Cliente")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>11pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -392,8 +390,8 @@ First(Fields!ID_TIPO_COMPROBANTE.Value, "Ds_Cabecera")= "88", "COTIZACIÓN")</Va
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
         <Top>5.28684cm</Top>
-        <Left>0.55245cm</Left>
-        <Height>0.52063cm</Height>
+        <Left>0.51717cm</Left>
+        <Height>0.41479cm</Height>
         <Width>9.57664cm</Width>
         <ZIndex>9</ZIndex>
         <Style>
@@ -402,8 +400,6 @@ First(Fields!ID_TIPO_COMPROBANTE.Value, "Ds_Cabecera")= "88", "COTIZACIÓN")</Va
           </Border>
           <PaddingLeft>1pt</PaddingLeft>
           <PaddingRight>1pt</PaddingRight>
-          <PaddingTop>1pt</PaddingTop>
-          <PaddingBottom>1pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Textbox12">
@@ -421,7 +417,7 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
  First(Fields!NUMERO_DOCUMENTO.Value, "Ds_Cliente")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>11pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -430,8 +426,8 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
         <Top>5.28684cm</Top>
-        <Left>10.19965cm</Left>
-        <Height>0.52063cm</Height>
+        <Left>10.16437cm</Left>
+        <Height>0.41479cm</Height>
         <Width>5.83375cm</Width>
         <ZIndex>10</ZIndex>
         <Style>
@@ -440,8 +436,6 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Border>
           <PaddingLeft>1pt</PaddingLeft>
           <PaddingRight>1pt</PaddingRight>
-          <PaddingTop>1pt</PaddingTop>
-          <PaddingBottom>1pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Textbox23">
@@ -454,7 +448,7 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
                 <Value>=IIF(First(Fields!FLG_TIPO_VENTA.Value, "Ds_Cabecera")=1,"Tipo Pago: Al Credito","Tipo Pago: Al contado")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>11pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -462,9 +456,9 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>6.39865cm</Top>
-        <Left>0.55245cm</Left>
-        <Height>0.52063cm</Height>
+        <Top>6.15171cm</Top>
+        <Left>0.51717cm</Left>
+        <Height>0.4148cm</Height>
         <Width>9.57664cm</Width>
         <ZIndex>11</ZIndex>
         <Style>
@@ -473,8 +467,6 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Border>
           <PaddingLeft>1pt</PaddingLeft>
           <PaddingRight>1pt</PaddingRight>
-          <PaddingTop>1pt</PaddingTop>
-          <PaddingBottom>1pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Textbox13">
@@ -487,7 +479,7 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
                 <Value>="Direccion: " + First(Fields!DIRECCION.Value, "Ds_Cliente")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>11pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -495,10 +487,10 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>5.87802cm</Top>
-        <Left>0.55245cm</Left>
-        <Height>0.52063cm</Height>
-        <Width>9.57664cm</Width>
+        <Top>5.70163cm</Top>
+        <Left>0.51717cm</Left>
+        <Height>0.45007cm</Height>
+        <Width>15.44567cm</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -506,8 +498,6 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Border>
           <PaddingLeft>1pt</PaddingLeft>
           <PaddingRight>1pt</PaddingRight>
-          <PaddingTop>1pt</PaddingTop>
-          <PaddingBottom>1pt</PaddingBottom>
         </Style>
       </Textbox>
       <Tablix Name="Tablix1">
@@ -520,7 +510,7 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
               <Width>2.50487cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>7.383cm</Width>
+              <Width>7.70051cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.94914cm</Width>
@@ -558,6 +548,7 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
                         <Border>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -592,6 +583,7 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
                         <Border>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -626,6 +618,7 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
                         <Border>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -660,6 +653,7 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
                         <Border>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -694,6 +688,7 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
                         <Border>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -902,10 +897,10 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>Ds_DetalleVenta</DataSetName>
-        <Top>7.98724cm</Top>
+        <Top>7.35224cm</Top>
         <Left>0.55245cm</Left>
         <Height>1.2cm</Height>
-        <Width>17.33021cm</Width>
+        <Width>17.64771cm</Width>
         <ZIndex>13</ZIndex>
         <Style>
           <Border>
@@ -932,8 +927,8 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>10.63155cm</Top>
-        <Left>16.3881cm</Left>
+        <Top>9.99655cm</Top>
+        <Left>16.7056cm</Left>
         <Height>0.52063cm</Height>
         <Width>1.49458cm</Width>
         <ZIndex>14</ZIndex>
@@ -966,8 +961,8 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>10.63155cm</Top>
-        <Left>13.21782cm</Left>
+        <Top>9.99655cm</Top>
+        <Left>13.53532cm</Left>
         <Height>0.52063cm</Height>
         <Width>3.135cm</Width>
         <ZIndex>15</ZIndex>
@@ -1000,8 +995,8 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>11.15218cm</Top>
-        <Left>13.21782cm</Left>
+        <Top>10.51718cm</Top>
+        <Left>13.53532cm</Left>
         <Height>0.52063cm</Height>
         <Width>3.135cm</Width>
         <ZIndex>16</ZIndex>
@@ -1034,8 +1029,8 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>11.15218cm</Top>
-        <Left>16.3881cm</Left>
+        <Top>10.51718cm</Top>
+        <Left>16.7056cm</Left>
         <Height>0.52063cm</Height>
         <Width>1.49458cm</Width>
         <ZIndex>17</ZIndex>
@@ -1068,8 +1063,8 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>11.67281cm</Top>
-        <Left>13.21782cm</Left>
+        <Top>11.03781cm</Top>
+        <Left>13.53532cm</Left>
         <Height>0.52063cm</Height>
         <Width>3.135cm</Width>
         <ZIndex>18</ZIndex>
@@ -1102,8 +1097,8 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>11.67281cm</Top>
-        <Left>16.3881cm</Left>
+        <Top>11.03781cm</Top>
+        <Left>16.7056cm</Left>
         <Height>0.52063cm</Height>
         <Width>1.49458cm</Width>
         <ZIndex>19</ZIndex>
@@ -1136,8 +1131,8 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>12.19344cm</Top>
-        <Left>13.21782cm</Left>
+        <Top>11.55844cm</Top>
+        <Left>13.53532cm</Left>
         <Height>0.52063cm</Height>
         <Width>3.135cm</Width>
         <ZIndex>20</ZIndex>
@@ -1170,8 +1165,8 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>12.19344cm</Top>
-        <Left>16.38809cm</Left>
+        <Top>11.55844cm</Top>
+        <Left>16.70559cm</Left>
         <Height>0.52063cm</Height>
         <Width>1.49458cm</Width>
         <ZIndex>21</ZIndex>
@@ -1204,8 +1199,8 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox41</rd:DefaultName>
-        <Top>10.03155cm</Top>
-        <Left>13.21782cm</Left>
+        <Top>9.39655cm</Top>
+        <Left>13.53532cm</Left>
         <Height>0.6cm</Height>
         <Width>3.135cm</Width>
         <ZIndex>22</ZIndex>
@@ -1238,10 +1233,10 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox38</rd:DefaultName>
-        <Top>9.18724cm</Top>
+        <Top>8.55224cm</Top>
         <Left>0.55245cm</Left>
         <Height>0.6cm</Height>
-        <Width>17.33021cm</Width>
+        <Width>17.64771cm</Width>
         <ZIndex>23</ZIndex>
         <Style>
           <Border>

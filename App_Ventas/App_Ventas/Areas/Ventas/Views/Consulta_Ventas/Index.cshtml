@@ -3,10 +3,13 @@
 <script src="@Url.Content("~/Scripts/Js/Ventas/Ventas_Recursiva.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Ventas/Ventas_Detalle.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Recursiva/Configuracion.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Inventario/Producto_Recursos.js")" type="text/javascript"></script>
+
 
 <script type="text/javascript">
     var _Id_Sucursal = $('#inputL_Id_Sucursal').val();
     $(document).ready(function () {
+      
         Ventas_ConfigurarGrilla();
         $('#ID_USUARIO').select2();
         $(".badge").tooltip({ placement: "bottom", delay: { show: 100, hide: 400 } });
@@ -75,7 +78,7 @@
                 <div class="basic-form">
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            <label>Código Código Venta:</label>
+                            <label>Código Venta:</label>
                             <input id="Ventas_CodigoVenta" type="text" class="form-control" placeholder="Ejm: F55402">
                         </div>
 
