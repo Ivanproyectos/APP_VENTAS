@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Capa_Entidad;
 using Capa_Entidad.Base;
 using Capa_Entidad.Ventas;
+using Capa_Entidad.Administracion;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
@@ -96,9 +97,6 @@ namespace Capa_Datos.Ventas
                         if (dr.IsDBNull(pos_FLG_ESTADO_CREDITO)) obj.FLG_ESTADO_CREDITO = 0;
                         else obj.FLG_ESTADO_CREDITO = int.Parse(dr[pos_FLG_ESTADO_CREDITO].ToString());
 
-                        if (dr.IsDBNull(pos_CLIENTE)) obj.CLIENTE = "";
-                        else obj.CLIENTE = dr.GetString(pos_CLIENTE);
-
                         if (dr.IsDBNull(pos_DESC_TIPO_COMPROBANTE)) obj.DESC_TIPO_COMPROBANTE = "";
                         else obj.DESC_TIPO_COMPROBANTE = dr.GetString(pos_DESC_TIPO_COMPROBANTE);
 
@@ -120,7 +118,7 @@ namespace Capa_Datos.Ventas
                         if (dr.IsDBNull(pos_ADELANTO)) obj.ADELANTO = 0;
                         else obj.ADELANTO = decimal.Parse(dr[pos_ADELANTO].ToString());
 
-       
+
                         if (dr.IsDBNull(pos_USU_CREACION)) obj.DETALLE = "";
                         else obj.DETALLE = dr.GetString(pos_USU_CREACION);
 
@@ -143,8 +141,14 @@ namespace Capa_Datos.Ventas
                         else obj.USU_MODIFICACION = dr.GetString(pos_USU_MODIFICACION);
                         if (dr.IsDBNull(pos_FEC_MODIFICACION)) obj.FEC_MODIFICACION = "";
                         else obj.FEC_MODIFICACION = dr.GetString(pos_FEC_MODIFICACION);
-              
-                        
+
+                        obj.Cliente = new Cls_Ent_Cliente();
+                        {
+                            if (dr.IsDBNull(pos_CLIENTE)) obj.Cliente.NOMBRES_APE = "";
+                            else obj.Cliente.NOMBRES_APE = dr.GetString(pos_CLIENTE);
+                        }
+
+
                         lista.Add(obj);
                     }
                 }
@@ -451,8 +455,9 @@ namespace Capa_Datos.Ventas
                     int pos_DOCUMENTO_CLIENTE = dr.GetOrdinal("DOCUMENTO_CLIENTE");
                     int pos_ID_SUCURSAL = dr.GetOrdinal("ID_SUCURSAL");
                     int pos_USU_CREACION = dr.GetOrdinal("USU_CREACION");
-                    int pos_TIPO_DOCUMENTO_CLIENTE = dr.GetOrdinal("TIPO_DOCUMENTO_CLIENTE");
-                    
+                    int pos_ID_TIPO_DOCUMENTO_CLIENTE = dr.GetOrdinal("ID_TIPO_DOCUMENTO_CLIENTE");
+                    int pos_DIRECCION_CLIENTE = dr.GetOrdinal("DIRECCION_CLIENTE");
+
                     if (dr.HasRows)
                     {
                         //Cls_Ent_Cliente obj = null;
@@ -506,11 +511,6 @@ namespace Capa_Datos.Ventas
                             if (dr.IsDBNull(pos_FECHA_CREACION)) obj.FEC_CREACION = "";
                             else obj.FEC_CREACION = dr.GetString(pos_FECHA_CREACION);
 
-                            if (dr.IsDBNull(pos_CLIENTE)) obj.CLIENTE = "";
-                            else obj.CLIENTE = dr.GetString(pos_CLIENTE);
-
-                            if (dr.IsDBNull(pos_DOCUMENTO_CLIENTE)) obj.DOCUMENTO_CLIENTE = "";
-                            else obj.DOCUMENTO_CLIENTE = dr.GetString(pos_DOCUMENTO_CLIENTE);
 
                             if (dr.IsDBNull(pos_ID_SUCURSAL)) obj.ID_SUCURSAL = 0;
                             else obj.ID_SUCURSAL = int.Parse(dr[pos_ID_SUCURSAL].ToString());
@@ -518,8 +518,23 @@ namespace Capa_Datos.Ventas
                             if (dr.IsDBNull(pos_USU_CREACION)) obj.USU_CREACION = "";
                             else obj.USU_CREACION = dr.GetString(pos_USU_CREACION);
 
-                            if (dr.IsDBNull(pos_TIPO_DOCUMENTO_CLIENTE)) obj.TIPO_DOCUMENTO_CLIENTE = "";
-                            else obj.TIPO_DOCUMENTO_CLIENTE = dr.GetString(pos_TIPO_DOCUMENTO_CLIENTE);
+                 
+                            obj.Cliente = new Cls_Ent_Cliente();
+                            {
+                                if (dr.IsDBNull(pos_DIRECCION_CLIENTE)) obj.Cliente.DIRECCION = "";
+                                else obj.Cliente.DIRECCION = dr.GetString(pos_DIRECCION_CLIENTE);
+
+                                if (dr.IsDBNull(pos_CLIENTE)) obj.Cliente.NOMBRES_APE = "";
+                                else obj.Cliente.NOMBRES_APE = dr.GetString(pos_CLIENTE);
+
+                                if (dr.IsDBNull(pos_DOCUMENTO_CLIENTE)) obj.Cliente.NUMERO_DOCUMENTO = "";
+                                else obj.Cliente.NUMERO_DOCUMENTO = dr.GetString(pos_DOCUMENTO_CLIENTE);
+
+                                if (dr.IsDBNull(pos_ID_TIPO_DOCUMENTO_CLIENTE)) obj.Cliente.ID_TIPO_DOCUMENTO = 0;
+                                else obj.Cliente.ID_TIPO_DOCUMENTO = int.Parse(dr[pos_ID_TIPO_DOCUMENTO_CLIENTE].ToString());
+
+
+                            }
 
                         }
                     }

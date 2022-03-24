@@ -56,6 +56,18 @@ jInfo = function (message, title){
   ); 
 }
 
+jSweetModal = function (message, title){
+    Swal.fire({
+        title: title,
+        html : message,
+       // icon:icon,
+        cancelButtonText: "Cerrar",
+        showCancelButton: true,
+        showConfirmButton: false,
+    }
+  ); 
+}
+
 
 
 

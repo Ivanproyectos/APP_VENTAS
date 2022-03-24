@@ -200,7 +200,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
                             item.ID_VENTA.ToString(), 
                             item.ID_VENTA.ToString(), 
                             item.DESC_TIPO_COMPROBANTE,
-                            item.CLIENTE,    
+                            item.Cliente.NOMBRES_APE ,    
                             item.DESCUENTO.ToString(),
                             item.SUB_TOTAL.ToString(),
                             item.IGV.ToString(), 

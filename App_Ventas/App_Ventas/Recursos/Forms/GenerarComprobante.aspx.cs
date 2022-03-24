@@ -36,12 +36,15 @@ namespace App_Ventas.Recursos.Forms
             Cls_Ent_Ventas_Detalle entidad2 = new Cls_Ent_Ventas_Detalle();
             entidad.ID_VENTA = ID_VENTA;
             entidad2.ID_VENTA = ID_VENTA;
-            Cls_Ent_Ventas ListaCabecera = null;
+            List<Cls_Ent_Ventas> ListaCabecera = new List<Cls_Ent_Ventas>();
+            List<Cls_Ent_Cliente> ListaCliente = new List<Cls_Ent_Cliente>(); 
             Cls_Ent_configurarEmpresa Empresa = null; 
             List<Cls_Ent_Ventas_Detalle> ListaDetalle = null;
             using (VentasRepositorio repositorio = new VentasRepositorio())
             {
-                ListaCabecera = repositorio.Ventas_Listar_Uno(entidad, ref auditoria);
+                Cls_Ent_Ventas ListaVenta= repositorio.Ventas_Listar_Uno(entidad, ref auditoria);
+                ListaCabecera.Add(ListaVenta);
+                ListaCliente.Add(ListaVenta.Cliente); 
                 if (!auditoria.EJECUCION_PROCEDIMIENTO)
                 {
                     string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
@@ -82,32 +85,24 @@ namespace App_Ventas.Recursos.Forms
                 else if(TIPO_COMPROBANTE == 1)
                  ReportViewer1.LocalReport.ReportPath = Server.MapPath("ComprobanteA4.rdlc");
 
-                ReportParameter[] parameters = new ReportParameter[19];
+                ReportParameter[] parameters = new ReportParameter[9];
                 parameters[0] = new ReportParameter("RutaLogo", strB64);
                 parameters[1] = new ReportParameter("Razon_social",Empresa.RAZON_SOCIAL);
                 parameters[2] = new ReportParameter("Ruc", Empresa.RUC);
                 parameters[3] = new ReportParameter("Telefono", Empresa.TELEFONO);
                 parameters[4] = new ReportParameter("Direccion", Empresa.DIRECCION_FISCAL);
                 parameters[5] = new ReportParameter("Ubigeo", Empresa.DESC_UBIGEO);
-                parameters[6] = new ReportParameter("Venta_CodigoComprobante", ListaCabecera.COD_COMPROBANTE);
-                parameters[7] = new ReportParameter("Venta_Cliente", ListaCabecera.CLIENTE);
-                parameters[8] = new ReportParameter("Venta_DocumentoCliente",ListaCabecera.TIPO_DOCUMENTO_CLIENTE +": "+  ListaCabecera.DOCUMENTO_CLIENTE);
-                parameters[9] = new ReportParameter("Venta_Usuarioventa", ListaCabecera.USU_CREACION);
-                parameters[10] = new ReportParameter("Venta_FechaVenta", ListaCabecera.FEC_CREACION);
-                parameters[11] = new ReportParameter("Venta_Igv", Empresa.SIMBOLO_MONEDA + " " + ListaCabecera.IGV.ToString());
-                parameters[12] = new ReportParameter("Venta_Subtotal", Empresa.SIMBOLO_MONEDA +" "+ ListaCabecera.SUB_TOTAL.ToString());
-                parameters[13] = new ReportParameter("Venta_Total", Empresa.SIMBOLO_MONEDA + " " + ListaCabecera.TOTAL.ToString());
-                parameters[14] = new ReportParameter("Venta_Sucursal", ListaCabecera.ID_SUCURSAL.ToString());
-                parameters[15] = new ReportParameter("Venta_Descuento", Empresa.SIMBOLO_MONEDA + " " + ListaCabecera.DESCUENTO.ToString());
-                parameters[16] = new ReportParameter("Venta_TotalEnLetras", Recursos.Clases.Css_Convertir.NumeroEnletras(ListaCabecera.TOTAL.ToString()));
-                parameters[17] = new ReportParameter("Venta_IdComprobante", ListaCabecera.ID_TIPO_COMPROBANTE);
-                parameters[18] = new ReportParameter("Venta_Flg_TipoVenta", ListaCabecera.FLG_TIPO_VENTA.ToString());
+                parameters[6] = new ReportParameter("Venta_TotalEnLetras", Recursos.Clases.Css_Convertir.NumeroEnletras(ListaCabecera[0].TOTAL.ToString()));
+                parameters[7] = new ReportParameter("Igv", Empresa.NOMBRE_IMPUESTO+"("+Convert.ToInt32(Empresa.IMPUESTO).ToString()+"%)" );
+                parameters[8] = new ReportParameter("SimboloMoneda", Empresa.SIMBOLO_MONEDA);
 
                 ReportViewer1.LocalReport.SetParameters(parameters);
-                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DetalleVenta", ListaDetalle));
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("Ds_Cliente", ListaCliente));
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("Ds_Cabecera", ListaCabecera));
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("Ds_DetalleVenta", ListaDetalle));
                 //ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("Detalle", ListaDetalle));
             }
-            this.ReportViewer1.LocalReport.DisplayName = "Ticket - " + ListaCabecera.COD_COMPROBANTE ;
+            //this.ReportViewer1.LocalReport.DisplayName = "Ticket - " + ListaCabecera.COD_COMPROBANTE ;
             this.ReportViewer1.LocalReport.Refresh();
             Warning[] warnings = null;
             string[] streamIds = null;

@@ -208,9 +208,9 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Switch(Parameters!Venta_IdComprobante.Value = "03", "BOLETA DE VENTA",
-Parameters!Venta_IdComprobante.Value = "01", "FACTURA",
-Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
+                <Value>=Switch(First(Fields!ID_TIPO_COMPROBANTE.Value, "Ds_Cabecera") = "03", "BOLETA DE VENTA",
+First(Fields!ID_TIPO_COMPROBANTE.Value, "Ds_Cabecera") = "01", "FACTURA",
+First(Fields!ID_TIPO_COMPROBANTE.Value, "Ds_Cabecera")= "88", "COTIZACIÓN")</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -242,7 +242,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>="Nr. "+Parameters!Venta_CodigoComprobante.Value</Value>
+                <Value>="Nr. " + First(Fields!COD_COMPROBANTE.Value, "Ds_Cabecera")</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -287,7 +287,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>="Fecha/Hora: "+Parameters!Venta_FechaVenta.Value</Value>
+                <Value>="Fecha Venta: "+ First(Fields!FEC_CREACION.Value, "Ds_Cabecera")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -298,7 +298,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>6.80738cm</Top>
+        <Top>6.87793cm</Top>
         <Left>0.27495cm</Left>
         <Height>0.47653cm</Height>
         <Width>7.20958cm</Width>
@@ -320,7 +320,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>="Tienda: " + Parameters!Venta_Sucursal.Value</Value>
+                <Value>="Tienda: " &amp; First(Fields!ID_SUCURSAL.Value, "Ds_Cabecera")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -331,7 +331,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>7.31919cm</Top>
+        <Top>7.38974cm</Top>
         <Left>0.27495cm</Left>
         <Height>0.52063cm</Height>
         <Width>3.18791cm</Width>
@@ -353,7 +353,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>="Cajera/o: " + Parameters!Venta_Usuarioventa.Value</Value>
+                <Value>="Cajera/o: " + First(Fields!USU_CREACION.Value, "Ds_Cabecera")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -364,8 +364,8 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>7.31918cm</Top>
-        <Left>3.53342cm</Left>
+        <Top>7.38973cm</Top>
+        <Left>3.53341cm</Left>
         <Height>0.52063cm</Height>
         <Width>3.95111cm</Width>
         <ZIndex>12</ZIndex>
@@ -386,7 +386,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>="Cliente: " + Parameters!Venta_Cliente.Value</Value>
+                <Value>="Cliente: " + First(Fields!NOMBRES_APE.Value, "Ds_Cliente")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -397,7 +397,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>7.83981cm</Top>
+        <Top>7.91036cm</Top>
         <Left>0.27495cm</Left>
         <Height>0.52063cm</Height>
         <Width>7.20958cm</Width>
@@ -419,7 +419,12 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>= Parameters!Venta_DocumentoCliente.Value</Value>
+                <Value>=Switch(First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente") = 1, "D.N.I: ",
+First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente") = 6, "R.U.C: ",
+First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 7, "Pasaporte: ",
+First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;" "&amp;
+
+ First(Fields!NUMERO_DOCUMENTO.Value, "Ds_Cliente")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -430,7 +435,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>8.39572cm</Top>
+        <Top>8.46627cm</Top>
         <Left>0.27495cm</Left>
         <Height>0.52063cm</Height>
         <Width>7.20958cm</Width>
@@ -478,6 +483,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -526,6 +532,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -574,6 +581,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -622,6 +630,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -664,7 +673,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="CANTIDAD">
+                    <Textbox Name="CLIENTE">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -683,7 +692,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>CANTIDAD</rd:DefaultName>
+                      <rd:DefaultName>CLIENTE</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>Silver</Color>
@@ -775,7 +784,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Center</TextAlign>
+                            <TextAlign>Right</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -823,7 +832,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Center</TextAlign>
+                            <TextAlign>Right</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -876,7 +885,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>DetalleVenta</DataSetName>
+        <DataSetName>Ds_DetalleVenta</DataSetName>
         <Top>9.69246cm</Top>
         <Left>0.27495cm</Left>
         <Height>1.2cm</Height>
@@ -895,7 +904,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Parameters!Venta_Descuento.Value</Value>
+                <Value>=Parameters!SimboloMoneda.Value &amp;" " &amp; First(Fields!DESCUENTO.Value, "Ds_Cabecera")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -903,7 +912,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Center</TextAlign>
+              <TextAlign>Right</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
@@ -1000,7 +1009,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Parameters!Venta_Subtotal.Value</Value>
+                <Value>=Parameters!SimboloMoneda.Value &amp;" " &amp; First(Fields!SUB_TOTAL.Value, "Ds_Cabecera")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1008,7 +1017,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Center</TextAlign>
+              <TextAlign>Right</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
@@ -1035,7 +1044,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Igv: </Value>
+                <Value>=Parameters!Igv.Value</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1070,7 +1079,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Parameters!Venta_Igv.Value</Value>
+                <Value>=Parameters!SimboloMoneda.Value &amp;" " &amp; First(Fields!IGV.Value, "Ds_Cabecera")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1078,7 +1087,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Center</TextAlign>
+              <TextAlign>Right</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
@@ -1119,7 +1128,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
         <Top>12.63074cm</Top>
-        <Left>2.85495cm</Left>
+        <Left>2.81967cm</Left>
         <Height>0.52063cm</Height>
         <Width>3.135cm</Width>
         <ZIndex>22</ZIndex>
@@ -1140,7 +1149,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Parameters!Venta_Total.Value</Value>
+                <Value>=Parameters!SimboloMoneda.Value &amp;" "&amp;First(Fields!TOTAL.Value, "Ds_Cabecera")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1148,13 +1157,13 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Center</TextAlign>
+              <TextAlign>Right</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
         <Top>12.63074cm</Top>
-        <Left>6.02523cm</Left>
+        <Left>5.98994cm</Left>
         <Height>0.52063cm</Height>
         <Width>1.49458cm</Width>
         <ZIndex>23</ZIndex>
@@ -1188,7 +1197,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox38</rd:DefaultName>
-        <Top>13.15137cm</Top>
+        <Top>13.18665cm</Top>
         <Left>0.27495cm</Left>
         <Height>0.6cm</Height>
         <Width>7.20957cm</Width>
@@ -1223,7 +1232,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=IIF(Parameters!Venta_Flg_TipoVenta.Value=1,"Tipo Pago: Al Credito","Tipo Pago: Al contado")</Value>
+                <Value>=IIF( First(Fields!FLG_TIPO_VENTA.Value, "Ds_Cabecera") =1,"Tipo Pago: Al Credito","Tipo Pago: Al contado")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1234,7 +1243,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>8.91635cm</Top>
+        <Top>8.9869cm</Top>
         <Left>0.28914cm</Left>
         <Height>0.52063cm</Height>
         <Width>7.20958cm</Width>
@@ -1250,7 +1259,7 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>5.82291in</Height>
+    <Height>6.13541in</Height>
     <Style />
   </Body>
   <Width>3.06609in</Width>
@@ -1275,11 +1284,192 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
       </ConnectionProperties>
       <rd:DataSourceID>51ceb858-760c-4979-841b-a90ee71f9183</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="Capa_DatosVentas1">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>0324980e-be48-4372-96e3-ba075e1dd0ce</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="Capa_NegocioAdministracion">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>592b76dd-d57e-44d0-9747-4e258f081a38</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DetalleVenta">
+    <DataSet Name="Ds_Cabecera">
       <Query>
         <DataSourceName>Capa_DatosVentas</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="ID_VENTA">
+          <DataField>ID_VENTA</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ID_SUCURSAL">
+          <DataField>ID_SUCURSAL</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="COD_COMPROBANTE">
+          <DataField>COD_COMPROBANTE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FLG_TIPO_VENTA">
+          <DataField>FLG_TIPO_VENTA</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="FECHA_VENTA">
+          <DataField>FECHA_VENTA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ID_CLIENTE">
+          <DataField>ID_CLIENTE</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ID_TIPO_COMPROBANTE">
+          <DataField>ID_TIPO_COMPROBANTE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SUB_TOTAL">
+          <DataField>SUB_TOTAL</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="IGV">
+          <DataField>IGV</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="DESCUENTO">
+          <DataField>DESCUENTO</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL">
+          <DataField>TOTAL</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ADELANTO">
+          <DataField>ADELANTO</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="DETALLE">
+          <DataField>DETALLE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CLIENTE">
+          <DataField>CLIENTE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DESC_TIPO_COMPROBANTE">
+          <DataField>DESC_TIPO_COMPROBANTE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ListaDetalle">
+          <DataField>ListaDetalle</DataField>
+          <rd:TypeName>System.Collections.Generic.List`1[[Capa_Entidad.Ventas.Cls_Ent_Ventas_Detalle, Capa_Entidad, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]</rd:TypeName>
+        </Field>
+        <Field Name="FILA">
+          <DataField>FILA</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="FLG_ANULADO">
+          <DataField>FLG_ANULADO</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="DESC_TIPO_VENTA">
+          <DataField>DESC_TIPO_VENTA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DESC_ESTADO_CREDITO">
+          <DataField>DESC_ESTADO_CREDITO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DESC_ESTADO_VENTA">
+          <DataField>DESC_ESTADO_VENTA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FLG_ESTADO_CREDITO">
+          <DataField>FLG_ESTADO_CREDITO</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="DEBE">
+          <DataField>DEBE</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="DOCUMENTO_CLIENTE">
+          <DataField>DOCUMENTO_CLIENTE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TIPO_DOCUMENTO_CLIENTE">
+          <DataField>TIPO_DOCUMENTO_CLIENTE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Cliente">
+          <DataField>Cliente</DataField>
+          <rd:TypeName>Capa_Entidad.Administracion.Cls_Ent_Cliente</rd:TypeName>
+        </Field>
+        <Field Name="ID_SISTEMA">
+          <DataField>ID_SISTEMA</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="FLG_ESTADO">
+          <DataField>FLG_ESTADO</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="USU_CREACION">
+          <DataField>USU_CREACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FEC_CREACION">
+          <DataField>FEC_CREACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STR_FEC_CREACION">
+          <DataField>STR_FEC_CREACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IP_CREACION">
+          <DataField>IP_CREACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USU_MODIFICACION">
+          <DataField>USU_MODIFICACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FEC_MODIFICACION">
+          <DataField>FEC_MODIFICACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STR_FEC_MODIFICACION">
+          <DataField>STR_FEC_MODIFICACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IP_MODIFICACION">
+          <DataField>IP_MODIFICACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USU_PROCESO">
+          <DataField>USU_PROCESO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IP_PROCESO">
+          <DataField>IP_PROCESO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>Capa_Datos.Ventas</rd:DataSetName>
+        <rd:TableName>Cls_Dat_Ventas</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>Ventas_Paginado</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceSelectMethodSignature>System.Collections.Generic.List`1[Capa_Entidad.Ventas.Cls_Ent_Ventas] Ventas_Paginado(System.String, System.String, Int32, Int32, System.String, Capa_Entidad.Cls_Ent_Auditoria ByRef)</rd:ObjectDataSourceSelectMethodSignature>
+        <rd:ObjectDataSourceType>Capa_Datos.Ventas.Cls_Dat_Ventas, Capa_Datos, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="Ds_DetalleVenta">
+      <Query>
+        <DataSourceName>Capa_DatosVentas1</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -1384,6 +1574,117 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
         <rd:ObjectDataSourceType>Capa_Datos.Ventas.Cls_Dat_Ventas, Capa_Datos, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
+    <DataSet Name="Ds_Cliente">
+      <Query>
+        <DataSourceName>Capa_NegocioAdministracion</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="ID_CLIENTE">
+          <DataField>ID_CLIENTE</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NOMBRES_APE">
+          <DataField>NOMBRES_APE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ID_TIPO_DOCUMENTO">
+          <DataField>ID_TIPO_DOCUMENTO</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NUMERO_DOCUMENTO">
+          <DataField>NUMERO_DOCUMENTO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DIRECCION">
+          <DataField>DIRECCION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CORREO">
+          <DataField>CORREO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TELEFONO">
+          <DataField>TELEFONO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CELULAR">
+          <DataField>CELULAR</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COD_UBIGEO">
+          <DataField>COD_UBIGEO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DETALLE">
+          <DataField>DETALLE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DESC_UBIGEO">
+          <DataField>DESC_UBIGEO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DESC_TIPO_DOCUMENTO">
+          <DataField>DESC_TIPO_DOCUMENTO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ID_SISTEMA">
+          <DataField>ID_SISTEMA</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="FLG_ESTADO">
+          <DataField>FLG_ESTADO</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="USU_CREACION">
+          <DataField>USU_CREACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FEC_CREACION">
+          <DataField>FEC_CREACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STR_FEC_CREACION">
+          <DataField>STR_FEC_CREACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IP_CREACION">
+          <DataField>IP_CREACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USU_MODIFICACION">
+          <DataField>USU_MODIFICACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FEC_MODIFICACION">
+          <DataField>FEC_MODIFICACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STR_FEC_MODIFICACION">
+          <DataField>STR_FEC_MODIFICACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IP_MODIFICACION">
+          <DataField>IP_MODIFICACION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USU_PROCESO">
+          <DataField>USU_PROCESO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IP_PROCESO">
+          <DataField>IP_PROCESO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>Capa_Negocio.Administracion</rd:DataSetName>
+        <rd:TableName>Cls_Rule_Cliente</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>Cliente_Listar</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceSelectMethodSignature>System.Collections.Generic.List`1[Capa_Entidad.Administracion.Cls_Ent_Cliente] Cliente_Listar(Capa_Entidad.Administracion.Cls_Ent_Cliente, Capa_Entidad.Cls_Ent_Auditoria ByRef)</rd:ObjectDataSourceSelectMethodSignature>
+        <rd:ObjectDataSourceType>Capa_Negocio.Administracion.Cls_Rule_Cliente, Capa_Negocio, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
   </DataSets>
   <ReportParameters>
     <ReportParameter Name="RutaLogo">
@@ -1416,79 +1717,22 @@ Parameters!Venta_IdComprobante.Value = "88", "COTIZACIÓN")</Value>
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="Venta_CodigoComprobante">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="Venta_Cliente">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="Venta_DocumentoCliente">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="Venta_Usuarioventa">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="Venta_FechaVenta">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="Venta_Igv">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="Venta_Subtotal">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="Venta_Total">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="Venta_Sucursal">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="Venta_Descuento">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
     <ReportParameter Name="Venta_TotalEnLetras">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="Venta_IdComprobante">
+    <ReportParameter Name="Igv">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="Venta_Flg_TipoVenta">
+    <ReportParameter Name="SimboloMoneda">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
