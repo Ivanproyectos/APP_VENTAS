@@ -13,7 +13,7 @@ using App_Ventas.Areas.Administracion.Repositorio;
 using App_Ventas.Recursos;
 using App_Ventas.Areas.Inventario.Repositorio;
 using App_Ventas.Areas.Ventas.Repositorio;
-
+using Microsoft.Reporting.WebForms;
 namespace App_Ventas.Areas.Ventas.Controllers
 {
     public class VentasController : Controller
@@ -244,6 +244,16 @@ namespace App_Ventas.Areas.Ventas.Controllers
 
         public ActionResult Ventas_Insertar(Cls_Ent_Ventas entidad)
         {
+            using (var viewer = new LocalReport())
+            {
+                //viewer.ReportPath = "./Recursos/Forms/ComprobanteA4.rdlc";
+                //viewer.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("Ds_Cliente", ListaCliente));
+                //viewer.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("Ds_Cabecera", ListaCabecera));
+                //viewer.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("Ds_DetalleVenta", ListaDetalle));
+                //var bytes = viewer.Render("PDF");
+                // tu código genial aquí
+            }
+
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             var ip_local = Recursos.Clases.Css_IP.ObtenerIp();
             try{
@@ -394,7 +404,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
 
 
         
-
+   
 
 
     }

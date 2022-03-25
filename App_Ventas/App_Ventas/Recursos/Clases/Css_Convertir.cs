@@ -29,6 +29,10 @@ namespace App_Ventas.Recursos.Clases
             {
                 dec = " CON " + decimales.ToString() + "/100";
             }
+            else if (decimales == 0)
+            {
+             dec = " CON " + "00/100";
+            }
 
             res = toText(Convert.ToDouble(entero)) + dec;
             return res;
