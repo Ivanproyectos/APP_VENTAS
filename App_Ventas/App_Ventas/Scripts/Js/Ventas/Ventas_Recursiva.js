@@ -244,9 +244,11 @@ function Ventas_ValidarCliente_Credito(ID_CLIENTE, ID_SUCURSAL) {
     if (auditoria != null && auditoria != "") {
         if (auditoria.EJECUCION_PROCEDIMIENTO) {
             if (auditoria.RECHAZAR) {
+                _FLG_ADICIONAR_CREDITO = false; 
                 _ID_VENTA_CREDITO = 0; 
                 $('#Ventas_AlertCredito').hide('slow');
-            } else {           
+            } else {
+                _FLG_ADICIONAR_CREDITO = true;
                 _ID_VENTA_CREDITO = auditoria.OBJETO;
                 $('#Ventas_AlertCredito').show('slow');
             }

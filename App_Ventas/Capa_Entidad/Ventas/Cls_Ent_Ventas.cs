@@ -12,7 +12,7 @@ namespace Capa_Entidad.Ventas
         public int ID_VENTA { get; set; }
         public int ID_SUCURSAL { get; set; }
         public string COD_COMPROBANTE { get; set; }
-        public int FLG_TIPO_VENTA { get; set; }
+        public int FLG_TIPO_PAGO { get; set; }
         public string FECHA_VENTA { get; set; }
         public int ID_CLIENTE { get; set; }
         public string ID_TIPO_COMPROBANTE { get; set; }
@@ -32,7 +32,10 @@ namespace Capa_Entidad.Ventas
         public int FLG_ESTADO_CREDITO { get; set; }
         public decimal DEBE { get; set; }
         public Cls_Ent_Cliente Cliente { get; set; }
+        public string NRO_OPERACION { get; set; }
 
+        public bool FLG_ADICIONAR_CREDITO { get; set; }
+        public int ID_VENTA_CREDITO { get; set; }
         
     }
 }

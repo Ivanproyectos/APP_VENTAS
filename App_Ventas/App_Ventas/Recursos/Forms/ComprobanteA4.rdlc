@@ -445,7 +445,9 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=IIF(First(Fields!FLG_TIPO_VENTA.Value, "Ds_Cabecera")=1,"Tipo Pago: Al Credito","Tipo Pago: Al contado")</Value>
+                <Value>="Tipo Pago: " &amp; Switch(First(Fields!FLG_TIPO_PAGO.Value, "Ds_Cabecera") = 1, "Al Credito",
+First(Fields!FLG_TIPO_PAGO.Value, "Ds_Cabecera") = 2, "Credito",
+First(Fields!FLG_TIPO_PAGO.Value, "Ds_Cabecera")= 3, "Deposito")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>11pt</FontSize>
@@ -490,7 +492,7 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
         <Top>5.70163cm</Top>
         <Left>0.51717cm</Left>
         <Height>0.45007cm</Height>
-        <Width>15.44567cm</Width>
+        <Width>15.48095cm</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -1435,8 +1437,8 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           <DataField>COD_COMPROBANTE</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="FLG_TIPO_VENTA">
-          <DataField>FLG_TIPO_VENTA</DataField>
+        <Field Name="FLG_TIPO_PAGO">
+          <DataField>FLG_TIPO_PAGO</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="FECHA_VENTA">

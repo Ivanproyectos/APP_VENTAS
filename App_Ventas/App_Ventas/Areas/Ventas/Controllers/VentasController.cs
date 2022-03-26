@@ -65,6 +65,11 @@ namespace App_Ventas.Areas.Ventas.Controllers
                 }).ToList();
                 model.Lista_Tipo_Comprobante.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
             }
+            model.Lista_Tipo_Pago = new List<SelectListItem>();
+            model.Lista_Tipo_Pago.Insert(0, new SelectListItem() { Value = "1", Text = "Al Contado" });
+            model.Lista_Tipo_Pago.Insert(1, new SelectListItem() { Value = "2", Text = "Credito" });
+            model.Lista_Tipo_Pago.Insert(2, new SelectListItem() { Value = "3", Text = "Deposito" });
+
 
             return View(model);
 
@@ -211,12 +216,13 @@ namespace App_Ventas.Areas.Ventas.Controllers
                             item.COD_COMPROBANTE.ToString(),
 
                             item.FLG_ANULADO.ToString(),
-                            item.FLG_TIPO_VENTA.ToString(),
+                            item.FLG_TIPO_PAGO.ToString(),
                             item.FLG_ESTADO_CREDITO.ToString(),
+                            item.NRO_OPERACION, 
                             item.DEBE.ToString(),
-                            item.DESC_ESTADO_CREDITO
+                            item.DESC_ESTADO_CREDITO, 
+                        
                             
-
                             }
                         }).ToArray();
 
@@ -256,37 +262,69 @@ namespace App_Ventas.Areas.Ventas.Controllers
 
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             var ip_local = Recursos.Clases.Css_IP.ObtenerIp();
+            entidad.IP_CREACION = ip_local;
             try{
             using (VentasRepositorio Ventasrepositorio = new VentasRepositorio())
             {
-                entidad.IP_CREACION = ip_local;
-
-                Ventasrepositorio.Ventas_Insertar(entidad, ref auditoria);
-                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                if (!entidad.FLG_ADICIONAR_CREDITO) // nueva venta 
                 {
-                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
-                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
-                }
-                else {
-                    int _ID_VENTA = Convert.ToInt32(auditoria.OBJETO);
-                    string _Codigo_Comprobante = Convert.ToString(auditoria.OBJETO2); 
-                    if (entidad.ListaDetalle != null && entidad.ListaDetalle.Count > 0)
-                    {                  
-                        //Cls_Ent_Ventas_Detalle EntidadDet = new Cls_Ent_Ventas_Detalle(); 
-                        foreach ( Cls_Ent_Ventas_Detalle EntidadDet in entidad.ListaDetalle)
+                    Ventasrepositorio.Ventas_Insertar(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                    else
+                    {
+                        int _ID_VENTA = Convert.ToInt32(auditoria.OBJETO);
+                        string _Codigo_Comprobante = Convert.ToString(auditoria.OBJETO2);
+                        if (entidad.ListaDetalle != null && entidad.ListaDetalle.Count > 0)
                         {
-                            EntidadDet.ID_VENTA = _ID_VENTA;
-                            EntidadDet.USU_CREACION = entidad.USU_CREACION; 
-                            Ventasrepositorio.Ventas_Detalle_Insertar(EntidadDet,ref auditoria); 
+                            foreach (Cls_Ent_Ventas_Detalle EntidadDet in entidad.ListaDetalle)
+                            {
+                                EntidadDet.ID_VENTA = _ID_VENTA;
+                                EntidadDet.USU_CREACION = entidad.USU_CREACION;
+                                Ventasrepositorio.Ventas_Detalle_Insertar(EntidadDet, ref auditoria);
+                            }
+                        }
+                        else
+                        {
+                            auditoria.Rechazar("Lista producto no puede estar vacio.");
+                        }
+                        if (auditoria.EJECUCION_PROCEDIMIENTO)
+                        {
+                            auditoria.OBJETO = _ID_VENTA;
+                            auditoria.OBJETO2 = _Codigo_Comprobante;
                         }
                     }
-                    else {
-                        auditoria.Rechazar("Lista producto no puede estar vacio."); 
-                    }
-                    if (auditoria.EJECUCION_PROCEDIMIENTO)
+                }
+                else {  //////////////////////////////////// adicionar a credito axistente del cliente
+                    Ventasrepositorio.Ventas_ActualizarVenta_Credito(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
                     {
-                        auditoria.OBJETO = _ID_VENTA;
-                        auditoria.OBJETO2 = _Codigo_Comprobante; 
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                    else
+                    {
+                        int _ID_VENTA = entidad.ID_VENTA_CREDITO;
+                        if (entidad.ListaDetalle != null && entidad.ListaDetalle.Count > 0)
+                        {
+                            foreach (Cls_Ent_Ventas_Detalle EntidadDet in entidad.ListaDetalle)
+                            {
+                                EntidadDet.ID_VENTA = _ID_VENTA;
+                                EntidadDet.USU_CREACION = entidad.USU_CREACION;
+                                Ventasrepositorio.Ventas_Detalle_Insertar(EntidadDet, ref auditoria);
+                            }
+                        }
+                        else
+                        {
+                            auditoria.Rechazar("Lista producto no puede estar vacio.");
+                        }
+                        if (auditoria.EJECUCION_PROCEDIMIENTO)
+                        {
+                            auditoria.OBJETO = _ID_VENTA;
+                        }
                     }
                 }
               }

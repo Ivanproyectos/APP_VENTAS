@@ -62,7 +62,7 @@ function GetRules(CuentasCobrar_Grilla) {
     rules.push({ field: 'CONVERT(DATE,FEC_CREACION,103)', data: 'CONVERT(DATE,ISNULL(' + FECHA_VENTA + ',FEC_CREACION),103)  ', op: " = " });
     rules.push({ field: 'UPPER(COD_COMPROBANTE)', data: POR + ' + ' + CODIGO_COMPROBANTE + ' + ' + POR, op: " LIKE " });
     rules.push({ field: 'ID_SUCURSAL', data: ID_SUCURSAL, op: " = " });
-    rules.push({ field: 'FLG_TIPO_VENTA', data: 1, op: " = " }); // CREDITO
+    rules.push({ field: 'FLG_TIPO_PAGO', data: 2, op: " = " }); // CREDITO
     rules.push({ field: 'FLG_ANULADO', data: 0, op: " = " }); // NO ANULADOS
 
     return rules;

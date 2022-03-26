@@ -37,6 +37,19 @@ namespace App_Ventas.Areas.Ventas.Repositorio
                 auditoria.Error(ex);
             }
         }
+        public void Ventas_ActualizarVenta_Credito(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                _rule.Ventas_ActualizarVenta_Credito(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+        }
+
+        
 
         public void Ventas_Detalle_Insertar(Cls_Ent_Ventas_Detalle entidad, ref Cls_Ent_Auditoria auditoria)
         {

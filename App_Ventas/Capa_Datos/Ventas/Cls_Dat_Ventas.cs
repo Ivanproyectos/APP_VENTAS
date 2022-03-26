@@ -46,7 +46,7 @@ namespace Capa_Datos.Ventas
                 int pos_COD_COMPROBANTE = dr.GetOrdinal("COD_COMPROBANTE");
                 int pos_FLG_ANULADO = dr.GetOrdinal("FLG_ANULADO");
                 int pos_FLG_ESTADO_CREDITO = dr.GetOrdinal("FLG_ESTADO_CREDITO");
-                int pos_FLG_TIPO_VENTA = dr.GetOrdinal("FLG_TIPO_VENTA");
+                int pos_FLG_TIPO_PAGO = dr.GetOrdinal("FLG_TIPO_PAGO");
                 //int pos_FECHA_VENTA = dr.GetOrdinal("STR_FECHA_VENTA");
                 int pos_ID_CLIENTE = dr.GetOrdinal("ID_CLIENTE");
                 int pos_ID_SUCURSAL = dr.GetOrdinal("ID_SUCURSAL");
@@ -67,7 +67,7 @@ namespace Capa_Datos.Ventas
                 int pos_FEC_CREACION = dr.GetOrdinal("STR_FECHA_VENTA");
                 int pos_USU_MODIFICACION = dr.GetOrdinal("USU_MODIFICACION");
                 int pos_FEC_MODIFICACION = dr.GetOrdinal("STR_FECHA_MODIFICACION");
-
+                int pos_NRO_OPERACION = dr.GetOrdinal("NRO_OPERACION");
      
                 if (dr.HasRows)
                 {
@@ -87,8 +87,8 @@ namespace Capa_Datos.Ventas
                         if (dr.IsDBNull(pos_FLG_ANULADO)) obj.FLG_ANULADO = 0;
                         else obj.FLG_ANULADO = int.Parse(dr[pos_FLG_ANULADO].ToString());
 
-                        if (dr.IsDBNull(pos_FLG_TIPO_VENTA)) obj.FLG_TIPO_VENTA = 0;
-                        else obj.FLG_TIPO_VENTA = int.Parse(dr[pos_FLG_TIPO_VENTA].ToString());
+                        if (dr.IsDBNull(pos_FLG_TIPO_PAGO)) obj.FLG_TIPO_PAGO = 0;
+                        else obj.FLG_TIPO_PAGO = int.Parse(dr[pos_FLG_TIPO_PAGO].ToString());
 
 
                         //if (dr.IsDBNull(pos_FECHA_VENTA)) obj.FECHA_VENTA = "";
@@ -119,8 +119,11 @@ namespace Capa_Datos.Ventas
                         else obj.ADELANTO = decimal.Parse(dr[pos_ADELANTO].ToString());
 
 
-                        if (dr.IsDBNull(pos_USU_CREACION)) obj.DETALLE = "";
-                        else obj.DETALLE = dr.GetString(pos_USU_CREACION);
+                        if (dr.IsDBNull(pos_DETALLE)) obj.DETALLE = "";
+                        else obj.DETALLE = dr.GetString(pos_DETALLE);
+
+                        if (dr.IsDBNull(pos_NRO_OPERACION)) obj.NRO_OPERACION = "";
+                        else obj.NRO_OPERACION = dr.GetString(pos_NRO_OPERACION);
 
 
                         if (dr.IsDBNull(pos_DESC_TIPO_VENTA)) obj.DESC_TIPO_VENTA = "";
@@ -177,10 +180,15 @@ namespace Capa_Datos.Ventas
                 {
                     SqlCommand cmd = new SqlCommand("USP_VENTA_VENTAS_INSERTAR", cn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@PI_FLG_TIPO_VENTA", SqlDbType.Int)).Value = entidad.FLG_TIPO_VENTA;
+                    cmd.Parameters.Add(new SqlParameter("@PI_FLG_TIPO_PAGO", SqlDbType.Int)).Value = entidad.FLG_TIPO_PAGO;
                     cmd.Parameters.Add(new SqlParameter("@PI_FECHA_VENTA", SqlDbType.VarChar, 200)).Value = entidad.FECHA_VENTA;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_CLIENTE", SqlDbType.Int)).Value = entidad.ID_CLIENTE;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = entidad.ID_SUCURSAL;
+                    //cmd.Parameters.Add(new SqlParameter("@PI_NRO_OPERACION", SqlDbType.Int)).Value = entidad.NRO_OPERACION;
+                    if (entidad.NRO_OPERACION == null)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_NRO_OPERACION", SqlDbType.VarChar, 100)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_NRO_OPERACION", SqlDbType.VarChar, 100)).Value = entidad.NRO_OPERACION; }
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_TIPO_COMPROBANTE", SqlDbType.VarChar,100)).Value = entidad.ID_TIPO_COMPROBANTE;
                     cmd.Parameters.Add(new SqlParameter("@PI_SUB_TOTAL", SqlDbType.Decimal)).Value = entidad.SUB_TOTAL;
                     cmd.Parameters.Add(new SqlParameter("@PI_IGV ", SqlDbType.Decimal)).Value = entidad.IGV;
@@ -225,7 +233,49 @@ namespace Capa_Datos.Ventas
         }
 
 
+              ///*********************************************** ----------------- **************************************************/
 
+        ///*********************************************** Inserta VENTAS  *************************************************/
+
+        public void Ventas_ActualizarVenta_Credito(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            try
+            {
+  
+                using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlCommand cmd = new SqlCommand("USP_VENTA_VENTAS_CREDITO_ACTUALIZAR", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_VENTA", SqlDbType.Int)).Value = entidad.ID_VENTA_CREDITO;
+                    cmd.Parameters.Add(new SqlParameter("@PI_IGV", SqlDbType.Int)).Value = entidad.IGV;
+                    cmd.Parameters.Add(new SqlParameter("@PI_DESCUENTO", SqlDbType.Int)).Value = entidad.DESCUENTO;
+                    cmd.Parameters.Add(new SqlParameter("@PI_TOTAL", SqlDbType.Decimal)).Value = entidad.TOTAL;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ADELANTO", SqlDbType.Decimal)).Value = entidad.ADELANTO;
+                    cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("PO_MENSAJE", SqlDbType.VarChar, 200)).Direction = System.Data.ParameterDirection.Output;
+                    if (cn.State != System.Data.ConnectionState.Open)
+                    {
+                        cn.Open();
+                    }
+                    cmd.ExecuteReader();
+                    string PO_VALIDO = cmd.Parameters["PO_VALIDO"].Value.ToString();
+                    string PO_MENSAJE = cmd.Parameters["PO_MENSAJE"].Value.ToString();
+                    if (PO_VALIDO == "0")
+                    {
+                        auditoria.Rechazar(PO_MENSAJE);
+                    }    
+                    cn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+        }
+
+
+        
         ///*********************************************** ----------------- **************************************************/
 
         ///*********************************************** Inserta VENTAS  *************************************************/
@@ -439,7 +489,7 @@ namespace Capa_Datos.Ventas
                     int pos_ID_VENTA = dr.GetOrdinal("ID_VENTA");
                     int pos_COD_COMPROBANTE = dr.GetOrdinal("COD_COMPROBANTE");
                     int pos_FLG_ANULADO = dr.GetOrdinal("FLG_ANULADO");
-                    int pos_FLG_TIPO_VENTA = dr.GetOrdinal("FLG_TIPO_VENTA");
+                    int pos_FLG_TIPO_PAGO = dr.GetOrdinal("FLG_TIPO_PAGO");
                     int pos_ID_CLIENTE = dr.GetOrdinal("ID_CLIENTE");
                     int pos_ID_TIPO_COMPROBANTE = dr.GetOrdinal("ID_TIPO_COMPROBANTE");
                     int pos_SUB_TOTAL = dr.GetOrdinal("SUB_TOTAL");
@@ -474,8 +524,8 @@ namespace Capa_Datos.Ventas
                             if (dr.IsDBNull(pos_FLG_ANULADO)) obj.FLG_ANULADO = 0;
                             else obj.FLG_ANULADO = int.Parse(dr[pos_FLG_ANULADO].ToString());
 
-                            if (dr.IsDBNull(pos_FLG_TIPO_VENTA)) obj.FLG_TIPO_VENTA = 0;
-                            else obj.FLG_TIPO_VENTA = int.Parse(dr[pos_FLG_TIPO_VENTA].ToString());
+                            if (dr.IsDBNull(pos_FLG_TIPO_PAGO)) obj.FLG_TIPO_PAGO = 0;
+                            else obj.FLG_TIPO_PAGO = int.Parse(dr[pos_FLG_TIPO_PAGO].ToString());
 
                             if (dr.IsDBNull(pos_ID_CLIENTE)) obj.ID_CLIENTE = 0;
                             else obj.ID_CLIENTE = int.Parse(dr[pos_ID_CLIENTE].ToString());

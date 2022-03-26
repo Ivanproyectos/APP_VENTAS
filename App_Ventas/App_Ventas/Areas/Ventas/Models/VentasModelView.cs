@@ -24,7 +24,8 @@ namespace App_Ventas.Areas.Ventas.Models
 
         [Display(Name = "Tipo Pago: ")]
         [DataType(DataType.Text)]
-        public bool FLG_TIPO_VENTA { get; set; }
+        public bool FLG_TIPO_PAGO { get; set; }
+        public List<SelectListItem> Lista_Tipo_Pago{ get; set; }
 
         [Display(Name = "Cliente: ")]
         [DataType(DataType.Text)]
@@ -94,6 +95,10 @@ namespace App_Ventas.Areas.Ventas.Models
 
         public decimal DEBE { get; set; }
         public string TIPO_GRILLA { get; set; }
-        
+
+        [Display(Name = "Nro. Operación: ")]
+        [DataType(DataType.Text)]
+        public string NRO_OPERACION { get; set; }
+
     }
 }
