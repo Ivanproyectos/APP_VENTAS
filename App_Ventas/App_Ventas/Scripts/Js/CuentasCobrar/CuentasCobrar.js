@@ -208,8 +208,6 @@ function CuentasCobrar_DevolverProducto(ID_VENTA_DETALLE) {
 /////*********************************************** ----------------- ************************////
 
 
-
-
 //// calcular vuelto
 function Fn_CuentasCobrar_Vuelto() {
     var _Total = isNaN(parseFloat($('#Venta_TotalDebe').text())) ? 0 : parseFloat($('#Venta_TotalDebe').text());

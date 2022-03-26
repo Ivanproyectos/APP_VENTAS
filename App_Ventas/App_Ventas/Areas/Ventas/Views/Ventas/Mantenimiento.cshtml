@@ -1,5 +1,6 @@
 ﻿@model App_Ventas.Areas.Ventas.Models.VentasModelView
 <script>
+    var _ID_VENTA_CREDITO = 0; 
     $(document).ready(function () {
         ConfiguracionEmpresa();
         var Fecha_Actual = moment().format('DD/MM/YYYY');
@@ -48,14 +49,22 @@
         Fn_Ventas_Vuelto();
     });
 
-    $('#FLG_TIPO_VENTA').change(function () {
-        if ($(this).is(':checked'))
-            $('#Venta_Adelanto').show('slow');
-        else
-            $('#Venta_Adelanto').hide(); 
+    $('#FLG_TIPO_VENTA, #ID_CLIENTE').change(function () {
+        Change_TipoVenta(); 
     });
 
 
+
+    function Change_TipoVenta() {
+        if ($('#FLG_TIPO_VENTA').is(':checked')) {
+            $('#Venta_Adelanto').show('slow');
+            Ventas_ValidarCliente_Credito($('#ID_CLIENTE').val(), _Id_Sucursal);
+        }
+        else {
+            $('#Venta_Adelanto').hide();
+            $('#Ventas_AlertCredito').hide('slow');
+        }
+    }
 
    
 </script>
@@ -206,7 +215,10 @@
                             @Html.LabelFor(model => model.DETALLE)
                             @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "200" })
                         </div>
+                    </div>
 
+                    <div id="Ventas_AlertCredito" class="alert alert-warning alert-dismissible alert-alt fade show"style="color:#000;display:none;">
+                            <strong> <i class="bi bi-exclamation-triangle"></i>&nbsp;Aviso!</strong> Este cliente ya tiene un credito pendiente, el monto total y los productos se sumaran asu credito pendiente.
                     </div>
 
                 </div>
@@ -233,6 +245,8 @@
                         </ul>
                     </div>
                 </div>
+
+        
             </div>
 
         </div>

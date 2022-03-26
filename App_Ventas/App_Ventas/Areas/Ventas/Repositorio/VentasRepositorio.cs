@@ -88,6 +88,20 @@ namespace App_Ventas.Areas.Ventas.Repositorio
         }
 
 
+        public void Ventas_ValidarCliente_Credito(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                _rule.Ventas_ValidarCliente_Credito(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+        }
+
+
+
         public Cls_Ent_Ventas Ventas_Listar_Uno(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
         {
             try

@@ -549,6 +549,52 @@ namespace Capa_Datos.Ventas
         }
 
 
+        
+             ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** validar  *************************************************/
+
+        public void Ventas_ValidarCliente_Credito(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            try
+            {
+               using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlCommand cmd = new SqlCommand("USP_VENTA_VENTAS_VALIDARCLIENTE_CREDITO", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@PI_CLIENTE", SqlDbType.Int)).Value = entidad.ID_CLIENTE;
+                    cmd.Parameters.Add(new SqlParameter("@PI_SUCURSAL", SqlDbType.Int)).Value = entidad.ID_SUCURSAL;
+                    cmd.Parameters.Add(new SqlParameter("PO_ID_VENTA", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
+                    if (cn.State != System.Data.ConnectionState.Open)
+                    {
+                        cn.Open();
+                    }
+                    cmd.ExecuteReader();
+                    string PO_VALIDO = cmd.Parameters["PO_VALIDO"].Value.ToString();
+                    string PO_ID_VENTA = cmd.Parameters["PO_ID_VENTA"].Value.ToString();
+
+                    if (PO_VALIDO == "1")
+                    {
+                        auditoria.OBJETO = PO_ID_VENTA;
+                    }
+                    else {
+                        auditoria.Rechazar("Cliente sin credito pendiente"); 
+                    }
+       
+                    cn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+        }
+
+        
+
+
 
     }
 }

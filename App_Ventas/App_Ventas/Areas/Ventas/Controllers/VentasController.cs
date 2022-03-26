@@ -402,10 +402,27 @@ namespace App_Ventas.Areas.Ventas.Controllers
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Ventas_ValidarCliente_Credito(Cls_Ent_Ventas entidad)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            try{
+                using (VentasRepositorio Ventasrepositorio = new VentasRepositorio())
+                {
+                    Ventasrepositorio.Ventas_ValidarCliente_Credito(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+            } catch(Exception ex){
+                string CODIGOLOG = Recursos.Clases.Css_Log.Guardar(ex.Message);
+                auditoria.Rechazar(CODIGOLOG); 
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
 
-        
-   
-
+     
 
     }
 }

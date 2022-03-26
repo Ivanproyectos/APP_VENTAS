@@ -227,3 +227,31 @@ function Ventas_ImprimirComprobante(ID_VENTA, _COD_COMPROBANTE) {
     jSweetModal(_Html, "Imprimir Comprobante");
 
 }
+
+
+
+///*********************************************** ----------------- *************************************************/
+
+///*********************************************** validar cliente credito   ***************************************************/
+
+function Ventas_ValidarCliente_Credito(ID_CLIENTE, ID_SUCURSAL) {
+    var item = {
+        ID_CLIENTE: ID_CLIENTE,
+        ID_SUCURSAL: ID_SUCURSAL,
+    };
+    var url = baseUrl + 'Ventas/Ventas/Ventas_ValidarCliente_Credito';
+    var auditoria = SICA.Ajax(url, item, false);
+    if (auditoria != null && auditoria != "") {
+        if (auditoria.EJECUCION_PROCEDIMIENTO) {
+            if (auditoria.RECHAZAR) {
+                _ID_VENTA_CREDITO = 0; 
+                $('#Ventas_AlertCredito').hide('slow');
+            } else {           
+                _ID_VENTA_CREDITO = auditoria.OBJETO;
+                $('#Ventas_AlertCredito').show('slow');
+            }
+        } else {
+            jError(auditoria.MENSAJE_SALIDA, "Atención");
+        }
+    }
+}

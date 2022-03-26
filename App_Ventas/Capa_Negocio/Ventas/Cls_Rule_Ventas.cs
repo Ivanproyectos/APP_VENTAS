@@ -103,6 +103,18 @@ namespace Capa_Negocio.Ventas
            }
        }
 
+       public void Ventas_ValidarCliente_Credito(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
+       {
+           try
+           {
+               OData.Ventas_ValidarCliente_Credito(entidad, ref auditoria);
+           }
+           catch (Exception ex)
+           {
+               auditoria.Error(ex);
+           }
+       }
+       
 
 
     }

@@ -364,7 +364,7 @@ SICA = {
             async: async,
             data: JSON.stringify(parameters),
             beforeSend: function () {
-                blockUI_("");
+                //blockUI_("");
             },
             success: function (response) {
                 jQuery.unblockUI();
@@ -383,7 +383,7 @@ SICA = {
                 rsp = error;
             },
             complete: function () {
-                jQuery.unblockUI();
+                //jQuery.unblockUI();
             },
         });
 
