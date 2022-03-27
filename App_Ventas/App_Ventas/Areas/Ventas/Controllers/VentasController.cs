@@ -284,6 +284,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
                             {
                                 EntidadDet.ID_VENTA = _ID_VENTA;
                                 EntidadDet.USU_CREACION = entidad.USU_CREACION;
+                                EntidadDet.ID_TIPO_COMPROBANTE = entidad.ID_TIPO_COMPROBANTE; 
                                 Ventasrepositorio.Ventas_Detalle_Insertar(EntidadDet, ref auditoria);
                             }
                         }
@@ -314,6 +315,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
                             {
                                 EntidadDet.ID_VENTA = _ID_VENTA;
                                 EntidadDet.USU_CREACION = entidad.USU_CREACION;
+                                EntidadDet.ID_TIPO_COMPROBANTE = entidad.ID_TIPO_COMPROBANTE; 
                                 Ventasrepositorio.Ventas_Detalle_Insertar(EntidadDet, ref auditoria);
                             }
                         }

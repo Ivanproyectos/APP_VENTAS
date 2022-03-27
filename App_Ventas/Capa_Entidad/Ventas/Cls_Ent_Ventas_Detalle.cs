@@ -19,7 +19,7 @@ namespace Capa_Entidad.Ventas
         public string COD_UNIDAD_MEDIDA { get; set; }
         public int ID_DEVOLUCION { get; set; }
         public int ID_UNIDAD_MEDIDA { get; set; }
-        
+        public string ID_TIPO_COMPROBANTE { get; set; }
         
     }
 }

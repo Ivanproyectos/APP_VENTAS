@@ -109,7 +109,8 @@ namespace App_Ventas.Areas.CuentasCobrar.Controllers
                             item.FLG_ESTADO_CREDITO.ToString(),                       
                             item.DESC_ESTADO_CREDITO,
                             item.FLG_ANULADO.ToString(),   
-
+                            item.DETALLE.ToString(),   
+                            
                             }
                         }).ToArray();
 

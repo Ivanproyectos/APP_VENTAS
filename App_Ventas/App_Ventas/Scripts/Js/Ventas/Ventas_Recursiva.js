@@ -185,7 +185,8 @@ function Ventas_Llenar_ComboMotivo() {
 }
 
 function Ventas_GenerarVistaComprobante(ID_VENTA) {
-    debugger; 
+    blockUI_('Generando vista previa...');
+    setTimeout(function () { jQuery.unblockUI() }, 1000);
     //Ventas_Cerrar();
     var _Html = "<div class=\"row\" style=\"width: 454px;\" >"
                + " <div class=\"form-group col-sm-12\" style=\"padding:2px;\"> "
@@ -214,6 +215,8 @@ function Ventas_VisualizarComprobante(ID_VENTA, TIPO_COMPROBANTE) {
 
 
 function Ventas_ImprimirComprobante(ID_VENTA, _COD_COMPROBANTE) {
+    blockUI_('Generando vista previa...');
+    setTimeout(function () { jQuery.unblockUI() }, 1000);
     var _Html = "<b style=\"color:#2c7be5;\">Nro. Comprobante: " + _COD_COMPROBANTE + "</b> </br> </br>"
            + "<div class=\"row\" style=\"width: 454px;\" >"
            + " <div class=\"form-group col-sm-12\" style=\"padding:2px;\"> "

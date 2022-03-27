@@ -110,7 +110,7 @@
 <div class="modal-dialog modal-lg_" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Registrar nueva venta </h5>
+            <h5 class="modal-title"><i class="bi bi-cart3"></i>&nbsp; Registrar nueva venta </h5>
             <button type="button" class="close" data-dismiss="modal">
                 <span>&times;</span>
             </button>
@@ -222,8 +222,8 @@
 
 
                         <div class="form-group col-md-12">
-                            @Html.LabelFor(model => model.DETALLE)
-                            @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "200" , @autocomplete="off" })
+                            @Html.LabelFor(model => model.DETALLE_VENTA)
+                            @Html.TextAreaFor(model => model.DETALLE_VENTA, new { @class = "form-control", @maxlength = "1000" , @autocomplete="off" })
                         </div>
                     </div>
 

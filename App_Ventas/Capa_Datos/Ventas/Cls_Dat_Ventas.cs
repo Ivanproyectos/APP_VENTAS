@@ -252,6 +252,12 @@ namespace Capa_Datos.Ventas
                     cmd.Parameters.Add(new SqlParameter("@PI_DESCUENTO", SqlDbType.Int)).Value = entidad.DESCUENTO;
                     cmd.Parameters.Add(new SqlParameter("@PI_TOTAL", SqlDbType.Decimal)).Value = entidad.TOTAL;
                     cmd.Parameters.Add(new SqlParameter("@PI_ADELANTO", SqlDbType.Decimal)).Value = entidad.ADELANTO;
+                    //cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar,1000)).Value = entidad.DETALLE;
+                    if (entidad.DETALLE == null)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = entidad.DETALLE; }
+
                     cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("PO_MENSAJE", SqlDbType.VarChar, 200)).Direction = System.Data.ParameterDirection.Output;
                     if (cn.State != System.Data.ConnectionState.Open)
@@ -295,6 +301,7 @@ namespace Capa_Datos.Ventas
                     cmd.Parameters.Add(new SqlParameter("@PI_CANTIDAD", SqlDbType.Int)).Value = entidad.CANTIDAD;
                     cmd.Parameters.Add(new SqlParameter("@PI_IMPORTE", SqlDbType.Decimal)).Value = entidad.IMPORTE;
                     cmd.Parameters.Add(new SqlParameter("@PI_USUARIO_CREACION", SqlDbType.VarChar, 200)).Value = entidad.USU_CREACION;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_TIPO_COMPROBANTE", SqlDbType.VarChar, 200)).Value = entidad.ID_TIPO_COMPROBANTE;
                     if (cn.State != System.Data.ConnectionState.Open)
                     {
                         cn.Open();

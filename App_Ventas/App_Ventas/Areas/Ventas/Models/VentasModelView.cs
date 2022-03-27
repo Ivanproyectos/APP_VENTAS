@@ -60,7 +60,7 @@ namespace App_Ventas.Areas.Ventas.Models
 
         [Display(Name = "Detalle: ")]
         [DataType(DataType.Text)]
-        public string DETALLE { get; set; }
+        public string DETALLE_VENTA { get; set; }
 
         [Display(Name = "Total Recibido: ")]
         [DataType(DataType.Text)]

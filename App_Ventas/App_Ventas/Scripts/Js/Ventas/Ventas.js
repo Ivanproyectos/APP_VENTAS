@@ -206,6 +206,7 @@ function Ventas_Ingresar() {
 
             jConfirm("¿ Desea realizar este venta ?", "Atención", function (r) {
                 if (r) {
+                    debugger; 
                     var item =
                         {
                             ID_TIPO_COMPROBANTE: $("#ID_TIPO_COMPROBANTE").val(),
@@ -221,6 +222,7 @@ function Ventas_Ingresar() {
                             IGV: parseFloat($("#Venta_Igv").text()),
                             TOTAL: parseFloat($("#Venta_Total").text()),
                             ADELANTO: parseFloat($("#ADELANTO").val()),
+                            DETALLE: $("#DETALLE_VENTA").val(),
                             ListaDetalle : ListaDetalle, 
                             USU_CREACION: $('#input_hdcodusuario').val(),
                             ACCION: $("#AccionVentas").val()

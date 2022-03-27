@@ -19,7 +19,7 @@ function CuentasCobrar_ConfigurarGrilla() {
     var url = baseUrl + 'CuentasCobrar/CuentasCobrar/CuentasCobrar_Paginado';
     $("#" + CuentasCobrar_Grilla).GridUnload();
     var colNames = ['Acciones', 'Código', 'ID', 'Código Venta', 'Tipo Comprobante', 'Cliente', 'Descuento','Adelanto', 'Total', 'Debe', 
-       'Fecha Venta', 'COD_COMPROBANTE',  'flg_credito','Estado Credito','flg_anulado'];
+       'Fecha Venta', 'COD_COMPROBANTE',  'flg_credito','Estado Credito','flg_anulado','Detalle'];
     var colModels = [
             { name: 'ACCION', index: 'ACCION', align: 'center', width: 100, hidden: false, formatter: CuentasCobrar_actionAcciones, sortable: false }, // 0
             { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },// 1
@@ -36,7 +36,7 @@ function CuentasCobrar_ConfigurarGrilla() {
             { name: 'FLG_ESTADO_CREDITO', index: 'FLG_CRED_CANCELADO', width: 150, hidden: true, align: "left" },//12
             { name: 'DESC_ESTADO_CREDITO', index: 'DESC_ESTADO_CREDITO', width: 150, hidden: false, align: "left", formatter: CuentasCobrar_formatterEstadoCredito },//13
             { name: 'FLG_ANULADO', index: 'FLG_ANULADO', width: 150, hidden: true, align: "left"},//14
-
+            { name: 'DETALLE', index: 'DETALLE', width: 200, hidden: false, align: "left" },//15
     ];
     var opciones = {
         GridLocal: false, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rules: true, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
