@@ -1,7 +1,7 @@
 ﻿@model App_Ventas.Areas.Ventas.Models.VentasModelView
 <script>
     var _ID_VENTA_CREDITO = 0;
-    var _FLG_CREDITO_PENDIENTE = false; 
+    var _FLG_CREDITO_PENDIENTE = false;
     $(document).ready(function () {
         ConfiguracionEmpresa();
         var Fecha_Actual = moment().format('DD/MM/YYYY');
@@ -9,7 +9,7 @@
         Ventas_Detalle_ConfigurarGrilla('VENTAS');
         $('#ID_CLIENTE').select2();
         $('#ID_TIPO_COMPROBANTE').val('03');
-        $('#FLG_TIPO_PAGO').val('1'); 
+        $('#FLG_TIPO_PAGO').val('1');
     });
     $('#FECHA_VENTA').datepicker({
         changeMonth: true,
@@ -35,7 +35,7 @@
 
     $('#DESCUENTO').keyup(function () {
         Ventas_Detalle_CalcularMontoTotalDetalle();
-        Fn_Ventas_Vuelto(); 
+        Fn_Ventas_Vuelto();
     });
 
     $('#TOTAL_RECIBIDO').keyup(function () {
@@ -43,32 +43,36 @@
     });
 
     $('#FLG_TIPO_PAGO, #ID_CLIENTE').change(function () {
-        Change_TipoVenta(); 
+        Change_TipoVenta();
     });
-
-
 
     function Change_TipoVenta() {
         if ($('#FLG_TIPO_PAGO').val() == 2) { // credito
             $('#Venta_NroOperacion').hide();
             $('#Venta_Adelanto').show('slow');
-            if ($('#ID_CLIENTE').val()!= "")
-            Ventas_ValidarCliente_Credito($('#ID_CLIENTE').val(), _Id_Sucursal);
-        } else if ($('#FLG_TIPO_PAGO').val() == 3) {       
+            if ($('#ID_CLIENTE').val() != "")
+                Ventas_ValidarCliente_Credito($('#ID_CLIENTE').val(), _Id_Sucursal);
+        } else if ($('#FLG_TIPO_PAGO').val() == 3) {
             $('#Venta_NroOperacion').show('slow');
             $('#Venta_Adelanto').hide();
             $('#Ventas_AlertCredito').hide('slow');
             _FLG_ADICIONAR_CREDITO = false;
         }
         else {
-            _FLG_ADICIONAR_CREDITO = false; 
+            _FLG_ADICIONAR_CREDITO = false;
             $('#Venta_NroOperacion').hide();
             $('#Venta_Adelanto').hide();
             $('#Ventas_AlertCredito').hide('slow');
         }
     }
 
-   
+
+    $('#NRO_OPERACION').keyup(function () {
+        if ($(this).val() != "") {
+            $('#NRO_OPERACION').tooltip('disable');
+        }
+    });
+
 </script>
 
 <style>
@@ -128,7 +132,7 @@
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.FECHA_VENTA)
-                        @Html.TextBoxFor(model => model.FECHA_VENTA, new { @class = "form-control", @maxlength = "100" ,@disabled="true"})
+                        @Html.TextBoxFor(model => model.FECHA_VENTA, new { @class = "form-control", @maxlength = "100", @disabled = "true" })
                         @Html.ValidationMessageFor(model => model.FECHA_VENTA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
@@ -170,7 +174,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><span class="simboloMoneda"></span></span>
                                 </div>
-                                @Html.TextBoxFor(model => model.DESCUENTO, new { @class = "form-control ignore", @maxlength = "200", @requiered = "false" })
+                                @Html.TextBoxFor(model => model.DESCUENTO, new { @class = "form-control ignore", @maxlength = "200", @requiered = "false", @autocomplete = "off" })
                             </div>
                         </div>
 
@@ -180,7 +184,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><span class="simboloMoneda"></span></span>
                                 </div>
-                                @Html.TextBoxFor(model => model.TOTAL_RECIBIDO, new { @class = "form-control", @maxlength = "200" , @autocomplete="off" })
+                                @Html.TextBoxFor(model => model.TOTAL_RECIBIDO, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
                             </div>
                         </div>
 
@@ -190,46 +194,51 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><span class="simboloMoneda"></span></span>
                                 </div>
-                                @Html.TextBoxFor(model => model.VUELTO, new { @class = "form-control", @maxlength = "200" , @autocomplete="off" })
+                                @Html.TextBoxFor(model => model.VUELTO, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
                             </div>
                         </div>
-
+                    </div>
+                    @using (Html.BeginForm("Ventas", "Ventas", new { @area = "Ventas" }, FormMethod.Post, new { @id = "frmMantenimiento_DetalleVenta" }))
+                    {  <div class="form-row">
                         <div class="form-group col-md-4">
                             @Html.LabelFor(model => model.FLG_TIPO_PAGO)
-                            @Html.DropDownListFor(model => model.FLG_TIPO_PAGO, Model.Lista_Tipo_Pago, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                            @Html.DropDownListFor(model => model.FLG_TIPO_PAGO, Model.Lista_Tipo_Pago, new { @class = "form-control No-valid", @maxlength = "150", @style = "width:100%" })
                             @Html.ValidationMessageFor(model => model.FLG_TIPO_PAGO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                         </div>
 
-                           <div class="form-group col-md-4" id="Venta_NroOperacion" style="display:none;">
+                        <div class="form-group col-md-4" id="Venta_NroOperacion" style="display: none;">
                             @Html.LabelFor(model => model.NRO_OPERACION)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="bi bi-credit-card" style="color: #000;"></i></span>
                                 </div>
-                                @Html.TextBoxFor(model => model.NRO_OPERACION, new { @class = "form-control", @maxlength = "200", @autocomplete="off"})
+                                @Html.TextBoxFor(model => model.NRO_OPERACION, new { @class = "form-control ", @maxlength = "200", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.NRO_OPERACION, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
                         </div>
 
-                        <div class="form-group col-md-4" id="Venta_Adelanto" style="display:none;">
+                        <div class="form-group col-md-4" id="Venta_Adelanto" style="display: none;">
                             @Html.LabelFor(model => model.ADELANTO)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><span class="simboloMoneda"></span></span>
                                 </div>
-                                @Html.TextBoxFor(model => model.ADELANTO, new { @class = "form-control", @maxlength = "200" , @autocomplete="off" })
+                                @Html.TextBoxFor(model => model.ADELANTO, new { @class = "form-control No-valid", @maxlength = "200", @autocomplete = "off" })
                             </div>
                         </div>
-
-
+                    </div>
+                    }
+                    <div class="form-row">
                         <div class="form-group col-md-12">
                             @Html.LabelFor(model => model.DETALLE_VENTA)
-                            @Html.TextAreaFor(model => model.DETALLE_VENTA, new { @class = "form-control", @maxlength = "1000" , @autocomplete="off" })
+                            @Html.TextAreaFor(model => model.DETALLE_VENTA, new { @class = "form-control", @maxlength = "1000", @autocomplete = "off" })
                         </div>
                     </div>
 
-                    <div id="Ventas_AlertCredito" class="alert alert-warning alert-dismissible alert-alt fade show"style="color:#000;display:none;">
-                            <strong> <i class="bi bi-exclamation-triangle"></i>&nbsp;Aviso!</strong> Este cliente ya tiene una cuenta de crédito pendiente, 
+                    <div id="Ventas_AlertCredito" class="alert alert-warning alert-dismissible alert-alt fade show" style="color: #000; display: none;">
+                        <strong><i class="bi bi-exclamation-triangle"></i>&nbsp;Aviso!</strong> Este cliente ya tiene una cuenta de crédito pendiente, 
                                         el monto total de esta venta será añadida al balance total de la cuenta de forma automática.
+                   
                     </div>
 
                 </div>
@@ -257,7 +266,7 @@
                     </div>
                 </div>
 
-        
+
             </div>
 
         </div>

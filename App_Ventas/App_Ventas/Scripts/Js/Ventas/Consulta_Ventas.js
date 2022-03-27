@@ -34,7 +34,7 @@ function Ventas_ConfigurarGrilla() {
             { name: 'DESCUENTO', index: 'DESCUENTO', width: 100, hidden: false, align: "left" }, // 6
             { name: 'SUBTOTAL', index: 'SUBTOTAL', width: 100, hidden: false, align: "left" }, // 7
             { name: 'IGV', index: 'IGV', width: 100, hidden: false, align: "left" }, // 8
-            { name: 'TOTAL', index: 'TOTAL', width: 100, hidden: false, align: "left" }, // 9       
+            { name: 'TOTAL', index: 'TOTAL', width: 100, hidden: false, align: "left", formatter: Ventas_FormatterTotal }, // 9      
             { name: 'DESC_ESTADO_VENTA', index: 'DESC_ESTADO_VENTA', width: 150, hidden: false, align: "left", formatter: Ventas_Anulado }, // 10
             { name: 'DESC_TIPO_VENTA', index: 'DESC_TIPO_VENTA', width: 150, hidden: false, align: "left", formatter: Ventas_TipoPago }, // 11
             { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },//12
@@ -140,10 +140,17 @@ function Ventas_TipoPago(cellvalue, options, rowObject) {
     else if (_FLG_TIPO_PAGO == 1) {
         _text = _DESC_TIPO_VENTA;
     } else if (_FLG_TIPO_PAGO == 3) {
-        _text = '<span>' + _DESC_TIPO_VENTA + '</span><br><span style="font-size: 12px; color: #2c7be5;"><i class="bi bi-credit-card"></i>&nbsp;Nro. Ope.: ' + _NRO_OPERACION + '</span>';;
+        _text = '<span>' + _DESC_TIPO_VENTA + '</span><br><span style="font-size: 12px; color: #2c7be5;"><i class="bi bi-credit-card"></i>&nbsp;Nro. Operación: ' + _NRO_OPERACION + '</span>';;
     }
     return _text;
 }
+
+function Ventas_FormatterTotal(cellvalue, options, rowObject) {
+    var _TOTAL = rowObject[9];
+    var _text = _SimboloMoneda + " " + _TOTAL;
+    return _text;
+}
+
 
 function Ventas_MostarBuscarProducto() {
     var _ID_SUCURSAL = $('#inputL_Id_Sucursal').val();

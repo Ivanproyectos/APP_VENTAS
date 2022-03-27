@@ -25,6 +25,7 @@ namespace App_Ventas.Areas.Ventas.Models
         [Display(Name = "Tipo Pago: ")]
         [DataType(DataType.Text)]
         public bool FLG_TIPO_PAGO { get; set; }
+        [Required(ErrorMessage = "[Tipo Pago] es obligatorio")]
         public List<SelectListItem> Lista_Tipo_Pago{ get; set; }
 
         [Display(Name = "Cliente: ")]
@@ -98,7 +99,9 @@ namespace App_Ventas.Areas.Ventas.Models
 
         [Display(Name = "Nro. Operación: ")]
         [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Nro. Operación] es obligatorio")]
         public string NRO_OPERACION { get; set; }
+    
 
     }
 }
