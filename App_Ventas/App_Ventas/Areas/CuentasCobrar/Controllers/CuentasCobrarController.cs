@@ -13,6 +13,7 @@ using Capa_Entidad.Ventas;
 using App_Ventas.Areas.Administracion.Repositorio;
 using App_Ventas.Recursos;
 using App_Ventas.Areas.Inventario.Repositorio;
+using App_Ventas.Areas.CuentasCobrar.Repositorio;
 using App_Ventas.Areas.Ventas.Repositorio;
 
 namespace App_Ventas.Areas.CuentasCobrar.Controllers
@@ -41,7 +42,7 @@ namespace App_Ventas.Areas.CuentasCobrar.Controllers
                     Text = x.DESC_SUCURSAL,
                     Value = x.ID_SUCURSAL.ToString()
                 }).ToList();
-                model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+                model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "0", Text = "--Seleccione--" });
             }
 
 
@@ -110,6 +111,7 @@ namespace App_Ventas.Areas.CuentasCobrar.Controllers
                             item.DESC_ESTADO_CREDITO,
                             item.FLG_ANULADO.ToString(),   
                             item.DETALLE.ToString(),   
+                            item.STR_FECHA_CREDITO_CANCELADO
                             
                             }
                         }).ToArray();
@@ -187,37 +189,48 @@ namespace App_Ventas.Areas.CuentasCobrar.Controllers
                         model.SUBTOTAL = lista.SUB_TOTAL;
                         model.IGV = lista.IGV;
                         model.DESCUENTO = lista.DESCUENTO;
-                        model.DEBE = lista.DEBE;                
+                        model.DEBE = lista.DEBE;
+                        model.DETALLE_VENTA = lista.DETALLE;
+                        model.Cliente = lista.Cliente; 
                     }
                 }
 
-            
+               model.Lista_Tipo_Pago = new List<SelectListItem>();
+               model.Lista_Tipo_Pago.Insert(0, new SelectListItem() { Value = "1", Text = "Al Contado" });
+               model.Lista_Tipo_Pago.Insert(1, new SelectListItem() { Value = "3", Text = "Deposito" });
 
 
             return View(model);
 
+        }
+
+    
+
+         public ActionResult CuentasCobrar_Insertar(Cls_Ent_Ventas entidad)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            var ip_local = Recursos.Clases.Css_IP.ObtenerIp();
+            entidad.IP_CREACION = ip_local;
+            try{
+                using (CuentasCobrarRepositorio Ventasrepositorio = new CuentasCobrarRepositorio())
+            {
+
+                Ventasrepositorio.CuentasCobrar_Insertar(entidad, ref auditoria);
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                }
+                auditoria.OBJETO = entidad.ID_VENTA; 
+                }
+            } catch(Exception ex){
+                string CODIGOLOG = Recursos.Clases.Css_Log.Guardar(ex.Message);
+                auditoria.Rechazar(CODIGOLOG); 
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
         
-         public ActionResult Mantenimiento_BuscarProducto(int ID_SUCURSAL)
-        {
-            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
-            ProductoModelView model = new ProductoModelView();
-            model.ID_SUCURSAL = ID_SUCURSAL;
-
-            using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
-            {
-                model.Lista_Unidad_Medida = Repositorio.Unidad_Medida_Listar(ref auditoria).Select(x => new SelectListItem()
-                {
-                    Text = x.DESC_UNIDAD_MEDIDA,
-                    Value = x.ID_UNIDAD_MEDIDA.ToString()
-                }).ToList();
-                model.Lista_Unidad_Medida.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
-            }
-            return View(model);
-        }
-
-
 
 
     }

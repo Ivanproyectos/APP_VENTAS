@@ -203,6 +203,7 @@
     <Compile Include="Areas\CuentasCobrar\Controllers\CuentasCobrarController.cs" />
     <Compile Include="Areas\CuentasCobrar\CuentasCobrarAreaRegistration.cs" />
     <Compile Include="Areas\CuentasCobrar\Models\CuentasCobrarModelView.cs" />
+    <Compile Include="Areas\CuentasCobrar\Repositorio\CuentasCobrarRepositorio.cs" />
     <Compile Include="Areas\Inventario\Controllers\CategoriaController.cs" />
     <Compile Include="Areas\Inventario\Controllers\ProductoController.cs" />
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />

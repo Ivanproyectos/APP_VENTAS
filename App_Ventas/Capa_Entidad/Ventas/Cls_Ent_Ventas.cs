@@ -34,8 +34,10 @@ namespace Capa_Entidad.Ventas
         public Cls_Ent_Cliente Cliente { get; set; }
         public string NRO_OPERACION { get; set; }
 
-        public bool FLG_ADICIONAR_CREDITO { get; set; }
+        public bool FLG_CREDITO_PENDIENTE { get; set; }
         public int ID_VENTA_CREDITO { get; set; }
+        public string STR_FECHA_CREDITO_CANCELADO { get; set; }
+
         
     }
 }

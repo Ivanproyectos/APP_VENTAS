@@ -44,6 +44,15 @@ function Ventas_ConfigurarGrilla() {
         GridLocal: false, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false,rules:true, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
     };
     SICA.Grilla(Ventas_Grilla, Ventas_Barra, Ventas_Grilla, 400, '', "Lista de Ventas", url, 'ID_VENTA', colNames, colModels, 'ID_VENTA', opciones);
+
+    //jQuery("#" + Ventas_Grilla).jqGrid('setGroupHeaders', {
+    //    useColSpanStyle: true,
+    //    groupHeaders: [
+    //        { startColumnName: 'TIPO_COMPROBANTE', align: 'center', numberOfColumns: 2, titleText: '<center id="PUB">Fecha de Publicación  <br/> Evaluaciones</center>' },
+    //        { startColumnName: 'DESCUENTO', align: 'center', numberOfColumns: 4, titleText: '<center id="INI1" >Evaluación  <br/> Totales</center>' },
+
+    //    ]
+    //});
 }
 
 function GetRules(Ventas_Grilla) {
@@ -70,16 +79,14 @@ function Ventas_actionAcciones(cellvalue, options, rowObject) {
     var _ID_VENTA = rowObject[2];
     var _FLG_FLG_ANULADO = rowObject[14];
     var _COD_COMPROBANTE = '"' + rowObject[13] + '"'; 
-
     var _btn_Anular =""; 
     var _btn_Devolver =""; 
     if (_FLG_FLG_ANULADO == 0) {
         _btn_Imprimir = "<a class=\"dropdown-item\" onclick='Ventas_ImprimirComprobante(" + _ID_VENTA + "," + _COD_COMPROBANTE + ")'><i class=\"bi bi-printer\" style=\"color:gray;\"></i>&nbsp;  Imprimir Comprobante</a>";
-        _btn_Anular = "<a class=\"dropdown-item\" onclick='Ventas_AnularVenta(" + _ID_VENTA + ")'><i class=\"bi bi-cart-x-fill\" style=\"color:red;\"></i>&nbsp;  Anular Venta</a>"; 
+        _btn_Anular = "<a class=\"dropdown-item\" onclick='Ventas_AnularVenta(" + _ID_VENTA + ")'><i class=\"bi bi-cart-x\" style=\"color:red;\"></i>&nbsp;  Anular Venta</a>";
         _btn_Devolver ="<a class=\"dropdown-item\" onclick='Ventas_MostrarDevolverProducto(" + _ID_VENTA + ")' ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>" ; 
     }
-   
-    var _btn = "<div class=\"btn-group\" role=\"group\" title=\"Acciones \" >" +
+    var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
            "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
            "<div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
            "<a class=\"dropdown-item\" onclick='Ventas_ViewDetalleVenta(" + _ID_VENTA + ")'><i class=\"bi bi-stickies\" style=\"color:#2c7be5\"></i>&nbsp;  Detalle Venta</a>" +
@@ -222,7 +229,7 @@ function Ventas_Ingresar() {
                                     ID_SUCURSAL: $("#inputL_Id_Sucursal").val(),
                                     NRO_OPERACION: $("#NRO_OPERACION").val(),
                                     FLG_TIPO_PAGO: $("#FLG_TIPO_PAGO").val(),
-                                    FLG_ADICIONAR_CREDITO: _FLG_ADICIONAR_CREDITO,
+                                    FLG_CREDITO_PENDIENTE: _FLG_CREDITO_PENDIENTE,
                                     ID_VENTA_CREDITO: _ID_VENTA_CREDITO,
                                     DESCUENTO: parseFloat($("#Venta_Descuento").text()),
                                     SUB_TOTAL: parseFloat($("#Venta_Subtotal").text()),

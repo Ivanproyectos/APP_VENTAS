@@ -187,7 +187,53 @@ namespace Capa_Datos.Listados_Combos
         }
 
 
+            ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** Lista CLIENTES POR ID COMPROBATE *************************************************/
+        ///
+        public List<Cls_Ent_Cliente> Clientes_ListarXComprobante(string ID_TIPO_COMPROBANTE, ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            List<Cls_Ent_Cliente> lista = new List<Cls_Ent_Cliente>();
+            try
+            {
+                using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlDataReader dr = null;
+                    SqlCommand cmd = new SqlCommand("USP_CONS_CLIENTE_LISTAR", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_TIPO_COMPROBANTE", SqlDbType.VarChar, 200)).Value = ID_TIPO_COMPROBANTE; 
+                    dr = cmd.ExecuteReader();
+                    int pos_ID_CLIENTE = dr.GetOrdinal("ID_CLIENTE");
+                    int pos_NOMBRES_APE = dr.GetOrdinal("NOMBRES_APE");
+                    int pos_NUMERO_DOCUMENTO = dr.GetOrdinal("NUMERO_DOCUMENTO");
+                    if (dr.HasRows)
+                    {
+                        Cls_Ent_Cliente obj = null;
+                        while (dr.Read())
+                        {
+                            obj = new Cls_Ent_Cliente();
+                            if (dr.IsDBNull(pos_ID_CLIENTE)) obj.ID_CLIENTE = 0;
+                            else obj.ID_CLIENTE = int.Parse(dr[pos_ID_CLIENTE].ToString());
+                            if (dr.IsDBNull(pos_NOMBRES_APE)) obj.NOMBRES_APE = "";
+                            else obj.NOMBRES_APE = dr.GetString(pos_NOMBRES_APE);
+
+                            if (dr.IsDBNull(pos_NUMERO_DOCUMENTO)) obj.NUMERO_DOCUMENTO = "";
+                            else obj.NUMERO_DOCUMENTO = dr.GetString(pos_NUMERO_DOCUMENTO);
+                            lista.Add(obj);
+                        }
+                    }
+                    dr.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+            return lista;
+        }
 
 
+        
     }
 }

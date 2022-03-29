@@ -13,6 +13,14 @@
         $('#ID_CLIENTE').select2(); 
         //CuentasCobrar_CargarGrilla();
     });
+    $('#CuentasCobrar_FechaVenta').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        firstDay: 1,
+        changeFirstDay: false,
+        showAnim: 'slideDown'
+    });
 
     $("#CuentasCobrar_btnBuscar").click(function (e) {
         CuentasCobrar_ConfigurarGrilla();

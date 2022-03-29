@@ -247,16 +247,39 @@ function Ventas_ValidarCliente_Credito(ID_CLIENTE, ID_SUCURSAL) {
     if (auditoria != null && auditoria != "") {
         if (auditoria.EJECUCION_PROCEDIMIENTO) {
             if (auditoria.RECHAZAR) {
-                _FLG_ADICIONAR_CREDITO = false; 
+                _FLG_CREDITO_PENDIENTE = false;
                 _ID_VENTA_CREDITO = 0; 
                 $('#Ventas_AlertCredito').hide('slow');
             } else {
-                _FLG_ADICIONAR_CREDITO = true;
+                _FLG_CREDITO_PENDIENTE = true;
                 _ID_VENTA_CREDITO = auditoria.OBJETO;
                 $('#Ventas_AlertCredito').show('slow');
             }
         } else {
             jError(auditoria.MENSAJE_SALIDA, "Atención");
         }
+    }
+}
+
+
+function Ventas_ClientesXComprobante(ID_COMPROBANTE) {
+    var item = { }
+    var url = baseUrl + 'Ventas/Ventas/Ventas_ClientesXComprobante?ID_TIPO_COMPROBANTE=' + ID_COMPROBANTE;
+    var auditoria = SICA.Ajax(url, item, false);
+    if (auditoria.EJECUCION_PROCEDIMIENTO) {
+        if (!auditoria.RECHAZAR) {
+            var items = "<option value=\"" + "" + "\"> --Seleccione-- </option>";
+            $.each(auditoria.OBJETO, function (i, v) {
+                if (v.NUMERO_DOCUMENTO == "ALP970742760") // al publico
+                    items += "<option selected value=\"" + v.ID_CLIENTE + "\" >"+ v.NOMBRES_APE + "</option>";
+                else {
+                    items += "<option value=\"" + v.ID_CLIENTE + "\" >" + v.NOMBRES_APE + " - Nro. Doc. " + v.NUMERO_DOCUMENTO + "</option>";
+                }
+            });
+            items += "</select>";
+            $('#ID_CLIENTE').html(items);
+        }
+    } else {
+        jError(auditoria.MENSAJE_SALIDA, "Atención");
     }
 }

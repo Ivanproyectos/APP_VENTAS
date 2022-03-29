@@ -147,6 +147,42 @@ label {
    transition: transform .2s ease-in-out;
 }
 
+/*^***resumen venta */
+
+    ._text_detalle {
+        width: 45%;
+        max-width: 45%;
+        display: inline-block;
+        text-align: right;
+        height: 100%;
+    }
+
+    ._text_detalle_monto {
+        width: 45%;
+        max-width: 45%;
+        display: inline-block;
+        text-align: right;
+
+    }
+
+    ._toggle_css > toggle-group > label {
+        text-align: center;
+    }
+
+    .input-group-text_white {
+        background: #f9fbfd;
+        color: #000;
+        border: 1px solid #c7c6c6;
+    }
+
+    .Group_Acciones > .dropdown-menu >  .dropdown-item {
+        font-size : 14px; 
+        cursor:pointer; 
+    }
+
+    
+/*^***resumen venta */
+
 
 
 

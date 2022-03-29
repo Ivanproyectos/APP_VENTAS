@@ -219,8 +219,8 @@
                         @Html.LabelFor(model => model.SEARCH_PRODUCTO)
                         <div class="input-group mb-3 ">
                             @Html.TextBoxFor(model => model.SEARCH_PRODUCTO, new { @class = "form-control", @maxlength = "200", @aucomplete = "off", @placeholder = "Ingrese descripción o código de producto..." })
-                            <div class="input-group-append  btn-hover-shine waves-effect waves-light">
-                                <span class="input-group-text"><i class="bi bi-search" style="color: #404040;"></i></span>
+                            <div class="input-group-append  btn-hover-shine waves-effect waves-light ">
+                                <span class="input-group-text input-group-text_white"><i class="bi bi-search" style="color: #404040;"></i></span>
                             </div>
                         </div>
                     </div>
@@ -241,7 +241,7 @@
                         @Html.LabelFor(model => model.PRECIO_VENTA)
                         <div class="input-group ">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><span class="simboloMoneda"></span></span>
+                                <span class="input-group-text input-group-text_white"><span class="simboloMoneda"></span></span>
                             </div>
                             @Html.TextBoxFor(model => model.PRECIO_VENTA, new { @class = "form-control", @maxlength = "100", @aucomplete = "off", @disabled = "true" })
                         </div>
@@ -253,7 +253,7 @@
                         <div class="input-group  ">
                             @Html.TextBoxFor(model => model.CANTIDAD, new { @class = "form-control", @maxlength = "10", @autocomplete = "off" })
                             <div class="input-group-append  btn-hover-shine waves-effect waves-light">
-                                <span class="input-group-text" id="_Info_codigoUnidad">
+                                <span class="input-group-text input-group-text_white" id="_Info_codigoUnidad">
                                     @if(Model.COD_UNIDAD_MEDIDA !=null){
                                         @Model.COD_UNIDAD_MEDIDA; 
                                     } else{
@@ -270,7 +270,7 @@
                         @Html.LabelFor(model => model.TOTAL)
                         <div class="input-group ">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><span class="simboloMoneda"></span></span>
+                                <span class="input-group-text input-group-text_white"><span class="simboloMoneda"></span></span>
                             </div>
                             @Html.TextBoxFor(model => model.TOTAL, new { @class = "form-control", @maxlength = "100", @aucomplete = "off", @disabled = "true" })
                         </div>

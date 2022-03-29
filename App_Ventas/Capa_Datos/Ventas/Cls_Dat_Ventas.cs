@@ -68,6 +68,8 @@ namespace Capa_Datos.Ventas
                 int pos_USU_MODIFICACION = dr.GetOrdinal("USU_MODIFICACION");
                 int pos_FEC_MODIFICACION = dr.GetOrdinal("STR_FECHA_MODIFICACION");
                 int pos_NRO_OPERACION = dr.GetOrdinal("NRO_OPERACION");
+                int pos_STR_FECHA_CREDITO_CANCELADO = dr.GetOrdinal("STR_FECHA_CREDITO_CANCELADO");
+                
      
                 if (dr.HasRows)
                 {
@@ -137,13 +139,15 @@ namespace Capa_Datos.Ventas
 
                         if (dr.IsDBNull(pos_USU_CREACION)) obj.USU_CREACION = "";
                         else obj.USU_CREACION = dr.GetString(pos_USU_CREACION);
-
                         if (dr.IsDBNull(pos_FEC_CREACION)) obj.FEC_CREACION = "";
                         else obj.FEC_CREACION = dr.GetString(pos_FEC_CREACION);
                         if (dr.IsDBNull(pos_USU_MODIFICACION)) obj.USU_MODIFICACION = "";
                         else obj.USU_MODIFICACION = dr.GetString(pos_USU_MODIFICACION);
                         if (dr.IsDBNull(pos_FEC_MODIFICACION)) obj.FEC_MODIFICACION = "";
                         else obj.FEC_MODIFICACION = dr.GetString(pos_FEC_MODIFICACION);
+
+                        if (dr.IsDBNull(pos_STR_FECHA_CREDITO_CANCELADO)) obj.STR_FECHA_CREDITO_CANCELADO = "";
+                        else obj.STR_FECHA_CREDITO_CANCELADO = dr.GetString(pos_STR_FECHA_CREDITO_CANCELADO);
 
                         obj.Cliente = new Cls_Ent_Cliente();
                         {

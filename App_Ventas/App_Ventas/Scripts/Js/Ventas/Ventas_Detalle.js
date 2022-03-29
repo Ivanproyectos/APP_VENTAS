@@ -40,7 +40,7 @@ function Ventas_Detalle_ConfigurarGrilla(TIPO) {
 
     ];
     var opciones = {
-        GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false
+        GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
     };
     SICA.Grilla(Ventas_Detalle_Grilla, Ventas_Detalle_Barra, Ventas_Detalle_Grilla, 200, '', "", '', 'CODIGO', colNames, colModels, '', opciones);
 }

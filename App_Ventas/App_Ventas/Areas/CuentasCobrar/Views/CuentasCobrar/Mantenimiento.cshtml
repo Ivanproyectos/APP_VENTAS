@@ -1,13 +1,9 @@
 ﻿@model App_Ventas.Areas.Ventas.Models.VentasModelView
 <script>
     $(document).ready(function () {
-
         ConfiguracionEmpresa();
-        //var Fecha_Actual = moment().format('DD/MM/YYYY');
-        //$('#FECHA_VENTA').val(Fecha_Actual);
-        Ventas_Detalle_ConfigurarGrilla('VENTAS');
+        Ventas_Detalle_ConfigurarGrilla('DETALLE');
         Ventas_Detalle_CargarGrilla(@Model.ID_VENTA);
-        $('#ID_CLIENTE').select2();
         //$('#ID_TIPO_COMPROBANTE').val('03');
     });
     $('#FECHA_VENTA').datepicker({
@@ -19,7 +15,7 @@
         showAnim: 'slideDown'
     });
 
-    $('#CuentasCobrar_btn_Guardar').click(function () {
+    $('#CuentasCobrar_btn_CancelarVenta').click(function () {
         CuentasCobrar_Ingresar();
     });
 
@@ -38,40 +34,25 @@
     });
 
 
+    $('#FLG_TIPO_PAGO').change(function () {
+        Change_TipoVenta();
+    });
+
+    function Change_TipoVenta() {
+        if ($('#FLG_TIPO_PAGO').val() == 3) {
+            $('#Venta_NroOperacion').show('slow');
+        }
+        else {
+            $('#Venta_NroOperacion').hide();
+        }
+    }
+
 
 </script>
 
 <style>
     .modal-lg_ {
         max-width: 55%;
-    }
-
-    ._text_detalle {
-        width: 45%;
-        max-width: 45%;
-        display: inline-block;
-        text-align: right;
-    }
-
-    ._text_detalle_monto {
-        width: 45%;
-        max-width: 45% display: inline-block;
-        text-align: left;
-    }
-
-    ._toggle_css > toggle-group > label {
-        text-align: center;
-    }
-
-    .input-group-text {
-        background: #f9fbfd;
-        color: #000;
-        border: 1px solid #c7c6c6;
-    }
-
-    ._Montos {
-        float: right;
-        text-align: right;
     }
 </style>
 
@@ -80,7 +61,7 @@
 <div class="modal-dialog modal-lg_" role="document">
     <div class="modal-content">
         <div class="modal-header" style="background: #2c7be5">
-            <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp;Cobrar Venta nrº @Model.ID_VENTA </h5>
+            <h5 class="modal-title"><i class="bi bi-cart-check"></i>&nbsp;Cobrar Venta Nrº @Model.ID_VENTA &nbsp;<i class="bi bi-person"></i>Cliente: @Model.Cliente.NOMBRES_APE </h5>
             <button type="button" class="close" data-dismiss="modal">
                 <span>&times;</span>
             </button>
@@ -101,12 +82,6 @@
                         @Html.TextBoxFor(model => model.FECHA_VENTA, new { @class = "form-control", @maxlength = "100", @disabled = "true" })
                         @Html.ValidationMessageFor(model => model.FECHA_VENTA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
-
-                    <div class="form-group col-md-12">
-                        @Html.LabelFor(model => model.ID_CLIENTE)
-                        @Html.DropDownListFor(model => model.ID_CLIENTE, Model.Lista_Cliente, new { @class = "form-control", @maxlength = "150", @style = "width:100%", @disabled = "true" })
-                        @Html.ValidationMessageFor(model => model.ID_CLIENTE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
-                    </div>
                 </div>
             }
             <br />
@@ -114,11 +89,6 @@
                 <h4 class="card-title border-bottom-head" style="width: 100%; height: 30px;"><i class="bi bi-list-check"></i>&nbsp; Lista de Productos:</h4>
             </div>
             <div class="form-row">
-                <div class=" col-md-12" style="display: flex; justify-content: flex-end; margin-bottom: 5px;">
-                    <button type="button" class="btn btn-rounded btn-secondary btn-hover-shine" id="CuentasCobrar_btn_BuscarProductos" data-toggle="modal">
-                        <span class="btn-icon-left text-secondary"><i class="fa fa-plus color-secondary"></i>
-                        </span>Agregar Producto</button>
-                </div>
                 <div class="form-group col-md-12">
                     <div class="jqGrid">
                         <table id="Ventas_Detalle_Grilla"></table>
@@ -133,8 +103,8 @@
 
             <div class="form-row">
                 <div class="col-xl-8 col-xxl-6 col-lg-6 col-md-12">
-                    <div class="form-row">
-                        @*         <div class="form-group col-md-3">
+
+                    @*         <div class="form-group col-md-3">
                             @Html.LabelFor(model => model.DESCUENTO)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
@@ -143,12 +113,12 @@
                                 @Html.TextBoxFor(model => model.DESCUENTO, new { @class = "form-control ignore", @maxlength = "200", @requiered = "false" })
                             </div>
                         </div>*@
-
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             @Html.LabelFor(model => model.TOTAL_RECIBIDO)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><span class="simboloMoneda"></span></span>
+                                    <span class="input-group-text input-group-text_white"><span class="simboloMoneda"></span></span>
                                 </div>
                                 @Html.TextBoxFor(model => model.TOTAL_RECIBIDO, new { @class = "form-control", @maxlength = "200" })
                             </div>
@@ -158,17 +128,39 @@
                             @Html.LabelFor(model => model.VUELTO)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><span class="simboloMoneda"></span></span>
+                                    <span class="input-group-text input-group-text_white"><span class="simboloMoneda"></span></span>
                                 </div>
                                 @Html.TextBoxFor(model => model.VUELTO, new { @class = "form-control", @maxlength = "200" })
                             </div>
                         </div>
+                    </div>
+                    @using (Html.BeginForm("CuentasCobrar", "CuentasCobrar", new { @area = "CuentasCobrar" }, FormMethod.Post, new { @id = "frmMantenimiento_Detalle" }))
+                    {                
+                        @Html.ValidationSummary(true) 
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.FLG_TIPO_PAGO)
+                                @Html.DropDownListFor(model => model.FLG_TIPO_PAGO, Model.Lista_Tipo_Pago, new { @class = "form-control No-valid", @maxlength = "150", @style = "width:100%" })
+                                @Html.ValidationMessageFor(model => model.FLG_TIPO_PAGO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
 
-                        <div class="form-group col-md-12">
-                            @Html.LabelFor(model => model.DETALLE)
-                            @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "200" })
+                            <div class="form-group col-md-6" id="Venta_NroOperacion" style="display: none;">
+                                @Html.LabelFor(model => model.NRO_OPERACION)
+                                <div class="input-group mb-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text input-group-text_white"><i class="bi bi-credit-card" style="color: #000;"></i></span>
+                                    </div>
+                                    @Html.TextBoxFor(model => model.NRO_OPERACION, new { @class = "form-control ", @maxlength = "200", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.NRO_OPERACION, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                </div>
+                            </div>
                         </div>
-
+                    }
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            @Html.LabelFor(model => model.DETALLE_VENTA)
+                            @Html.TextAreaFor(model => model.DETALLE_VENTA, new { @class = "form-control", @maxlength = "200", @disabled = "true" })
+                        </div>
                     </div>
 
                 </div>
@@ -178,29 +170,29 @@
                             <li class="list-group-item"><strong><b>Resumen:</b> </strong></li>
                             <li class="list-group-item">
                                 <span class="_text_detalle"><span class="text-danger">(-) </span>Descuento Total:</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Descuento">@Model.DESCUENTO</span><span class="simboloMoneda _Montos"></span></span>
+                                <span class="_text_detalle_monto"><span class="simboloMoneda"></span><span id="Venta_Descuento">@Model.DESCUENTO</span></span>
                             </li>
                             <li class="list-group-item">
                                 <span class="_text_detalle">Subtotal:</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Subtotal">@Model.SUBTOTAL</span> <span class="simboloMoneda _Montos"></span></span>
+                                <span class="_text_detalle_monto"><span class="simboloMoneda"></span><span id="Venta_Subtotal">@Model.SUBTOTAL</span> </span>
                             </li>
                             <li class="list-group-item">
                                 <span class="_text_detalle"><span id="NomImpuesto"></span>(<span id="Impuesto"></span>%):</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Igv">@Model.IGV</span><span class="simboloMoneda _Montos"></span></span>
+                                <span class="_text_detalle_monto"><span class="simboloMoneda"></span><span id="Venta_Igv">@Model.IGV</span></span>
                             </li>
 
                             <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;">
                                 <span class="_text_detalle">Total:</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Total">@Model.TOTAL</span><span class="simboloMoneda _Montos"></span></span>
+                                <span class="_text_detalle_monto"><span class="simboloMoneda"></span><span id="Venta_Total">@Model.TOTAL</span></span>
                             </li>
 
                             <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;">
                                 <span class="_text_detalle"><span class="text-danger">(-) </span>Adelanto:</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_Adelanto">@Model.ADELANTO</span><span class="simboloMoneda _Montos"></span></span>
+                                <span class="_text_detalle_monto"><span class="simboloMoneda"></span><span id="Venta_Adelanto">@Model.ADELANTO</span></span>
                             </li>
                             <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;">
-                                <span class="_text_detalle">Total Debe:</span>
-                                <span class="_text_detalle_monto"><span class="_Montos" id="Venta_TotalDebe">@Model.DEBE</span><span class="simboloMoneda _Montos"></span></span>
+                                <span class="_text_detalle">Total Pagar:</span>
+                                <span class="_text_detalle_monto" style="font-size: 15px;"><span class="simboloMoneda text-primary"></span><span class="text-primary" id="Venta_TotalDebe">@Model.DEBE</span></span>
                             </li>
 
                         </ul>
@@ -210,8 +202,7 @@
 
         </div>
         <div class="modal-footer">
-             <button type="button" id="CuentasCobrar_btn_CancelarVenta" class="btn btn-hover-shine btn-square btn-success"><i class="bi bi-cash-coin"></i>&nbsp; Cancelar Credito</button>
-            <button type="button" id="CuentasCobrar_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-cart-check"></i>&nbsp; Actualizar Venta</button>
+            <button type="button" id="CuentasCobrar_btn_CancelarVenta" class="btn btn-hover-shine btn-square btn-success"><i class="bi bi-cash-coin"></i>&nbsp; Cancelar Credito</button>
             <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
         </div>
     </div>
@@ -219,4 +210,5 @@
 
 
 @Html.Hidden("hfd_ID_VENTA", Model.ID_VENTA)
+@Html.Hidden("hfd_ID_CLIENTE", Model.ID_CLIENTE)
 @Html.Hidden("ADELANTO", Model.ADELANTO)

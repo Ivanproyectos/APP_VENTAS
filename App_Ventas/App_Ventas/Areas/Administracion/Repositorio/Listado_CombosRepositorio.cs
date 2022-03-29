@@ -65,7 +65,18 @@ namespace App_Ventas.Areas.Administracion.Repositorio
             }
         }
 
-
+        public List<Cls_Ent_Cliente> Clientes_ListarXComprobante(string ID_TIPO_COMPROBANTE, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                return _rule.Clientes_ListarXComprobante(ID_TIPO_COMPROBANTE, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                return new List<Cls_Ent_Cliente>();
+            }
+        }
         
         
         public void Dispose()

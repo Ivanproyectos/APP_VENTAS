@@ -21,6 +21,30 @@ namespace App_Ventas.Areas.Ventas.Controllers
         //
         // GET: /Ventas/Ventas/
 
+        public ActionResult Ventas_ClientesXComprobante(string ID_TIPO_COMPROBANTE)
+        {
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            try
+            {
+                using (Listado_CombosRepositorio repositorio = new Listado_CombosRepositorio())
+                {
+                    auditoria.OBJETO = repositorio.Clientes_ListarXComprobante(ID_TIPO_COMPROBANTE, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Index()
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
@@ -42,19 +66,20 @@ namespace App_Ventas.Areas.Ventas.Controllers
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             VentasModelView model = new VentasModelView();
-            
-     
-            using (ClienteRepositorio RepositorioC = new ClienteRepositorio())
-            {
-                Cls_Ent_Cliente Entidad = new Cls_Ent_Cliente();
-                Entidad.FLG_ESTADO = 1; // activos
-                model.Lista_Cliente = RepositorioC.Cliente_Listar(Entidad, ref auditoria).Select(x => new SelectListItem()
-                {
-                    Text = x.NOMBRES_APE + " - " +x.NUMERO_DOCUMENTO,
-                    Value = x.ID_CLIENTE.ToString()
-                }).ToList();
-                model.Lista_Cliente.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
-            }
+
+            model.Lista_Cliente = new List<SelectListItem>();
+            model.Lista_Cliente.Insert(0, new SelectListItem() { Value = "", Text = "--Selccione--" });
+            ////using (ClienteRepositorio RepositorioC = new ClienteRepositorio())
+            ////{
+            ////    Cls_Ent_Cliente Entidad = new Cls_Ent_Cliente();
+            ////    Entidad.FLG_ESTADO = 1; // activos
+            ////    model.Lista_Cliente = RepositorioC.Cliente_Listar(Entidad, ref auditoria).Select(x => new SelectListItem()
+            ////    {
+            ////        Text = x.NOMBRES_APE + " - " +x.NUMERO_DOCUMENTO,
+            ////        Value = x.ID_CLIENTE.ToString()
+            ////    }).ToList();
+            ////    model.Lista_Cliente.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+            ////}
 
             using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
             {
@@ -63,7 +88,13 @@ namespace App_Ventas.Areas.Ventas.Controllers
                     Text = x.DESC_TIPO_COMPROBANTE,
                     Value = x.ID_TIPO_COMPROBANTE.ToString()
                 }).ToList();
-                model.Lista_Tipo_Comprobante.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    model.Lista_Tipo_Comprobante.Insert(0, new SelectListItem() { Value = "", Text = "--Error al cargar opciones--" });
+                }
+              
             }
             model.Lista_Tipo_Pago = new List<SelectListItem>();
             model.Lista_Tipo_Pago.Insert(0, new SelectListItem() { Value = "1", Text = "Al Contado" });
@@ -266,7 +297,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
             try{
             using (VentasRepositorio Ventasrepositorio = new VentasRepositorio())
             {
-                if (!entidad.FLG_ADICIONAR_CREDITO) // nueva venta 
+                if (!entidad.FLG_CREDITO_PENDIENTE) // nueva venta 
                 {
                     Ventasrepositorio.Ventas_Insertar(entidad, ref auditoria);
                     if (!auditoria.EJECUCION_PROCEDIMIENTO)

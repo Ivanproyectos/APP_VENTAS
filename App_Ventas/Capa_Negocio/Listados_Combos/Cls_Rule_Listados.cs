@@ -65,7 +65,21 @@ namespace Capa_Negocio.Listados_Combos
               return new List<Cls_Ent_Tipo_Comprobante>();
           }
       }
+
+      public List<Cls_Ent_Cliente> Clientes_ListarXComprobante(string ID_TIPO_COMPROBANTE ,ref Cls_Ent_Auditoria auditoria)
+      {
+          try
+          {
+              return OData.Clientes_ListarXComprobante( ID_TIPO_COMPROBANTE,ref auditoria);
+          }
+          catch (Exception ex)
+          {
+              auditoria.Error(ex);
+              return new List<Cls_Ent_Cliente>();
+          }
+      }
       
+
       
 
     }

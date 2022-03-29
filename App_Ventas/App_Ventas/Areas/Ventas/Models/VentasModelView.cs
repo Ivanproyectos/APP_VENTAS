@@ -5,13 +5,17 @@ using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Capa_Entidad.Administracion; 
 
 namespace App_Ventas.Areas.Ventas.Models
 {
     public class VentasModelView
     {
+        public VentasModelView()
+        {
+            Cliente = new Cls_Ent_Cliente(); 
+        }
         public long ID_VENTA { get; set; }
-
         [Display(Name = "Código Venta: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Código Venta] es obligatorio")]
@@ -78,7 +82,11 @@ namespace App_Ventas.Areas.Ventas.Models
         [Display(Name = "Fecha venta: ")]
         [DataType(DataType.Text)]
         public string FECHA_VENTA { get; set; }
-        
+
+        [Display(Name = "Nro. Operación: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Nro. Operación] es obligatorio")]
+        public string NRO_OPERACION { get; set; }
 
         public string Accion { get; set; }
 
@@ -97,10 +105,9 @@ namespace App_Ventas.Areas.Ventas.Models
         public decimal DEBE { get; set; }
         public string TIPO_GRILLA { get; set; }
 
-        [Display(Name = "Nro. Operación: ")]
-        [DataType(DataType.Text)]
-        [Required(ErrorMessage = "[Nro. Operación] es obligatorio")]
-        public string NRO_OPERACION { get; set; }
+        public Cls_Ent_Cliente Cliente { get; set; }
+
+
     
 
     }
