@@ -518,7 +518,8 @@ namespace Capa_Datos.Ventas
                     int pos_USU_CREACION = dr.GetOrdinal("USU_CREACION");
                     int pos_ID_TIPO_DOCUMENTO_CLIENTE = dr.GetOrdinal("ID_TIPO_DOCUMENTO_CLIENTE");
                     int pos_DIRECCION_CLIENTE = dr.GetOrdinal("DIRECCION_CLIENTE");
-
+                    int pos_CORREO_CLIENTE = dr.GetOrdinal("CORREO_CLIENTE");
+                    
                     if (dr.HasRows)
                     {
                         //Cls_Ent_Cliente obj = null;
@@ -593,6 +594,9 @@ namespace Capa_Datos.Ventas
 
                                 if (dr.IsDBNull(pos_ID_TIPO_DOCUMENTO_CLIENTE)) obj.Cliente.ID_TIPO_DOCUMENTO = 0;
                                 else obj.Cliente.ID_TIPO_DOCUMENTO = int.Parse(dr[pos_ID_TIPO_DOCUMENTO_CLIENTE].ToString());
+
+                                if (dr.IsDBNull(pos_CORREO_CLIENTE)) obj.Cliente.CORREO = "";
+                                else obj.Cliente.CORREO = dr.GetString(pos_CORREO_CLIENTE);
 
 
                             }

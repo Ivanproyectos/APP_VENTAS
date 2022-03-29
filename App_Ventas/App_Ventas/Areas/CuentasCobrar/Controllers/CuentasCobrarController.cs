@@ -15,6 +15,8 @@ using App_Ventas.Recursos;
 using App_Ventas.Areas.Inventario.Repositorio;
 using App_Ventas.Areas.CuentasCobrar.Repositorio;
 using App_Ventas.Areas.Ventas.Repositorio;
+using System.Configuration;
+using Microsoft.Reporting.WebForms;
 
 namespace App_Ventas.Areas.CuentasCobrar.Controllers
 {
@@ -138,7 +140,6 @@ namespace App_Ventas.Areas.CuentasCobrar.Controllers
             }
         }
 
-
         public ActionResult Mantenimiento(int ID_VENTA)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
@@ -204,16 +205,14 @@ namespace App_Ventas.Areas.CuentasCobrar.Controllers
 
         }
 
-    
-
-         public ActionResult CuentasCobrar_Insertar(Cls_Ent_Ventas entidad)
+        public ActionResult CuentasCobrar_Insertar(Cls_Ent_Ventas entidad)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             var ip_local = Recursos.Clases.Css_IP.ObtenerIp();
             entidad.IP_CREACION = ip_local;
             try{
                 using (CuentasCobrarRepositorio Ventasrepositorio = new CuentasCobrarRepositorio())
-            {
+                {
 
                 Ventasrepositorio.CuentasCobrar_Insertar(entidad, ref auditoria);
                 if (!auditoria.EJECUCION_PROCEDIMIENTO)
@@ -230,7 +229,86 @@ namespace App_Ventas.Areas.CuentasCobrar.Controllers
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
-        
+        public ActionResult  CuentasCobrar_NotificarCredito(Cls_Ent_Ventas entidad)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            try{
+                byte[] PdfByte; 
+                List<Cls_Ent_Ventas> ListaCabecera = new List<Cls_Ent_Ventas>();
+                List<Cls_Ent_Cliente> ListaCliente = new List<Cls_Ent_Cliente>();
+                Cls_Ent_configurarEmpresa Empresa = null; 
+                List<Cls_Ent_Ventas_Detalle> ListaDetalle = null;
+                using (ConfigurarEmpresaRepositorio repositorio = new ConfigurarEmpresaRepositorio())
+                {
+                    Empresa = repositorio.configurarEmpresa_Listar(ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+                using (VentasRepositorio repositorio = new VentasRepositorio())
+                {
+                    Cls_Ent_Ventas ListaVenta = repositorio.Ventas_Listar_Uno(entidad, ref auditoria);
+                    ListaCabecera.Add(ListaVenta);
+                    ListaCliente.Add(ListaVenta.Cliente);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+
+                using (VentasRepositorio repositorio = new VentasRepositorio())
+                {
+                    ListaDetalle = repositorio.Ventas_Detalleventas_Listar(new Cls_Ent_Ventas_Detalle {ID_VENTA = entidad.ID_VENTA}, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+
+               using (VentasRepositorio Ventasrepositorio = new VentasRepositorio())
+                {
+                    string RutaLogo = Recursos.Clases.Css_Ruta.Ruta_Logo() + Empresa.CODIGO_ARCHIVO_LOGO + Empresa.EXTENSION_ARCHIVO_LOGO; 
+                    using (var viewer = new LocalReport())
+                    {
+                        byte[] ImagenBytes = Recursos.Clases.Css_Convertir.FileToByteArray(RutaLogo); //convertir imagen bytes
+                        string strB64 = Convert.ToBase64String(ImagenBytes); // convertir bytes en base64
+                        viewer.ReportPath = Recursos.Clases.Css_Ruta.Ruta_Reporting() + "ComprobanteA4.rdlc";
+                        ReportParameter[] parameters = new ReportParameter[9];
+                        parameters[0] = new ReportParameter("RutaLogo", strB64);
+                        parameters[1] = new ReportParameter("Razon_social", Empresa.RAZON_SOCIAL);
+                        parameters[2] = new ReportParameter("Ruc", Empresa.RUC);
+                        parameters[3] = new ReportParameter("Telefono", Empresa.TELEFONO);
+                        parameters[4] = new ReportParameter("Direccion", Empresa.DIRECCION_FISCAL);
+                        parameters[5] = new ReportParameter("Ubigeo", Empresa.DESC_UBIGEO);
+                        parameters[6] = new ReportParameter("Venta_TotalEnLetras", Recursos.Clases.Css_Convertir.NumeroEnletras(ListaCabecera[0].TOTAL.ToString()));
+                        parameters[7] = new ReportParameter("Igv", Empresa.NOMBRE_IMPUESTO + "(" + Convert.ToInt32(Empresa.IMPUESTO).ToString() + "%)");
+                        parameters[8] = new ReportParameter("SimboloMoneda", Empresa.SIMBOLO_MONEDA);
+                        viewer.SetParameters(parameters);
+                        viewer.ReportPath = Recursos.Clases.Css_Ruta.Ruta_Reporting() + "ComprobanteA4.rdlc";
+                        viewer.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("Ds_Cliente", ListaCliente));
+                        viewer.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("Ds_Cabecera", ListaCabecera));
+                        viewer.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("Ds_DetalleVenta", ListaDetalle));
+                         PdfByte = viewer.Render("PDF");
+                    }    
+                   //Cls_Ent_Ventas VentaUno = Ventasrepositorio.Ventas_Listar_Uno(entidad, ref auditoria);
+                   string BodyCorreo =  Recursos.Clases.Css_GenerarPlantilla.PlantillaCorreo_NotificarCredito();
+                   Recursos.Clases.Css_Mail.MailHelper.SendMailMessage(ref auditoria, ListaCliente[0].CORREO, "", "", "Noticación credito",
+                                                                        BodyCorreo, "Comprobante.pdf", "", PdfByte, RutaLogo, ConfigurationManager.AppSettings["CorreoEnvio"]);
+                }
+            } catch(Exception ex){
+                string CODIGOLOG = Recursos.Clases.Css_Log.Guardar(ex.Message);
+                auditoria.Rechazar(CODIGOLOG); 
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+
+     
+ 
 
 
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.IO; 
 
 namespace App_Ventas.Recursos.Clases
 {
@@ -102,6 +103,18 @@ namespace App_Ventas.Recursos.Clases
             }
             return Num2Text;
 
+        }
+
+        public static byte[] FileToByteArray(string fileName)
+        {
+            byte[] fileData = null;
+
+            using (FileStream fs = File.OpenRead(fileName))
+            {
+                var binaryReader = new BinaryReader(fs);
+                fileData = binaryReader.ReadBytes((int)fs.Length);
+            }
+            return fileData;
         }
 
     }

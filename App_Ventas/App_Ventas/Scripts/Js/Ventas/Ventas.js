@@ -20,10 +20,10 @@ function Ventas_ConfigurarGrilla() {
     var colNames = ['Acciones', 'Código', 'ID', 'Código Venta', 'Tipo Comprobante','Cliente','Descuento','Subtotal','Igv','Total','Estado Venta','Tipo Pago',
        'Fecha Venta','COD_COMPROBANTE','Flg_anulado','flg_tipoventa','flg_credito','Nro Operacion'];
     var colModels = [
-            { name: 'ACCION', index: 'ACCION', align: 'center', width: 100, hidden: false, formatter: Ventas_actionAcciones, sortable: false}, // 0
+            { name: 'ACCION', index: 'ACCION', align: 'center', width: 80, hidden: false, formatter: Ventas_actionAcciones, sortable: false}, // 0
             { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },// 1
             { name: 'ID_VENTA', index: 'ID_VENTA', width: 100, hidden: true, key: true }, // 2
-            { name: 'COD_VENTA', index: 'COD_VENTA', width: 150, hidden: false, align: "left" }, // 3
+            { name: 'COD_VENTA', index: 'COD_VENTA', width: 100, hidden: false, align: "left" }, // 3
             { name: 'TIPO_COMPROBANTE', index: 'TIPO_COMPROBANTE', width: 150, hidden: false, align: "left", formatter: Ventas_FormaterComprobante }, // 4
             { name: 'CLIENTE', index: 'CLIENTE', width: 250, hidden: false, align: "left" }, // 5
             { name: 'DESCUENTO', index: 'DESCUENTO', width: 100, hidden: false, align: "left" }, // 6

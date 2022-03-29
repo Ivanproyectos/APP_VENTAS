@@ -21,10 +21,10 @@ function CuentasCobrar_ConfigurarGrilla() {
     var colNames = ['Acciones', 'Código', 'ID', 'Código Venta', 'Tipo Comprobante', 'Cliente', 'Descuento','Adelanto', 'Total', 'Debe', 
        'Fecha Venta', 'COD_COMPROBANTE',  'flg_credito','Estado Credito','flg_anulado','Detalle','Fecha Cancelado'];
     var colModels = [
-            { name: 'ACCION', index: 'ACCION', align: 'center', width: 100, hidden: false, formatter: CuentasCobrar_actionAcciones, sortable: false }, // 0
+            { name: 'ACCION', index: 'ACCION', align: 'center', width: 80, hidden: false, formatter: CuentasCobrar_actionAcciones, sortable: false }, // 0
             { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },// 1
             { name: 'ID_VENTA', index: 'ID_VENTA', width: 100, hidden: true, key: true }, // 2
-            { name: 'COD_VENTA', index: 'COD_VENTA', width: 150, hidden: false, align: "left" }, // 3
+            { name: 'COD_VENTA', index: 'COD_VENTA', width: 100, hidden: false, align: "left" }, // 3
             { name: 'TIPO_COMPROBANTE', index: 'TIPO_COMPROBANTE', width: 150, hidden: false, align: "left", formatter: CuentasCobrar_FormaterComprobante }, // 4
             { name: 'CLIENTE', index: 'CLIENTE', width: 250, hidden: false, align: "left" }, // 5
             { name: 'DESCUENTO', index: 'DESCUENTO', width: 100, hidden: false, align: "left" }, // 6
@@ -42,6 +42,12 @@ function CuentasCobrar_ConfigurarGrilla() {
     ];
     var opciones = {
         GridLocal: false, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rules: true, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
+        gridCompleteFunc: function () {
+            debugger;
+            var _COUNT = jQuery("#CuentasCobrar_Grilla").jqGrid('getGridParam', 'records');
+            if (_COUNT > 0 )
+            $(".badge").tooltip({ placement: "bottom", delay: { show: 100, hide: 400 } });
+        }
     };
     SICA.Grilla(CuentasCobrar_Grilla, CuentasCobrar_Barra, CuentasCobrar_Grilla, 400, '', "Lista de Cuentas por Cobrar", url, 'ID_VENTA', colNames, colModels, 'ID_VENTA', opciones);
 }
@@ -83,7 +89,7 @@ function CuentasCobrar_actionAcciones(cellvalue, options, rowObject) {
 
     if (_FLG_ESTADO_CREDITO == 0) {
         _btn_Cobrar = "<a class=\"dropdown-item\" onclick='CuentasCobrar_MostrarCobrarCredito(" + _ID_VENTA + ")'><i class=\"bi bi-cash-coin\" style=\"color:#2c7be5\"></i>&nbsp;Cobrar</a>";
-        _btn_Notificar = "<a class=\"dropdown-item\" onclick='CuentasCobrar_MostrarCobrarCredito(" + _ID_VENTA + ")'><i class=\"bi bi-send\" style=\"color:#D34320\"></i>&nbsp;Notificar Credito</a>";
+        _btn_Notificar = "<a class=\"dropdown-item\" onclick='CuentasCobrar_NotificarCredito(" + _ID_VENTA + ")'><i class=\"bi bi-send\" style=\"color:#D34320\"></i>&nbsp;Notificar Credito</a>";
     }
 
     var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
@@ -129,8 +135,8 @@ function CuentasCobrar_formatterEstadoCredito(cellvalue, options, rowObject) {
         _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Este credito aun esta pendiente.\">" + _DESC_ESTADO_CREDITO + "</span>";
     }
     else if (_FLG_ESTADO_CREDITO == 1) {
-        _text = "<span class=\"badge badge-success\" data-bs-toggle=\"tooltip\" title=\"Este credito ya fue cancelado.\">" + _DESC_ESTADO_CREDITO + "</span>"
-                + " <br><span style=\"font-size: 12px; color: #2c7be5;\"><i class=\"bi bi-calendar-week\"></i>&nbsp;Fecha/Hora: " + _FECHA_CANCELADO + "</span>";
+        _text = "<span class=\"badge badge-success\" data-bs-toggle=\"tooltip\" title=\"Fecha: " + _FECHA_CANCELADO + "\">" + _DESC_ESTADO_CREDITO + "</span>";
+               // + " <br><span style=\"font-size: 12px; color: #2c7be5;\"><i class=\"bi bi-calendar-week\"></i>&nbsp;Fecha/Hora: " +  + "</span>";
     }
     return _text;
 }
@@ -205,4 +211,39 @@ function CuentasCobrar_Ingresar() {
             });
     }
 }
+
+
+function CuentasCobrar_NotificarCredito(ID_VENTA) {
+        jConfirm("¿ Desea enviar correo para notificar este credito. ?", "Atención", function (r) {
+            if (r) {
+                blockUI_("Enviando Correo..."); 
+                setTimeout(function () {
+                            var item =
+                       {
+                           ID_VENTA: ID_VENTA,
+                       };
+                    var url = baseUrl + 'CuentasCobrar/CuentasCobrar/CuentasCobrar_NotificarCredito';
+                    var auditoria = SICA.Ajax(url, item, false);
+                    if (auditoria != null && auditoria != "") {
+                        if (auditoria.EJECUCION_PROCEDIMIENTO) {
+                            if (!auditoria.RECHAZAR) {
+                                jQuery.unblockUI(); 
+                                jOkas('Correo enviado con exito', 'Atención');
+                           
+                            } else {
+                                jQuery.unblockUI(); 
+                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            }
+                        } else {
+                            jQuery.unblockUI(); 
+                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        }
+                    }
+                }, 500);      
+            }
+        });
+}
+
+
+
 

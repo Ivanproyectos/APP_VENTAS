@@ -43,6 +43,19 @@ namespace App_Ventas.Recursos.Clases
             return ruta;
         }
 
+        public static string Ruta_PlantillaCorreo()
+        {
+            string ruta = "";
+            ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"Recursos\PlantillaCorreo\");
+            return ruta;
+        }
+
+        public static string Ruta_Reporting()
+        {
+            string ruta = "";
+            ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"Recursos\Forms\");
+            return ruta;
+        }
 
         public static MisRuta Ruta_TemporalI()
         {

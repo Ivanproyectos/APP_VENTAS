@@ -240,8 +240,10 @@
     <Compile Include="Recursos\Clases\Css_Codigo.cs" />
     <Compile Include="Recursos\Clases\Css_Convertir.cs" />
     <Compile Include="Recursos\Clases\Css_Encriptar.cs" />
+    <Compile Include="Recursos\Clases\Css_GenerarPlantilla.cs" />
     <Compile Include="Recursos\Clases\Css_IP.cs" />
     <Compile Include="Recursos\Clases\Css_Log.cs" />
+    <Compile Include="Recursos\Clases\Css_Mail.cs" />
     <Compile Include="Recursos\Clases\Css_Ruta.cs" />
     <Compile Include="Recursos\Forms\GenerarComprobante.aspx.cs">
       <DependentUpon>GenerarComprobante.aspx</DependentUpon>
@@ -4169,6 +4171,7 @@
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Recursos\Forms\GenerarComprobante.aspx" />
     <Content Include="Recursos\Imagenes\tulogo.png" />
+    <Content Include="Recursos\PlantillaCorreo\NotificarCredito.html" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\inicializacion.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
