@@ -4172,6 +4172,7 @@
     <Content Include="Recursos\Forms\GenerarComprobante.aspx" />
     <Content Include="Recursos\Imagenes\tulogo.png" />
     <Content Include="Recursos\PlantillaCorreo\NotificarCredito.html" />
+    <Content Include="Recursos\PlantillaCorreo\NotificarCredito1.html" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\inicializacion.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
