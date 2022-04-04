@@ -14,15 +14,15 @@ namespace App_Ventas.Areas.Compras.Models
 
         public long ID_COMPRA { get; set; }
 
-        [Display(Name = "Códgo Documento: ")]
+        [Display(Name = "Códgo Comprobante: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Códgo Documento] es obligatorio")]
-        public string COD_DOCUMENTO { get; set; }
+        public string CO_COMPROBAMTE { get; set; }
 
-        [Display(Name = "Fecha Documento: ")]
+        [Display(Name = "Fecha Compra: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Fecha Documento] es obligatorio")]
-        public string FCHA_DOCUMENTO { get; set; }
+        public string FECHA_COMPRA { get; set; }
 
 
         [Display(Name = "Sucursal: ")]
