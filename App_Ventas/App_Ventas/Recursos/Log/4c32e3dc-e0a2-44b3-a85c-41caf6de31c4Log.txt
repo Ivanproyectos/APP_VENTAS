@@ -1,7 +1,0 @@
-ERROR: Al exportar el archivo escaneado... System.IO.DirectoryNotFoundException: No se puede encontrar una parte de la ruta de acceso 'C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Recursos\Logo_Empresa\'.
-   en System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
-   en System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
-   en System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
-   en System.Net.Mail.AttachmentBase.SetContentFromFile(String fileName, String mediaType)
-   en System.Net.Mail.LinkedResource..ctor(String fileName, String mediaType)
-   en App_Ventas.Recursos.Clases.Css_Mail.MailHelper.SendMailMessage_Private(Cls_Ent_Auditoria& auditoria, String[] recepient, String bcc, String cc, String subject, String body, Stream& streamArchivo, String strNomArchivo, String strRutaAdjunto, Byte[] ArchivoByte, String sfrom) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Recursos\Clases\Css_Mail.cs:línea 133

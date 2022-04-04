@@ -1,4 +1,0 @@
-System.IndexOutOfRangeException: TIPO_DOCUMENTO_CLIENTE
-   en System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
-   en System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
-   en Capa_Datos.Ventas.Cls_Dat_Ventas.Ventas_Listar_Uno(Cls_Ent_Ventas entidad_param, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Ventas\Cls_Dat_Ventas.cs:línea 454

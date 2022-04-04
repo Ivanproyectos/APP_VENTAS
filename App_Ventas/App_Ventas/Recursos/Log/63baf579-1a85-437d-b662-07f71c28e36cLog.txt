@@ -1,4 +1,0 @@
-System.IndexOutOfRangeException: FLG_DEFAULT
-   en System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
-   en System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
-   en Capa_Datos.Login.Cls_Dat_Login.Usuario_Sistema_Modulo(Int64 ID_PERFIL, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Login\Cls_Dat_Login.cs:línea 50

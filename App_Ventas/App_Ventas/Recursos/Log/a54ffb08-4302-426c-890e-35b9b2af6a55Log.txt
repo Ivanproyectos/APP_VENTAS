@@ -1,3 +1,0 @@
-A2:System.Threading.ThreadAbortException: Subproceso anulado.
-   en App_Ventas.Handlers.CreateExcelFile.CreateExcelDocumentAsStream(DataSet ds, String filename, HttpResponse Response) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Handlers\CreateExcelFile.cs:línea 312
-   en App_Ventas.Handlers.CreateExcelFile.CreateExcelDocument(DataTable dt, String filename, HttpResponse Response) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Handlers\CreateExcelFile.cs:línea 236

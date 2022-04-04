@@ -1,4 +1,0 @@
-A3:System.IndexOutOfRangeException: No se puede encontrar la tabla 0.
-   en System.Data.DataTableCollection.get_Item(Int32 index)
-   en App_Ventas.Handlers.CreateExcelFile.WriteExcelFile(DataSet ds, SpreadsheetDocument spreadsheet) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Handlers\CreateExcelFile.cs:línea 754
-   en App_Ventas.Handlers.CreateExcelFile.CreateExcelDocumentAsStream(DataSet ds, String filename, HttpResponse Response) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Handlers\CreateExcelFile.cs:línea 278

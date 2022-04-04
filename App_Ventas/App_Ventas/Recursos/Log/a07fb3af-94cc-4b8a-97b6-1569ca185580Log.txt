@@ -1,4 +1,0 @@
-System.IndexOutOfRangeException: FLG_ESTADO
-   en System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
-   en System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
-   en Capa_Datos.Inventario.Cls_Dat_Categoria.Categoria_Listar(Cls_Ent_Categoria entidad_param, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Inventario\Cls_Dat_Categoria.cs:línea 44
