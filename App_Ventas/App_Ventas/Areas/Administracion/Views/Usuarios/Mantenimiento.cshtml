@@ -1,0 +1,301 @@
+﻿@model App_Ventas.Areas.Administracion.Models.UsuariosModelView
+
+<script>
+    $(document).ready(function () {
+        $('#FLG_ADMIN').bootstrapToggle({
+            on: 'Si',
+            off: 'No',
+            //onstyle: "info"
+        });
+        $('#CELULAR').numeric();
+        $('#TELEFONO').numeric();
+        Usuarios_Perfil_ConfigurarGrilla();
+        if ($('#AccionUsuarios').val() == "M") {            
+            $('#UsuariosAccesoTab').removeClass('DisabledContent')
+        }
+
+    });
+
+
+    $('#FEC_ACTIVACION, #FEC_DESACTIVACION ').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        firstDay: 1,
+        changeFirstDay: false,
+        showAnim: 'slideDown'
+    });
+
+
+    $('#Usuarios_btn_Guardar').click(function () {
+        Usuarios_Ingresar();
+    });
+
+
+
+    $('#ID_TIPO_DOCUMENTO').change(function () {
+        ChangeTipoDocumento($(this).val());
+    });
+
+    $('#APE_PATERNO,#NOMBRE,#DNI').blur(function () {
+        GenerarCredencialesUsuario();
+    });
+
+
+    function ChangeTipoDocumento(_TipoDocumento) {
+        $('#DNI').val('');
+        if (_TipoDocumento == 1) {
+            $('#DNI').prop('maxlength', 8);
+        } else if (_TipoDocumento == 4 || _TipoDocumento == 7) {
+            $('#DNI').prop('maxlength', 12);
+        } else if (_TipoDocumento == 6) {
+            $('#DNI').prop('maxlength', 11);
+        }
+    }
+    function Cliente_SearchPersona() {
+        var _tipoDocumento = $('#ID_TIPO_DOCUMENTO').val();
+        if (_tipoDocumento == 1) {
+            BuscarPersonalNatural($('#DNI').val());
+        } else if (_tipoDocumento == 6) {
+            //BuscarPersonalJuridica($('#DNI').val());
+        } else {
+            jDanger('Tipo documento no valido para buscar.', 'Atención')
+        }
+    }
+    function GenerarCredencialesUsuario() {
+        var APE_PATERNO = $('#APE_PATERNO').val();
+        var NOMBRE = $('#NOMBRE').val();
+        var DNI = $('#DNI').val();
+        if (DNI != "" && NOMBRE != "" && APE_PATERNO != "") {
+            COD_USUARIO = NOMBRE.substr(0, 1) + $('#APE_PATERNO').val();
+            $("#COD_USUARIO").val(COD_USUARIO);
+            $("#CLAVE_USUARIO").val(DNI);
+        }
+    }
+    function Tab_Click(_this) {
+        if (_this.id == "UsuariosTab") {
+            $('#Usuarios_btn_Guardar').show('slow');
+        } else if (_this.id == "UsuariosAccesoTab") {
+            $('#Usuarios_btn_Guardar').hide();
+            UsuariosPerfil_CargarGrilla();
+        }
+
+    }
+
+    $('#Usuarios_AgregarPerfil').click(function () {
+        if (ValidarFormatoFecha($('#FEC_ACTIVACION').val()) && ValidarFormatoFecha($('#FEC_DESACTIVACION').val())) {
+            if (ValidarFechasInicioFin($('#FEC_ACTIVACION').val(), $('#FEC_DESACTIVACION').val(), true)) {
+                UsuariosPerfil_Ingresar();
+            }
+        } else {
+            jWarning('Fecha tiene formato invalido.', 'Ateción');
+        }
+    });
+
+
+
+</script>
+
+<style>
+    .DisabledContent {
+        pointer-events: none;
+        opacity: 0.4;
+    }
+</style>
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            @if (Model.ID_USUARIO == 0)
+            {
+                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Nuevo Usuario</h5>
+            }
+            else
+            {
+                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Editar Usuario</h5>
+            }
+            <button type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <ul class="nav nav-tabs" style="margin-bottom: 10px;">
+                <li class="nav-item"><a href="#Usuariospanel" id="UsuariosTab" onclick="Tab_Click(this);" data-toggle="tab" class="nav-link active"><i class="bi bi-person-lines-fill"></i>&nbsp; Usuario</a>
+                </li>
+                <li class="nav-item"><a href="#UsuariosAccesoPanel" id="UsuariosAccesoTab" onclick="Tab_Click(this);" data-toggle="tab" class="nav-link DisabledContent"><i class="bi bi-person-check"></i>&nbsp;Usuario Acceso</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+
+
+                <div class="tab-pane fade active show" id="Usuariospanel" role="tabpanel">
+                    @using (Html.BeginForm("Usuarios", "Usuarios", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmMantenimiento_Usuarios" }))
+                    {
+                        @Html.ValidationSummary(true)
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.ID_TIPO_DOCUMENTO)
+                                @Html.DropDownListFor(model => model.ID_TIPO_DOCUMENTO, Model.Lista_Tipo_Documento, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                                @Html.ValidationMessageFor(model => model.ID_TIPO_DOCUMENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.DNI)
+                                <div class="input-group mb-12 ">
+                                    @Html.TextBoxFor(model => model.DNI, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
+                                    <div class="input-group-append  btn-hover-shine waves-effect waves-light" onclick="Cliente_SearchPersona()">
+                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.DNI, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.NOMBRE)
+                                @Html.TextBoxFor(model => model.NOMBRE, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.NOMBRE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.APE_PATERNO)
+                                @Html.TextBoxFor(model => model.APE_PATERNO, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.APE_PATERNO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.APE_MATERNO)
+                                @Html.TextBoxFor(model => model.APE_MATERNO, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.APE_MATERNO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.CELULAR)
+                                @Html.TextBoxFor(model => model.CELULAR, new { @class = "form-control", @maxlength = "9", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.CELULAR, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.TELEFONO)
+                                @Html.TextBoxFor(model => model.TELEFONO, new { @class = "form-control", @maxlength = "7", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.TELEFONO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.CORREO)
+                                @Html.TextBoxFor(model => model.CORREO, new { @class = "form-control", @maxlength = "100", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.CORREO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-6 css_center_block" style="align-items: start">
+                                @Html.LabelFor(model => model.FLG_ADMIN)
+                                @Html.CheckBoxFor(model => model.FLG_ADMIN, new { @class = "form-control", @maxlength = "200" })
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-row">
+                            <h4 class="card-title border-bottom-head" style="width: 100%; height: 30px;"><i class="bi bi-key"></i>&nbsp; Crendeciales Acceso</h4>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 ">
+                                @Html.LabelFor(model => model.COD_USUARIO)
+                                <div class="input-group mb-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                    </div>
+                                    @Html.TextBoxFor(model => model.COD_USUARIO, new { @class = "form-control", @maxlength = "200", @placeholder = "Ejm: iperez", @autocomplete = "off" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.COD_USUARIO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-6 ">
+                                @Html.LabelFor(model => model.CLAVE_USUARIO)
+                                <div class="input-group mb-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="bi bi-unlock"></i></span>
+                                    </div>
+                                    @Html.TextBoxFor(model => model.CLAVE_USUARIO, new { @class = "form-control", @maxlength = "200", @placeholder = "Ejm: elmejorxd", @autocomplete = "off", @type = "password" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.CLAVE_USUARIO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+                        </div>
+                    }
+                </div>
+
+
+                <div class="tab-pane fade " id="UsuariosAccesoPanel" role="tabpanel">
+
+                    <div class="form-row">
+                        <ul class="list-group col-md-12">
+                            <li class="list-group-item disabled">Agregar Usuario Sucursal</li>
+                            <li class="list-group-item">
+                                @using (Html.BeginForm("Usuarios", "Usuarios", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmMantenimiento_UsuariosPerfil" }))
+                                {
+                                    @Html.ValidationSummary(true)
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            @Html.LabelFor(model => model.ID_SUCURSAL)
+                                            @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                                            @Html.ValidationMessageFor(model => model.ID_SUCURSAL, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            @Html.LabelFor(model => model.ID_PERFIL)
+                                            @Html.DropDownListFor(model => model.ID_PERFIL, Model.Lista_Perfil, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                                            @Html.ValidationMessageFor(model => model.ID_PERFIL, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            @Html.LabelFor(model => model.FEC_ACTIVACION)
+                                            @Html.TextBoxFor(model => model.FEC_ACTIVACION, new { @class = "form-control", @maxlength = "200", @autocomplete = "off", @placeholder = "dd/mm/yyyy" })
+                                            @Html.ValidationMessageFor(model => model.FEC_ACTIVACION, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            @Html.LabelFor(model => model.FEC_DESACTIVACION)
+                                            @Html.TextBoxFor(model => model.FEC_DESACTIVACION, new { @class = "form-control", @maxlength = "200", @placeholder = "dd/mm/yyyy", @autocomplete = "off" })
+                                            @Html.ValidationMessageFor(model => model.FEC_DESACTIVACION, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                        </div>
+
+
+                                        <div class="form-group col-md-12" style="display: flex; justify-content: flex-end">
+                                            <button type="button" id="Usuarios_AgregarPerfil" class="btn btn-rounded btn-secondary btn-hover-shine">
+                                                <span class="btn-icon-left text-secondary"><i class="fa fa-plus color-secondary"></i>
+                                                </span>Agregar Acceso</button>
+                                        </div>
+                                    </div>
+                                }
+
+
+                            </li>
+                        </ul>
+                    </div>
+                    <br />
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <div class="jqGrid">
+                                <table id="Usuarios_Perfil_Grilla"></table>
+                                <div id="Usuarios_Perfil_Barra"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="Usuarios_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>&nbsp; Guardar</button>
+            <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+
+@Html.Hidden("hfd_ID_USUARIO", Model.ID_USUARIO)
+@Html.Hidden("AccionUsuarios", Model.Accion)

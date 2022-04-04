@@ -1,0 +1,207 @@
+﻿@model App_Ventas.Areas.Caja.Models.CajaModelView
+<script src="@Url.Content("~/Scripts/Js/Caja/Caja.js")" type="text/javascript"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //Caja_ConfigurarGrilla();
+        //Caja_CargarGrilla();
+        var Fecha_Actual = moment().format('DD/MM/YYYY');
+        $('#Caja_FechaInicio, #Caja_FechaFin').val(Fecha_Actual);
+        Caja_ConfigurarGrilla();
+    });
+
+    $("#Caja_btnBuscar").click(function (e) {
+        Caja_CargarGrilla();
+    });
+
+    $("#Caja_btnLimpiar").click(function (e) {
+        Caja_Limpiar();
+    });
+
+
+    $("#Caja_btnNuevo").click(function (e) {
+        Caja_MostrarNuevo();
+    });
+
+
+    $('#Caja_FechaInicio, #Caja_FechaFin').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        firstDay: 1,
+        changeFirstDay: false,
+        showAnim: 'slideDown'
+    });
+
+
+</script>
+
+<div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<style>
+    .table thead th {
+        background-color: #a9a9a9;
+        color: white;
+    }
+
+    ._text_detalle {
+        width: 45%;
+        max-width: 45%;
+        display: inline-block;
+        text-align: right;
+    }
+
+    ._text_detalle_monto {
+        width: 45%;
+        max-width: 45% display: inline-block;
+        text-align: left;
+    }
+</style>
+
+<div class="row ">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header border-bottom-head">
+                <h4 class="card-title">Filtrar Caja:</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="basic-form">
+                    <div class="form-row">
+
+                        <div class="form-group col-md-3">
+                            <label>Fecha Inicio:</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="Caja_FechaInicio" class="form-control" placeholder="">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Fecha Fin:</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="Caja_FechaFin" class="form-control" placeholder="">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Usuario:</label>
+                            @Html.DropDownListFor(model => model.ID_USUARIO, Model.Lista_Usuario, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Sucursal:</label>
+                            @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <button type="button" id="Caja_btnBuscar" class="btn btn-hover-shine  btn-square btn-primary "><i class="fa fa-search"></i>&nbsp Buscar</button>
+                            <button type="button" id="Caja_btnLimpiar" class="btn  btn-square btn-light"><i class="bi bi-arrow-clockwise"></i>&nbsp Limpiar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row ">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="profile-tab">
+                    <ul class="nav nav-tabs" style="margin-bottom: 10px;">
+                        <li class="nav-item"><a href="#Cadre_Caja" data-toggle="tab" class="nav-link active"><i class="bi bi-cash-stack"></i>&nbsp; Cuadre Caja</a>
+                        </li>
+                        <li class="nav-item"><a href="#Movimiento_Caja" data-toggle="tab" class="nav-link"><i class="bi bi-files"></i>&nbsp; Movimiento Caja</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="Cadre_Caja" role="tabpanel">
+
+                            <div class="alert alert-info  alert-dismissible alert-alt fade show col-sm-12" >
+                                Cuadre caja para el sucursal: <strong>EL Paraiso</strong>
+                            </div>
+                            <div class="form-row justify-content-center">
+                                <div class=" col-md-8 ">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-responsive-sm" style="color: #5a5a5a;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Tipo Movimiento</th>
+                                                    <th>Monto</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>1</th>
+                                                    <td>Ventas</td>
+                                                    <td class="color-primary">$21.56</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>2</th>
+                                                    <td>Compras</td>
+                                                    <td class="color-success">$55.32</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>3</th>
+                                                    <td>Ingresos</td>
+                                                    <td class="color-danger">$14.85</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>4</th>
+                                                    <td>Egresos</td>
+                                                    <td class="color-danger">$14.85</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>5</th>
+                                                    <td>Cuentas Cobradas</td>
+                                                    <td class="color-danger">$14.85</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 " style="display: flex; justify-content: flex-end; margin-bottom: 8px;">
+                                    <div class="col-xl-4 col-xxl-6 col-lg-8 col-md-8" style="padding: 0px">
+                                        <div class="basic-list-group">
+                                            <ul class="list-group list-group-flush" style="color: #5a5a5a;">
+                                                <li class="list-group-item"><span class="_text_detalle">Ingresos caja:</span> <span class="_text_detalle_monto">0</span></li>
+                                                <li class="list-group-item"><span class="_text_detalle">Egresos Caja:</span> <span class="_text_detalle_monto">0</span> </li>
+                                                <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;"><span class="_text_detalle">Total Caja:</span> <span class="_text_detalle_monto">0</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*        <div class="col-md-8 " style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
+                                 <button type="button" class="btn btn-rounded btn-success btn-hover-shine"><span class="btn-icon-left text-success"><i class="bi bi-inbox"></i>
+                                    </span>Cuadrar caja</button>
+                                </div>*@
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade show" id="Movimiento_Caja" role="tabpanel">
+                            <div class="alert alert-info  alert-dismissible alert-alt fade show col-sm-12" >
+                                Movimiento de caja para el sucursal: <strong>EL Paraiso</strong>
+                            </div>
+                            <div class="jqGrid">
+                                <table id="Caja_Grilla"></table>
+                                <div id="Barra_Grilla"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

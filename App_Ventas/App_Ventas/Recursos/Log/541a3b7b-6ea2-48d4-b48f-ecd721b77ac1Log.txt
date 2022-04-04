@@ -1,0 +1,17 @@
+System.OverflowException: Error al convertir el valor del parámetro de String a Int32. ---> System.OverflowException: Valor demasiado grande o demasiado pequeño para Int32.
+   en System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   en System.String.System.IConvertible.ToInt32(IFormatProvider provider)
+   en System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   en System.Data.SqlClient.SqlParameter.CoerceValue(Object value, MetaType destinationType, Boolean& coercedToDataFeed, Boolean& typeChanged, Boolean allowStreaming)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Data.SqlClient.SqlParameter.CoerceValue(Object value, MetaType destinationType, Boolean& coercedToDataFeed, Boolean& typeChanged, Boolean allowStreaming)
+   en System.Data.SqlClient.SqlParameter.GetCoercedValue()
+   en System.Data.SqlClient.SqlParameter.Validate(Int32 index, Boolean isCommandProc)
+   en System.Data.SqlClient.SqlCommand.SetUpRPCParameters(_SqlRPC rpc, Int32 startCount, Boolean inSchema, SqlParameterCollection parameters)
+   en System.Data.SqlClient.SqlCommand.BuildRPC(Boolean inSchema, SqlParameterCollection parameters, _SqlRPC& rpc)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   en System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   en System.Data.SqlClient.SqlCommand.ExecuteReader()
+   en Capa_Datos.Administracion.Cls_Dat_Cliente.Cliente_Insertar(Cls_Ent_Cliente entidad, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Administracion\Cls_Dat_Cliente.cs:línea 223

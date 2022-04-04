@@ -1,0 +1,5 @@
+A2:System.ArgumentException: La tabla Table1 no pertenece a esta DataSet.
+   en System.Data.DataTableCollection.CanRemove(DataTable table, Boolean fThrowException)
+   en System.Data.DataTableCollection.BaseRemove(DataTable table)
+   en System.Data.DataTableCollection.Remove(DataTable table)
+   en App_Ventas.Handlers.CreateExcelFile.CreateExcelDocument(DataTable dt, String filename, HttpResponse Response) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Handlers\CreateExcelFile.cs:línea 235

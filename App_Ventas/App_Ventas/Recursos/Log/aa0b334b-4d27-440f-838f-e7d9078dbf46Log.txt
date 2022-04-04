@@ -1,0 +1,4 @@
+System.IndexOutOfRangeException: FLG_ESTADO
+   en System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   en System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   en Capa_Datos.Administracion.Cls_Dat_Usuario_Perfil.Usuario_Perfil_Listar(Cls_Ent_Usuario_Perfil entidad_param, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Administracion\Cls_Dat_Usuario_Perfil.cs:línea 39

@@ -1,0 +1,5 @@
+System.FormatException: La cadena de entrada no tiene el formato correcto.
+   en System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   en System.Number.ParseInt64(String value, NumberStyles options, NumberFormatInfo numfmt)
+   en System.Int64.Parse(String s)
+   en Capa_Datos.Ventas.Cls_Dat_Ventas.Ventas_Insertar(Cls_Ent_Ventas entidad, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Ventas\Cls_Dat_Ventas.cs:línea 60

@@ -1,0 +1,5 @@
+System.IndexOutOfRangeException: FLG_ANULADO
+   en System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   en System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   en Capa_Datos.Ventas.Cls_Dat_Ventas.Ventas_Paginado(String ORDEN_COLUMNA, String ORDEN, Int32 FILAS, Int32 PAGINA, String WHERE, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Ventas\Cls_Dat_Ventas.cs:línea 46
+   en Capa_Negocio.Ventas.Cls_Rule_Ventas.Ventas_Paginado(String ORDEN_COLUMNA, String ORDEN, Int32 FILAS, Int32 PAGINA, String WHERE, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\Ventas\Cls_Rule_Ventas.cs:línea 21

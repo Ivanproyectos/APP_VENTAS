@@ -1,0 +1,269 @@
+﻿@model App_Ventas.Areas.Ventas.Models.VentasModelView
+<script>
+    var _ID_VENTA_CREDITO = 0;
+    var _FLG_CREDITO_PENDIENTE = false;
+    $(document).ready(function () {
+        ConfiguracionEmpresa();
+        var Fecha_Actual = moment().format('DD/MM/YYYY');
+        $('#FECHA_VENTA').val(Fecha_Actual);
+        Ventas_Detalle_ConfigurarGrilla('VENTAS');
+        $('#ID_CLIENTE').select2();
+        $('#ID_TIPO_COMPROBANTE').val('03');
+        $('#FLG_TIPO_PAGO').val('1');
+        Ventas_ClientesXComprobante($('#ID_TIPO_COMPROBANTE').val()); 
+    });
+    $('#FECHA_VENTA').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        firstDay: 1,
+        changeFirstDay: false,
+        showAnim: 'slideDown'
+    });
+
+    $('#Ventas_btn_Guardar').click(function () {
+        Ventas_Ingresar();
+    });
+
+
+    $('#Ventas_btn_BuscarProductos').click(function () {
+        Ventas_MostarBuscarProducto();
+    });
+
+    $(function () {
+        $(".modal-content").draggable();
+    });
+
+    $('#DESCUENTO').keyup(function () {
+        Ventas_Detalle_CalcularMontoTotalDetalle();
+        Fn_Ventas_Vuelto();
+    });
+
+    $('#TOTAL_RECIBIDO').keyup(function () {
+        Fn_Ventas_Vuelto();
+    });
+
+    $('#FLG_TIPO_PAGO, #ID_CLIENTE').change(function () {
+        Change_TipoVenta();
+    });
+
+    function Change_TipoVenta() {
+        if ($('#FLG_TIPO_PAGO').val() == 2) { // credito
+            var _Cliente = $("#ID_CLIENTE option:selected").text();
+            if (_Cliente == "AL PUBLICO") {
+                jError("Cliente seleccionado no es valido para credito.", "Atención");
+                $('#FLG_TIPO_PAGO').val(1)        
+            } else {
+                debugger; 
+                $('#Venta_NroOperacion').hide();
+                $('#Venta_Adelanto').show('slow');
+                if ($('#ID_CLIENTE').val() != "")
+                    Ventas_ValidarCliente_Credito($('#ID_CLIENTE').val(), _Id_Sucursal);
+           }
+
+        } else if ($('#FLG_TIPO_PAGO').val() == 3) {
+            $('#Venta_NroOperacion').show('slow');
+            $('#Venta_Adelanto').hide();
+            $('#Ventas_AlertCredito').hide('slow');
+            _FLG_CREDITO_PENDIENTE = false;
+        }
+        else {
+            _FLG_CREDITO_PENDIENTE = false;
+            $('#Venta_NroOperacion').hide();
+            $('#Venta_Adelanto').hide();
+            $('#Ventas_AlertCredito').hide('slow');
+        }
+    }
+
+
+    $('#NRO_OPERACION').keyup(function () {
+        if ($(this).val() != "") {
+            $('#NRO_OPERACION').tooltip('disable');
+        }
+    });
+
+    $('#ID_TIPO_COMPROBANTE').change(function () {
+        Ventas_ClientesXComprobante($('#ID_TIPO_COMPROBANTE').val());
+    }); 
+
+
+</script>
+
+<style>
+    .modal-lg_ {
+        max-width: 55%;
+    }
+
+</style>
+
+<div class="modal fade" id="myModalBuscarProduc" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<div class="modal-dialog modal-lg_" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title"><i class="bi bi-cart3"></i>&nbsp; Registrar nueva venta </h5>
+            <button type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            @using (Html.BeginForm("Ventas", "Ventas", new { @area = "Ventas" }, FormMethod.Post, new { @id = "frmMantenimiento_Ventas" }))
+            {                
+                @Html.ValidationSummary(true) 
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.ID_TIPO_COMPROBANTE)
+                        @Html.DropDownListFor(model => model.ID_TIPO_COMPROBANTE, Model.Lista_Tipo_Comprobante, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.ID_TIPO_COMPROBANTE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.FECHA_VENTA)
+                        @Html.TextBoxFor(model => model.FECHA_VENTA, new { @class = "form-control", @maxlength = "100", @disabled = "true" })
+                        @Html.ValidationMessageFor(model => model.FECHA_VENTA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.ID_CLIENTE)
+                        @Html.DropDownListFor(model => model.ID_CLIENTE, Model.Lista_Cliente, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.ID_CLIENTE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+                </div>
+            }
+            <br />
+            <div class="form-row">
+                <h4 class="card-title border-bottom-head" style="width: 100%; height: 30px;"><i class="bi bi-list-check"></i>&nbsp; Lista de Productos:</h4>
+            </div>
+            <div class="form-row">
+                <div class=" col-md-12" style="display: flex; justify-content: flex-end; margin-bottom: 5px;">
+                    <button type="button" class="btn btn-rounded btn-secondary btn-hover-shine" id="Ventas_btn_BuscarProductos" data-toggle="modal">
+                        <span class="btn-icon-left text-secondary"><i class="fa fa-plus color-secondary"></i>
+                        </span>Agregar Producto</button>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="jqGrid">
+                        <table id="Ventas_Detalle_Grilla"></table>
+                        <div id="Ventas_Detalle_Barra"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <h4 class="card-title border-bottom-head" style="width: 100%; height: 30px;">Detalle Documento:</h4>
+            </div>
+
+
+            <div class="form-row">
+                <div class="col-xl-8 col-xxl-6 col-lg-6 col-md-12">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.DESCUENTO)
+                            <div class="input-group mb-12">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text input-group-text_white"><span class="simboloMoneda"></span></span>
+                                </div>
+                                @Html.TextBoxFor(model => model.DESCUENTO, new { @class = "form-control ignore", @maxlength = "200", @requiered = "false", @autocomplete = "off" })
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.TOTAL_RECIBIDO)
+                            <div class="input-group mb-12">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text input-group-text_white"><span class="simboloMoneda"></span></span>
+                                </div>
+                                @Html.TextBoxFor(model => model.TOTAL_RECIBIDO, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.VUELTO)
+                            <div class="input-group mb-12">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text input-group-text_white"><span class="simboloMoneda"></span></span>
+                                </div>
+                                @Html.TextBoxFor(model => model.VUELTO, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
+                            </div>
+                        </div>
+                    </div>
+                    @using (Html.BeginForm("Ventas", "Ventas", new { @area = "Ventas" }, FormMethod.Post, new { @id = "frmMantenimiento_DetalleVenta" }))
+                    {  <div class="form-row">
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.FLG_TIPO_PAGO)
+                            @Html.DropDownListFor(model => model.FLG_TIPO_PAGO, Model.Lista_Tipo_Pago, new { @class = "form-control No-valid", @maxlength = "150", @style = "width:100%" })
+                            @Html.ValidationMessageFor(model => model.FLG_TIPO_PAGO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                        </div>
+
+                        <div class="form-group col-md-4" id="Venta_NroOperacion" style="display: none;">
+                            @Html.LabelFor(model => model.NRO_OPERACION)
+                            <div class="input-group mb-12">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text input-group-text_white"><i class="bi bi-credit-card" style="color: #000;"></i></span>
+                                </div>
+                                @Html.TextBoxFor(model => model.NRO_OPERACION, new { @class = "form-control ", @maxlength = "200", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.NRO_OPERACION, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-4" id="Venta_Adelanto" style="display: none;">
+                            @Html.LabelFor(model => model.ADELANTO)
+                            <div class="input-group mb-12">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text input-group-text_white"><span class="simboloMoneda"></span></span>
+                                </div>
+                                @Html.TextBoxFor(model => model.ADELANTO, new { @class = "form-control No-valid", @maxlength = "200", @autocomplete = "off" })
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            @Html.LabelFor(model => model.DETALLE_VENTA)
+                            @Html.TextAreaFor(model => model.DETALLE_VENTA, new { @class = "form-control", @maxlength = "1000", @autocomplete = "off" })
+                        </div>
+                    </div>
+
+                    <div id="Ventas_AlertCredito" class="alert alert-warning alert-dismissible alert-alt fade show" style="color: #000; display: none;">
+                        <strong><i class="bi bi-exclamation-triangle"></i>&nbsp;Aviso!</strong> Este cliente ya tiene una cuenta de crédito pendiente, 
+                                        el monto total de esta venta será añadida al balance total de la cuenta de forma automática.
+                   
+                    </div>
+
+                </div>
+                <div class="col-xl-4 col-xxl-6 col-lg-6 col-md-12 ">
+                    <div class="basic-list-group">
+                        <ul class="list-group list-group-flush" style="color: #5a5a5a;">
+                            <li class="list-group-item"><strong><b>Resumen:</b> </strong></li>
+                            <li class="list-group-item">
+                                <span class="_text_detalle"><span class="text-danger">(-) </span>Descuento Total:</span>
+                                <span class="_text_detalle_monto"><span class="simboloMoneda" ></span><span id="Venta_Descuento">0.0</span></span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="_text_detalle">Subtotal:</span>
+                                <span class="_text_detalle_monto"> <span class="simboloMoneda" ></span><span  id="Venta_Subtotal">0.0</span></span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="_text_detalle"><span id="NomImpuesto"></span>(<span id="Impuesto"></span>%):</span>
+                                <span class="_text_detalle_monto"><span class="simboloMoneda "></span><span  id="Venta_Igv">0.0</span></span>
+                            </li>
+                            <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;">
+                                <span class="_text_detalle">Total:</span>
+                                <span class="_text_detalle_monto" style="font-size: 15px;"><span class="simboloMoneda _Montos text-primary"></span><span class=" text-primary" id="Venta_Total">0.0</span></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="Ventas_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-cart-check"></i>&nbsp; Guardar Venta</button>
+            <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+
+@Html.Hidden("hfd_ID_VENTA", Model.ID_VENTA)
+@Html.Hidden("AccionVentas", Model.Accion)

@@ -1,0 +1,5 @@
+System.FormatException: La cadena de entrada no tiene el formato correcto.
+   en System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   en System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   en System.Int32.Parse(String s)
+   en Capa_Datos.Inventario.Cls_Dat_Producto.Producto_Listar(Cls_Ent_Producto entidad_param, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Inventario\Cls_Dat_Producto.cs:línea 107

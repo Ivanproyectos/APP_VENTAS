@@ -1,0 +1,128 @@
+﻿@model App_Ventas.Areas.CuentasCobrar.Models.CuentasCobrarModelView
+<script src="@Url.Content("~/Scripts/Js/CuentasCobrar/CuentasCobrar.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Ventas/Ventas_Detalle.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Recursiva/Configuracion.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Inventario/Producto_Recursos.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Ventas/Ventas_Recursiva.js")" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        CuentasCobrar_ConfigurarGrilla();
+        $('#ID_CLIENTE').select2();
+     
+        //CuentasCobrar_CargarGrilla();
+    });
+    $('#CuentasCobrar_FechaVenta').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        firstDay: 1,
+        changeFirstDay: false,
+        showAnim: 'slideDown'
+    });
+
+    $("#CuentasCobrar_btnBuscar").click(function (e) {
+        CuentasCobrar_ConfigurarGrilla();
+    });
+
+    $("#CuentasCobrar_btnLimpiar").click(function (e) {
+        CuentasCobrar_Limpiar();
+    });
+
+
+    $("#CuentasCobrar_btnNuevo").click(function (e) {
+        CuentasCobrar_MostrarNuevo();
+    });
+
+    $('#ID_SUCURSAL').change(function () {
+        CuentasCobrar_ConfigurarGrilla();
+    }); 
+
+
+</script>
+
+<div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<div class="row ">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header border-bottom-head">
+                <h4 class="card-title">Criterios de Busqueda</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="basic-form">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label>Código Código Venta:</label>
+                            <input id="CuentasCobrar_CodigoVenta" type="text" class="form-control" placeholder="Ejm: F55402">
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Estado Credito:</label>
+                            <select class="form-control" id="CuentasCobrar_FLG_CREDITO">
+                                <option value="">-- Seleccione --</option>
+                                <option value="0">Pendiente</option>
+                                <option value="1">Cancelado</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group col-md-3">
+                            <label>Cliente:</label>
+                            @Html.DropDownListFor(model => model.ID_CLIENTE, Model.Lista_Cliente, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        </div>
+
+                        
+                        <div class="form-group col-md-3">
+                            <label>Fecha Venta:</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="CuentasCobrar_FechaVenta" class="form-control" placeholder="dd/mm/yyyy", autocomplete="off" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                </div>
+                            </div>
+                       </div>
+                     
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <button type="button" id="CuentasCobrar_btnBuscar" class="btn btn-hover-shine  btn-square btn-primary "><i class="fa fa-search"></i>&nbsp Buscar</button>
+                            <button type="button" id="CuentasCobrar_btnLimpiar" class="btn  btn-square btn-light"><i class="bi bi-arrow-clockwise"></i>&nbsp Limpiar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row ">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                @* <button type="button" id="CuentasCobrar_btnNuevo" class="btn btn-rounded btn-primary btn-hover-shine" style="margin-bottom: 5px;">
+                    <span class="btn-icon-left  text-primary "><i class="fa fa-plus color-primary"></i></span>Nueva Venta</button>*@
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label>Sucursal:<span class="text-danger">(*)</span></label>
+                        @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                    </div>
+                </div>
+
+                <div class="jqGrid">
+                    <table id="CuentasCobrar_Grilla"></table>
+                    <div id="CuentasCobrar_Barra"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
