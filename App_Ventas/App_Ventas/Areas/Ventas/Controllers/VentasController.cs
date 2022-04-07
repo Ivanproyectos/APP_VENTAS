@@ -107,7 +107,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
         }
 
         [HttpGet]
-        public ActionResult Mantenimiento_BuscarProducto(int ID_SUCURSAL, int ID_PRODUCTO, decimal PRECIO, decimal IMPORTE, string _CANTIDAD, string Accion)
+        public ActionResult View_BuscarProducto(int ID_SUCURSAL, int ID_PRODUCTO, decimal PRECIO, decimal IMPORTE, string _CANTIDAD, string Accion,string TIPO_PROCESO)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             ProductoModelView model = new ProductoModelView();
@@ -116,7 +116,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
                 model.ID_SUCURSAL = ID_SUCURSAL;
                 model.ID_PRODUCTO = ID_PRODUCTO;
                 model.Accion = Accion;
-
+                model.TIPO_PROCESO = TIPO_PROCESO;
                 using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
                 {
                     model.Lista_Unidad_Medida = Repositorio.Unidad_Medida_Listar(ref auditoria).Select(x => new SelectListItem()
@@ -147,14 +147,14 @@ namespace App_Ventas.Areas.Ventas.Controllers
                             if (lista.ID_UNIDAD_MEDIDA == 1) // convertir gramos a kilos para editar
                             {
                                 _CANTIDAD = Convert.ToString(Convert.ToInt32(Convert.ToDecimal(_CANTIDAD) * 1000));
-                                lista.STOCK = (lista.STOCK * 1000);
+                                //lista.STOCK = (lista.STOCK * 1000);
                             }
                             model.ID_PRODUCTO = ID_PRODUCTO;
                             model.SEARCH_PRODUCTO = lista.DESC_PRODUCTO;
                             model.ID_UNIDAD_MEDIDA = lista.ID_UNIDAD_MEDIDA;
                             model.COD_PRODUCTO = lista.COD_PRODUCTO;
                             model.PRECIO_VENTA = PRECIO;
-                            model.STOCK = lista.STOCK;
+                            model.STOCK = Convert.ToString(lista.STOCK);
                             model.CANTIDAD = Convert.ToUInt16(_CANTIDAD);
                             model.TOTAL = IMPORTE;
                             model.FLG_SERIVICIO = lista.FLG_SERVICIO;

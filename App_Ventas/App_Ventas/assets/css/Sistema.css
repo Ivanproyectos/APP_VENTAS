@@ -1,0 +1,74 @@
+﻿/*^***resumen venta */
+
+    ._text_detalle {
+        width: 45%;
+        max-width: 45%;
+        display: inline-block;
+        text-align: right;
+        height: 100%;
+    }
+
+    ._text_detalle_monto {
+        width: 45%;
+        max-width: 45%;
+        display: inline-block;
+        text-align: right;
+
+    }
+
+    ._toggle_css > toggle-group > label {
+        text-align: center;
+    }
+
+    .input-group-text_white {
+        background: #f9fbfd;
+        color: #000;
+        border: 1px solid #c7c6c6;
+    }
+
+    .Group_Acciones > .dropdown-menu >  .dropdown-item {
+        font-size : 14px; 
+        cursor:pointer; 
+    }
+/*autocomplete productos*/
+
+
+
+    #modal-header_this {
+        background: #2c7be5 !important;
+        padding: 8px;
+    }
+
+    ._cListProductos {
+        padding: 0px 5px 0px 5px;
+        max-width: 100%;
+    }
+
+    ._text_producto {
+        text-align: center;
+        color: #2c7be5;
+        margin-bottom: 1px;
+        font-weight: bold;
+    }
+
+    ._InfoProd {
+        max-width: 100%;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        font-size: 12px;
+        /*color:#BDBDC7;*/
+    }
+
+    ._Stock, ._Precio, ._Tipo {
+        float: left;
+        width: 25%;
+    }
+
+    ._FotoPro {
+        float: right;
+        width: 20%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 50px;
+    }

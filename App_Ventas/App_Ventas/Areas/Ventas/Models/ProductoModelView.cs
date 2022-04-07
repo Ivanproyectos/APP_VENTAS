@@ -58,7 +58,7 @@ namespace App_Ventas.Areas.Ventas.Models
         [Display(Name = "Stock: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Stock] es obligatorio")]
-        public int STOCK { get; set; }
+        public string STOCK { get; set; }
 
 
         [Display(Name = "Stock: ")]
@@ -102,6 +102,8 @@ namespace App_Ventas.Areas.Ventas.Models
         public Cls_Ent_Archivo MiArchivo { get; set; }
         public string Accion { get; set; }
         public string COD_UNIDAD_MEDIDA { get; set; }
+        public string TIPO_PROCESO { get; set; }
+        
         
     }
 }

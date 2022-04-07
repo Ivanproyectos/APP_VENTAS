@@ -262,9 +262,10 @@
   <ItemGroup>
     <Content Include="assets\css\animate.min.css" />
     <Content Include="assets\css\Changes_estilos\theme_dark.css" />
+    <Content Include="assets\css\Copia de General.css" />
     <Content Include="assets\css\RadioButton.css" />
     <Content Include="assets\css\spinnerloader.css" />
-    <Content Include="assets\css\File_image.css" />
+    <Content Include="assets\css\Sistema.css" />
     <Content Include="assets\css\General.css" />
     <Content Include="assets\css\perfect-scrollbar.css" />
     <Content Include="assets\css\style.css" />
@@ -4161,12 +4162,13 @@
     <Content Include="Areas\CuentasCobrar\Views\Web.config" />
     <Content Include="Areas\CuentasCobrar\Views\CuentasCobrar\Index.cshtml" />
     <Content Include="Areas\Recursiva\Views\Web.config" />
-    <Content Include="Areas\Ventas\Views\Ventas\Mantenimiento_BuscarProducto.cshtml" />
+    <Content Include="Areas\Ventas\Views\Ventas\View_BuscarProducto.cshtml" />
     <Content Include="Areas\Login\Views\Web.config" />
     <Content Include="Areas\Ventas\Views\Ventas\Mantenimiento_ViewDetalleProducto.cshtml" />
     <Content Include="Areas\Ventas\Views\Consulta_Ventas\Index.cshtml" />
     <Content Include="Handlers\Exportar_Grilla_Excel.ashx" />
     <Content Include="Areas\CuentasCobrar\Views\CuentasCobrar\Mantenimiento.cshtml" />
+    <Content Include="Areas\Compras\Views\Compras\View_BuscarProducto.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Recursos\Forms\GenerarComprobante.aspx" />
@@ -4217,7 +4219,6 @@
     <Content Include="Scripts\Js\Inventario\Producto.js" />
     <Content Include="Scripts\Js\Inventario\Producto_Recursos.js" />
     <Content Include="Scripts\Js\Prueba.js" />
-    <Content Include="Scripts\Js\Recursiva\BuscarProcutos.js" />
     <Content Include="Scripts\Js\Recursiva\Configuracion.js" />
     <Content Include="Scripts\Js\Servicio\ServicioPersona.js" />
     <Content Include="Scripts\Js\Ventas\Consulta_Ventas.js" />

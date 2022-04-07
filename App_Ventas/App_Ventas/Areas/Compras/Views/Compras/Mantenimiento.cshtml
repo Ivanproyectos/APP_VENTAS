@@ -6,7 +6,7 @@
         var Fecha_Actual = moment().format('DD/MM/YYYY');
         $('#FECHA_COMPRA').val(Fecha_Actual);
         $('#ID_PROVEEDOR').select2();
-        Compras_Detalle_ConfigurarGrilla();
+        Ventas_Detalle_ConfigurarGrilla("VENTAS");
     });
 
     $('#Usuarios_btn_Guardar').click(function () {
@@ -22,6 +22,9 @@
         showAnim: 'slideDown'
     });
 
+    $('#Compras_btn_BuscarProductos').click(function () {
+        Compras_ViewBuscarProducto();
+    });
 
 
 </script>
@@ -33,6 +36,7 @@
 
 </style>
 
+<div class="modal fade" id="myModalBuscarProduc" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
 <div class="modal-dialog modal-lg_" role="document">
     <div class="modal-content">
@@ -78,14 +82,14 @@
                 </div>
                 <div class="form-row">
                     <div class=" col-md-12" style="display: flex; justify-content: flex-end; margin-bottom: 5px;">
-                        <button type="button" class="btn btn-rounded btn-secondary btn-hover-shine">
-                            <span class="btn-icon-left text-secondary"><i class="fa fa-plus color-secondary"></i>
+                        <button type="button" class="btn btn-rounded btn-secondary btn-hover-shine" id="Compras_btn_BuscarProductos" >
+                            <span class="btn-icon-left text-secondary" ><i class="fa fa-plus color-secondary"></i>
                             </span>Agregar Producto</button>
                     </div>
                     <div class="form-group col-md-12">
                         <div class="jqGrid">
-                            <table id="Compras_Detalle_Grilla"></table>
-                            <div id="Compras_Detalle_Barra"></div>
+                            <table id="Ventas_Detalle_Grilla"></table>
+                            <div id="VEntas_Detalle_Barra"></div>
                         </div>
                     </div>
                 </div>
@@ -95,12 +99,12 @@
                 
                 
                 <div class="form-row">
-                    <div class="col-xl-8 col-xxl-6 col-lg-6 col-md-12">
+                    <div class="col-xl-7 col-xxl-6 col-lg-6 col-md-12">
                         <div class="form-group col-md-12">
                             @Html.LabelFor(model => model.DESCUENTO)
                             <div class="input-group mb-12">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">S/.</span>
+                                    <span class="input-group-text input-group-text_white">S/.</span>
                                 </div>
                                 @Html.TextBoxFor(model => model.DESCUENTO, new { @class = "form-control", @maxlength = "200" })
                             </div>
@@ -111,7 +115,7 @@
                             @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "200" })
                         </div>
                     </div>
-                    <div class="col-xl-4 col-xxl-6 col-lg-6 col-md-12 ">
+                    <div class="col-xl-5 col-xxl-6 col-lg-6 col-md-12 ">
                         <div class="basic-list-group">
                             <ul class="list-group list-group-flush" style="color: #5a5a5a;">
                                 <li class="list-group-item"><b>Resumen:</b></li>

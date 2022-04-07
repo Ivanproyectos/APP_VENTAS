@@ -77,6 +77,20 @@ function Compras_MostrarNuevo() {
     });
 }
 
+function Compras_ViewBuscarProducto() {
+    var ID_SUCURSAL = _Id_Sucursal;
+    jQuery("#myModalBuscarProduc").html('');
+    jQuery("#myModalBuscarProduc").load(baseUrl + "Compras/Compras/View_BuscarProducto?ID_SUCURSAL=" + ID_SUCURSAL + "&ID_PRODUCTO=0&PRECIO=0&IMPORTE=0&_CANTIDAD=0&Accion=N&TIPO_PROCESO=COMPRAS",
+        function (responseText, textStatus, request) {
+            $('#myModalBuscarProduc').modal({ show: true, backdrop: 'static', keyboard: false });
+            $.validator.unobtrusive.parse('#myModalBuscarProduc');
+            if (request.status != 200) return;
+        });
+}
+
+
+
+
 function Compras_MostrarEditar(ID_COMPRA) {
     jQuery("#myModalNuevo").html('');
     jQuery("#myModalNuevo").load(baseUrl + "Compras/Compras/Mantenimiento?id=" + ID_COMPRA + "&Accion=M", function (responseText, textStatus, request) {
