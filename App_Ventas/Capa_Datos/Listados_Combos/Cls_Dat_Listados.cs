@@ -233,6 +233,49 @@ namespace Capa_Datos.Listados_Combos
             return lista;
         }
 
+        ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** Lista tipo comprobante *************************************************/
+        ///
+        public List<Cls_Ent_Tipo_Pago> Tipo_Tipo_Pago_Listar(ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            List<Cls_Ent_Tipo_Pago> lista = new List<Cls_Ent_Tipo_Pago>();
+            try
+            {
+                using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlDataReader dr = null;
+                    SqlCommand cmd = new SqlCommand("USP_CONS_TIPO_PAGO_LISTAR", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    dr = cmd.ExecuteReader();
+                    int pos_ID_TIPO_PAGO = dr.GetOrdinal("ID_TIPO_PAGO");
+                    int pos_DESC_TIPO_PAGO = dr.GetOrdinal("DESC_TIPO_PAGO");
+
+                    if (dr.HasRows)
+                    {
+                        Cls_Ent_Tipo_Pago obj = null;
+                        while (dr.Read())
+                        {
+                            obj = new Cls_Ent_Tipo_Pago();
+
+                            if (dr.IsDBNull(pos_ID_TIPO_PAGO)) obj.ID_TIPO_PAGO = 0;
+                            else obj.ID_TIPO_PAGO = int.Parse(dr[pos_ID_TIPO_PAGO].ToString());
+
+                            if (dr.IsDBNull(pos_DESC_TIPO_PAGO)) obj.DESC_TIPO_PAGO = "";
+                            else obj.DESC_TIPO_PAGO = dr.GetString(pos_DESC_TIPO_PAGO);
+                            lista.Add(obj);
+                        }
+                    }
+                    dr.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+            return lista;
+        }
 
         
     }

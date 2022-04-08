@@ -17,7 +17,7 @@ namespace App_Ventas.Areas.Compras.Models
         [Display(Name = "Códgo Comprobante: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Códgo Documento] es obligatorio")]
-        public string CO_COMPROBAMTE { get; set; }
+        public string COD_COMPROBANTE { get; set; }
 
         [Display(Name = "Fecha Compra: ")]
         [DataType(DataType.Text)]
@@ -43,6 +43,10 @@ namespace App_Ventas.Areas.Compras.Models
         public int ID_PROVEEDOR { get; set; }
         public List<SelectListItem> Lista_Proveedor { get; set; }
 
+        [Display(Name = "Subtotal: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Subtotal] es obligatorio")]
+        public decimal SUBTOTAL { get; set; }
 
         [Display(Name = "Descuento: ")]
         [DataType(DataType.Text)]
@@ -65,13 +69,28 @@ namespace App_Ventas.Areas.Compras.Models
         [Required(ErrorMessage = "[Detalle] es obligatorio")]
         public string DETALLE { get; set; }
 
-
+        
 
         public string Accion { get; set; }
 
+        [Display(Name = "¿Pago con Caja?: ")]
+        public bool FLG_PAGO_CAJA { get; set; }
 
+        [Display(Name = "Nro. Operación: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Nro. Operación] es obligatorio")]
+        public string NRO_OPERACION { get; set; }
       
+         [Display(Name = "Tipo Pago: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Tipo Pago] es obligatorio")]
+        public int ID_TIPO_PAGO { get; set; }
+         public List<SelectListItem> Lista_Tipo_Pago { get; set; }
 
-
+         public int ID_PROVEEDOR_SEARCH { get; set; }
+         public string DESC_SUCURSAL { get; set; }
+         public string TIPO_GRILLA { get; set; }
+        
+        
     }
 }

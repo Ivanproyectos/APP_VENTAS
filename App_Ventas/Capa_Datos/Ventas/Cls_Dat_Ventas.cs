@@ -46,7 +46,7 @@ namespace Capa_Datos.Ventas
                 int pos_COD_COMPROBANTE = dr.GetOrdinal("COD_COMPROBANTE");
                 int pos_FLG_ANULADO = dr.GetOrdinal("FLG_ANULADO");
                 int pos_FLG_ESTADO_CREDITO = dr.GetOrdinal("FLG_ESTADO_CREDITO");
-                int pos_FLG_TIPO_PAGO = dr.GetOrdinal("FLG_TIPO_PAGO");
+                int pos_ID_TIPO_PAGO = dr.GetOrdinal("ID_TIPO_PAGO");
                 //int pos_FECHA_VENTA = dr.GetOrdinal("STR_FECHA_VENTA");
                 int pos_ID_CLIENTE = dr.GetOrdinal("ID_CLIENTE");
                 int pos_ID_SUCURSAL = dr.GetOrdinal("ID_SUCURSAL");
@@ -59,8 +59,8 @@ namespace Capa_Datos.Ventas
                 int pos_TOTAL = dr.GetOrdinal("TOTAL");
                 int pos_DETALLE = dr.GetOrdinal("DETALLE");
                 int pos_DEBE = dr.GetOrdinal("DEBE");
-                int pos_ADELANTO = dr.GetOrdinal("ADELANTO");               
-                int pos_DESC_TIPO_VENTA = dr.GetOrdinal("DESC_TIPO_VENTA");
+                int pos_ADELANTO = dr.GetOrdinal("ADELANTO");
+                int pos_DESC_TIPO_PAGO = dr.GetOrdinal("DESC_TIPO_PAGO");
                 int pos_DESC_ESTADO_CREDITO = dr.GetOrdinal("DESC_ESTADO_CREDITO");
                 int pos_DESC_ESTADO_VENTA = dr.GetOrdinal("DESC_ESTADO_VENTA");
                 int pos_USU_CREACION = dr.GetOrdinal("USU_CREACION");
@@ -89,8 +89,8 @@ namespace Capa_Datos.Ventas
                         if (dr.IsDBNull(pos_FLG_ANULADO)) obj.FLG_ANULADO = 0;
                         else obj.FLG_ANULADO = int.Parse(dr[pos_FLG_ANULADO].ToString());
 
-                        if (dr.IsDBNull(pos_FLG_TIPO_PAGO)) obj.FLG_TIPO_PAGO = 0;
-                        else obj.FLG_TIPO_PAGO = int.Parse(dr[pos_FLG_TIPO_PAGO].ToString());
+                        if (dr.IsDBNull(pos_ID_TIPO_PAGO)) obj.ID_TIPO_PAGO = 0;
+                        else obj.ID_TIPO_PAGO = int.Parse(dr[pos_ID_TIPO_PAGO].ToString());
 
 
                         //if (dr.IsDBNull(pos_FECHA_VENTA)) obj.FECHA_VENTA = "";
@@ -128,8 +128,8 @@ namespace Capa_Datos.Ventas
                         else obj.NRO_OPERACION = dr.GetString(pos_NRO_OPERACION);
 
 
-                        if (dr.IsDBNull(pos_DESC_TIPO_VENTA)) obj.DESC_TIPO_VENTA = "";
-                        else obj.DESC_TIPO_VENTA = dr.GetString(pos_DESC_TIPO_VENTA);
+                        if (dr.IsDBNull(pos_DESC_TIPO_PAGO)) obj.DESC_TIPO_PAGO = "";
+                        else obj.DESC_TIPO_PAGO = dr.GetString(pos_DESC_TIPO_PAGO);
 
                         if (dr.IsDBNull(pos_DESC_ESTADO_CREDITO)) obj.DESC_ESTADO_CREDITO = "";
                         else obj.DESC_ESTADO_CREDITO = dr.GetString(pos_DESC_ESTADO_CREDITO);
@@ -184,7 +184,7 @@ namespace Capa_Datos.Ventas
                 {
                     SqlCommand cmd = new SqlCommand("USP_VENTA_VENTAS_INSERTAR", cn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@PI_FLG_TIPO_PAGO", SqlDbType.Int)).Value = entidad.FLG_TIPO_PAGO;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_TIPO_PAGO", SqlDbType.Int)).Value = entidad.ID_TIPO_PAGO;
                     cmd.Parameters.Add(new SqlParameter("@PI_FECHA_VENTA", SqlDbType.VarChar, 200)).Value = entidad.FECHA_VENTA;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_CLIENTE", SqlDbType.Int)).Value = entidad.ID_CLIENTE;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = entidad.ID_SUCURSAL;
@@ -500,7 +500,7 @@ namespace Capa_Datos.Ventas
                     int pos_ID_VENTA = dr.GetOrdinal("ID_VENTA");
                     int pos_COD_COMPROBANTE = dr.GetOrdinal("COD_COMPROBANTE");
                     int pos_FLG_ANULADO = dr.GetOrdinal("FLG_ANULADO");
-                    int pos_FLG_TIPO_PAGO = dr.GetOrdinal("FLG_TIPO_PAGO");
+                    int pos_ID_TIPO_PAGO = dr.GetOrdinal("ID_TIPO_PAGO");
                     int pos_ID_CLIENTE = dr.GetOrdinal("ID_CLIENTE");
                     int pos_ID_TIPO_COMPROBANTE = dr.GetOrdinal("ID_TIPO_COMPROBANTE");
                     int pos_SUB_TOTAL = dr.GetOrdinal("SUB_TOTAL");
@@ -536,8 +536,8 @@ namespace Capa_Datos.Ventas
                             if (dr.IsDBNull(pos_FLG_ANULADO)) obj.FLG_ANULADO = 0;
                             else obj.FLG_ANULADO = int.Parse(dr[pos_FLG_ANULADO].ToString());
 
-                            if (dr.IsDBNull(pos_FLG_TIPO_PAGO)) obj.FLG_TIPO_PAGO = 0;
-                            else obj.FLG_TIPO_PAGO = int.Parse(dr[pos_FLG_TIPO_PAGO].ToString());
+                            if (dr.IsDBNull(pos_ID_TIPO_PAGO)) obj.ID_TIPO_PAGO = 0;
+                            else obj.ID_TIPO_PAGO = int.Parse(dr[pos_ID_TIPO_PAGO].ToString());
 
                             if (dr.IsDBNull(pos_ID_CLIENTE)) obj.ID_CLIENTE = 0;
                             else obj.ID_CLIENTE = int.Parse(dr[pos_ID_CLIENTE].ToString());

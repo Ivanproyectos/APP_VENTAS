@@ -78,6 +78,19 @@ namespace Capa_Negocio.Listados_Combos
               return new List<Cls_Ent_Cliente>();
           }
       }
+
+      public List<Cls_Ent_Tipo_Pago> Tipo_Tipo_Pago_Listar(ref Cls_Ent_Auditoria auditoria)
+      {
+          try
+          {
+              return OData.Tipo_Tipo_Pago_Listar( ref auditoria);
+          }
+          catch (Exception ex)
+          {
+              auditoria.Error(ex);
+              return new List<Cls_Ent_Tipo_Pago>();
+          }
+      }
       
 
       

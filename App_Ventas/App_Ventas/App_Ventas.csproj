@@ -200,6 +200,7 @@
     <Compile Include="Areas\Compras\ComprasAreaRegistration.cs" />
     <Compile Include="Areas\Compras\Controllers\ComprasController.cs" />
     <Compile Include="Areas\Compras\Models\ComprasModelView.cs" />
+    <Compile Include="Areas\Compras\Repositorio\ComprasRepositorio.cs" />
     <Compile Include="Areas\CuentasCobrar\Controllers\CuentasCobrarController.cs" />
     <Compile Include="Areas\CuentasCobrar\CuentasCobrarAreaRegistration.cs" />
     <Compile Include="Areas\CuentasCobrar\Models\CuentasCobrarModelView.cs" />
@@ -263,6 +264,7 @@
     <Content Include="assets\css\animate.min.css" />
     <Content Include="assets\css\Changes_estilos\theme_dark.css" />
     <Content Include="assets\css\Copia de General.css" />
+    <Content Include="assets\css\File_image.css" />
     <Content Include="assets\css\RadioButton.css" />
     <Content Include="assets\css\spinnerloader.css" />
     <Content Include="assets\css\Sistema.css" />
@@ -4169,6 +4171,7 @@
     <Content Include="Handlers\Exportar_Grilla_Excel.ashx" />
     <Content Include="Areas\CuentasCobrar\Views\CuentasCobrar\Mantenimiento.cshtml" />
     <Content Include="Areas\Compras\Views\Compras\View_BuscarProducto.cshtml" />
+    <Content Include="Areas\Compras\Views\Compras\View_DetalleCompra.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Recursos\Forms\GenerarComprobante.aspx" />

@@ -28,7 +28,7 @@ namespace App_Ventas.Areas.Ventas.Models
 
         [Display(Name = "Tipo Pago: ")]
         [DataType(DataType.Text)]
-        public bool FLG_TIPO_PAGO { get; set; }
+        public int ID_TIPO_PAGO { get; set; }
         [Required(ErrorMessage = "[Tipo Pago] es obligatorio")]
         public List<SelectListItem> Lista_Tipo_Pago{ get; set; }
 
@@ -91,8 +91,8 @@ namespace App_Ventas.Areas.Ventas.Models
         public string Accion { get; set; }
 
         public string ID_TIPO_COMPROBANTE_SEARCH { get; set; }
-   
-
+        public int ID_TIPO_PAGO_SEARCH { get; set; }
+        
         /*CONSULTAS*/
          [Display(Name = "Usuario: ")]
         [DataType(DataType.Text)]

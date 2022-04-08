@@ -28,25 +28,13 @@
         $(".modal-content").draggable();
     });
 
-    $('#CANTIDAD').keyup(function () {
-        //if (_Cantidad <= _stock) {
-        var _Cantidad = $('#CANTIDAD').val();
-        if (_Cantidad == "")
-            _Cantidad = 1
-        var _precio = $('#PRECIO_VENTA').val();
-        var _total = 0.0;
-            _total = (_Cantidad * _precio);
-            $('#TOTAL').val(Number(_total).toFixed(2));
-
-        //} else {
-        //    jError('La cantidad no puede ser mayor al stock.', 'Atención');
-        //    _total = (1 * _precio);
-        //    $('#CANTIDAD').val(1)
-        //    $('#TOTAL').val(Number(_total).toFixed(2));
-        //}
+    $('#CANTIDAD, #PRECIO_VENTA').keyup(function () {
+        CalcularTotalPrecio(); 
     });
+
     function LimpiarFormulario() {
         $('#Alert_Error').hide();
+        $('#Alert_Warning').hide();
         $('#mensaje_Error').text('');
         $('#hfd_ID_PRODUCTO').val('');
         $('#hfd_STOCK').val('');
@@ -73,6 +61,15 @@
         }
     });
 
+    function CalcularTotalPrecio() {
+        var _Cantidad = $('#CANTIDAD').val();
+        if (_Cantidad == "")
+            _Cantidad = 1
+        var _precio = $('#PRECIO_VENTA').val();
+        var _total = 0.0;
+        _total = (_Cantidad * _precio);
+        $('#TOTAL').val(Number(_total).toFixed(2));
+    }
 
     /*autocomplete*/
     $('#SEARCH_PRODUCTO').autocomplete(
@@ -99,30 +96,20 @@
                 }
                 $("#hfd_STOCK").val(_STOCK);
                 $("#Label_Stock").text(_STOCK);
-                $("#PRECIO_VENTA").val(Number(ui.item.PRECIO_VENTA).toFixed(2));
+                $("#PRECIO_VENTA").val(Number(ui.item.PRECIO_COMPRA).toFixed(2));
                 $("#DETALLE").val(ui.item.DETALLE);
                 $('#TOTAL').val(Number(ui.item.PRECIO_VENTA).toFixed(2));
                 $('#hfd_ID_PRODUCTO').val(ui.item.ID_PRODUCTO);
                 $('#CANTIDAD').val(_Cantidad);
                 $('#CANTIDAD').focus();
+                CalcularTotalPrecio(); 
                 _Valido = true;
                 _Accion = "N";
             } else if (ui.item.FLG_SERVICIO == 1) { // servicios
-                $('#_DetallePorductos').show('slow');
-                $("#Hdf_flg_Servicio").val(ui.item.FLG_SERVICIO);
-                $("#hfd_STOCK").val(ui.item.STOCK);
-                $("#SEARCH_PRODUCTO").val(ui.item.DESC_PRODUCTO);
-                $("#ID_UNIDAD_MEDIDA").val(ui.item.ID_UNIDAD_MEDIDA);
-                $("#HDF_COD_UNIDAD_MEDIDA").val(ui.item.COD_UNIDAD_MEDIDA);
-                $("#COD_PRODUCTO").val(ui.item.COD_PRODUCTO);
-                $("#Label_Stock").text(ui.item.STOCK);
-                $("#PRECIO_VENTA").val(Number(ui.item.PRECIO_VENTA).toFixed(2));
-                $("#DETALLE").val(ui.item.DETALLE);
-                $('#TOTAL').val(Number(ui.item.PRECIO_VENTA).toFixed(2));
-                $('#hfd_ID_PRODUCTO').val(ui.item.ID_PRODUCTO);
-                $('#CANTIDAD').val(1);
-                $('#CANTIDAD').focus();
-                _Valido = true;
+                
+                $('#Alert_Warning').show('slow');
+                $('#mensaje_Alerta').text('No es posible ingresar este tipo de producto para compras.');
+                _Valido = false;
                 _Accion = "N";
             }
             else {
@@ -189,6 +176,7 @@
                                 <span class="input-group-text input-group-text_white"><i class="bi bi-search" style="color: #404040;"></i></span>
                             </div>
                         </div>
+                         @Html.ValidationMessageFor(model => model.SEARCH_PRODUCTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
                 </div>
                 
@@ -204,7 +192,7 @@
                         @Html.ValidationMessageFor(model => model.ID_UNIDAD_MEDIDA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.PRECIO_VENTA)
+                        <label for="PRECIO_VENTA">Precio Compra</label>
                         <div class="input-group ">
                             <div class="input-group-prepend">
                                 <span class="input-group-text input-group-text_white"><span class="simboloMoneda"></span></span>
@@ -255,7 +243,7 @@
                     <strong><i class="bi bi-exclamation-circle"></i>&nbsp;</strong><span id="mensaje_Error"></span>
                 </div>
 
-                <div id="Alert_Warning " class="alert alert-warning alert-dismissible alert-alt fade show col-md-12" style="display: none;">
+                <div id="Alert_Warning" class="alert alert-warning alert-dismissible alert-alt fade show col-md-12" style="display: none;">
                     <strong><i class="bi bi-exclamation-triangle"></i>&nbsp;</strong><span id="mensaje_Alerta"></span>
                 </div>    
             }

@@ -90,7 +90,10 @@ namespace App_Ventas.Areas.Ventas.Models
         public decimal TOTAL { get; set; }
 
         [Display(Name = "Buscar Producto: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Producto/Servicio] es obligatorio")]
         public string SEARCH_PRODUCTO { get; set; }
+      
 
         public string GrillaCarga { get; set; }
 
@@ -103,6 +106,8 @@ namespace App_Ventas.Areas.Ventas.Models
         public string Accion { get; set; }
         public string COD_UNIDAD_MEDIDA { get; set; }
         public string TIPO_PROCESO { get; set; }
+
+ 
         
         
     }

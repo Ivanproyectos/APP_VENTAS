@@ -1,0 +1,5 @@
+System.IndexOutOfRangeException: ADELANTO
+   en System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   en System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   en Capa_Datos.Compras.Cls_Dat_Compras.Compras_Paginado(String ORDEN_COLUMNA, String ORDEN, Int32 FILAS, Int32 PAGINA, String WHERE, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Compras\Cls_Dat_Compras.cs:línea 56
+   en Capa_Negocio.Compras.Cls_Rule_Compras.Compras_Paginado(String ORDEN_COLUMNA, String ORDEN, Int32 FILAS, Int32 PAGINA, String WHERE, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\Compras\Cls_Rule_Compras.cs:línea 20

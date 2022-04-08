@@ -55,11 +55,14 @@
     <Compile Include="Administracion\Cls_Ent_Usuario_Perfil.cs" />
     <Compile Include="Administracion\Cls_Ent_Unidad_Medida.cs" />
     <Compile Include="Administracion\Cls_Ent_Devolucion.cs" />
+    <Compile Include="Administracion\Cls_Ent_Tipo_Pago.cs" />
     <Compile Include="Base\Cls_Ent_Archivo.cs" />
     <Compile Include="Base\Cls_Ent_Base.cs" />
     <Compile Include="Base\Cls_Ent_Columnas.cs" />
     <Compile Include="Base\Cls_Ent_Titulo.cs" />
     <Compile Include="Cls_Ent_Auditoria.cs" />
+    <Compile Include="Compras\Cls_Ent_Compras.cs" />
+    <Compile Include="Compras\Cls_Ent_Compras_Detalle.cs" />
     <Compile Include="Inventario\Cls_Ent_Categoria.cs" />
     <Compile Include="Inventario\Cls_Ent_Producto.cs" />
     <Compile Include="Login\Cls_Ent_Modulo.cs" />

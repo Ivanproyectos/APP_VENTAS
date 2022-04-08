@@ -10,7 +10,7 @@ function Ventas_Cerrar() {
 function Ventas_Limpiar() {
     $("#Ventas_CodigoVenta").val('');
     $('#ID_TIPO_COMPROBANTE_SEARCH').val('');
-    $('#Ventas_FLG_TIPO_PAGO').val('');
+    $('#Ventas_ID_TIPO_PAGO').val('');
     Ventas_ConfigurarGrilla();
 }
 
@@ -35,7 +35,7 @@ function Ventas_ConfigurarGrilla() {
             { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },//12
             { name: 'COD_COMPROBANTE', index: 'COD_COMPROBANTE', width: 150, hidden: true, align: "left" },//13
             { name: 'FLG_ANULADO', index: 'FLG_ANULADO', width: 150, hidden: true, align: "left" },//14
-            { name: 'FLG_TIPO_PAGO', index: 'FLG_TIPO_PAGO', width: 150, hidden: true, align: "left" },//15
+            { name: 'ID_TIPO_PAGO', index: 'ID_TIPO_PAGO', width: 150, hidden: true, align: "left" },//15
             { name: 'FLG_ESTADO_CREDITO', index: 'FLG_ESTADO_CREDITO', width: 150, hidden: true, align: "left" },//16
             { name: 'NRO_OPERACION', index: 'NRO_OPERACION', width: 150, hidden: true, align: "left" },//17
             
@@ -59,7 +59,7 @@ function GetRules(Ventas_Grilla) {
     var rules = new Array();
     var FECHA_VENTA = moment().format('DD/MM/YYYY');
     var ID_TIPO_COMPROBANTE = jQuery('#ID_TIPO_COMPROBANTE_SEARCH').val() == '' ? null : "'" + jQuery('#ID_TIPO_COMPROBANTE_SEARCH').val() + "'";
-    var FLG_TIPO_PAGO = jQuery('#Ventas_FLG_TIPO_PAGO').val() == '' ? null : "'" + jQuery('#Ventas_FLG_TIPO_PAGO').val() + "'";
+    var ID_TIPO_PAGO = jQuery('#ID_TIPO_PAGO_SEARCH').val() == '' ? null : "'" + jQuery('#ID_TIPO_PAGO_SEARCH').val() + "'";
     var CODIGO_VENTA = "'" + jQuery('#Ventas_CodigoVenta').val() + "'";
     var _USUARIO_LOGEADO = "'" + jQuery('#input_hdcodusuario').val() + "'"; 
 
@@ -67,7 +67,7 @@ function GetRules(Ventas_Grilla) {
     rules = []
     rules.push({ field: 'UPPER(COD_COMPROBANTE)', data: POR + ' + ' + CODIGO_VENTA + ' + ' + POR, op: " LIKE " });
     rules.push({ field: 'ID_TIPO_COMPROBANTE', data: '  ISNULL(' + ID_TIPO_COMPROBANTE + ',ID_TIPO_COMPROBANTE) ', op: " = " });
-    rules.push({ field: 'FLG_TIPO_PAGO', data: '  ISNULL(' + FLG_TIPO_PAGO + ',FLG_TIPO_PAGO) ', op: " = " });
+    rules.push({ field: 'ID_TIPO_PAGO', data: '  ISNULL(' + ID_TIPO_PAGO + ',ID_TIPO_PAGO) ', op: " = " });
     rules.push({ field: 'CONVERT(DATE,FEC_CREACION,103)', data: 'CONVERT(DATE,\'' + FECHA_VENTA + '\',103) ', op: " = " });
     rules.push({ field: 'UPPER(COD_COMPROBANTE)', data: POR + ' + ' + CODIGO_VENTA + ' + ' + POR, op: " LIKE " });
     rules.push({ field: 'UPPER(USU_CREACION)', data: _USUARIO_LOGEADO, op: " = " });
@@ -121,15 +121,15 @@ function Ventas_Anulado(cellvalue, options, rowObject) {
 
 function Ventas_TipoPago(cellvalue, options, rowObject) {
     var _DESC_TIPO_VENTA = rowObject[11];
-    var _FLG_TIPO_PAGO = rowObject[15];
+    var _ID_TIPO_PAGO = rowObject[15];
     var _NRO_OPERACION = rowObject[17];
     var _text = "";
-    if (_FLG_TIPO_PAGO == 2) {
+    if (_ID_TIPO_PAGO == 2) {
         _text = "<span class=\"badge badge-warning \" data-bs-toggle=\"tooltip\" title=\"Esta venta fue es al credito.\">"+_DESC_TIPO_VENTA+"</span>";
     }
-    else if (_FLG_TIPO_PAGO == 1) {
+    else if (_ID_TIPO_PAGO == 1) {
         _text = _DESC_TIPO_VENTA; 
-    } else if (_FLG_TIPO_PAGO == 3) {
+    } else if (_ID_TIPO_PAGO == 3) {
         _text = '<span>' + _DESC_TIPO_VENTA + '</span><br><span style="font-size: 12px; color: #2c7be5;"><i class="bi bi-credit-card"></i>&nbsp;Nro. Operación: ' + _NRO_OPERACION + '</span>';;
     }
     return _text;
@@ -228,7 +228,7 @@ function Ventas_Ingresar() {
                                     ID_CLIENTE: $("#ID_CLIENTE").val(),
                                     ID_SUCURSAL: $("#inputL_Id_Sucursal").val(),
                                     NRO_OPERACION: $("#NRO_OPERACION").val(),
-                                    FLG_TIPO_PAGO: $("#FLG_TIPO_PAGO").val(),
+                                    ID_TIPO_PAGO: $("#ID_TIPO_PAGO").val(),
                                     FLG_CREDITO_PENDIENTE: _FLG_CREDITO_PENDIENTE,
                                     ID_VENTA_CREDITO: _ID_VENTA_CREDITO,
                                     DESCUENTO: parseFloat($("#Venta_Descuento").text()),

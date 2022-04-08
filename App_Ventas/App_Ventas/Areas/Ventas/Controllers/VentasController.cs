@@ -59,6 +59,17 @@ namespace App_Ventas.Areas.Ventas.Controllers
                 model.Lista_Tipo_Comprobante.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
             }
 
+
+            using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
+            {
+                model.Lista_Tipo_Pago = Repositorio.Tipo_Tipo_Pago_Listar(ref auditoria).Select(x => new SelectListItem()
+                {
+                    Text = x.DESC_TIPO_PAGO,
+                    Value = x.ID_TIPO_PAGO.ToString()
+                }).ToList();
+                model.Lista_Tipo_Pago.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+            }
+
             return View(model);
         }
 
@@ -69,17 +80,16 @@ namespace App_Ventas.Areas.Ventas.Controllers
 
             model.Lista_Cliente = new List<SelectListItem>();
             model.Lista_Cliente.Insert(0, new SelectListItem() { Value = "", Text = "--Selccione--" });
-            ////using (ClienteRepositorio RepositorioC = new ClienteRepositorio())
-            ////{
-            ////    Cls_Ent_Cliente Entidad = new Cls_Ent_Cliente();
-            ////    Entidad.FLG_ESTADO = 1; // activos
-            ////    model.Lista_Cliente = RepositorioC.Cliente_Listar(Entidad, ref auditoria).Select(x => new SelectListItem()
-            ////    {
-            ////        Text = x.NOMBRES_APE + " - " +x.NUMERO_DOCUMENTO,
-            ////        Value = x.ID_CLIENTE.ToString()
-            ////    }).ToList();
-            ////    model.Lista_Cliente.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
-            ////}
+
+            using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
+            {
+                model.Lista_Tipo_Pago = Repositorio.Tipo_Tipo_Pago_Listar(ref auditoria).Select(x => new SelectListItem()
+                {
+                    Text = x.DESC_TIPO_PAGO ,
+                    Value = x.ID_TIPO_PAGO.ToString()
+                }).ToList();
+                model.Lista_Tipo_Pago.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+            }
 
             using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
             {
@@ -96,10 +106,10 @@ namespace App_Ventas.Areas.Ventas.Controllers
                 }
               
             }
-            model.Lista_Tipo_Pago = new List<SelectListItem>();
-            model.Lista_Tipo_Pago.Insert(0, new SelectListItem() { Value = "1", Text = "Al Contado" });
-            model.Lista_Tipo_Pago.Insert(1, new SelectListItem() { Value = "2", Text = "Credito" });
-            model.Lista_Tipo_Pago.Insert(2, new SelectListItem() { Value = "3", Text = "Deposito" });
+            //model.Lista_Tipo_Pago = new List<SelectListItem>();
+            //model.Lista_Tipo_Pago.Insert(0, new SelectListItem() { Value = "1", Text = "Al Contado" });
+            //model.Lista_Tipo_Pago.Insert(1, new SelectListItem() { Value = "2", Text = "Credito" });
+            //model.Lista_Tipo_Pago.Insert(2, new SelectListItem() { Value = "3", Text = "Deposito" });
 
 
             return View(model);
@@ -107,7 +117,8 @@ namespace App_Ventas.Areas.Ventas.Controllers
         }
 
         [HttpGet]
-        public ActionResult View_BuscarProducto(int ID_SUCURSAL, int ID_PRODUCTO, decimal PRECIO, decimal IMPORTE, string _CANTIDAD, string Accion,string TIPO_PROCESO)
+        public ActionResult View_BuscarProducto(int ID_SUCURSAL, int ID_PRODUCTO, decimal PRECIO, 
+            decimal IMPORTE, string _CANTIDAD, string Accion,string TIPO_PROCESO)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             ProductoModelView model = new ProductoModelView();
@@ -242,12 +253,12 @@ namespace App_Ventas.Areas.Ventas.Controllers
                             item.IGV.ToString(), 
                             item.TOTAL.ToString(),                               
                             item.DESC_ESTADO_VENTA.ToString(),
-                            item.DESC_TIPO_VENTA.ToString(),
+                            item.DESC_TIPO_PAGO.ToString(),
                             item.FEC_CREACION.ToString(),
                             item.COD_COMPROBANTE.ToString(),
 
                             item.FLG_ANULADO.ToString(),
-                            item.FLG_TIPO_PAGO.ToString(),
+                            item.ID_TIPO_PAGO.ToString(),
                             item.FLG_ESTADO_CREDITO.ToString(),
                             item.NRO_OPERACION, 
                             item.DEBE.ToString(),
@@ -299,26 +310,29 @@ namespace App_Ventas.Areas.Ventas.Controllers
                     }
                     else
                     {
-                        int _ID_VENTA = Convert.ToInt32(auditoria.OBJETO);
-                        string _Codigo_Comprobante = Convert.ToString(auditoria.OBJETO2);
-                        if (entidad.ListaDetalle != null && entidad.ListaDetalle.Count > 0)
+                        if (!auditoria.RECHAZAR)
                         {
-                            foreach (Cls_Ent_Ventas_Detalle EntidadDet in entidad.ListaDetalle)
+                            int _ID_VENTA = Convert.ToInt32(auditoria.OBJETO);
+                            string _Codigo_Comprobante = Convert.ToString(auditoria.OBJETO2);
+                            if (entidad.ListaDetalle != null && entidad.ListaDetalle.Count > 0)
                             {
-                                EntidadDet.ID_VENTA = _ID_VENTA;
-                                EntidadDet.USU_CREACION = entidad.USU_CREACION;
-                                EntidadDet.ID_TIPO_COMPROBANTE = entidad.ID_TIPO_COMPROBANTE; 
-                                Ventasrepositorio.Ventas_Detalle_Insertar(EntidadDet, ref auditoria);
+                                foreach (Cls_Ent_Ventas_Detalle EntidadDet in entidad.ListaDetalle)
+                                {
+                                    EntidadDet.ID_VENTA = _ID_VENTA;
+                                    EntidadDet.USU_CREACION = entidad.USU_CREACION;
+                                    EntidadDet.ID_TIPO_COMPROBANTE = entidad.ID_TIPO_COMPROBANTE;
+                                    Ventasrepositorio.Ventas_Detalle_Insertar(EntidadDet, ref auditoria);
+                                }
                             }
-                        }
-                        else
-                        {
-                            auditoria.Rechazar("Lista producto no puede estar vacio.");
-                        }
-                        if (auditoria.EJECUCION_PROCEDIMIENTO)
-                        {
-                            auditoria.OBJETO = _ID_VENTA;
-                            auditoria.OBJETO2 = _Codigo_Comprobante;
+                            else
+                            {
+                                auditoria.Rechazar("Lista producto no puede estar vacio.");
+                            }
+                            if (auditoria.EJECUCION_PROCEDIMIENTO)
+                            {
+                                auditoria.OBJETO = _ID_VENTA;
+                                auditoria.OBJETO2 = _Codigo_Comprobante;
+                            }
                         }
                     }
                 }
@@ -331,24 +345,27 @@ namespace App_Ventas.Areas.Ventas.Controllers
                     }
                     else
                     {
-                        int _ID_VENTA = entidad.ID_VENTA_CREDITO;
-                        if (entidad.ListaDetalle != null && entidad.ListaDetalle.Count > 0)
+                        if (!auditoria.RECHAZAR)
                         {
-                            foreach (Cls_Ent_Ventas_Detalle EntidadDet in entidad.ListaDetalle)
+                            int _ID_VENTA = entidad.ID_VENTA_CREDITO;
+                            if (entidad.ListaDetalle != null && entidad.ListaDetalle.Count > 0)
                             {
-                                EntidadDet.ID_VENTA = _ID_VENTA;
-                                EntidadDet.USU_CREACION = entidad.USU_CREACION;
-                                EntidadDet.ID_TIPO_COMPROBANTE = entidad.ID_TIPO_COMPROBANTE; 
-                                Ventasrepositorio.Ventas_Detalle_Insertar(EntidadDet, ref auditoria);
+                                foreach (Cls_Ent_Ventas_Detalle EntidadDet in entidad.ListaDetalle)
+                                {
+                                    EntidadDet.ID_VENTA = _ID_VENTA;
+                                    EntidadDet.USU_CREACION = entidad.USU_CREACION;
+                                    EntidadDet.ID_TIPO_COMPROBANTE = entidad.ID_TIPO_COMPROBANTE;
+                                    Ventasrepositorio.Ventas_Detalle_Insertar(EntidadDet, ref auditoria);
+                                }
                             }
-                        }
-                        else
-                        {
-                            auditoria.Rechazar("Lista producto no puede estar vacio.");
-                        }
-                        if (auditoria.EJECUCION_PROCEDIMIENTO)
-                        {
-                            auditoria.OBJETO = _ID_VENTA;
+                            else
+                            {
+                                auditoria.Rechazar("Lista producto no puede estar vacio.");
+                            }
+                            if (auditoria.EJECUCION_PROCEDIMIENTO)
+                            {
+                                auditoria.OBJETO = _ID_VENTA;
+                            }
                         }
                     }
                 }

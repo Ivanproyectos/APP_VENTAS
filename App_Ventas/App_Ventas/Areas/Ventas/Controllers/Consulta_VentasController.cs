@@ -33,6 +33,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
                     Value = x.ID_TIPO_COMPROBANTE.ToString()
                 }).ToList();
                 model.Lista_Tipo_Comprobante.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+
             }
 
 
@@ -66,6 +67,17 @@ namespace App_Ventas.Areas.Ventas.Controllers
                 }).ToList();
                 model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
             }
+
+            using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
+            {
+                model.Lista_Tipo_Pago = Repositorio.Tipo_Tipo_Pago_Listar(ref auditoria).Select(x => new SelectListItem()
+                {
+                    Text = x.DESC_TIPO_PAGO,
+                    Value = x.ID_TIPO_PAGO.ToString()
+                }).ToList();
+                model.Lista_Tipo_Pago.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+            }
+
 
             return View(model);
         }

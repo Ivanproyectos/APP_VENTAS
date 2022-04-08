@@ -1232,9 +1232,9 @@ First(Fields!ID_TIPO_DOCUMENTO.Value, "Ds_Cliente")= 4, "Carnet extra.: ") &amp;
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>="Tipo Pago: " &amp; Switch(First(Fields!FLG_TIPO_PAGO.Value, "Ds_Cabecera") = 1, "Al Contado",
-First(Fields!FLG_TIPO_PAGO.Value, "Ds_Cabecera") = 2, "Credito",
-First(Fields!FLG_TIPO_PAGO.Value, "Ds_Cabecera")= 3, "Deposito")</Value>
+                <Value>="Tipo Pago: " &amp; Switch(First(Fields!ID_TIPO_PAGO.Value, "Ds_Cabecera") = 1, "Al Contado",
+First(Fields!ID_TIPO_PAGO.Value, "Ds_Cabecera") = 2, "Credito",
+First(Fields!ID_TIPO_PAGO.Value, "Ds_Cabecera")= 3, "Deposito")</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1320,8 +1320,8 @@ First(Fields!FLG_TIPO_PAGO.Value, "Ds_Cabecera")= 3, "Deposito")</Value>
           <DataField>COD_COMPROBANTE</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="FLG_TIPO_PAGO">
-          <DataField>FLG_TIPO_PAGO</DataField>
+        <Field Name="ID_TIPO_PAGO">
+          <DataField>ID_TIPO_PAGO</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="FECHA_VENTA">

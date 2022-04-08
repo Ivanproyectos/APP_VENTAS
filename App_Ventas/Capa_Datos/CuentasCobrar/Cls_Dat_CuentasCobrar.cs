@@ -31,7 +31,7 @@ namespace Capa_Datos.CuentasCobrar
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_CLIENTE", SqlDbType.Int)).Value = entidad.ID_CLIENTE;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_VENTA", SqlDbType.Int)).Value = entidad.ID_VENTA;
                     cmd.Parameters.Add(new SqlParameter("@PI_MONTO", SqlDbType.Decimal)).Value = entidad.TOTAL;
-                    cmd.Parameters.Add(new SqlParameter("@PI_FLG_TIPO_PAGO", SqlDbType.Int)).Value = entidad.FLG_TIPO_PAGO;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_TIPO_PAGO", SqlDbType.Int)).Value = entidad.ID_TIPO_PAGO;
                     if (entidad.NRO_OPERACION == null)
                     { cmd.Parameters.Add(new SqlParameter("@PI_NRO_OPERACION", SqlDbType.VarChar, 100)).Value = DBNull.Value; }
                     else

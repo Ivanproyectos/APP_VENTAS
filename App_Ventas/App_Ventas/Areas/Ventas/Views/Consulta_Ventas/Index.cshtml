@@ -89,12 +89,7 @@
 
                         <div class="form-group col-md-3">
                             <label>Tipo Pago:</label>
-                              <select class="form-control"  id="Ventas_FLG_TIPO_PAGO">
-                                <option value="">-- Seleccione --</option>
-                                <option value="1">Al Contado</option>
-                                <option value="2">Credito</option>
-                                <option value="3">Deposito</option>
-                            </select>
+                                @Html.DropDownListFor(model => model.ID_TIPO_PAGO_SEARCH, Model.Lista_Tipo_Pago, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         </div>
 
                         <div class="form-group col-md-3">

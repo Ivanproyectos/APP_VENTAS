@@ -70,7 +70,7 @@ function GetRules(CuentasCobrar_Grilla) {
     rules.push({ field: 'CONVERT(DATE,FEC_CREACION,103)', data: 'CONVERT(DATE,ISNULL(' + FECHA_VENTA + ',FEC_CREACION),103)  ', op: " = " });
     rules.push({ field: 'UPPER(COD_COMPROBANTE)', data: POR + ' + ' + CODIGO_COMPROBANTE + ' + ' + POR, op: " LIKE " });
     rules.push({ field: 'ID_SUCURSAL', data: ID_SUCURSAL, op: " = " });
-    rules.push({ field: '(FLG_TIPO_PAGO', data: '2 OR FLG_ESTADO_CREDITO  = 1 )', op: " = " }); // CREDITO
+    rules.push({ field: '(ID_TIPO_PAGO', data: '2 OR FLG_ESTADO_CREDITO  = 1 )', op: " = " }); // CREDITO
     rules.push({ field: 'FLG_ANULADO', data: 0, op: " = " }); // NO ANULADOS
 
     return rules;
@@ -188,7 +188,7 @@ function CuentasCobrar_Ingresar() {
                             ID_CLIENTE: $("#hfd_ID_CLIENTE").val(),
                             TOTAL: parseFloat($("#Venta_TotalDebe").text()),
                             USU_CREACION: $('#input_hdcodusuario').val(),
-                            FLG_TIPO_PAGO: $("#FLG_TIPO_PAGO").val(),
+                            ID_TIPO_PAGO: $("#ID_TIPO_PAGO").val(),
                             NRO_OPERACION: $("#NRO_OPERACION").val(),
                   
                         };
