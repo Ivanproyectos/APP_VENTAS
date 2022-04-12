@@ -1,15 +1,18 @@
 ﻿@model App_Ventas.Areas.Compras.Models.ComprasModelView
 <script src="@Url.Content("~/Scripts/Js/Compras/Compras.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/Js/Compras/Compras_Detalle.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Ventas/Ventas_Detalle.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Recursiva/Configuracion.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Inventario/Producto_Recursos.js")" type="text/javascript"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
         Compras_ConfigurarGrilla();
+        $('#ID_PROVEEDOR_SEARCH').select2();
         //Compras_CargarGrilla();
     });
 
     $("#Compras_btnBuscar").click(function (e) {
-        Compras_CargarGrilla();
+        Compras_ConfigurarGrilla();
     });
 
     $("#Compras_btnLimpiar").click(function (e) {
@@ -21,6 +24,14 @@
         Compras_MostrarNuevo();
     });
 
+    $('#Compras_FechaInicio, #Compras_FechaFin').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        firstDay: 1,
+        changeFirstDay: false,
+        showAnim: 'slideDown'
+    });
 
 
 </script>
@@ -41,27 +52,43 @@
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label>Código Comprobante:</label>
-                            <input type="text" class="form-control" placeholder="Ejm: F55402">
+                            <input type="text" class="form-control" id="Compras_CodigoComprobante" placeholder="Ejm: F55402">
                         </div>
 
-                        <div class="form-group col-md-3">
+                        <div class=" col-md-3">
                             <label>Proveedor:</label>
-                            <input type="text" class="form-control" placeholder="Ejm: Bebidas">
+                          @Html.DropDownListFor(model => model.ID_PROVEEDOR_SEARCH, Model.Lista_Proveedor, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         </div>
 
-                        <div class="form-group col-md-3">
-                            <label>Tipo comprobante:</label>
-                            <input type="text" class="form-control" placeholder="Ejm: Bebidas">
-                        </div>
-
-                        <div class="form-group col-md-3">
+                        <div class=" col-md-3">
                             <label>Estado:</label>
-                            <select class="form-control" id="Compras_Estado">
-                                <option value="2">-- Seleccione --</option>
-                                <option value="1">Activo</option>
-                                <option value="1">Inactivo</option>
+                            <select class="form-control" id="Compras_FLG_ANULADO">
+                                <option value="">-- Seleccione --</option>
+                                <option value="1">Realizado</option>
+                                <option value="0">Anulado</option>
                             </select>
                         </div>
+
+                          <div class=" col-md-3">
+                            <label>Fecha Inicio:</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="Compras_FechaInicio" class="form-control" placeholder="dd/mm/yyyy", autocomplete="off">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-md-3">
+                            <label>Fecha Fin:</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="Compras_FechaFin" class="form-control" placeholder="dd/mm/yyyy" data-toggle="tooltip" data-placement="bottom" title="Ingrese fecha fin" , autocomplete="off">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-3">

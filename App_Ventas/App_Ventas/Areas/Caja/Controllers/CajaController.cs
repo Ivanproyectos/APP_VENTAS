@@ -7,12 +7,11 @@ using App_Ventas.Areas.Caja.Models;
 using Capa_Entidad;
 using Capa_Entidad.Base;
 using Capa_Entidad.Administracion;
-using Capa_Entidad.Inventario;
-using Capa_Entidad.Ventas;
+using Capa_Entidad.Caja;
 using App_Ventas.Areas.Administracion.Repositorio;
 using App_Ventas.Recursos;
 using App_Ventas.Areas.Inventario.Repositorio;
-using App_Ventas.Areas.Ventas.Repositorio;
+using App_Ventas.Areas.Caja.Repositorio;
 
 namespace App_Ventas.Areas.Caja.Controllers
 {
@@ -55,7 +54,7 @@ namespace App_Ventas.Areas.Caja.Controllers
                 model.Lista_Usuario = Repositorio.Usuario_Listar(new Cls_Ent_Usuario { FLG_ESTADO = 1 }, ref auditoria).Select(x => new SelectListItem()
                 {
                     Text = x.NOMBRES_APE,
-                    Value = x.ID_USUARIO.ToString()
+                    Value = x.COD_USUARIO.ToString()
                 }).ToList();
                 model.Lista_Usuario.Insert(0, new SelectListItem() { Value = "", Text = "-- Seleccione --" });
                 if (!auditoria.EJECUCION_PROCEDIMIENTO)
@@ -66,10 +65,35 @@ namespace App_Ventas.Areas.Caja.Controllers
                 }
 
             }
-
-
             return View(model);
         }
+
+        public ActionResult Caja_Listar(Cls_Ent_Caja entidad)
+        {
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            try
+            {
+                using (CajaRepositorio repositorio = new CajaRepositorio())
+                {
+                    auditoria.OBJETO = repositorio.Caja_Listar(entidad,ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+
+
 
     }
 }

@@ -52,74 +52,35 @@ function Caja_actionEliminar(cellvalue, options, rowObject) {
 
 
 
+///*********************************************** ----------------- *************************************************/
+
+///*********************************************** Lista los  producto **************************************************/
+
 function Caja_CargarGrilla() {
-    var lista = new Array();
-    var item = {
-        ID_CARGO: '1',
-        DESC_CARGO: 'cargo XD',
-        FLG_ESTADO: 1,
-        FEC_CREACION: '12/02/2022'
-    }
+    var item =
+       {
+           FEC_INICIO: $('#Caja_FechaInicio').val(),
+           FEC_FIN: $('#Caja_FechaFin').val(),
+           COD_USUARIO: $('#ID_USUARIO').val(),
+           ID_SUCURSAL: $('#ID_SUCURSAL').val(),
+       };
+    var url = baseUrl + 'Caja/Caja/Caja_Listar';
+    var auditoria = SICA.Ajax(url, item, false);
+    if (auditoria.EJECUCION_PROCEDIMIENTO) {
+        if (!auditoria.RECHAZAR) {
+            if (auditoria.OBJETO != null) {
+                debugger; 
+                $('#Caja_countVenta').text(auditoria.OBJETO.COUNT_VENTA);
+                $('#Caja_countAdelanto').text(auditoria.OBJETO.COUNT_COBRAR);
+                $('#Caja_countCobrar').text(auditoria.OBJETO.COUNT_ADELANTO);
 
-    var item2= {
-        ID_CARGO: '1',
-        DESC_CARGO: 'cargo XD',
-        FLG_ESTADO: 1,
-        FEC_CREACION: '12/02/2022'
+                $('#Caja_TotalVeta').text(Number(auditoria.OBJETO.TOTAL_VENTA).toFixed(2));
+                $('#Caja_TotalAdelanto').text(Number(auditoria.OBJETO.TOTAL_COBRAR).toFixed(2));
+                $('#Caja_TotalCobrar').text(Number(auditoria.OBJETO.TOTAL_ADELANTO).toFixed(2));
 
-    }
-
-    lista.push(item); 
-    lista.push(item2);
-
-       jQuery("#" + Caja_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
-       $.each(lista, function (i, v) {
-                var idgrilla = i + 1;
-                var myData =
-                 {
-                     CODIGO: idgrilla,
-                     ID_CARGO: v.ID_CARGO,
-                     DESC_CARGO: v.DESC_CARGO,
-                     FLG_ESTADO: v.FLG_ESTADO,
-                     FEC_CREACION: v.FEC_CREACION,
-                     //USU_CREACION: v.USU_CREACION,
-                     //FEC_MODIFICACION: v.FEC_MODIFICACION,
-                     //USU_MODIFICACION: v.USU_MODIFICACION,
-                     //IP_CREACION: v.IP_CREACION,
-                     //IP_MODIFICACION: v.IP_MODIFICACION
-                 };
-                jQuery("#" + Caja_Grilla).jqGrid('addRowData', idgrilla, myData);
-            });
-            //jQuery("#" + Caja_Grilla).trigger("reloadGrid");
-  
-}
-
-
-function Caja_MostrarNuevo() {
-    jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Admin/Prueba/Mantenimiento", function (responseText, textStatus, request) {
-        $('#myModalNuevo').modal({ show: true });
-        $.validator.unobtrusive.parse('#myModalNuevo');
-        if (request.status != 200) return;
-    });
-}
-
-
-function Preguntar() {
-    debugger; 
-    if ($('#frmMantenimientoCaja').valid()) {
-        jConfirm("¿ Desea actualizar este cargo ?", "Atención", function (r) {
-            if (r) {
-                $('#myModalNuevo').modal('hide'); 
-                jOkas('Registro guardado con exito', 'Atención');
-                
-
-            } else {
-                jError('Ocurrio un error', 'Atención');
             }
-        });
+        }
+    } else {
+        jError(auditoria.MENSAJE_SALIDA, "Atención");
     }
-
 }
-
-

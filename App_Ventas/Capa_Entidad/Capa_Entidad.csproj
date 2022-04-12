@@ -60,6 +60,7 @@
     <Compile Include="Base\Cls_Ent_Base.cs" />
     <Compile Include="Base\Cls_Ent_Columnas.cs" />
     <Compile Include="Base\Cls_Ent_Titulo.cs" />
+    <Compile Include="Caja\Cls_Ent_Caja.cs" />
     <Compile Include="Cls_Ent_Auditoria.cs" />
     <Compile Include="Compras\Cls_Ent_Compras.cs" />
     <Compile Include="Compras\Cls_Ent_Compras_Detalle.cs" />

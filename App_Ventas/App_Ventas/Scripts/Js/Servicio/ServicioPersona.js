@@ -19,8 +19,7 @@
                     var json = JSON.parse(jdata.d);
                     debugger; 
                     if (json.length > 0) {
-                        if (json[0]['codRes'] != 1003) {
-                          
+                        if (json[0]['codRes'] != 1003) {                        
                                 $('#NOMBRES_APE').val(json[0]['nombres'] + ' ' + json[0]['apePat'] + ' ' + json[0]['apeMat'])
                                 $('#DIRECCION').val(json[0]['dir'])
          

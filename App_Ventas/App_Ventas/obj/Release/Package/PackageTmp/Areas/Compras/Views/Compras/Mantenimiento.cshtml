@@ -2,16 +2,18 @@
 
 <script>
     $(document).ready(function () {
-
-
-        Compras_Detalle_ConfigurarGrilla();
+        ConfiguracionEmpresa();
+        var Fecha_Actual = moment().format('DD/MM/YYYY');
+        $('#FECHA_COMPRA').val(Fecha_Actual);
+        $('#ID_PROVEEDOR').select2();
+        Ventas_Detalle_ConfigurarGrilla("VENTAS");
     });
 
-    $('#Usuarios_btn_Guardar').click(function () {
-        Preguntar();
+    $('#Compras_btn_Guardar').click(function () {
+        Compras_Ingresar();
     });
 
-    $('#FCHA_DOCUMENTO').datepicker({
+    $('#FECHA_COMPRA').datepicker({
         changeMonth: true,
         changeYear: true,
         dateFormat: "dd/mm/yy",
@@ -20,7 +22,25 @@
         showAnim: 'slideDown'
     });
 
+    $('#Compras_btn_BuscarProductos').click(function () {
+        Compras_ViewBuscarProducto();
+    });
+    $('#ID_TIPO_PAGO').change(function () {
+        Change_TipoVenta();
+    });
 
+    function Change_TipoVenta() {
+        if ($('#ID_TIPO_PAGO').val() == 3 || $('#ID_TIPO_PAGO').val() == 4) {
+            $('#Venta_NroOperacion').show('slow');
+        }
+        else {
+            $('#Venta_NroOperacion').hide();
+        }
+    }
+
+    $('#DESCUENTO').keyup(function () {
+        Ventas_Detalle_CalcularMontoTotalDetalle();
+    }); 
 
 </script>
 
@@ -28,34 +48,14 @@
     .modal-lg_ {
         max-width: 52%;
     }
-
-    ._text_detalle {
-        width: 45%;
-        max-width: 45%;
-        display: inline-block;
-        text-align: right;
-    }
-
-    ._text_detalle_monto {
-        width: 45%;
-        max-width: 45% display: inline-block;
-        text-align: left;
-    }
-
-    .input-group-text {
-        background: #f9fbfd;
-        color: #000;
-        border: 1px solid #c7c6c6;
-    }
-
- 
 </style>
 
+<div class="modal fade" id="myModalBuscarProduc" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
 <div class="modal-dialog modal-lg_" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Registrar nueva compra </h5>
+            <h5 class="modal-title"><i class="bi bi-basket-fill"></i>&nbsp; Registrar nueva compra </h5>
             <button type="button" class="close" data-dismiss="modal">
                 <span>&times;</span>
             </button>
@@ -66,87 +66,135 @@
                        
                 @Html.ValidationSummary(true) 
                 <div class="form-row">
+                    <div class=" col-md-12">
+                        <div class="alert alert-info alert-dismissible alert-alt fade show">
+                            <strong><i class="bi bi-exclamation-triangle"></i></strong>&nbsp;Esta compra sera registrado para el almacen:<b> @Model.DESC_SUCURSAL.</b>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.ID_TIPO_COMPROBANTE)
                         @Html.DropDownListFor(model => model.ID_TIPO_COMPROBANTE, Model.Lista_Tipo_Comprobante, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         @Html.ValidationMessageFor(model => model.ID_TIPO_COMPROBANTE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.COD_DOCUMENTO)
-                        @Html.TextBoxFor(model => model.COD_DOCUMENTO, new { @class = "form-control", @maxlength = "100" })
-                        @Html.ValidationMessageFor(model => model.COD_DOCUMENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                        @Html.LabelFor(model => model.COD_COMPROBANTE)
+                        @Html.TextBoxFor(model => model.COD_COMPROBANTE, new { @class = "form-control", @maxlength = "100", @placeholder = "Ejm: 000001" })
+                        @Html.ValidationMessageFor(model => model.COD_COMPROBANTE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.FCHA_DOCUMENTO)
-                        @Html.TextBoxFor(model => model.FCHA_DOCUMENTO, new { @class = "form-control", @maxlength = "200" })
-                        @Html.ValidationMessageFor(model => model.FCHA_DOCUMENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                        @Html.LabelFor(model => model.FECHA_COMPRA)
+                        @Html.TextBoxFor(model => model.FECHA_COMPRA, new { @class = "form-control", @maxlength = "200" })
+                        @Html.ValidationMessageFor(model => model.FECHA_COMPRA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.ID_PROVEEDOR)
-                        @Html.DropDownListFor(model => model.ID_PROVEEDOR, Model.Lista_Tipo_Comprobante, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.DropDownListFor(model => model.ID_PROVEEDOR, Model.Lista_Proveedor, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         @Html.ValidationMessageFor(model => model.ID_PROVEEDOR, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
                 </div>
-                
-                <br />
-                <div class="form-row">
+            }
+            <br />
+            <div class="form-row">
+                <div class="col-sm-12">
                     <h4 class="card-title border-bottom-head" style="width: 100%; height: 30px;"><i class="bi bi-list-check"></i>&nbsp; Lista de Productos:</h4>
                 </div>
-                <div class="form-row">
-                    <div class=" col-md-12" style="display: flex; justify-content: flex-end; margin-bottom: 5px;">
-                        <button type="button" class="btn btn-rounded btn-secondary btn-hover-shine">
-                            <span class="btn-icon-left text-secondary"><i class="fa fa-plus color-secondary"></i>
-                            </span>Agregar Producto</button>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <div class="jqGrid">
-                            <table id="Compras_Detalle_Grilla"></table>
-                            <div id="Compras_Detalle_Barra"></div>
-                        </div>
+            </div>
+            <div class="form-row">
+                <div class=" col-md-12" style="display: flex; justify-content: flex-end; margin-bottom: 5px;">
+                    <button type="button" class="btn btn-rounded btn-secondary btn-hover-shine" id="Compras_btn_BuscarProductos">
+                        <span class="btn-icon-left text-secondary"><i class="fa fa-plus color-secondary"></i>
+                        </span>Agregar Producto</button>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="jqGrid">
+                        <table id="Ventas_Detalle_Grilla"></table>
+                        <div id="VEntas_Detalle_Barra"></div>
                     </div>
                 </div>
-                <div class="form-row">
+            </div>
+            <div class="form-row">
+                <div class="col-sm-12">
                     <h4 class="card-title border-bottom-head" style="width: 100%; height: 30px;">Detalle Documento:</h4>
                 </div>
-                
-                
-                <div class="form-row">
-                    <div class="col-xl-8 col-xxl-6 col-lg-6 col-md-12">
-                        <div class="form-group col-md-12">
-                            @Html.LabelFor(model => model.DESCUENTO)
-                            <div class="input-group mb-12">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">S/.</span>
+            </div>
+            <div class="form-row">
+                <div class="col-xl-7 col-xxl-6 col-lg-6 col-md-12">
+                    @using (Html.BeginForm("Compras", "Compras", new { @area = "Compras" }, FormMethod.Post, new { @id = "frmMantenimiento_DetalleCompras" }))
+                    {
+                        <div class="form-row">
+
+                            @Html.ValidationSummary(true)
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.ID_TIPO_PAGO)
+                                @Html.DropDownListFor(model => model.ID_TIPO_PAGO, Model.Lista_Tipo_Pago, new { @class = "form-control No-valid", @maxlength = "150", @style = "width:100%" })
+                                @Html.ValidationMessageFor(model => model.ID_TIPO_PAGO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+
+                            <div class="form-group col-md-4" id="Venta_NroOperacion" style="display: none;">
+                                @Html.LabelFor(model => model.NRO_OPERACION)
+                                <div class="input-group mb-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text input-group-text_white"><i class="bi bi-credit-card" style="color: #000;"></i></span>
+                                    </div>
+                                    @Html.TextBoxFor(model => model.NRO_OPERACION, new { @class = "form-control ", @maxlength = "200", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.NRO_OPERACION, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                                 </div>
-                                @Html.TextBoxFor(model => model.DESCUENTO, new { @class = "form-control", @maxlength = "200" })
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.DESCUENTO)
+                                <div class="input-group mb-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text input-group-text_white">S/.</span>
+                                    </div>
+                                    @Html.TextBoxFor(model => model.DESCUENTO, new { @class = "form-control", @maxlength = "200" })
+                                </div>
                             </div>
                         </div>
-
+                    }
+                    <div class="form-row">
                         <div class="form-group col-md-12">
                             @Html.LabelFor(model => model.DETALLE)
                             @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "200" })
                         </div>
                     </div>
-                    <div class="col-xl-4 col-xxl-6 col-lg-6 col-md-12 ">
-                        <div class="basic-list-group">
-                            <ul class="list-group list-group-flush" style="color: #5a5a5a;">
-                                <li class="list-group-item"><b>Resumen:</b></li>
-                                <li class="list-group-item"><span class="_text_detalle">Ingresos caja:</span> <span class="_text_detalle_monto">0</span></li>
-                                <li class="list-group-item"><span class="_text_detalle">Egresos Caja:</span> <span class="_text_detalle_monto">0</span> </li>
-                                <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;"><span class="_text_detalle">Total Caja:</span> <span class="_text_detalle_monto">0</span></li>
-                            </ul>
-                        </div>
+                </div>
+                <div class="col-xl-5 col-xxl-6 col-lg-6 col-md-12 ">
+                    <div class="basic-list-group">
+                        <ul class="list-group list-group-flush" style="color: #5a5a5a;">
+                            <li class="list-group-item"><b>Resumen:</b></li>
+                            <li class="list-group-item">
+                                <span class="_text_detalle"><span class="text-danger">(-) </span>Descuento Total:</span>
+                                <span class="_text_detalle_monto"><span class="simboloMoneda"></span><span id="Venta_Descuento">0.0</span></span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="_text_detalle">Subtotal:</span>
+                                <span class="_text_detalle_monto"><span class="simboloMoneda"></span><span id="Venta_Subtotal">0.0</span></span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="_text_detalle"><span id="NomImpuesto"></span>(<span id="Impuesto"></span>%):</span>
+                                <span class="_text_detalle_monto"><span class="simboloMoneda "></span><span id="Venta_Igv">0.0</span></span>
+                            </li>
+                            <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;">
+                                <span class="_text_detalle">Total:</span>
+                                <span class="_text_detalle_monto" style="font-size: 15px;"><span class="simboloMoneda _Montos text-primary"></span><span class=" text-primary" id="Venta_Total">0.0</span></span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                
-            }
+            </div>
+
+
 
         </div>
         <div class="modal-footer">
+            <button type="button" id="Compras_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-basket-fill"></i>&nbsp;Guardar Compra</button>
             <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
-            <button type="button" id="Usuarios_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
         </div>
     </div>
 </div>

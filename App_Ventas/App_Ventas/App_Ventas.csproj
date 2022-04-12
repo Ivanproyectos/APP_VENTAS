@@ -197,6 +197,7 @@
     <Compile Include="Areas\Caja\CajaAreaRegistration.cs" />
     <Compile Include="Areas\Caja\Controllers\CajaController.cs" />
     <Compile Include="Areas\Caja\Models\CajaModelView.cs" />
+    <Compile Include="Areas\Caja\Repositorio\CajaRepositorio.cs" />
     <Compile Include="Areas\Compras\ComprasAreaRegistration.cs" />
     <Compile Include="Areas\Compras\Controllers\ComprasController.cs" />
     <Compile Include="Areas\Compras\Models\ComprasModelView.cs" />

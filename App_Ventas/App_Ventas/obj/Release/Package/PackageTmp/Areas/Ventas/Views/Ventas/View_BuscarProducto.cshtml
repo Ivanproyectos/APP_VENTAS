@@ -1,8 +1,8 @@
 ﻿@model App_Ventas.Areas.Ventas.Models.ProductoModelView
-<script src="@Url.Content("~/Scripts/Js/Recursiva/BuscarProcutos.js")" type="text/javascript"></script>
 <script>
     var _Valido = false;
     var _Accion = $('#AccionBuscarProducto').val();
+    var _Tipo_Proceso = $('#hfd_TIPO_PROCESO').val();
 
     $(document).ready(function () {
         ConfiguracionEmpresa();
@@ -168,40 +168,7 @@
         padding: 8px;
     }
 
-    ._cListProductos {
-        padding: 0px 5px 0px 5px;
-        max-width: 100%;
-    }
 
-    ._text_producto {
-        text-align: center;
-        color: #2c7be5;
-        margin-bottom: 1px;
-        font-weight: bold;
-    }
-
-    ._InfoProd {
-        max-width: 100%;
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
-        font-size: 12px;
-        /*color:#BDBDC7;*/
-    }
-
-    ._Stock, ._Precio, ._Tipo {
-        float: left;
-        width: 25%;
-    }
-
-    ._FotoPro {
-        float: right;
-        width: 20%;
-        /*background-image: url('Recursos/ImagenProducto/c1a1b2fd-ccf8-40d9-be8b-e48a386beffc.png');*/
-        background-size: contain;
-        background-repeat: no-repeat;
-        height: 50px;
-    }
 </style>
 
 <div class="modal-dialog" role="document" id="modal-dialog_this">
@@ -305,3 +272,4 @@
 @Html.Hidden("Hdf_flg_Servicio", Model.FLG_SERIVICIO)
 @Html.Hidden("AccionBuscarProducto", Model.Accion)
 @Html.Hidden("HDF_COD_UNIDAD_MEDIDA", Model.COD_UNIDAD_MEDIDA)
+@Html.Hidden("hfd_TIPO_PROCESO", Model.TIPO_PROCESO)

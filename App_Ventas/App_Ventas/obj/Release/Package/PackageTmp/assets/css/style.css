@@ -4429,7 +4429,7 @@ a.close.disabled {
   pointer-events: auto;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  /*border: 1px solid rgba(0, 0, 0, 0.2);*/
   border-radius: 0.3rem;
   outline: 0; }
 
@@ -14798,7 +14798,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .alert-warning {
   background: #ffd996;
   border-color: #ffd996;
-  color: #FFAA16; }
+  color: #5c5c5c; }
 
 .alert-danger {
   background: #ff9696;

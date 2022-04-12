@@ -58,12 +58,17 @@ function Ventas_Detalle_actionEditar(cellvalue, options, rowObject) {
 
 
 function Ventas_Detalle_MostarEditarProducto(CODIGO) {
+    if (_Tipo_Proceso == "VENTAS")
+        var Url_ = "Ventas/Ventas/View_BuscarProducto";
+        else 
+        var Url_ = "Compras/Compras/View_BuscarProducto";
+
     var ID_SUCURSAL = _Id_Sucursal;
      _CODIGO_GRILLA = CODIGO; 
      var data = jQuery("#" + Ventas_Detalle_Grilla).jqGrid('getRowData', CODIGO);
     jQuery("#myModalBuscarProduc").html('');
-    jQuery("#myModalBuscarProduc").load(baseUrl + "Ventas/Ventas/Mantenimiento_BuscarProducto?ID_SUCURSAL=" + ID_SUCURSAL + "&ID_PRODUCTO=" + data.ID_PRODUCTO +
-            "&PRECIO=" + data.PRECIO + "&IMPORTE=" + data.IMPORTE + "&_CANTIDAD=" + data.CANTIDAD + "&Accion=M", function (responseText, textStatus, request) {
+    jQuery("#myModalBuscarProduc").load(baseUrl + Url_+"?ID_SUCURSAL=" + ID_SUCURSAL + "&ID_PRODUCTO=" + data.ID_PRODUCTO +
+            "&PRECIO=" + data.PRECIO + "&IMPORTE=" + data.IMPORTE + "&_CANTIDAD=" + data.CANTIDAD + "&Accion=M&TIPO_PROCESO=" + _Tipo_Proceso, function (responseText, textStatus, request) {
         $('#myModalBuscarProduc').modal({ show: true, backdrop: 'static', keyboard: false });
         $.validator.unobtrusive.parse('#myModalBuscarProduc');
         if (request.status != 200) return;
@@ -239,10 +244,14 @@ function Ventas_Detalle_Insertar() {
         if ($('#frmMantenimiento_BuscarProducto').valid()) {
             var _ID_UNIDAD_MEDIDA = $('#ID_UNIDAD_MEDIDA').val();
             var _CANTIDAD = $("#CANTIDAD").val();
-            if (_ID_UNIDAD_MEDIDA == 1) // convertir gramos a kilos :: 1 kilos
+
+            if (_Tipo_Proceso == "VENTAS") { // SI ES VENTA COVIERTE
+                if (_ID_UNIDAD_MEDIDA == 1) // convertir gramos a kilos :: 1 kilos
                 {
-                    _CANTIDAD = (_CANTIDAD / 1000); 
-                }         
+                    _CANTIDAD = ConvertGramos_Kilos(_CANTIDAD);
+                }
+            }
+
             if (_Accion == "N") { // nuevo  producto al detalle 
                 var rowKey = jQuery("#" + Ventas_Detalle_Grilla).getDataIDs();
                 var ix = rowKey.length;
@@ -283,7 +292,6 @@ function Ventas_Detalle_Insertar() {
     }
 
 }
-
 
 function Ventas_BuscarProductoxId(ID_PRODUCTO) {
     var item =

@@ -34,12 +34,12 @@
     });
 
 
-    $('#FLG_TIPO_PAGO').change(function () {
+    $('#ID_TIPO_PAGO').change(function () {
         Change_TipoVenta();
     });
 
     function Change_TipoVenta() {
-        if ($('#FLG_TIPO_PAGO').val() == 3) {
+        if ($('#ID_TIPO_PAGO').val() == 3) {
             $('#Venta_NroOperacion').show('slow');
         }
         else {
@@ -139,9 +139,9 @@
                         @Html.ValidationSummary(true) 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                @Html.LabelFor(model => model.FLG_TIPO_PAGO)
-                                @Html.DropDownListFor(model => model.FLG_TIPO_PAGO, Model.Lista_Tipo_Pago, new { @class = "form-control No-valid", @maxlength = "150", @style = "width:100%" })
-                                @Html.ValidationMessageFor(model => model.FLG_TIPO_PAGO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                @Html.LabelFor(model => model.ID_TIPO_PAGO)
+                                @Html.DropDownListFor(model => model.ID_TIPO_PAGO, Model.Lista_Tipo_Pago, new { @class = "form-control No-valid", @maxlength = "150", @style = "width:100%" })
+                                @Html.ValidationMessageFor(model => model.ID_TIPO_PAGO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
 
                             <div class="form-group col-md-6" id="Venta_NroOperacion" style="display: none;">
