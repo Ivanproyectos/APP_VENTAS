@@ -1,0 +1,67 @@
+﻿@model App_Ventas.Areas.Caja.Models.CajaModelView
+
+<script>
+    $(document).ready(function () {
+    });
+    $('#Caja_btn_Guardar').click(function () {
+        Caja_Ingresar();
+    });
+</script>
+@using (Html.BeginForm("Caja", "Caja", new { @area = "Inventario" }, FormMethod.Post, new { @id = "frmMantenimiento_Caja", @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary(true)
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (Model.ID_TIPO_MOVIMIENTO == 0)
+                {
+                    <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Nueva Caja</h5>
+                }
+                else
+                {
+                    <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Editar Caja</h5>
+                }
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-sm-12">
+
+
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(model => model.ID_SUCURSAL)
+                    @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                    @Html.ValidationMessageFor(model => model.ID_SUCURSAL, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                </div>
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(model => model.DESC_MOVIMIENTO)
+                    @Html.TextAreaFor(model => model.DESC_MOVIMIENTO, new { @class = "form-control", @maxlength = "1000", @onkeyup = "CountCharactersControlTxt(this.id,'lbl_countmovimieto', 1000)" })
+                    @Html.ValidationMessageFor(model => model.DESC_MOVIMIENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    <label id="lbl_countmovimieto" style="width: 100%" class="Formato" runat="server">Nº Caracteres: 0 restan 1000</label>
+                </div>
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(model => model.MONTO)
+                    @Html.TextAreaFor(model => model.MONTO, new { @class = "form-control", @maxlength = "1000" })
+                    @Html.ValidationMessageFor(model => model.MONTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="Caja_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
+            <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>
+}
+
+@Html.Hidden("hfd_ID_TIPO_MOVIMIENTO", Model.ID_TIPO_MOVIMIENTO)
+@Html.Hidden("AccionCaja", Model.Accion)

@@ -24,12 +24,6 @@ namespace App_Ventas.Areas.Caja.Controllers
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             CajaModelView model = new CajaModelView();
-
-    
-
-            model.Lista_Usuario = new List<SelectListItem>();
-            model.Lista_Usuario.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
-
             using (SucursalRepositorio Repositorio = new SucursalRepositorio())
             {
 
@@ -45,12 +39,9 @@ namespace App_Ventas.Areas.Caja.Controllers
                     auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
                     model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Error al cargar opciones --" });
                 }
-
             }
-
             using (UsuarioRepositorio Repositorio = new UsuarioRepositorio())
             {
-
                 model.Lista_Usuario = Repositorio.Usuario_Listar(new Cls_Ent_Usuario { FLG_ESTADO = 1 }, ref auditoria).Select(x => new SelectListItem()
                 {
                     Text = x.NOMBRES_APE,
@@ -92,7 +83,65 @@ namespace App_Ventas.Areas.Caja.Controllers
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult View_Movimiento(int id, string Accion)
+        {
+            CajaModelView model = new CajaModelView();
+            model.Accion = Accion;
+            model.ID_TIPO_MOVIMIENTO = id;
+            Cls_Ent_Cliente lista = new Cls_Ent_Cliente();
 
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            using (SucursalRepositorio Repositorio = new SucursalRepositorio())
+            {
+                model.Lista_Sucursal = Repositorio.Sucursal_Listar(new Cls_Ent_Sucursal { FLG_ESTADO = 1 }, ref auditoria).Select(x => new SelectListItem()
+                {
+                    Text = x.DESC_SUCURSAL,
+                    Value = x.ID_SUCURSAL.ToString()
+                }).ToList();
+                model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Seleccione --" });
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Error al cargar opciones --" });
+                }
+            }
+
+
+            if (Accion == "M")
+            {
+                //using (ClienteRepositorio repositorioCliente = new ClienteRepositorio())
+                //{
+                //    Cls_Ent_Cliente entidad = new Cls_Ent_Cliente();
+                //    auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+
+                //    entidad.ID_CLIENTE = id;
+                //    lista = repositorioCliente.Cliente_Listar_Uno(entidad, ref auditoria);
+                //    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                //    {
+                //        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                //        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                //    }
+                //    else
+                //    {
+                //        model.ID_CLIENTE = lista.ID_CLIENTE;
+                //        model.NOMBRES_APE = lista.NOMBRES_APE;
+                //        model.NUMERO_DOCUMENTO = lista.NUMERO_DOCUMENTO;
+                //        model.DIRECCION = lista.DIRECCION;
+                //        model.CORREO = lista.CORREO;
+                //        model.TELEFONO = lista.TELEFONO;
+                //        model.CELULAR = lista.CELULAR;
+                //        model.COD_UBIGEO = lista.COD_UBIGEO;
+                //        model.DETALLE = lista.DETALLE;
+                //        model.ID_TIPO_DOCUMENTO = lista.ID_TIPO_DOCUMENTO;
+
+                //    }
+                //}
+
+            }
+
+            return View(model);
+        }
 
 
     }

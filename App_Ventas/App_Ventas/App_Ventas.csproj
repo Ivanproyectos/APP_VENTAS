@@ -4173,6 +4173,7 @@
     <Content Include="Areas\CuentasCobrar\Views\CuentasCobrar\Mantenimiento.cshtml" />
     <Content Include="Areas\Compras\Views\Compras\View_BuscarProducto.cshtml" />
     <Content Include="Areas\Compras\Views\Compras\View_DetalleCompra.cshtml" />
+    <Content Include="Areas\Caja\Views\Caja\View_Movimiento.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Recursos\Forms\GenerarComprobante.aspx" />
