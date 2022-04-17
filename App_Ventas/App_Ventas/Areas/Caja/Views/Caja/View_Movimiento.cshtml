@@ -2,9 +2,11 @@
 
 <script>
     $(document).ready(function () {
+        ConfiguracionEmpresa();
+        $('#ID_SUCURSAL').select2();
     });
     $('#Caja_btn_Guardar').click(function () {
-        Caja_Ingresar();
+        Caja_Movimiento_Insertar();
     });
 </script>
 @using (Html.BeginForm("Caja", "Caja", new { @area = "Inventario" }, FormMethod.Post, new { @id = "frmMantenimiento_Caja", @class = "form-horizontal" }))
@@ -16,11 +18,11 @@
             <div class="modal-header">
                 @if (Model.ID_TIPO_MOVIMIENTO == 0)
                 {
-                    <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Nueva Caja</h5>
+                    <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Nuevo Movimiento</h5>
                 }
                 else
                 {
-                    <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Editar Caja</h5>
+                    <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Editar Movimiento</h5>
                 }
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
@@ -29,38 +31,57 @@
             <div class="modal-body">
                 <div class="form-row">
                     <div class="col-sm-12">
-
-
+                        <div class="form-row border-bottom-head" id="_Content_TipoRadioBtn">
+                            <div class="col-sm-6">
+                                <div class="_Content_Radio">
+                                    <input type="radio" id="f-option" checked name="Movimiento_Tipo" value="1">
+                                    <label for="f-option">Ingresos</label>
+                                    <div class="check"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="_Content_Radio">
+                                    <input type="radio" id="s-option" name="Movimiento_Tipo" value="2">
+                                    <div class="check">
+                                        <div class="inside"></div>
+                                    </div>
+                                    <label for="s-option">Egresos</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.ID_SUCURSAL)
+                        @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.ID_SUCURSAL, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.MONTO)
+                        <div class="input-group mb-12">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text input-group-text_white"><span class="simboloMoneda"></span></span>
+                            </div>
+                            @Html.TextBoxFor(model => model.MONTO, new { @class = "form-control", @maxlength = "1000" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.MONTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.DESC_MOVIMIENTO)
+                        @Html.TextAreaFor(model => model.DESC_MOVIMIENTO, new { @class = "form-control", @maxlength = "1000", @onkeyup = "CountCharactersControlTxt(this.id,'lbl_countmovimieto', 1000)" })
+                        @Html.ValidationMessageFor(model => model.DESC_MOVIMIENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                        <label id="lbl_countmovimieto" style="width: 100%" class="Formato" runat="server">Nº Caracteres: 0 restan 1000</label>
+                    </div>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.ID_SUCURSAL)
-                    @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
-                    @Html.ValidationMessageFor(model => model.ID_SUCURSAL, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
-                </div>
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.DESC_MOVIMIENTO)
-                    @Html.TextAreaFor(model => model.DESC_MOVIMIENTO, new { @class = "form-control", @maxlength = "1000", @onkeyup = "CountCharactersControlTxt(this.id,'lbl_countmovimieto', 1000)" })
-                    @Html.ValidationMessageFor(model => model.DESC_MOVIMIENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
-                    <label id="lbl_countmovimieto" style="width: 100%" class="Formato" runat="server">Nº Caracteres: 0 restan 1000</label>
-                </div>
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.MONTO)
-                    @Html.TextAreaFor(model => model.MONTO, new { @class = "form-control", @maxlength = "1000" })
-                    @Html.ValidationMessageFor(model => model.MONTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
-
-                </div>
-
+            <div class="modal-footer">
+                <button type="button" id="Caja_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>&nbsp;Guardar</button>
+                <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
             </div>
-
-        </div>
-        <div class="modal-footer">
-            <button type="button" id="Caja_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
-            <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
         </div>
     </div>
-</div>
 }
 
 @Html.Hidden("hfd_ID_TIPO_MOVIMIENTO", Model.ID_TIPO_MOVIMIENTO)

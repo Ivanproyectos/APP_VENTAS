@@ -83,12 +83,36 @@ namespace App_Ventas.Areas.Caja.Controllers
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Caja_Movimiento_Listar(Cls_Ent_Caja entidad)
+        {
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            try
+            {
+                using (CajaRepositorio repositorio = new CajaRepositorio())
+                {
+                    auditoria.OBJETO = repositorio.Caja_Movimiento_Listar(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult View_Movimiento(int id, string Accion)
         {
             CajaModelView model = new CajaModelView();
             model.Accion = Accion;
             model.ID_TIPO_MOVIMIENTO = id;
-            Cls_Ent_Cliente lista = new Cls_Ent_Cliente();
+            Cls_Ent_Caja lista = new Cls_Ent_Caja();
 
             Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
             using (SucursalRepositorio Repositorio = new SucursalRepositorio())
@@ -107,41 +131,87 @@ namespace App_Ventas.Areas.Caja.Controllers
                 }
             }
 
-
             if (Accion == "M")
             {
-                //using (ClienteRepositorio repositorioCliente = new ClienteRepositorio())
-                //{
-                //    Cls_Ent_Cliente entidad = new Cls_Ent_Cliente();
-                //    auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+                using (CajaRepositorio repositorio = new CajaRepositorio())
+                {
+                    Cls_Ent_Caja entidad = new Cls_Ent_Caja();
+                    auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
 
-                //    entidad.ID_CLIENTE = id;
-                //    lista = repositorioCliente.Cliente_Listar_Uno(entidad, ref auditoria);
-                //    if (!auditoria.EJECUCION_PROCEDIMIENTO)
-                //    {
-                //        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
-                //        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
-                //    }
-                //    else
-                //    {
-                //        model.ID_CLIENTE = lista.ID_CLIENTE;
-                //        model.NOMBRES_APE = lista.NOMBRES_APE;
-                //        model.NUMERO_DOCUMENTO = lista.NUMERO_DOCUMENTO;
-                //        model.DIRECCION = lista.DIRECCION;
-                //        model.CORREO = lista.CORREO;
-                //        model.TELEFONO = lista.TELEFONO;
-                //        model.CELULAR = lista.CELULAR;
-                //        model.COD_UBIGEO = lista.COD_UBIGEO;
-                //        model.DETALLE = lista.DETALLE;
-                //        model.ID_TIPO_DOCUMENTO = lista.ID_TIPO_DOCUMENTO;
-
-                //    }
-                //}
+                    entidad.ID_TIPO_MOVIMIENTO = id;
+                    lista = repositorio.Caja_Movimiento_Listar_Uno(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                    else
+                    {
+                        model.ID_TIPO_MOVIMIENTO = lista.ID_TIPO_MOVIMIENTO;
+                        model.ID_SUCURSAL = lista.ID_SUCURSAL;
+                        model.DESC_MOVIMIENTO = lista.DESC_MOVIMIENTO;
+                        model.MONTO = lista.MONTO;
+   
+                    }
+                }
 
             }
 
             return View(model);
         }
+
+        public ActionResult Caja_Movimiento_Insertar(Cls_Ent_Caja entidad)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            var ip_local = Recursos.Clases.Css_IP.ObtenerIp();
+            using (CajaRepositorio Cajarepositorio = new CajaRepositorio())
+            {
+                entidad.IP_CREACION = ip_local;
+                Cajarepositorio.Caja_Movimiento_Insertar(entidad, ref auditoria);
+
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                }
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Caja_Movimiento_Actualizar(Cls_Ent_Caja entidad)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            var ip_local = Recursos.Clases.Css_IP.ObtenerIp();
+            using (CajaRepositorio Cajarepositorio = new CajaRepositorio())
+            {
+                entidad.IP_MODIFICACION = ip_local;
+                Cajarepositorio.Caja_Movimiento_Actualizar(entidad, ref auditoria);
+
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                }
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Caja_Movimiento_Eliminar(Cls_Ent_Caja entidad)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            using (CajaRepositorio Cajarepositorio = new CajaRepositorio())
+            {
+                Cajarepositorio.Caja_Movimiento_Eliminar(entidad, ref auditoria);
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                }
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+
 
 
     }

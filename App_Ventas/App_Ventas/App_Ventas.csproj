@@ -206,6 +206,10 @@
     <Compile Include="Areas\CuentasCobrar\CuentasCobrarAreaRegistration.cs" />
     <Compile Include="Areas\CuentasCobrar\Models\CuentasCobrarModelView.cs" />
     <Compile Include="Areas\CuentasCobrar\Repositorio\CuentasCobrarRepositorio.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="Areas\Dashboard\Models\DashboardModelView.cs" />
+    <Compile Include="Areas\Dashboard\Repositorio\DashboardRepositorio.cs" />
     <Compile Include="Areas\Inventario\Controllers\CategoriaController.cs" />
     <Compile Include="Areas\Inventario\Controllers\ProductoController.cs" />
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
@@ -614,6 +618,7 @@
     <Content Include="assets\vendor\chart.heatmap.js\Chart.HeatMap.S.min.js" />
     <Content Include="assets\vendor\chart.heatmap.js\sampledata.js" />
     <Content Include="assets\vendor\chart.js\Chart.bundle.min.js" />
+    <Content Include="assets\vendor\chart.js\chartjs-plugin-datalabels.min.js" />
     <Content Include="assets\vendor\chartist-plugin-tooltips\css\chartist-plugin-tooltip.css" />
     <Content Include="assets\vendor\chartist-plugin-tooltips\js\chartist-plugin-tooltip.min.js" />
     <Content Include="assets\vendor\chartist\css\chartist.min.css" />
@@ -3672,6 +3677,7 @@
     <Content Include="assets\vendor\jquery-steps\build\jquery.steps.min.js" />
     <Content Include="assets\vendor\jquery-steps\css\jquery.steps.css" />
     <Content Include="assets\vendor\jquery-validation\jquery.validate.min.js" />
+    <Content Include="assets\vendor\jquery.counterup\countUp.umd.js" />
     <Content Include="assets\vendor\jquery.counterup\jquery.counterup.min.js" />
     <Content Include="assets\vendor\jqueryui\css\jquery-ui.min.css" />
     <Content Include="assets\vendor\jqueryui\js\jquery-ui.min.js" />
@@ -4174,6 +4180,8 @@
     <Content Include="Areas\Compras\Views\Compras\View_BuscarProducto.cshtml" />
     <Content Include="Areas\Compras\Views\Compras\View_DetalleCompra.cshtml" />
     <Content Include="Areas\Caja\Views\Caja\View_Movimiento.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Web.config" />
+    <Content Include="Areas\Dashboard\Views\Dashboard\Index.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Recursos\Forms\GenerarComprobante.aspx" />
@@ -4220,6 +4228,8 @@
     <Content Include="Scripts\Js\Compras\Compras.js" />
     <Content Include="Scripts\Js\Compras\Compras_Detalle.js" />
     <Content Include="Scripts\Js\CuentasCobrar\CuentasCobrar.js" />
+    <Content Include="Scripts\Js\Dashboard\Dashboard_Grafics.js" />
+    <Content Include="Scripts\Js\Dashboard\Dashboard.js" />
     <Content Include="Scripts\Js\Inventario\Categoria.js" />
     <Content Include="Scripts\Js\Inventario\Producto.js" />
     <Content Include="Scripts\Js\Inventario\Producto_Recursos.js" />
@@ -4284,6 +4294,7 @@
     <Folder Include="Areas\Caja\Views\Shared\" />
     <Folder Include="Areas\Compras\Views\Shared\" />
     <Folder Include="Areas\CuentasCobrar\Views\Shared\" />
+    <Folder Include="Areas\Dashboard\Views\Shared\" />
     <Folder Include="Areas\Inventario\Views\Shared\" />
     <Folder Include="Areas\Login\Controllers\" />
     <Folder Include="Areas\Login\Models\" />

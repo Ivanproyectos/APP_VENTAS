@@ -43,7 +43,7 @@ function Ventas_ConfigurarGrilla() {
     var opciones = {
         GridLocal: false, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false,rules:true, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
     };
-    SICA.Grilla(Ventas_Grilla, Ventas_Barra, Ventas_Grilla, 400, '', "Lista de Ventas", url, 'ID_VENTA', colNames, colModels, 'ID_VENTA', opciones);
+    SICA.Grilla(Ventas_Grilla, Ventas_Barra, Ventas_Grilla, 400 , '', "Lista de Ventas", url, 'ID_VENTA', colNames, colModels, 'ID_VENTA', opciones);
 
     //jQuery("#" + Ventas_Grilla).jqGrid('setGroupHeaders', {
     //    useColSpanStyle: true,

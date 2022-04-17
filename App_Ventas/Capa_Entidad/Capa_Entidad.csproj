@@ -59,11 +59,13 @@
     <Compile Include="Base\Cls_Ent_Archivo.cs" />
     <Compile Include="Base\Cls_Ent_Base.cs" />
     <Compile Include="Base\Cls_Ent_Columnas.cs" />
+    <Compile Include="Base\Cls_Ent_Combo.cs" />
     <Compile Include="Base\Cls_Ent_Titulo.cs" />
     <Compile Include="Caja\Cls_Ent_Caja.cs" />
     <Compile Include="Cls_Ent_Auditoria.cs" />
     <Compile Include="Compras\Cls_Ent_Compras.cs" />
     <Compile Include="Compras\Cls_Ent_Compras_Detalle.cs" />
+    <Compile Include="Dashboard\Cls_Ent_Dashboard.cs" />
     <Compile Include="Inventario\Cls_Ent_Categoria.cs" />
     <Compile Include="Inventario\Cls_Ent_Producto.cs" />
     <Compile Include="Login\Cls_Ent_Modulo.cs" />

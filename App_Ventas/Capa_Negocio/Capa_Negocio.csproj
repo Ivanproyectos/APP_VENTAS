@@ -51,6 +51,7 @@
     <Compile Include="Caja\Cls_Rule_Caja.cs" />
     <Compile Include="Compras\Cls_Rule_Compras.cs" />
     <Compile Include="CuentasCobrar\Cls_Rule_CuentasCobrar.cs" />
+    <Compile Include="Dashboard\Cls_Rule_Dashboard.cs" />
     <Compile Include="Inventario\Cls_Rule_Categoria.cs" />
     <Compile Include="Inventario\Cls_Rule_Producto.cs" />
     <Compile Include="Listados_Combos\Cls_Rule_Listados.cs" />
