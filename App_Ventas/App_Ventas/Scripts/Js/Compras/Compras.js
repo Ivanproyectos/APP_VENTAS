@@ -73,7 +73,7 @@ function Compras_Acciones(cellvalue, options, rowObject) {
     var _FLG_FLG_ANULADO = rowObject[16];
     var _btn_Anular = "";
     if (_FLG_FLG_ANULADO == 0) {
-        _btn_Anular = "<a class=\"dropdown-item\" onclick='Compras_AnularVenta(" + _ID_COMPRA + ")'><i class=\"bi bi-basket-fill\" style=\"color:red;\"></i>&nbsp;  Anular Venta</a>";
+        _btn_Anular = "<a class=\"dropdown-item\" onclick='Compras_AnularVenta(" + _ID_COMPRA + ")'><i class=\"bi bi-basket-fill\" style=\"color:red;\"></i>&nbsp;  Anular Compra</a>";
     }
     var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
            "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +

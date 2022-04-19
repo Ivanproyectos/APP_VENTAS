@@ -1,5 +1,6 @@
 ﻿var CuentasCobrar_Grilla = 'CuentasCobrar_Grilla';
 var CuentasCobrar_Barra = 'CuentasCobrar_Barra';
+var _Modulo = "COBRAR";
 
 function CuentasCobrar_Cerrar() {
     $('#myModalNuevo').modal('hide');
@@ -29,8 +30,8 @@ function CuentasCobrar_ConfigurarGrilla() {
             { name: 'CLIENTE', index: 'CLIENTE', width: 250, hidden: false, align: "left" }, // 5
             { name: 'DESCUENTO', index: 'DESCUENTO', width: 100, hidden: false, align: "left" }, // 6
             { name: 'ADELANTO', index: 'ADELANTO', width: 100, hidden: false, align: "left" }, // 7
-            { name: 'TOTAL', index: 'TOTAL', width: 100, hidden: false, align: "left", formatter: Ventas_FormatterTotal }, // 8
-            { name: 'DEBE', index: 'DEBE', width: 100, hidden: false, align: "left", formatter: Ventas_FormatterDebe }, // 9
+            { name: 'TOTAL', index: 'TOTAL', width: 100, hidden: false, align: "left", formatter: CuentasCobrar_FormatterTotal }, // 8
+            { name: 'DEBE', index: 'DEBE', width: 100, hidden: false, align: "left", formatter: CuentasCobrar_FormatterDebe }, // 9
             { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },//10
             { name: 'COD_COMPROBANTE', index: 'COD_COMPROBANTE', width: 150, hidden: true, align: "left" },//11
             { name: 'FLG_ESTADO_CREDITO', index: 'FLG_CRED_CANCELADO', width: 150, hidden: true, align: "left" },//12
@@ -80,12 +81,14 @@ function CuentasCobrar_actionAcciones(cellvalue, options, rowObject) {
     var _ID_VENTA = rowObject[2];
     var _FLG_FLG_ANULADO = rowObject[14];
     var _FLG_ESTADO_CREDITO = rowObject[12];
-
     var _btn_Cobrar =""; 
     var _btn_Anular = "";
-    var _btn_Notificar = ""; 
+    var _btn_Devolver = "";
+    var _btn_Notificar = "";
+
     if (_FLG_FLG_ANULADO == 0 && _FLG_ESTADO_CREDITO == 0) 
         _btn_Anular = "<a class=\"dropdown-item\" onclick='Ventas_AnularVenta(" + _ID_VENTA + ")'><i class=\"bi bi-cart-x\" style=\"color:red;\"></i>&nbsp;Anular</a>";
+         _btn_Devolver = "<a class=\"dropdown-item\" onclick=\"CuentasCobrar_MostrarDevolverProducto(" + _ID_VENTA + ")\" ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>";
 
     if (_FLG_ESTADO_CREDITO == 0) {
         _btn_Cobrar = "<a class=\"dropdown-item\" onclick='CuentasCobrar_MostrarCobrarCredito(" + _ID_VENTA + ")'><i class=\"bi bi-cash-coin\" style=\"color:#2c7be5\"></i>&nbsp;Cobrar</a>";
@@ -98,8 +101,8 @@ function CuentasCobrar_actionAcciones(cellvalue, options, rowObject) {
             "<a class=\"dropdown-item\" onclick='Ventas_ViewDetalleVenta(" + _ID_VENTA + ")'><i class=\"bi bi-stickies\" style=\"color:#2c7be5\"></i>&nbsp;  Detalle Venta</a>" +
                _btn_Notificar +
                _btn_Cobrar +
-               _btn_Anular +              
-            "<a class=\"dropdown-item\" onclick='CuentasCobrar_MostrarDevolverProducto(" + _ID_VENTA + ")' ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>" +
+               _btn_Anular +
+               _btn_Devolver + 
             "</div>" +
         "</div>";
     return _btn;
@@ -113,13 +116,13 @@ function CuentasCobrar_FormaterComprobante(cellvalue, options, rowObject) {
     return _text;
 }
 
-function Ventas_FormatterTotal(cellvalue, options, rowObject) {
+function CuentasCobrar_FormatterTotal(cellvalue, options, rowObject) {
     var _TOTAL = rowObject[8];
     var _text = _SimboloMoneda + " " + _TOTAL;
     return _text;
 }
 
-function Ventas_FormatterDebe(cellvalue, options, rowObject) {
+function CuentasCobrar_FormatterDebe(cellvalue, options, rowObject) {
     var _DEBE = rowObject[9];
     var _text = _SimboloMoneda + " " + _DEBE;
     return _text;

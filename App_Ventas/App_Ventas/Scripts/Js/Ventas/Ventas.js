@@ -1,6 +1,13 @@
 ﻿var Ventas_Grilla = 'Ventas_Grilla';
 var Ventas_Barra = 'Ventas_Barra';
-var Items_Motivo = ""; 
+var Items_Motivo = "";
+var _Modulo = "VENTAS";
+
+//$(window).on("resize", function () {
+//    var $grid = $("#Ventas_Grilla"),
+//        newWidth = $grid.closest(".ui-jqgrid").parent().width();
+//    $grid.jqGrid("setGridWidth", newWidth, true);
+//});
 
 function Ventas_Cerrar() {
     $('#myModalNuevo').modal('hide');
@@ -80,11 +87,12 @@ function Ventas_actionAcciones(cellvalue, options, rowObject) {
     var _FLG_FLG_ANULADO = rowObject[14];
     var _COD_COMPROBANTE = '"' + rowObject[13] + '"'; 
     var _btn_Anular =""; 
-    var _btn_Devolver =""; 
+    var _btn_Devolver = "";
+
     if (_FLG_FLG_ANULADO == 0) {
         _btn_Imprimir = "<a class=\"dropdown-item\" onclick='Ventas_ImprimirComprobante(" + _ID_VENTA + "," + _COD_COMPROBANTE + ")'><i class=\"bi bi-printer\" style=\"color:gray;\"></i>&nbsp;  Imprimir Comprobante</a>";
         _btn_Anular = "<a class=\"dropdown-item\" onclick='Ventas_AnularVenta(" + _ID_VENTA + ")'><i class=\"bi bi-cart-x\" style=\"color:red;\"></i>&nbsp;  Anular Venta</a>";
-        _btn_Devolver ="<a class=\"dropdown-item\" onclick='Ventas_MostrarDevolverProducto(" + _ID_VENTA + ")' ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>" ; 
+        _btn_Devolver = "<a class=\"dropdown-item\" onclick=\"Ventas_MostrarDevolverProducto(" + _ID_VENTA + ")\" ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>";
     }
     var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
            "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +

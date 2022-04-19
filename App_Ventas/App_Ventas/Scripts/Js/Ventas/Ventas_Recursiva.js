@@ -43,7 +43,6 @@ function Ventas_DevolverProducto(CODIGO) {
         _disabled_cantidad = "disabled"
     Ventas_Llenar_ComboMotivo();
     var url = baseUrl + 'Ventas/Ventas/Ventas_Detalle_DevolverProducto';
-
     var _html = "¿ Desea devolver este producto ?, al devolver el producto la cantidad ingresada retornara al almacen. </br>"
                 + "  <div class=\"basic-list-group\">"
                 + "  <ul class=\"list-group list-group-flush\" style=\"color: #5a5a5a;text-align: left;\">"
@@ -83,7 +82,7 @@ function Ventas_DevolverProducto(CODIGO) {
                 var _Mensaje = "";
                 var _valido = false;
 
-                debugger;
+               
 
                 if (_CANTIDAD == "") {
                     _Mensaje += "Cantidad es oblitario. </br>"
@@ -157,9 +156,12 @@ function Ventas_DevolverProducto(CODIGO) {
             return false;
         }
         jOkas("Producto devuelto con exito!", "Proceso");
-        Ventas_ConfigurarGrilla();
+        if (_Modulo == "VENTAS")
+            Ventas_ConfigurarGrilla();
+        else if (_Modulo == "COBRAR")
+            CuentasCobrar_ConfigurarGrilla();
         Ventas_Detalle_CargarGrilla($('#hfd_ID_VENTA').val());
-        //swal(JSON.stringify(result))
+
     }).catch(swal.noop)
 }
 

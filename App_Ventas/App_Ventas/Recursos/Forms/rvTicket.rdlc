@@ -1266,7 +1266,7 @@ First(Fields!ID_TIPO_PAGO.Value, "Ds_Cabecera")= 3, "Deposito")</Value>
   </Body>
   <Width>3.06609in</Width>
   <Page>
-    <PageHeight>17cm</PageHeight>
+    <PageHeight>29cm</PageHeight>
     <PageWidth>8cm</PageWidth>
     <InteractiveHeight>29.7cm</InteractiveHeight>
     <InteractiveWidth>7.5cm</InteractiveWidth>

@@ -12,46 +12,85 @@ function Producto_Limpiar() {
     $('#ID_CATEGORIA_SEARCH').val('');
     $('#Producto_flg_servicio').val('2');
     $('#Producto_Estado').val('2');
-    Producto_CargarGrilla();
+    Producto_ConfigurarGrilla();
 }
 
 function Producto_ConfigurarGrilla() {
+    var url = baseUrl + 'Inventario/Producto/Productos_Paginado';
     $("#" + Producto_Grilla).GridUnload();
-    var colNames = ['Editar', 'Eliminar', 'Estado', 'codigo', 'ID', 'Código','Producto' ,'Unidad Medida', 'Pre. Compra', 'Pre. Venta', 'Stock','stock min',
+    var colNames = ['Opciones', 'Estado', 'codigo', 'ID', 'Imagen', 'Código', 'Producto', 'Unidad Medida', 'Pre. Compra', 'Pre. Venta', 'Stock', 'stock min',
         'Fec. Vencimiento','Marca','Modelo','Detalle',
-        'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación'];
+        'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación', 'ID_UNIDAD_MEDIDA','CODIGO_IMAGE'];
     var colModels = [
-            { name: 'EDITAR', index: 'EDITAR', align: 'center', width: 60, hidden: false, formatter: Producto_actionEditar, sortable: false },
-            { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: false, formatter: Producto_actionEliminar, sortable: false },
-            { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Producto_actionActivo, sortable: false },
-            { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
-            { name: 'ID_PRODUCTO', index: 'ID_PRODUCTO', width: 100, hidden: true, key: true },
-            { name: 'COD_PRODUCTO', index: 'COD_PRODUCTO', width: 150, hidden: false, align: "left" },
-            { name: 'DESC_PRODUCTO', index: 'DESC_PRODUCTO', width: 250, hidden: false, align: "left" },
-            { name: 'DESC_UNIDAD_MEDIDA', index: 'DESC_UNIDAD_MEDIDA', width: 200, hidden: false, align: "left" },
-            { name: 'PRECIO_COMPRA', index: 'PRECIO_COMPRA', width: 150, hidden: false, align: "left" },
-            { name: 'PRECIO_VENTA', index: 'PRECIO_VENTA', width: 150, hidden: false, align: "left"  ,formatter: Producto_PrecioVentaConcat },
-            { name: 'STOCK', index: 'STOCK', width: 100, hidden: false, align: "left", formatter: Producto_StatuStock },
-            { name: 'STOCK_MINIMO', index: 'STOCK_MINIMO', width: 150, hidden: true, align: "left" },
-            { name: 'FECHA_VENCIMIENTO', index: 'FECHA_VENCIMIENTO', width: 150, hidden: false, align: "left", formatter: Producto_FechaVencimiento },
-            { name: 'MARCA', index: 'MARCA', width: 200, hidden: false, align: "left" },
-            { name: 'MODELO', index: 'MODELO', width: 200, hidden: false, align: "left" },
-            { name: 'DETALLE', index: 'DETALLE', width: 250, hidden: false, align: "left" },
-            { name: 'FLG_ESTADO', index: 'FLG_ESTADO', width: 300, hidden: true, align: "left" },
-            { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },
-            { name: 'USU_CREACION', index: 'USU_CREACION', width: 150, hidden: false, align: "left" },
-            { name: 'FEC_MODIFICACION', index: 'FEC_MODIFICACION', width: 150, hidden: false, align: "left" },
-            { name: 'USU_MODIFICACION', index: 'USU_MODIFICACION', width: 150, hidden: false, align: "left" },
+            { name: 'OPCIONES', index: 'OPCIONES', align: 'center', width: 80, hidden: false, formatter: Producto_actionAcciones, sortable: false }, //0
+            { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Producto_actionActivo, sortable: false }, //1
+            { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, }, //2
+            { name: 'ID_PRODUCTO', index: 'ID_PRODUCTO', width: 100, hidden: true, key: true }, //3
+            { name: 'IMAGEN', index: 'IMAGEN', width: 100, hidden: false, align: "center", formatter: Producto_FormatterImagenProducto }, //4
+            { name: 'COD_PRODUCTO', index: 'COD_PRODUCTO', width: 150, hidden: false, align: "left" }, //5
+            { name: 'DESC_PRODUCTO', index: 'DESC_PRODUCTO', width: 250, hidden: false, align: "left" }, //6
+            { name: 'DESC_UNIDAD_MEDIDA', index: 'DESC_UNIDAD_MEDIDA', width: 200, hidden: false, align: "left" }, //7
+            { name: 'PRECIO_COMPRA', index: 'PRECIO_COMPRA', width: 150, hidden: false, align: "left" }, //8
+            { name: 'PRECIO_VENTA', index: 'PRECIO_VENTA', width: 150, hidden: false, align: "left", formatter: Producto_PrecioVentaConcat }, //9
+            { name: 'STOCK', index: 'STOCK', width: 100, hidden: false, align: "left", formatter: Producto_StatuStock }, //10
+            { name: 'STOCK_MINIMO', index: 'STOCK_MINIMO', width: 150, hidden: true, align: "left" }, //11
+            { name: 'FECHA_VENCIMIENTO', index: 'FECHA_VENCIMIENTO', width: 150, hidden: false, align: "left", formatter: Producto_FechaVencimiento }, //12
+            { name: 'MARCA', index: 'MARCA', width: 200, hidden: true, align: "left" },  //13
+            { name: 'MODELO', index: 'MODELO', width: 200, hidden: true, align: "left" }, //14
+            { name: 'DETALLE', index: 'DETALLE', width: 250, hidden: true, align: "left" }, //15
+            { name: 'FLG_ESTADO', index: 'FLG_ESTADO', width: 300, hidden: true, align: "left" }, //16
+            { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },  // 17
+            { name: 'USU_CREACION', index: 'USU_CREACION', width: 150, hidden: false, align: "left" }, //18
+            { name: 'FEC_MODIFICACION', index: 'FEC_MODIFICACION', width: 150, hidden: true, align: "left" }, // 19
+            { name: 'USU_MODIFICACION', index: 'USU_MODIFICACION', width: 150, hidden: true, align: "left" }, //20
+            { name: 'ID_UNIDAD_MEDIDA', index: 'ID_UNIDAD_MEDIDA', width: 150, hidden: true, align: "left" }, //21
+            { name: 'CODIGO_IMAGE', index: 'CODIGO_IMAGE', width: 150, hidden: true, align: "left" }, //22
     ];
     var opciones = {
-        GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
+        GridLocal: false, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rules:true,rowNumber: 10, rowNumbers: [10, 25, 50, 100],
     };
-    SICA.Grilla(Producto_Grilla, Producto_Barra, Producto_Grilla, 400, '', "Lista de Producto", '', 'ID_PRODUCTO', colNames, colModels, '', opciones);
+    SICA.Grilla(Producto_Grilla, Producto_Barra, Producto_Grilla, '', '', "", url, 'ID_PRODUCTO', colNames, colModels, 'ID_PRODUCTO', opciones);
+}
+
+
+function GetRules(Ventas_Grilla) {
+    var rules = new Array();
+    var FLG_ESTADO = jQuery('#Producto_Estado').val() == '' ? null : "'" + jQuery('#Producto_Estado').val() + "'";
+    var FLG_SERVICIO = jQuery('#Producto_flg_servicio').val() == '' ? null : "'" + jQuery('#Producto_flg_servicio').val() + "'";
+    var ID_CATEGORIA = jQuery('#ID_CATEGORIA_SEARCH').val() == '' ? null : "'" + jQuery('#ID_CATEGORIA_SEARCH').val() + "'";
+    var DESC_PRODUCTO = "'" + jQuery('#Producto_Desc').val() + "'";
+    var CODIGO_PRODUCTO = "'" + jQuery('#Producto_codigo').val() + "'";
+    var ID_SUCURSAL = jQuery('#ID_SUCURSAL').val() == '' ? null : "'" + jQuery('#ID_SUCURSAL').val() + "'";
+
+    var POR = "'%'";
+    rules = []
+    rules.push({ field: 'UPPER(DESC_PRODUCTO)', data: POR + ' + ' + DESC_PRODUCTO + ' + ' + POR, op: " LIKE " });
+    rules.push({ field: 'UPPER(COD_PRODUCTO)', data: POR + ' + ' + CODIGO_PRODUCTO + ' + ' + POR, op: " LIKE " });
+    rules.push({ field: 'ID_CATEGORIA', data: '  ISNULL(' + ID_CATEGORIA + ',ID_CATEGORIA) ', op: " = " });
+    rules.push({ field: 'FLG_SERIVICIO', data: '  ISNULL(' + FLG_SERVICIO + ',FLG_SERIVICIO) ', op: " = " });
+    rules.push({ field: 'FLG_ESTADO', data: '  ISNULL(' + FLG_ESTADO + ',FLG_ESTADO) ', op: " = " });
+    rules.push({ field: 'ID_SUCURSAL', data: '  ISNULL(' + ID_SUCURSAL + ',ID_SUCURSAL)', op: " = " });
+
+    return rules;
+}
+
+function Producto_actionAcciones(cellvalue, options, rowObject) {
+    var _ID_PRODUCTO = rowObject[3];
+    var  _btn_Editar = "<a class=\"dropdown-item\" onclick='Producto_MostrarEditar(" + _ID_PRODUCTO + ")'><i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;\"></i>&nbsp;  Editar</a>";
+    var _btn_Eliminar = "<a class=\"dropdown-item\" onclick='Producto_Eliminar(" + _ID_PRODUCTO + ")'><i class=\"bi bi-trash-fill\" style=\"color:#e40613;\"></i>&nbsp;  Eliminar</a>";
+    var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
+           "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
+           "<div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
+           _btn_Editar +
+           _btn_Eliminar +
+            "</div>" +
+        "</div>";
+    return _btn;
 }
 
 function Producto_actionActivo(cellvalue, options, rowObject) {
     var check_ = 'check';
-    if (rowObject.FLG_ESTADO == 1)
+    if (rowObject[16])
         check_ = 'checked';
     var _btn = " <label class=\"content_toggle_1\">"
             + "<input id=\"Producto_chk_" + rowObject.ID_PRODUCTO + "\" class=\"toggle_Beatiful_1\" type=\"checkbox\" onchange=\"Producto_Estado(" + rowObject.ID_PRODUCTO + ",this)\" " + check_ + ">"
@@ -64,25 +103,25 @@ function Producto_actionActivo(cellvalue, options, rowObject) {
 
 
 function Producto_PrecioVentaConcat(cellvalue, options, rowObject) {
-    var _Precioventa = rowObject.PRECIO_VENTA;
+    var _Precioventa = rowObject[9];
      var _text = _SimboloMoneda +' '+ _Precioventa;  
     return _text;
 }
 
 
 function Producto_FechaVencimiento(cellvalue, options, rowObject) {
-    var _FechaVencimiento= rowObject.FECHA_VENCIMIENTO;
+    var _FechaVencimiento= rowObject[12];
     var _FechaActual = moment().format('DD/MM/YYYY');
     debugger;
     var _text = ""; 
     if (_FechaActual == _FechaVencimiento) {
-        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto vencido\">" + rowObject.FECHA_VENCIMIENTO + " <i class=\"bi bi-exclamation-circle\"></i></span>";
+        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto vencido\">" + rowObject[12] + " <i class=\"bi bi-exclamation-circle\"></i></span>";
     } else {
         var Dias= DifferenceDaysFechas(_FechaActual, _FechaVencimiento);
         if (Dias == 0) {
-            _text = rowObject.FECHA_VENCIMIENTO;
+            _text = rowObject[12]
         } else if (Dias <= 5) {
-            _text = "<span class=\"badge badge-warning \" data-bs-toggle=\"tooltip\" title=\"Producto a punto de vencer!\">" + rowObject.FECHA_VENCIMIENTO + " <i class=\"bi bi-exclamation-triangle\"></i></span>";
+            _text = "<span class=\"badge badge-warning \" data-bs-toggle=\"tooltip\" title=\"Producto a punto de vencer!\">" + rowObject[12] + " <i class=\"bi bi-exclamation-triangle\"></i></span>";
         }
 
     }
@@ -90,27 +129,36 @@ function Producto_FechaVencimiento(cellvalue, options, rowObject) {
     return _text;
 }
 
+function Producto_FormatterImagenProducto(cellvalue, options, rowObject) {
+    var _CodigoImage = rowObject[22];
+    var _Noimage = "no-image.png";
+    var _RutaImage = baseUrl + "Recursos/ImagenProducto/";
+    if (_CodigoImage != null && _CodigoImage != "") {
+        _RutaImage = _RutaImage + _CodigoImage;
+    } else {
+        _RutaImage = _RutaImage + _Noimage;
+    }
+    var ImgFrame = "<img src=\"" + _RutaImage + "\" alt=\"image fail\" class=\"img-produc\" height=\"48\">"
+    return ImgFrame;
+}
+
 function Producto_StatuStock(cellvalue, options, rowObject) {
-    var _Stock = parseInt(rowObject.STOCK);
-    var _StockMinimo = parseInt(rowObject.STOCK_MINIMO);
-    debugger;
+    var _Stock = parseInt(rowObject[10]);
+    var _StockMinimo = parseInt(rowObject[11]);
+    var _IdUnidadMedida = parseInt(rowObject[21]);
+
+    if (_IdUnidadMedida == 1) {
+        _Stock = ConvertGramos_Kilos(_Stock);
+        _StockMinimo = ConvertGramos_Kilos(_StockMinimo);
+    }
+
     var _text = "";
     if (_Stock <= _StockMinimo) {
-        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto con el stock minimo\">" + rowObject.STOCK + "</span>";
+        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto con el stock minimo\">" + _Stock + "</span>";
     } else {      
-        _text = "<span class=\"badge badge-success\">" + rowObject.STOCK + "</span>";
+        _text = "<span class=\"badge badge-success\">" + _Stock + "</span>";
     }
     return _text;
-}
-
-function Producto_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Producto_MostrarEditar(" + rowObject.ID_PRODUCTO + ");' class=\"btn btn-outline-light\" type=\"button\" style=\"height: 39px;line-height: 5px;\" > <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
-    return _btn;
-}
-
-function Producto_actionEliminar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Eliminar'  onclick='Producto_Eliminar(" + rowObject.ID_PRODUCTO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>";
-    return _btn;
 }
 
 

@@ -32,6 +32,8 @@ namespace Capa_Entidad.Inventario
 
         public Cls_Ent_Archivo MiArchivo { get; set; }
         public string COD_UNIDAD_MEDIDA { get; set; }
+        public int FILA { get; set; }
+        
       
         
     }

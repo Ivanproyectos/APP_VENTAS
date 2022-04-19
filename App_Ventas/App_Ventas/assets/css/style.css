@@ -8069,7 +8069,7 @@ a {
   transition: all .2s ease;
   z-index: 4; }
   .nav-header .logo-abbr {
-    max-width: 30px; }
+    max-width: 40px; }
   .nav-header .logo-compact {
     display: none; }
   @media only screen and (min-width: 1800px) {
@@ -8101,7 +8101,7 @@ a {
         justify-content: center; } }
   .nav-header .brand-title {
     margin-left: 15px;
-    max-width: 75px; }
+    max-width: 150px; }
     [data-theme-version="dark"] .nav-header .brand-title {
       background-position: 0 120%; }
 

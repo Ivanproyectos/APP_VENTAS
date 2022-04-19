@@ -295,6 +295,7 @@
     <Content Include="assets\icons\themify-icons\css\themify-icons.css" />
     <Content Include="assets\icons\themify-icons\fonts\themify9f24.svg" />
     <Content Include="assets\images\1.jpg" />
+    <Content Include="assets\images\awesome.png" />
     <Content Include="assets\images\avatar\1.png" />
     <Content Include="assets\images\avatar\2.png" />
     <Content Include="assets\images\avatar\3.png" />
@@ -4182,10 +4183,12 @@
     <Content Include="Areas\Caja\Views\Caja\View_Movimiento.cshtml" />
     <Content Include="Areas\Dashboard\Views\Web.config" />
     <Content Include="Areas\Dashboard\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Inventario\Views\Producto\View_MovimientoProducto.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Recursos\Forms\GenerarComprobante.aspx" />
     <Content Include="Recursos\Imagenes\tulogo.png" />
+    <Content Include="Recursos\ImagenProducto\no-image.png" />
     <Content Include="Recursos\ImagenProducto\NoBorrar.js" />
     <Content Include="Recursos\Logo_Empresa\NoBorrar.js" />
     <Content Include="Recursos\Log\NoBorrar.js" />

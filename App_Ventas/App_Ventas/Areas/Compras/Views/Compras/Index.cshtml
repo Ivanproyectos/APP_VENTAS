@@ -49,30 +49,11 @@
             <div class="card-body">
 
                 <div class="basic-form">
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <label>Código Comprobante:</label>
-                            <input type="text" class="form-control" id="Compras_CodigoComprobante" placeholder="Ejm: F55402">
-                        </div>
-
-                        <div class=" col-md-3">
-                            <label>Proveedor:</label>
-                          @Html.DropDownListFor(model => model.ID_PROVEEDOR_SEARCH, Model.Lista_Proveedor, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
-                        </div>
-
-                        <div class=" col-md-3">
-                            <label>Estado:</label>
-                            <select class="form-control" id="Compras_FLG_ANULADO">
-                                <option value="">-- Seleccione --</option>
-                                <option value="1">Realizado</option>
-                                <option value="0">Anulado</option>
-                            </select>
-                        </div>
-
-                          <div class=" col-md-3">
+                    <div class="form-row mb-3">
+                           <div class=" col-md-3">
                             <label>Fecha Inicio:</label>
                             <div class="input-group mb-3">
-                                <input type="text" id="Compras_FechaInicio" class="form-control" placeholder="dd/mm/yyyy", autocomplete="off">
+                                <input type="text" id="Compras_FechaInicio" class="form-control" placeholder="dd/mm/yyyy", autocomplete="off" />
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
                                 </div>
@@ -89,7 +70,26 @@
                         </div>
 
 
+                        <div class=" col-md-3">
+                            <label>Código Comprobante:</label>
+                            <input type="text" class="form-control" id="Compras_CodigoComprobante" placeholder="Ejm: F55402">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Proveedor:</label>
+                          @Html.DropDownListFor(model => model.ID_PROVEEDOR_SEARCH, Model.Lista_Proveedor, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Estado:</label>
+                            <select class="form-control" id="Compras_FLG_ANULADO">
+                                <option value="">-- Seleccione --</option>
+                                <option value="1">Realizado</option>
+                                <option value="0">Anulado</option>
+                            </select>
+                        </div>            
                     </div>
+
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <button type="button" id="Compras_btnBuscar" class="btn btn-hover-shine  btn-square btn-primary "><i class="fa fa-search"></i>&nbsp Buscar</button>
