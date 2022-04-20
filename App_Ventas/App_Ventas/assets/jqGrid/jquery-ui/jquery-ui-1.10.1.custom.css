@@ -837,7 +837,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	/*border: 1px solid #cccccc;*/
-    background: #eef2f7; 
+    background: transparent; 
 	font-weight: bold;
 	color:#5d5959;
     text-align: center;

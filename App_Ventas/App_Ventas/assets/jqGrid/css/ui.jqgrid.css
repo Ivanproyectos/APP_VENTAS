@@ -52,6 +52,7 @@
         }
 
     .ui-jqgrid .ui-jqgrid-hdiv {
+        background: #eef2f7 !important;
         position: relative;
         margin: 0;
         padding: 0;
