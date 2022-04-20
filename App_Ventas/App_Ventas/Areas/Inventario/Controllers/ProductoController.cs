@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Capa_Entidad;
 using Capa_Entidad.Administracion;
 using App_Ventas.Areas.Inventario.Models;
+using App_Ventas.Areas.Ventas.Models;
 using Capa_Entidad.Inventario;
 using Capa_Entidad.Base;
 using App_Ventas.Areas.Administracion.Repositorio;
@@ -134,6 +135,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                             item.USU_MODIFICACION, 
                             item.ID_UNIDAD_MEDIDA.ToString(), 
                             item.MiArchivo.CODIGO_ARCHIVO + item.MiArchivo.EXTENSION, 
+                            item.FLG_SERVICIO.ToString(), 
                             }
                         }).ToArray();
 
@@ -385,12 +387,56 @@ namespace App_Ventas.Areas.Inventario.Controllers
         }
 
 
-        public ActionResult View_MovimientoProducto(int ID_SUCURSAL, string TIPO) {
-
-            return View();     
+        public ActionResult View_Ingreso(int ID_SUCURSAL,string DESC_SUCURSAL)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            BuscarProductoModelView model = new BuscarProductoModelView();
+            model.ID_SUCURSAL = ID_SUCURSAL;
+            model.DESC_SUCURSAL = DESC_SUCURSAL;
+            using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
+            {
+                model.Lista_Unidad_Medida = Repositorio.Unidad_Medida_Listar(ref auditoria).Select(x => new SelectListItem()
+                {
+                    Text = x.DESC_UNIDAD_MEDIDA,
+                    Value = x.ID_UNIDAD_MEDIDA.ToString()
+                }).ToList();
+                model.Lista_Unidad_Medida.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+            }
+            return View(model);     
         }
 
+        public ActionResult View_Salidas(int ID_SUCURSAL, string DESC_SUCURSAL)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            BuscarProductoModelView model = new BuscarProductoModelView();
+            model.ID_SUCURSAL = ID_SUCURSAL;
+            model.DESC_SUCURSAL = DESC_SUCURSAL;
+            using (Listado_CombosRepositorio Repositorio = new Listado_CombosRepositorio())
+            {
+                model.Lista_Unidad_Medida = Repositorio.Unidad_Medida_Listar(ref auditoria).Select(x => new SelectListItem()
+                {
+                    Text = x.DESC_UNIDAD_MEDIDA,
+                    Value = x.ID_UNIDAD_MEDIDA.ToString()
+                }).ToList();
+                model.Lista_Unidad_Medida.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+            }
+            return View(model);     
+        }
 
-
+        public ActionResult View_Translados()
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            TransladoModelView model = new TransladoModelView();
+            using (SucursalRepositorio Repositorio = new SucursalRepositorio())
+            {
+                model.Lista_Sucursal = Repositorio.Sucursal_Listar( new Cls_Ent_Sucursal {FLG_ESTADO = 1}, ref auditoria).Select(x => new SelectListItem()
+                {
+                    Text = x.DESC_SUCURSAL,
+                    Value = x.ID_SUCURSAL.ToString()
+                }).ToList();
+                //model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+            }
+            return View(model);
+        }
     }
 }

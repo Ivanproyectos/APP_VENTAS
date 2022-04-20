@@ -10,7 +10,7 @@ using Capa_Entidad.Base;
 
 namespace App_Ventas.Areas.Ventas.Models
 {
-    public class ProductoModelView
+    public class BuscarProductoModelView
     {
         public int ID_PRODUCTO { get; set; }
 
@@ -106,7 +106,7 @@ namespace App_Ventas.Areas.Ventas.Models
         public string Accion { get; set; }
         public string COD_UNIDAD_MEDIDA { get; set; }
         public string TIPO_PROCESO { get; set; }
-
+        public string DESC_SUCURSAL { get; set; }
  
         
         

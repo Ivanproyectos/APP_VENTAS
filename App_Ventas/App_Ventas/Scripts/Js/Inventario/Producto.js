@@ -10,8 +10,8 @@ function Producto_Limpiar() {
     $("#Producto_Desc").val('');
     $('#Producto_codigo').val('');
     $('#ID_CATEGORIA_SEARCH').val('');
-    $('#Producto_flg_servicio').val('2');
-    $('#Producto_Estado').val('2');
+    $('#Producto_flg_servicio').val('');
+    $('#Producto_Estado').val('');
     Producto_ConfigurarGrilla();
 }
 
@@ -20,7 +20,7 @@ function Producto_ConfigurarGrilla() {
     $("#" + Producto_Grilla).GridUnload();
     var colNames = ['Opciones', 'Estado', 'codigo', 'ID', 'Imagen', 'Código', 'Producto', 'Unidad Medida', 'Pre. Compra', 'Pre. Venta', 'Stock', 'stock min',
         'Fec. Vencimiento','Marca','Modelo','Detalle',
-        'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación', 'ID_UNIDAD_MEDIDA','CODIGO_IMAGE'];
+        'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación', 'ID_UNIDAD_MEDIDA','CODIGO_IMAGE','FLG_SERVICIO'];
     var colModels = [
             { name: 'OPCIONES', index: 'OPCIONES', align: 'center', width: 80, hidden: false, formatter: Producto_actionAcciones, sortable: false }, //0
             { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Producto_actionActivo, sortable: false }, //1
@@ -44,7 +44,8 @@ function Producto_ConfigurarGrilla() {
             { name: 'FEC_MODIFICACION', index: 'FEC_MODIFICACION', width: 150, hidden: true, align: "left" }, // 19
             { name: 'USU_MODIFICACION', index: 'USU_MODIFICACION', width: 150, hidden: true, align: "left" }, //20
             { name: 'ID_UNIDAD_MEDIDA', index: 'ID_UNIDAD_MEDIDA', width: 150, hidden: true, align: "left" }, //21
-            { name: 'CODIGO_IMAGE', index: 'CODIGO_IMAGE', width: 150, hidden: true, align: "left" }, //22
+            { name: 'CODIGO_IMAGE', index: 'CODIGO_IMAGE', width: 0, hidden: true, align: "left" }, //22
+            { name: 'FLG_SERVICIO', index: 'FLG_SERVICIO', width: 0, hidden: true, align: "left" }, //23
     ];
     var opciones = {
         GridLocal: false, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rules:true,rowNumber: 10, rowNumbers: [10, 25, 50, 100],
@@ -146,6 +147,7 @@ function Producto_StatuStock(cellvalue, options, rowObject) {
     var _Stock = parseInt(rowObject[10]);
     var _StockMinimo = parseInt(rowObject[11]);
     var _IdUnidadMedida = parseInt(rowObject[21]);
+    var _Flg_servicio = parseInt(rowObject[23]);
 
     if (_IdUnidadMedida == 1) {
         _Stock = ConvertGramos_Kilos(_Stock);
@@ -154,9 +156,12 @@ function Producto_StatuStock(cellvalue, options, rowObject) {
 
     var _text = "";
     if (_Stock <= _StockMinimo) {
-        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto con el stock minimo\">" + _Stock + "</span>";
-    } else {      
-        _text = "<span class=\"badge badge-success\">" + _Stock + "</span>";
+        if (_Flg_servicio != 1)
+            _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto con el stock minimo\">" + _Stock + "</span>";
+        else
+            _text = _Stock;
+    } else {    
+            _text = "<span class=\"badge badge-success\">" + _Stock + "</span>";  
     }
     return _text;
 }
@@ -188,66 +193,110 @@ function Producto_MostrarEditar(ID_PRODUCTO) {
 }
 
 
+function Producto_MostrarIngresoProducto() {
+    var _ID_SUCURSAL = $('#ID_SUCURSAL').val();
+    var _DESC_SUCURSAL = $('select[name="ID_SUCURSAL"] option:selected').text();
+    if (_ID_SUCURSAL != "") {
+        _DESC_SUCURSAL = _DESC_SUCURSAL.replace(/ /g, "+");
+        jQuery("#myModalNuevo").html('');
+        jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/View_Ingreso?ID_SUCURSAL=" + _ID_SUCURSAL +
+            "&DESC_SUCURSAL=" + _DESC_SUCURSAL, function (responseText, textStatus, request) {
+            $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
+            $.validator.unobtrusive.parse('#myModalNuevo');
+            if (request.status != 200) return;
+        });
+    } else {
+        jInfo('Para registrar un ingreso de producto selecione el almacen donde se registrara.', 'Atención')
+    }
+}
+
+function Producto_MostrarSalidasProducto() {
+    var _ID_SUCURSAL = $('#ID_SUCURSAL').val();
+    var _DESC_SUCURSAL = $('select[name="ID_SUCURSAL"] option:selected').text();
+    if (_ID_SUCURSAL != "") {
+        _DESC_SUCURSAL = _DESC_SUCURSAL.replace(/ /g, "+");
+        jQuery("#myModalNuevo").html('');
+        jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/View_Salidas?ID_SUCURSAL=" + _ID_SUCURSAL +
+            "&DESC_SUCURSAL=" + _DESC_SUCURSAL, function (responseText, textStatus, request) {
+                $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
+                $.validator.unobtrusive.parse('#myModalNuevo');
+                if (request.status != 200) return;
+            });
+    } else {
+        jInfo('Para registrar una salida de producto selecione el almacen donde se registrara.', 'Atención')
+    }
+}
+
+
+function Producto_MostrarTranslado() {
+    jQuery("#myModalNuevo").html('');
+    jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/View_Translados", function (responseText, textStatus, request) {
+            $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
+            $.validator.unobtrusive.parse('#myModalNuevo');
+            if (request.status != 200) return;
+        });
+}
+
 ///*********************************************** ----------------- *************************************************/
 
 ///*********************************************** Lista los  producto **************************************************/
 
-function Producto_CargarGrilla() {
-    var item =
-       {
-           DESC_PRODUCTO: $('#Producto_Desc').val(),
-           COD_PRODUCTO: $('#Producto_codigo').val(),
-           ID_CATEGORIA: $('#ID_CATEGORIA_SEARCH').val(),
-           FLG_SERVICIO: $('#Producto_flg_servicio').val(),
-           FLG_ESTADO: $('#Producto_Estado').val()
-       };
-    var url = baseUrl + 'Inventario/Producto/Producto_Listar';
-    var auditoria = SICA.Ajax(url, item, false);
-    jQuery("#" + Producto_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
-    if (auditoria.EJECUCION_PROCEDIMIENTO) {
-        if (!auditoria.RECHAZAR) {
-            $.each(auditoria.OBJETO, function (i, v)   {
-                var idgrilla = i + 1;
-                var _STOCK = v.STOCK;
-                var _STOCK_MINIMO = v.STOCK_MINIMO;
-                if (v.ID_UNIDAD_MEDIDA == 1) // si es kilos
-                {
-                    _STOCK = (v.STOCK / 1000) // gramo a kilos
-                    _STOCK_MINIMO = (v.STOCK_MINIMO / 1000) // gramo a kilos
-                }
-                var myData =
-                 {
-                     CODIGO: idgrilla,
-                     ID_PRODUCTO: v.ID_PRODUCTO,
-                     DESC_PRODUCTO: v.DESC_PRODUCTO,
-                     COD_PRODUCTO: v.COD_PRODUCTO,
-                     DESC_UNIDAD_MEDIDA: v.DESC_UNIDAD_MEDIDA,
-                     DESC_CATEGORIA: v.DESC_CATEGORIA,
-                     PRECIO_COMPRA:   Number(v.PRECIO_COMPRA).toFixed(2),
-                     PRECIO_VENTA:    Number(v.PRECIO_VENTA).toFixed(2), 
-                     STOCK: _STOCK,
-                     STOCK_MINIMO: _STOCK_MINIMO,
-                     FLG_SERIVICIO: v.FLG_SERIVICIO,
-                     FLG_VENCE: v.FLG_VENCE,
-                     FECHA_VENCIMIENTO: v.FECHA_VENCIMIENTO,
-                     MARCA: v.MARCA,
-                     MODELO: v.MODELO,
-                     DETALLE: v.DETALLE,
-                     FLG_ESTADO : v.FLG_ESTADO,
-                     FEC_CREACION: v.FEC_CREACION,
-                     USU_CREACION: v.USU_CREACION,
-                     FEC_MODIFICACION: v.FEC_MODIFICACION,
-                     USU_MODIFICACION: v.USU_MODIFICACION,
+//function Producto_CargarGrilla() {
+//    var item =
+//       {
+//           DESC_PRODUCTO: $('#Producto_Desc').val(),
+//           COD_PRODUCTO: $('#Producto_codigo').val(),
+//           ID_CATEGORIA: $('#ID_CATEGORIA_SEARCH').val(),
+//           FLG_SERVICIO: $('#Producto_flg_servicio').val(),
+//           FLG_ESTADO: $('#Producto_Estado').val()
+//       };
+//    var url = baseUrl + 'Inventario/Producto/Producto_Listar';
+//    var auditoria = SICA.Ajax(url, item, false);
+//    jQuery("#" + Producto_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
+//    if (auditoria.EJECUCION_PROCEDIMIENTO) {
+//        if (!auditoria.RECHAZAR) {
+//            $.each(auditoria.OBJETO, function (i, v)   {
+//                var idgrilla = i + 1;
+//                var _STOCK = v.STOCK;
+//                var _STOCK_MINIMO = v.STOCK_MINIMO;
+//                if (v.ID_UNIDAD_MEDIDA == 1) // si es kilos
+//                {
+//                    _STOCK = (v.STOCK / 1000) // gramo a kilos
+//                    _STOCK_MINIMO = (v.STOCK_MINIMO / 1000) // gramo a kilos
+//                }
+//                var myData =
+//                 {
+//                     CODIGO: idgrilla,
+//                     ID_PRODUCTO: v.ID_PRODUCTO,
+//                     DESC_PRODUCTO: v.DESC_PRODUCTO,
+//                     COD_PRODUCTO: v.COD_PRODUCTO,
+//                     DESC_UNIDAD_MEDIDA: v.DESC_UNIDAD_MEDIDA,
+//                     DESC_CATEGORIA: v.DESC_CATEGORIA,
+//                     PRECIO_COMPRA:   Number(v.PRECIO_COMPRA).toFixed(2),
+//                     PRECIO_VENTA:    Number(v.PRECIO_VENTA).toFixed(2), 
+//                     STOCK: _STOCK,
+//                     STOCK_MINIMO: _STOCK_MINIMO,
+//                     FLG_SERIVICIO: v.FLG_SERIVICIO,
+//                     FLG_VENCE: v.FLG_VENCE,
+//                     FECHA_VENCIMIENTO: v.FECHA_VENCIMIENTO,
+//                     MARCA: v.MARCA,
+//                     MODELO: v.MODELO,
+//                     DETALLE: v.DETALLE,
+//                     FLG_ESTADO : v.FLG_ESTADO,
+//                     FEC_CREACION: v.FEC_CREACION,
+//                     USU_CREACION: v.USU_CREACION,
+//                     FEC_MODIFICACION: v.FEC_MODIFICACION,
+//                     USU_MODIFICACION: v.USU_MODIFICACION,
 
-                 };
-                jQuery("#" + Producto_Grilla).jqGrid('addRowData', i, myData);
-            });
-            jQuery("#" + Producto_Grilla).trigger("reloadGrid");
-        }
-    } else {
-        jError(auditoria.MENSAJE_SALIDA, "Atención");
-    }
-}
+//                 };
+//                jQuery("#" + Producto_Grilla).jqGrid('addRowData', i, myData);
+//            });
+//            jQuery("#" + Producto_Grilla).trigger("reloadGrid");
+//        }
+//    } else {
+//        jError(auditoria.MENSAJE_SALIDA, "Atención");
+//    }
+//}
 
 
 

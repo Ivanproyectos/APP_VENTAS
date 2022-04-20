@@ -214,6 +214,7 @@
     <Compile Include="Areas\Inventario\Controllers\ProductoController.cs" />
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
     <Compile Include="Areas\Inventario\Models\CategoriaModelView.cs" />
+    <Compile Include="Areas\Inventario\Models\TransladoModelView.cs" />
     <Compile Include="Areas\Inventario\Models\ProductoModelView.cs" />
     <Compile Include="Areas\Inventario\Repositorio\CategoriaRepositorio.cs" />
     <Compile Include="Areas\Inventario\Repositorio\ProductoRepositorio.cs" />
@@ -225,7 +226,7 @@
     <Compile Include="Areas\Recursiva\Repositorio\ProductosRepostiorio.cs" />
     <Compile Include="Areas\Ventas\Controllers\Consulta_VentasController.cs" />
     <Compile Include="Areas\Ventas\Controllers\VentasController.cs" />
-    <Compile Include="Areas\Ventas\Models\ProductoModelView.cs" />
+    <Compile Include="Areas\Ventas\Models\BuscarProductoModelView.cs" />
     <Compile Include="Areas\Ventas\Models\VentasModelView.cs" />
     <Compile Include="Areas\Ventas\Repositorio\VentasRepositorio.cs" />
     <Compile Include="Areas\Ventas\VentasAreaRegistration.cs" />
@@ -4183,7 +4184,9 @@
     <Content Include="Areas\Caja\Views\Caja\View_Movimiento.cshtml" />
     <Content Include="Areas\Dashboard\Views\Web.config" />
     <Content Include="Areas\Dashboard\Views\Dashboard\Index.cshtml" />
-    <Content Include="Areas\Inventario\Views\Producto\View_MovimientoProducto.cshtml" />
+    <Content Include="Areas\Inventario\Views\Producto\View_Ingreso.cshtml" />
+    <Content Include="Areas\Inventario\Views\Producto\View_Salidas.cshtml" />
+    <Content Include="Areas\Inventario\Views\Producto\View_Translados.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Recursos\Forms\GenerarComprobante.aspx" />
@@ -4234,6 +4237,7 @@
     <Content Include="Scripts\Js\Dashboard\Dashboard_Grafics.js" />
     <Content Include="Scripts\Js\Dashboard\Dashboard.js" />
     <Content Include="Scripts\Js\Inventario\Categoria.js" />
+    <Content Include="Scripts\Js\Inventario\Translados.js" />
     <Content Include="Scripts\Js\Inventario\Producto.js" />
     <Content Include="Scripts\Js\Inventario\Producto_Recursos.js" />
     <Content Include="Scripts\Js\Prueba.js" />

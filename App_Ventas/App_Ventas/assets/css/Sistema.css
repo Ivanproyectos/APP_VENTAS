@@ -21,8 +21,12 @@
 
     .input-group-text_white {
         background: #f9fbfd;
-        color: #000;
+        color: #000 !important;
         border: 1px solid #c7c6c6;
+    }
+
+    .input-group-text_white i {
+        color: #000 !important;
     }
 
     .Group_Acciones > .dropdown-menu >  .dropdown-item {

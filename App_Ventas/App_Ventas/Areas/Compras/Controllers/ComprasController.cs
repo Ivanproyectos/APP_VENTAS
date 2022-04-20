@@ -132,7 +132,7 @@ namespace App_Ventas.Areas.Compras.Controllers
             decimal IMPORTE, string _CANTIDAD, string Accion, string TIPO_PROCESO)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
-            ProductoModelView model = new ProductoModelView();
+            BuscarProductoModelView model = new BuscarProductoModelView();
             try
             {
                 model.ID_SUCURSAL = ID_SUCURSAL;
