@@ -1148,7 +1148,7 @@ $.fn.jqGrid = function( pin ) {
 		addRowNum = function (pos,irow,pG,rN) {
 			var v =  (parseInt(pG,10)-1)*parseInt(rN,10)+1+irow,
 			prp = formatCol( pos,irow,v, null, irow, true);
-			return "<td role=\"gridcell\" class=\"ui-state-default jqgrid-rownum\" "+prp+">"+v+"</td>";
+			return "<td role=\"gridcell\" class=\" jqgrid-rownum\" "+prp+">"+v+"</td>";
 		},
 		reader = function (datatype) {
 			var field, f=[], j=0, i;

@@ -19427,5 +19427,8 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     display: inline-block;
 }
 
-
+    .group-button > .btn {
+      border-top-left-radius:0px !important; 
+      border-bottom-left-radius: 0px !important; 
+    }
 /*# sourceMappingURL=style.css.map */

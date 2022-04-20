@@ -1,0 +1,17 @@
+﻿
+.Grid_Theme_bootstrap   .ui-widget-content {
+    border: none !important; 
+}
+.Grid_Theme_bootstrap  .ui-jqgrid tr.ui-row-ltr td {
+    border-right-width: 0;
+    border-right-color: none;
+    padding: 12px 4px;
+}
+.Grid_Theme_bootstrap  .ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border-right: none;
+    color: #313A46;
+    background: #EEF2F7; 
+    padding: 19px 0px 19px 4px;
+    font-size:14px; 
+    font-weight:bold; 
+}

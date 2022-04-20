@@ -270,6 +270,7 @@
     <Content Include="assets\css\animate.min.css" />
     <Content Include="assets\css\Changes_estilos\theme_dark.css" />
     <Content Include="assets\css\Copia de General.css" />
+    <Content Include="assets\css\Grid_theme_bootstrap.css" />
     <Content Include="assets\css\File_image.css" />
     <Content Include="assets\css\RadioButton.css" />
     <Content Include="assets\css\spinnerloader.css" />
@@ -394,7 +395,10 @@
     <Content Include="assets\images\tab\8.jpg" />
     <Content Include="assets\images\tab\9.jpg" />
     <Content Include="assets\images\valid.png" />
+    <Content Include="assets\jqGrid\css\ace.min.css" />
     <Content Include="assets\jqGrid\css\ui.jqgrid.css" />
+    <Content Include="assets\jqGrid\Griddo\jquery.jqgrid.min.js" />
+    <Content Include="assets\jqGrid\Griddo\ui.jqgrid.css" />
     <Content Include="assets\jqGrid\jquery-ui\images\animated-overlay.gif" />
     <Content Include="assets\jqGrid\jquery-ui\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="assets\jqGrid\jquery-ui\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
@@ -4187,6 +4191,8 @@
     <Content Include="Areas\Inventario\Views\Producto\View_Ingreso.cshtml" />
     <Content Include="Areas\Inventario\Views\Producto\View_Salidas.cshtml" />
     <Content Include="Areas\Inventario\Views\Producto\View_Translados.cshtml" />
+    <Content Include="Areas\Inventario\Views\Producto\View_BuscarProducto.cshtml" />
+    <Content Include="assets\jqGrid\Griddo\jquery.jqgrid.min.js.map" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Recursos\Forms\GenerarComprobante.aspx" />

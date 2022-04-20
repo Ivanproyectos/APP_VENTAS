@@ -14,6 +14,11 @@ namespace App_Ventas.Areas.Inventario.Models
        
         public long ID_PRODUCTO { get; set; }
    
+        [Display(Name = "Buscar Producto: ")]
+        [DataType(DataType.Text)]
+        public string SEARCH_PRODUCTO { get; set; }
+
+        
 
         [Display(Name = "Código: ")]
         [DataType(DataType.Text)]
@@ -36,8 +41,11 @@ namespace App_Ventas.Areas.Inventario.Models
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Almacen] es obligatorio")]
         public int ID_SUCURSAL_DESTINO { get; set; }
-  
 
+        [Display(Name = "Cantidad: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Cantidad] es obligatorio")]
+        public string CANTIDAD { get; set; }
 
         [Display(Name = "Detalle: ")]
         [DataType(DataType.Text)]

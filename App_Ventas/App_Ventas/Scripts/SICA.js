@@ -748,6 +748,7 @@ SICA = {
                 caption: caption,
                 subGrid: estadoSubGrid,
                 editurl: opciones.editurl,
+                viewsortcols: [true, "vertical", true],
                 subGridRowColapsed: function (subgrid_id, row_id) {
                     //if (opciones.subGrid != null)
                     //SubGrid.subGridRowColapsed(subgrid_id, row_id,0);

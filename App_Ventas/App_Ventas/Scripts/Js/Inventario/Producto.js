@@ -48,7 +48,7 @@ function Producto_ConfigurarGrilla() {
             { name: 'FLG_SERVICIO', index: 'FLG_SERVICIO', width: 0, hidden: true, align: "left" }, //23
     ];
     var opciones = {
-        GridLocal: false, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rules:true,rowNumber: 10, rowNumbers: [10, 25, 50, 100],
+        GridLocal: false, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rules: true, rowNumber: 10, rowNumbers: [10, 25, 50, 100]
     };
     SICA.Grilla(Producto_Grilla, Producto_Barra, Producto_Grilla, '', '', "", url, 'ID_PRODUCTO', colNames, colModels, 'ID_PRODUCTO', opciones);
 }

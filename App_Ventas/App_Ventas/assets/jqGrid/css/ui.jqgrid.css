@@ -73,35 +73,35 @@
         margin: 0;
     }
 
-        .ui-jqgrid .ui-jqgrid-htable th {
-            height: 22px;
-            padding: 0 2px 0 2px;
-        }
+.ui-jqgrid .ui-jqgrid-htable th {
+    height: 22px;
+    padding: 0 2px 0 2px;
+}
 
-            .ui-jqgrid .ui-jqgrid-htable th div {
-                overflow: hidden;
-                position: relative;
-                height: 17px;
-            }
+    .ui-jqgrid .ui-jqgrid-htable th div {
+        overflow: hidden;
+        position: relative;
+        height: 17px;
+    }
 
-            .ui-th-column, .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {
-                overflow: hidden;
-                white-space: nowrap;
-                text-align: left;
-                border-top: 0 none;
-                border-bottom: 0 none;
-                color: #6c757d; 
-            }
+    .ui-th-column, .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: left;
+        border-top: 0 none;
+        border-bottom: 0 none;
+        color: #6c757d; 
+    }
 
-            .ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
-                border-right: 1px solid #eaeaea;
-                padding: 14px 0px 14px 10px;
-                /*padding: 8px;*/
-            }
+    .ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+        border-right: 1px solid #eaeaea;
+        padding: 14px 0px 14px 10px;
+        /*padding: 8px;*/
+    }
 
-            .ui-th-rtl, .ui-jqgrid .ui-jqgrid-htable th.ui-th-rtl {
-                border-right: 0 none;
-            }
+    .ui-th-rtl, .ui-jqgrid .ui-jqgrid-htable th.ui-th-rtl {
+        border-right: 0 none;
+    }
 
 .ui-first-th-ltr {
     border-right: 1px solid;
@@ -234,7 +234,7 @@ tr.ui-search-toolbar select {
 
 .ui-jqgrid tr.ui-row-ltr td {
     text-align: left;
-    border-right-width: 1px;
+    border-right-width: 0;
     border-right-color: #eaeaea; 
     border-right-style:solid; 
     word-wrap: break-word;

@@ -22,10 +22,10 @@ function Categoria_ConfigurarGrilla() {
             { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: false, formatter: Categoria_actionEliminar, sortable: false },
             { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Categoria_actionActivo, sortable: false },
             { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
-            { name: 'ID_CATEGORIA', index: 'ID_CATEGORIA', width: 100, hidden: true, key: true },
-            { name: 'DESC_CATEGORIA', index: 'DESC_CATEGORIA', width: 200, hidden: false, align: "left" },
-            { name: 'DESCRIPCION', index: 'DESCRIPCION', width: 300, hidden: false, align: "left" },
-            { name: 'FLG_ESTADO', index: 'FLG_ESTADO', width: 300, hidden: true, align: "left" },
+            { name: 'ID_CATEGORIA', index: 'ID_CATEGORIA',  hidden: true, key: true },
+            { name: 'DESC_CATEGORIA', index: 'DESC_CATEGORIA', width: 300, hidden: false, align: "left" },
+            { name: 'DESCRIPCION', index: 'DESCRIPCION',width: 300 ,hidden: false, align: "left" },
+            { name: 'FLG_ESTADO', index: 'FLG_ESTADO',  hidden: true, align: "left" },
             { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },
             { name: 'USU_CREACION', index: 'USU_CREACION', width: 150, hidden: false, align: "left" },
             { name: 'FEC_MODIFICACION', index: 'FEC_MODIFICACION', width: 150, hidden: false, align: "left" },
@@ -34,7 +34,16 @@ function Categoria_ConfigurarGrilla() {
     var opciones = {
         GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
     };
-    SICA.Grilla(Categoria_Grilla, Categoria_Barra, '', 400, '', "Lista de Categoria", '', 'ID_CATEGORIA', colNames, colModels, '', opciones);
+    SICA.Grilla(Categoria_Grilla, Categoria_Barra, '', 400, '', "", '', 'ID_CATEGORIA', colNames, colModels, '', opciones);
+    //var $grid = $('#'+Categoria_Grilla),
+    //     newWidth = $grid.closest(".ui-jqgrid").parent().width();
+    //$grid.jqGrid("setGridWidth", newWidth, true);
+
+    //$(window).on("resize", function () {
+    //    var $grid = $('#' + Categoria_Grilla),
+    //        newWidth = $grid.closest(".ui-jqgrid").parent().width();
+    //    $grid.jqGrid("setGridWidth", newWidth, true);
+    //});
 }
 
 function Categoria_actionActivo(cellvalue, options, rowObject) {

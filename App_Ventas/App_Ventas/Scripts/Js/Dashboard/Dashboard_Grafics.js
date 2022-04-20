@@ -114,14 +114,14 @@
                 labels: Labels,
                 datasets: [
                     {
-                        label: "Monto en Producto",
+                        label: "Producto",
                         data: DataLine1,
                         borderColor: 'rgba(0, 0, 128 , 0.8)',
                         borderWidth: "2",
                         backgroundColor: 'transparent', 
                         pointBackgroundColor: 'rgba(0, 0, 128 , 1)'
                     }, {
-                        label: "Monto en Servicio",
+                        label: "Servicio",
                         data: DataLine2,
                         borderColor: 'rgba(57, 201, 192, 0.8)',
                         borderWidth: "2",
