@@ -24,17 +24,19 @@
             LogoNuevo_Array.pop();
         }
 
-        $('#FLG_IMPRIMIR').bootstrapToggle({
-            on: 'Si',
-            off: 'No',
-        });
-        $('#FLG_IMPUESTO').bootstrapToggle({
-            on: 'Si',
-            off: 'No',
-        });
+        //$('#FLG_IMPRIMIR').bootstrapToggle({
+        //    on: 'Si',
+        //    off: 'No',
+        //});
+        //$('#FLG_IMPUESTO').bootstrapToggle({
+        //    on: 'Si',
+        //    off: 'No',
+        //});
+        $("#FLG_IMPRIMIR").prop("data-switch","state");
+        $("#FLG_IMPUESTO").prop("data-switch","state");
+
         $('#COD_UBIGEO').select2();
         
-        //Ubigeo_Listar("COD_UBIGEO");
     });
 
  
@@ -51,7 +53,6 @@
                     <h4 class="card-title"><i class="bi bi-sliders"></i>&nbsp; Configurar Empresa</h4>
                 </div>
                 <div class="card-body">
-
                     <div class="basic-form">
 
                         <div class="form-row justify-content-around" style="margin-bottom: 10px;">
@@ -109,8 +110,10 @@
                         @using (Html.BeginForm("ConfiguracionEmpresa", "ConfiguracionEmpresa", new { @area = "Administracion" }, FormMethod.Post, new { @id = "FrmconfigEmpresa" }))
                         {
                             @Html.ValidationSummary(true)
-
                             <div class="form-row">
+
+
+
                                 <div class="form-group col-md-4">
                                     @Html.LabelFor(model => model.RUC)
                                     @Html.TextBoxFor(model => model.RUC, new { @class = "form-control", @maxlength = "11", @placeholder = "Ruc", @autocomplete = "off" })
@@ -163,20 +166,19 @@
                                     @Html.TextBoxFor(model => model.DIRECCION_FISCAL, new { @class = "form-control", @maxlength = "200", @placeholder = "Dirección", @autocomplete = "off" })
                                     @Html.ValidationMessageFor(model => model.DIRECCION_FISCAL, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                                 </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    @Html.LabelFor(model => model.FLG_IMPRIMIR)
-                                    @Html.CheckBoxFor(model => model.FLG_IMPRIMIR, new { @class = "form-control" })
+                                <div class="form-group col-md-2 css_center_block">
+                                     @Html.LabelFor(model => model.FLG_IMPRIMIR)
+                                     <input type="checkbox" id="FLG_IMPRIMIR" class="check_estate" checked="" data-switch="state">
+                                    <label for="FLG_IMPRIMIR" data-on-label="Yes" data-off-label="No"></label>
                                 </div>
 
-                                <div class="form-group col-md-3">
-                                    @Html.LabelFor(model => model.FLG_IMPUESTO)
-                                    @Html.CheckBoxFor(model => model.FLG_IMPUESTO, new { @class = "" })
+                                      <div class="form-group col-md-2 css_center_block">
+                                     @Html.LabelFor(model => model.FLG_IMPUESTO)
+                                     <input type="checkbox" id="FLG_IMPUESTO" class="check_estate" checked="" data-switch="state">
+                                    <label for="FLG_IMPUESTO" data-on-label="Yes" data-off-label="No"></label>
                                 </div>
-                            </div>
 
+                            </div>
 
 
                             <div class="form-row">
@@ -210,7 +212,7 @@
                             </div>
 
                             <div class="form-row justify-content-center ">
-                                <div class="form-group col-md-4 "  style="text-align: center;">
+                                <div class="form-group col-md-4 " style="text-align: center;">
                                     <button id="configurarEmpresa_btnGuardar" type="button" class="btn btn-hover-shine  btn-square btn-primary "><i class="bi bi-save"></i>&nbsp Guardar Configuración</button>
                                 </div>
                             </div>

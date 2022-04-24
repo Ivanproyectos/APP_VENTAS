@@ -46,7 +46,7 @@ function Ventas_ConfigurarGrilla() {
 
     ];
     var opciones = {
-        GridLocal: false, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rules: true,sort: 'desc',
+        GridLocal: false, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: true, rules: true, sort: 'desc',
         rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500], exportar: true,
         exportarExcel: function (_grilla_base) {
             var _tituloexportacion = "Ventas Detalle.xlsx";

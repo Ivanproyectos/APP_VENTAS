@@ -157,6 +157,86 @@ label {
   }
 }
     
+/*CHECK BEUTIFUL*/
+
+input[data-switch]+label {
+    width: 56px;
+    height: 24px;
+    background-color: #f1f3fa;
+    background-image: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
 
 
+input[data-switch=state]:checked+label {
+    background-color: #0acf97;
+}
 
+input[data-switch=state]+label {
+    background-color: #fa5c7c;
+}
+
+input[data-switch=state]+label:before, input[data-switch=state]:checked+label:before {
+    color: #fff!important;
+}
+
+input[data-switch]:checked+label:before {
+    color: #fff;
+    content: attr(data-on-label);
+    right: auto;
+    left: 4px;
+}
+input[data-switch]+label:before {
+    color: #313a46;
+    content: attr(data-off-label);
+    display: block;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: .75rem;
+    line-height: 24px;
+    position: absolute;
+    right: 3px;
+    margin: 0 0.21667rem;
+    top: 0;
+    text-align: center;
+    min-width: 1.66667rem;
+    overflow: hidden;
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+
+input[data-switch]:checked+label:after {
+    left: 34px;
+    background-color: #f1f3fa;
+}
+
+
+input[data-switch]+label:after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    background-color: #adb5bd;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 2rem;
+    height: 18px;
+    width: 18px;
+    top: 3px;
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+
+input[data-switch=state]+label:after {
+    background-color: #f1f3fa;
+}
+
+
+input[data-switch] {
+    display: none;
+}
