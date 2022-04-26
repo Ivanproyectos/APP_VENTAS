@@ -3514,13 +3514,17 @@
     <Content Include="assets\vendor\datamaps\datamaps.zwe.min.js" />
     <Content Include="assets\vendor\datatables.net-bs4\css\dataTables.bootstrap4.min.css" />
     <Content Include="assets\vendor\datatables.net-bs4\js\dataTables.bootstrap4.min.js" />
+    <Content Include="assets\vendor\datatables\css\datatables.css" />
     <Content Include="assets\vendor\datatables\css\jquery.dataTables.min.css" />
+    <Content Include="assets\vendor\datatables\css\responsive.dataTables.min.css" />
+    <Content Include="assets\vendor\datatables\css\select.dataTables.css" />
     <Content Include="assets\vendor\datatables\images\favicon.ico" />
     <Content Include="assets\vendor\datatables\images\sort_asc.png" />
     <Content Include="assets\vendor\datatables\images\sort_asc_disabled.png" />
     <Content Include="assets\vendor\datatables\images\sort_both.png" />
     <Content Include="assets\vendor\datatables\images\sort_desc.png" />
     <Content Include="assets\vendor\datatables\images\sort_desc_disabled.png" />
+    <Content Include="assets\vendor\datatables\js\DatatablePlugin.js" />
     <Content Include="assets\vendor\datatables\js\jquery.dataTables.min.js" />
     <Content Include="assets\vendor\datedropper\datedropper.min.css" />
     <Content Include="assets\vendor\datedropper\datedropper.min.js" />

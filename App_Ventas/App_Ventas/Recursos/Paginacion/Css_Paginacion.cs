@@ -104,15 +104,15 @@ namespace App_Ventas.Recursos.Paginacion
             return filtros.rules.Count == 0 ? string.Empty : (string)whereFiltro.Substring(4);
         }
 
-        public static string GetWhere(string filters, List<Css_Rule> rules)
+        public static string GetWhere(List<Css_Rule> SearchFields, string searchString, List<Css_Rule> rules)
         {
             var @where = string.Empty;
-            var filtro = (string.IsNullOrEmpty(filters)) ? null : JsonConvert.DeserializeObject<Css_Filter>(filters);
+            //var filtro = (string.IsNullOrEmpty(filters)) ? null : JsonConvert.DeserializeObject<Css_Filter>(filters);
 
-            if ((filtro != null))
-            {
-                @where = ConvertToSql(filtro);
-            }
+            //if ((filtro != null))
+            //{
+            //    @where = ConvertToSql(filtro);
+            //}
             if ((rules != null))
             {
                 foreach (var regla in rules)
@@ -140,60 +140,48 @@ namespace App_Ventas.Recursos.Paginacion
                 }
             }
 
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                if ((SearchFields != null))
+                {
+                    var @whereSearch = string.Empty;
+                    int count = 0; 
+                    foreach (var regla in SearchFields)
+                    {
+                         
+                        if ((regla != null))
+                        {
+                            if ((!string.IsNullOrEmpty(regla.field.ToUpper())))
+                            {
+                                if (count == 0)
+                                    @whereSearch = "(" + regla.field.ToUpper() + " like '%" + searchString + "%' ";
+                                else
+                                    @whereSearch += " OR " + regla.field.ToUpper() + " like '%" + searchString + "%' ";
+                                    count++; 
+                            }
+                        }
+                    }
+                    @whereSearch += ")";
+                    if (!string.IsNullOrEmpty(@where))
+                        @where += " and " + @whereSearch;
+                    else
+                        @where = @whereSearch; 
+                }
+          
+            }
+
             return string.IsNullOrEmpty(@where) ? where : (where.StartsWith(" and ") ? where.Substring(4) : where);
         }
 
-        public static GenericDouble<JQgrid, T> BuscarPaginador<T>( int page, int rows, int count , IList<T> list) where T : class
+        public static GenericDouble<JQgrid, T> BuscarPaginador<T>( int draw, int count , IList<T> list) where T : class
         {
             JQgrid jqgrid = new JQgrid();
             //IList<T> list;
             try
             {
-                int totalPages = 0;
-                //if (search)
-                //{
-                //    @where = (@where + GetWhere(searchField, searchOper, searchString));
-                //}
-              //  int count = 0;
-
-                if (((count > 0) & (rows > 0)))
-                {
-                    decimal division = (count / rows);
-                    int totalpaginas = (int)Math.Truncate(division);
-                    //(count Mod rows) > 0
-                    if ((count > (totalpaginas * rows)))
-                    {
-                        //totalPages = CType(Math.Ceiling(CType((count / rows), Decimal)), Integer)
-                        //totalPages = (CType((count / rows), Integer) + 1)
-                        totalPages = totalpaginas + 1;
-                    }
-                    else
-                    {
-                        totalPages = totalpaginas;
-                        //CType((count / rows), Integer)
-                    }
-                    //totalPages = (int)Math.Ceiling((decimal)(count / rows));
-                    totalPages = (totalPages == 0 ? 1 : totalPages);
-                    //TODO: Warning!!!, inline IF is not supported ?
-                }
-                page = (page > totalPages ? totalPages : page);
-                int start = ((rows * page) - rows);
-                if ((start < 0))
-                {
-                    start = 0;
-                }
-                jqgrid.total = totalPages;
-                jqgrid.page = page;
-                jqgrid.records = count;
-                jqgrid.start = start;
-                //if (id == 1)
-                //{
-                //    list = logic.OrdenExpedienteBuscar(sidx, sord, rows, page, @where);
-                //}
-                //else
-                //{
-                //    list = logic.OrdenExpedienteBuscar_dup(sidx, sord, rows, page, @where);
-                //}
+                jqgrid.draw = draw;
+                jqgrid.recordsFiltered = count;
+                jqgrid.recordsTotal = count; 
 
             }
             catch (Exception ex)

@@ -16,71 +16,86 @@ function Producto_Limpiar() {
 }
 
 function Producto_ConfigurarGrilla() {
+      DataTable.GridUnload(Producto_Grilla);
     var url = baseUrl + 'Inventario/Producto/Productos_Paginado';
-    $("#" + Producto_Grilla).GridUnload();
-    var colNames = ['Opciones', 'Estado', 'codigo', 'ID', 'Imagen', 'Código', 'Producto', 'Unidad Medida', 'Pre. Compra', 'Pre. Venta', 'Stock', 'stock min',
-        'Fec. Vencimiento','Marca','Modelo','Detalle',
-        'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación', 'ID_UNIDAD_MEDIDA','CODIGO_IMAGE','FLG_SERVICIO'];
     var colModels = [
-            { name: 'OPCIONES', index: 'OPCIONES', align: 'center', width: 80, hidden: false, formatter: Producto_actionAcciones, sortable: false }, //0
-            { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Producto_actionActivo, sortable: false }, //1
-            { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, }, //2
-            { name: 'ID_PRODUCTO', index: 'ID_PRODUCTO', width: 100, hidden: true, key: true }, //3
-            { name: 'IMAGEN', index: 'IMAGEN', width: 100, hidden: false, align: "center", formatter: Producto_FormatterImagenProducto }, //4
-            { name: 'COD_PRODUCTO', index: 'COD_PRODUCTO', width: 150, hidden: false, align: "left" }, //5
-            { name: 'DESC_PRODUCTO', index: 'DESC_PRODUCTO', width: 250, hidden: false, align: "left" }, //6
-            { name: 'DESC_UNIDAD_MEDIDA', index: 'DESC_UNIDAD_MEDIDA', width: 200, hidden: false, align: "left" }, //7
-            { name: 'PRECIO_COMPRA', index: 'PRECIO_COMPRA', width: 150, hidden: false, align: "left" }, //8
-            { name: 'PRECIO_VENTA', index: 'PRECIO_VENTA', width: 150, hidden: false, align: "left", formatter: Producto_PrecioVentaConcat }, //9
-            { name: 'STOCK', index: 'STOCK', width: 100, hidden: false, align: "left", formatter: Producto_StatuStock }, //10
-            { name: 'STOCK_MINIMO', index: 'STOCK_MINIMO', width: 150, hidden: true, align: "left" }, //11
-            { name: 'FECHA_VENCIMIENTO', index: 'FECHA_VENCIMIENTO', width: 150, hidden: false, align: "left", formatter: Producto_FechaVencimiento }, //12
-            { name: 'MARCA', index: 'MARCA', width: 200, hidden: true, align: "left" },  //13
-            { name: 'MODELO', index: 'MODELO', width: 200, hidden: true, align: "left" }, //14
-            { name: 'DETALLE', index: 'DETALLE', width: 250, hidden: true, align: "left" }, //15
-            { name: 'FLG_ESTADO', index: 'FLG_ESTADO', width: 300, hidden: true, align: "left" }, //16
-            { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },  // 17
-            { name: 'USU_CREACION', index: 'USU_CREACION', width: 150, hidden: false, align: "left" }, //18
-            { name: 'FEC_MODIFICACION', index: 'FEC_MODIFICACION', width: 150, hidden: true, align: "left" }, // 19
-            { name: 'USU_MODIFICACION', index: 'USU_MODIFICACION', width: 150, hidden: true, align: "left" }, //20
-            { name: 'ID_UNIDAD_MEDIDA', index: 'ID_UNIDAD_MEDIDA', width: 150, hidden: true, align: "left" }, //21
-            { name: 'CODIGO_IMAGE', index: 'CODIGO_IMAGE', width: 0, hidden: true, align: "left" }, //22
-            { name: 'FLG_SERVICIO', index: 'FLG_SERVICIO', width: 0, hidden: true, align: "left" }, //23
+           {
+            data: null, sortable: false,title: "Producto", autoWidth: true,
+            render: function (data, type, row, meta) { return Producto_FormatterImagenProducto(data.DESC_PRODUCTO, (data.MiArchivo.CODIGO_ARCHIVO + '' + data.MiArchivo.EXTENSION)); }
+           },
+          { data: "ID_PRODUCTO", name: "ID_PRODUCTO", title: "ID_PRODUCTO", autoWidth: false  ,visible: false,  },
+          { data: "COD_PRODUCTO", name: "COD_PRODUCTO", title: "Código Producto", autoWidth: false, width: "150px", },
+          { data: "DESC_UNIDAD_MEDIDA", name: "DESC_UNIDAD_MEDIDA", title: "Unidad Medida", autoWidth: false, width: "120px" },
+          {
+                data: null, sortable: false, title: "Pre. Compra", width: "90px",
+                render: function (data, type, row, meta) { return Producto_FormatterMoneda(data.PRECIO_COMPRA); }
+          },
+          {
+            data: null, sortable: false, title: "Pre. Venta",  width: "80px",
+            render: function (data, type, row, meta) { return Producto_FormatterMoneda(data.PRECIO_VENTA); }
+           },
+           {
+             data: null,  sortable: false, title: "Stock", width: "60px",
+             render: function (data, type, row, meta) { return Producto_StatuStock(data.STOCK, data.STOCK_MINIMO, data.ID_UNIDAD_MEDIDA,data.FLG_SERVICIO); }
+           },
+           {
+                data: null, sortable: false, title: "Fec. Vencimiento", width: "120px",
+                render: function (data, type, row, meta) { return Producto_FormatterFechaVecimiento(data.FECHA_VENCIMIENTO); } 
+           },
+            {
+                data: null, sortable: false, title: "Activo", width: "60px",
+                render: function (data, type, row, meta) { return Producto_actionActivo(data.FLG_ESTADO,data.ID_PRODUCTO); }
+            },
+           {
+             data: null, sortable: false, title: "Acciones",  width: "60px",
+             render: function (data, type, row, meta) { return Producto_actionAcciones(data.ID_PRODUCTO); }
+           },
+
     ];
     var opciones = {
-        GridLocal: false, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rules: true, rowNumber: 10, rowNumbers: [10, 25, 50, 100]
+        GridLocal: false, multiselect: false, sort: "desc", PositionColumnSort: 1, // numero columna para ordenar
+        eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: true, responsive: true, processing: true
     };
-    SICA.Grilla(Producto_Grilla, Producto_Barra, Producto_Grilla, '', '', "", url, 'ID_PRODUCTO', colNames, colModels, 'ID_PRODUCTO', opciones);
+    DataTable.Grilla(Producto_Grilla, url, 'ID_PRODUCTO', colModels, opciones);
 }
 
 
 function GetRules(Ventas_Grilla) {
     var rules = new Array();
-    var FLG_ESTADO = jQuery('#Producto_Estado').val() == '' ? null : "'" + jQuery('#Producto_Estado').val() + "'";
-    var FLG_SERVICIO = jQuery('#Producto_flg_servicio').val() == '' ? null : "'" + jQuery('#Producto_flg_servicio').val() + "'";
-    var ID_CATEGORIA = jQuery('#ID_CATEGORIA_SEARCH').val() == '' ? null : "'" + jQuery('#ID_CATEGORIA_SEARCH').val() + "'";
-    var DESC_PRODUCTO = "'" + jQuery('#Producto_Desc').val() + "'";
-    var CODIGO_PRODUCTO = "'" + jQuery('#Producto_codigo').val() + "'";
+    var SearchFields = new Array();
+    //var FLG_ESTADO = jQuery('#Producto_Estado').val() == '' ? null : "'" + jQuery('#Producto_Estado').val() + "'";
+    //var FLG_SERVICIO = jQuery('#Producto_flg_servicio').val() == '' ? null : "'" + jQuery('#Producto_flg_servicio').val() + "'";
+    //var ID_CATEGORIA = jQuery('#ID_CATEGORIA_SEARCH').val() == '' ? null : "'" + jQuery('#ID_CATEGORIA_SEARCH').val() + "'";
+    //var DESC_PRODUCTO = "'" + jQuery('#Producto_Desc').val() + "'";
+    //var CODIGO_PRODUCTO = "'" + jQuery('#Producto_codigo').val() + "'";
     var ID_SUCURSAL = jQuery('#ID_SUCURSAL').val() == '' ? null : "'" + jQuery('#ID_SUCURSAL').val() + "'";
 
     var POR = "'%'";
     rules = []
-    rules.push({ field: 'UPPER(DESC_PRODUCTO)', data: POR + ' + ' + DESC_PRODUCTO + ' + ' + POR, op: " LIKE " });
-    rules.push({ field: 'UPPER(COD_PRODUCTO)', data: POR + ' + ' + CODIGO_PRODUCTO + ' + ' + POR, op: " LIKE " });
-    rules.push({ field: 'ID_CATEGORIA', data: '  ISNULL(' + ID_CATEGORIA + ',ID_CATEGORIA) ', op: " = " });
-    rules.push({ field: 'FLG_SERIVICIO', data: '  ISNULL(' + FLG_SERVICIO + ',FLG_SERIVICIO) ', op: " = " });
-    rules.push({ field: 'FLG_ESTADO', data: '  ISNULL(' + FLG_ESTADO + ',FLG_ESTADO) ', op: " = " });
+    //rules.push({ field: 'UPPER(DESC_PRODUCTO)', data: POR + ' + ' + DESC_PRODUCTO + ' + ' + POR, op: " LIKE " });
+    //rules.push({ field: 'UPPER(COD_PRODUCTO)', data: POR + ' + ' + CODIGO_PRODUCTO + ' + ' + POR, op: " LIKE " });
+    //rules.push({ field: 'ID_CATEGORIA', data: '  ISNULL(' + ID_CATEGORIA + ',ID_CATEGORIA) ', op: " = " });
+    //rules.push({ field: 'FLG_SERIVICIO', data: '  ISNULL(' + FLG_SERVICIO + ',FLG_SERIVICIO) ', op: " = " });
+    //rules.push({ field: 'FLG_ESTADO', data: '  ISNULL(' + FLG_ESTADO + ',FLG_ESTADO) ', op: " = " });
     rules.push({ field: 'ID_SUCURSAL', data: '  ISNULL(' + ID_SUCURSAL + ',ID_SUCURSAL)', op: " = " });
 
-    return rules;
+    SearchFields.push({ field: 'UPPER(COD_PRODUCTO)' });
+    SearchFields.push({ field: 'UPPER(DESC_PRODUCTO)' });
+
+    var ObjectRules = {
+        SearchFields: SearchFields,
+        rules: rules
+    }
+
+    return ObjectRules;
 }
 
-function Producto_actionAcciones(cellvalue, options, rowObject) {
-    var _ID_PRODUCTO = rowObject[3];
+function Producto_actionAcciones(_ID_PRODUCTO) {
+    var _ID_PRODUCTO = _ID_PRODUCTO
     var  _btn_Editar = "<a class=\"dropdown-item\" onclick='Producto_MostrarEditar(" + _ID_PRODUCTO + ")'><i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;\"></i>&nbsp;  Editar</a>";
     var _btn_Eliminar = "<a class=\"dropdown-item\" onclick='Producto_Eliminar(" + _ID_PRODUCTO + ")'><i class=\"bi bi-trash-fill\" style=\"color:#e40613;\"></i>&nbsp;  Eliminar</a>";
     var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
-           "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
+           "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn  dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
            "<div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
            _btn_Editar +
            _btn_Eliminar +
@@ -89,40 +104,35 @@ function Producto_actionAcciones(cellvalue, options, rowObject) {
     return _btn;
 }
 
-function Producto_actionActivo(cellvalue, options, rowObject) {
+function Producto_actionActivo(FLG_ESTADO, ID_PRODUCTO) {
     var check_ = 'check';
-    if (rowObject[16])
+    if (FLG_ESTADO == 1)
         check_ = 'checked';
-    var _btn = " <label class=\"content_toggle_1\">"
-            + "<input id=\"Producto_chk_" + rowObject.ID_PRODUCTO + "\" class=\"toggle_Beatiful_1\" type=\"checkbox\" onchange=\"Producto_Estado(" + rowObject.ID_PRODUCTO + ",this)\" " + check_ + ">"
-            + "<div class=\"content_toggle_2\">"
-            + "  <span class=\"Label_toggle_1\" ></span>"
-             + "</div>"
-            + "</label>";
+
+    var _btn = "<input type=\"checkbox\" id=\"Producto_chk_" + ID_PRODUCTO + "\"  data-switch=\"bool\" onchange=\"Producto_Estado(" +ID_PRODUCTO + ",this)\" " + check_ + ">"
+               + " <label for=\"Producto_chk_" + ID_PRODUCTO + "\" data-on-label=\"Yes\" data-off-label=\"No\"></label>"; 
     return _btn;
 }
 
-
-function Producto_PrecioVentaConcat(cellvalue, options, rowObject) {
-    var _Precioventa = rowObject[9];
-     var _text = _SimboloMoneda +' '+ _Precioventa;  
+function Producto_FormatterMoneda(PRECIO) {
+    var _Precio = Number(PRECIO).toFixed(2);
+    var _text = _SimboloMoneda + ' ' + _Precio;
     return _text;
 }
 
-
-function Producto_FechaVencimiento(cellvalue, options, rowObject) {
-    var _FechaVencimiento= rowObject[12];
+function Producto_FormatterFechaVecimiento(FECHA_VENCIMIENTO) {
+    var _FechaVencimiento = FECHA_VENCIMIENTO
     var _FechaActual = moment().format('DD/MM/YYYY');
     debugger;
     var _text = ""; 
     if (_FechaActual == _FechaVencimiento) {
-        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto vencido\">" + rowObject[12] + " <i class=\"bi bi-exclamation-circle\"></i></span>";
+        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto vencido\">" + FECHA_VENCIMIENTO + " <i class=\"bi bi-exclamation-circle\"></i></span>";
     } else {
         var Dias= DifferenceDaysFechas(_FechaActual, _FechaVencimiento);
         if (Dias == 0) {
-            _text = rowObject[12]
+            _text = FECHA_VENCIMIENTO
         } else if (Dias <= 5) {
-            _text = "<span class=\"badge badge-warning \" data-bs-toggle=\"tooltip\" title=\"Producto a punto de vencer!\">" + rowObject[12] + " <i class=\"bi bi-exclamation-triangle\"></i></span>";
+            _text = "<span class=\"badge badge-warning \" data-bs-toggle=\"tooltip\" title=\"Producto a punto de vencer!\">" + FECHA_VENCIMIENTO + " <i class=\"bi bi-exclamation-triangle\"></i></span>";
         }
 
     }
@@ -130,8 +140,8 @@ function Producto_FechaVencimiento(cellvalue, options, rowObject) {
     return _text;
 }
 
-function Producto_FormatterImagenProducto(cellvalue, options, rowObject) {
-    var _CodigoImage = rowObject[22];
+function Producto_FormatterImagenProducto(DESC_PRODUCTO, CODIGO_IMAGE) {
+    var _CodigoImage = CODIGO_IMAGE;
     var _Noimage = "no-image.png";
     var _RutaImage = baseUrl + "Recursos/ImagenProducto/";
     if (_CodigoImage != null && _CodigoImage != "") {
@@ -139,15 +149,15 @@ function Producto_FormatterImagenProducto(cellvalue, options, rowObject) {
     } else {
         _RutaImage = _RutaImage + _Noimage;
     }
-    var ImgFrame = "<img src=\"" + _RutaImage + "\" alt=\"image fail\" class=\"img-produc\" height=\"48\">"
+    var ImgFrame = "<div style=\"display:flex\"><div style=\"background-image:url(" + _RutaImage + ");\"  class=\"img-produc\"></div> <p>" + DESC_PRODUCTO + "</p></div>"
     return ImgFrame;
 }
 
-function Producto_StatuStock(cellvalue, options, rowObject) {
-    var _Stock = parseInt(rowObject[10]);
-    var _StockMinimo = parseInt(rowObject[11]);
-    var _IdUnidadMedida = parseInt(rowObject[21]);
-    var _Flg_servicio = parseInt(rowObject[23]);
+function Producto_StatuStock(STOCK, STOCK_MINIMO, ID_UNIDAD_MEDIDA, FLG_SERVICIO) {
+    var _Stock = parseInt(STOCK);
+    var _StockMinimo = parseInt(STOCK_MINIMO);
+    var _IdUnidadMedida = parseInt(ID_UNIDAD_MEDIDA);
+    var _Flg_servicio = parseInt(FLG_SERVICIO);
 
     if (_IdUnidadMedida == 1) {
         _Stock = ConvertGramos_Kilos(_Stock);

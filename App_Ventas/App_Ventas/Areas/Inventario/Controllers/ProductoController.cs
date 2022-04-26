@@ -82,63 +82,25 @@ namespace App_Ventas.Areas.Inventario.Controllers
 
         public JsonResult Productos_Paginado(Recursos.Paginacion.GridTable grid)
         {
+
             Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
             try
             {
-                grid.page = (grid.page == 0) ? 1 : grid.page;
                 grid.rows = (grid.rows == 0) ? 100 : grid.rows;
 
-                var @where = (Recursos.Paginacion.Css_Paginacion.GetWhere(grid.filters, grid.rules));
-                if (!string.IsNullOrEmpty(@where))
-                {
-                    grid._search = true;
-                    if (!string.IsNullOrEmpty(grid.searchString))
-                    {
-                        @where = @where + " and ";
-                    }
-                }
-                else
+                var @where = (Recursos.Paginacion.Css_Paginacion.GetWhere(grid.SearchFields, grid.searchString, grid.rules));
+                if (string.IsNullOrEmpty(@where))
                 {
                     @where = @where + " 1=1 ";
                 }
 
                 using (ProductoRepositorio repositorio = new ProductoRepositorio())
                 {
-                    IList<Cls_Ent_Producto> lista = repositorio.Productos_Paginado(grid.sidx, grid.sord, grid.rows, grid.page, @where, ref auditoria);
+                    IList<Cls_Ent_Producto> lista = repositorio.Productos_Paginado(grid.sidx, grid.sord, grid.rows, grid.start, @where, ref auditoria);
                     if (auditoria.EJECUCION_PROCEDIMIENTO)
                     {
-                        var generic = Recursos.Paginacion.Css_Paginacion.BuscarPaginador(grid.page, grid.rows, (int)auditoria.OBJETO, lista);
-                        generic.Value.rows = generic.List.Select(item => new Recursos.Paginacion.Css_Row
-                        {
-                            id = item.ID_PRODUCTO.ToString(),
-                            cell = new string[] {
-                            null, 
-                            null,
-                            item.FILA.ToString(),   
-                            item.ID_PRODUCTO.ToString(), 
-                            null,
-                            item.COD_PRODUCTO,
-                            item.DESC_PRODUCTO ,    
-                            item.DESC_UNIDAD_MEDIDA.ToString(),
-                            item.PRECIO_COMPRA.ToString(),
-                            item.PRECIO_VENTA.ToString(), 
-                            item.STOCK.ToString(),                             
-                            item.STOCK_MINIMO.ToString(),
-                            item.FECHA_VENCIMIENTO,
-                            item.MARCA,
-                            item.MODELO,
-                            item.DETALLE,
-                            item.FLG_ESTADO.ToString(),
-                            item.FEC_CREACION, 
-                            item.USU_CREACION,
-                            item.FEC_MODIFICACION, 
-                            item.USU_MODIFICACION, 
-                            item.ID_UNIDAD_MEDIDA.ToString(), 
-                            item.MiArchivo.CODIGO_ARCHIVO + item.MiArchivo.EXTENSION, 
-                            item.FLG_SERVICIO.ToString(), 
-                            }
-                        }).ToArray();
-
+                        var generic = Recursos.Paginacion.Css_Paginacion.BuscarPaginador(grid.draw, (int)auditoria.OBJETO, lista);
+                        generic.Value.data = generic.List;
                         var jsonResult = Json(generic.Value, JsonRequestBehavior.AllowGet);
                         jsonResult.MaxJsonLength = int.MaxValue;
                         return jsonResult;
@@ -154,11 +116,13 @@ namespace App_Ventas.Areas.Inventario.Controllers
             }
             catch (Exception ex)
             {
-                // Recursos.Clases.Css_Log.Guardar(ex.ToString());
+                Recursos.Clases.Css_Log.Guardar(ex.ToString());
                 string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
                 auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
                 return null;
             }
+
+       
         }
 
         public ActionResult Producto_Listar(Cls_Ent_Producto entidad)

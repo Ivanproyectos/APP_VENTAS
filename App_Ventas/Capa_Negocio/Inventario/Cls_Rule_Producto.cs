@@ -14,11 +14,11 @@ namespace Capa_Negocio.Inventario
         private Cls_Dat_Producto OData = new Cls_Dat_Producto();
 
 
-        public List<Cls_Ent_Producto> Productos_Paginado(string ORDEN_COLUMNA, string ORDEN, int FILAS, int PAGINA, string @WHERE, ref Cls_Ent_Auditoria auditoria)
+        public List<Cls_Ent_Producto> Productos_Paginado(string ORDEN_COLUMNA, string ORDEN, int FILAS, int START, string @WHERE, ref Cls_Ent_Auditoria auditoria)
         {
             try
             {
-                return OData.Productos_Paginado(ORDEN_COLUMNA, ORDEN, FILAS, PAGINA, @WHERE, ref auditoria);
+                return OData.Productos_Paginado(ORDEN_COLUMNA, ORDEN, FILAS, START, @WHERE, ref auditoria);
             }
             catch (Exception ex)
             {

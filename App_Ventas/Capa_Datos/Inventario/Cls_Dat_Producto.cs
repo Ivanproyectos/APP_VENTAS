@@ -19,7 +19,7 @@ namespace Capa_Datos.Inventario
 
         ///*********************************************** Lista productos paginado *************************************************/
 
-        public List<Cls_Ent_Producto> Productos_Paginado(string ORDEN_COLUMNA, string ORDEN, int FILAS, int PAGINA, string @WHERE, ref Cls_Ent_Auditoria auditoria)
+        public List<Cls_Ent_Producto> Productos_Paginado(string ORDEN_COLUMNA, string ORDEN, int FILAS, int START, string @WHERE, ref Cls_Ent_Auditoria auditoria)
         {
             auditoria.Limpiar();
             List<Cls_Ent_Producto> lista = new List<Cls_Ent_Producto>();
@@ -29,13 +29,11 @@ namespace Capa_Datos.Inventario
                 SqlDataReader dr = null;
                 SqlCommand cmd = new SqlCommand("USP_INVEN_PRODUCTO_PAGINACION", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                //cmd.Parameters.Add(new SqlParameter("PO_RESULTADO", SqlDbType.RefCursor)).Direction = System.Data.ParameterDirection.Output;
-                cmd.Parameters.Add(new SqlParameter("@PI_PAGINA", SqlDbType.Int)).Value = PAGINA;
                 cmd.Parameters.Add(new SqlParameter("@PI_NROREGISTROS", SqlDbType.Int)).Value = FILAS;
+                cmd.Parameters.Add(new SqlParameter("@PI_START", SqlDbType.Int)).Value = START;
                 cmd.Parameters.Add(new SqlParameter("@PI_ORDEN_COLUMNA", SqlDbType.VarChar, 100)).Value = ORDEN_COLUMNA;
                 cmd.Parameters.Add(new SqlParameter("@PI_ORDEN", SqlDbType.VarChar, 100)).Value = ORDEN;
                 cmd.Parameters.Add(new SqlParameter("@PI_WHERE", SqlDbType.VarChar, 1000)).Value = @WHERE;
-                cmd.Parameters.Add(new SqlParameter("@PI_TABLA", SqlDbType.VarChar, 100)).Value = TABLA;
                 cmd.Parameters.Add(new SqlParameter("PO_CUENTA", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
                 dr = cmd.ExecuteReader();
                 int pos_ID_PRODUCTO = dr.GetOrdinal("ID_PRODUCTO");

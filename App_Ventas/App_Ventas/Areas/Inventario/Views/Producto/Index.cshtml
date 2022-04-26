@@ -10,6 +10,7 @@
         Producto_ConfigurarGrilla();
         //Producto_CargarGrilla();
         $(".badge").tooltip({ placement: "bottom", delay: { show: 100, hide: 400 } });
+        $('#ID_SUCURSAL').select2();
     });
 
     $("#Producto_btnBuscar").click(function (e) {
@@ -26,10 +27,11 @@
     });
 
     $('#ID_SUCURSAL').change(function () {
+        //$("#" + Producto_Grilla).dataTable().fnDestroy();
         Producto_ConfigurarGrilla();
     });
 
- 
+
     $("#Producto_Ingreso").click(function (e) {
         Producto_MostrarIngresoProducto();
     });
@@ -40,18 +42,24 @@
         Producto_MostrarTranslado();
     });
 
-    
+
 </script>
 
 <style>
     .img-produc {
-        max-width: 70px;
+        max-width: 60px;
+        height: 40px;
+        width: 60px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        margin-right: 20px;
     }
 </style>
 
 <div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
-<div class="row">
+@*<div class="row">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-header border-bottom-head card-collapse" onclick="CollapsearchCard(this);">
@@ -105,16 +113,20 @@
             </div>
         </div>
     </div>
+</div>*@
+
+<div class="row">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+          <h4 class="card-title">Listado Productos</h4>
+    </div>
 </div>
-
-
 
 <div class="row ">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
-            <div class="card-header">
+      @*      <div class="card-header">
                 <h4 class="card-title"><i class="bi bi-list-ul"></i>&nbsp;Listado Productos</h4>
-            </div>
+            </div>*@
             <div class="card-body">
                 <div class="form-row mb-3">
                     <button type="button" id="Producto_btnNuevo" class="btn btn-rounded btn-primary btn-hover-shine" style="margin-bottom: 5px;">
@@ -124,11 +136,11 @@
                         <span class="btn-icon-left text-success"><i class="bi bi-arrow-bar-up color-success"></i>
                         </span>Ingresos</button>
 
-                    <button type="button" class="btn btn-rounded btn-danger btn-hover-shine" id="Producto_Salidas"  style="margin-left: 20px; margin-bottom: 5px;">
+                    <button type="button" class="btn btn-rounded btn-danger btn-hover-shine" id="Producto_Salidas" style="margin-left: 20px; margin-bottom: 5px;">
                         <span class="btn-icon-left text-danger"><i class="bi bi-arrow-bar-down color-danger"></i>
                         </span>Salidas</button>
 
-                    <button type="button" class="btn btn-rounded btn-info btn-hover-shine" id="Producto_Btn_Translados"  style="margin-left: 20px; margin-bottom: 5px;">
+                    <button type="button" class="btn btn-rounded btn-info btn-hover-shine" id="Producto_Btn_Translados" style="margin-left: 20px; margin-bottom: 5px;">
                         <span class="btn-icon-left text-info"><i class="bi bi-truck color-info"></i>
                         </span>Translados</button>
 
@@ -143,9 +155,9 @@
                         @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                     </div>
                 </div>
-                <div class="jqGrid Grid_Theme_bootstrap">
-                    <table id="Producto_Grilla"></table>
-                    <div id="Producto_Barra"></div>
+                <div class="table-responsive">
+                    <table class="table" id="Producto_Grilla" style="width: 100%"></table>
+                    @*<div id="Producto_Barra"></div>*@
                 </div>
             </div>
         </div>

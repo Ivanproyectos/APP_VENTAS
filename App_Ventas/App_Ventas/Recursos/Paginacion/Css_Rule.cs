@@ -33,7 +33,7 @@ namespace App_Ventas.Recursos.Paginacion
             get { return m_op; }
             set { m_op = value; }
         }
-
+     
         private string m_op;
     }
 }
