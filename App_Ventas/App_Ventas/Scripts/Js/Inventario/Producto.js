@@ -53,7 +53,7 @@ function Producto_ConfigurarGrilla() {
 
     ];
     var opciones = {
-        GridLocal: false, multiselect: false, sort: "desc",enumerable : true, PositionColumnSort: 2, // numero columna para ordenar
+        GridLocal: false, multiselect: true, sort: "desc",enumerable : true, PositionColumnSort: 3, // numero columna para ordenar
         eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: true, responsive: true, processing: true
     };
     DataTable.Grilla(Producto_Grilla, url, 'ID_PRODUCTO', colModels, opciones);
