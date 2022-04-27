@@ -1,7 +1,6 @@
 ﻿
 DataTable = {
     Grilla: function (grilla, urlListar, id, colModels, opciones) {
-        debugger; 
         var DataTable = null; 
         var grid = jQuery('#' + grilla);
         var estadoSubGrid = false;
@@ -15,6 +14,7 @@ DataTable = {
         if (opciones.search == null) { opciones.search = false; }
         if (opciones.processing == null) { opciones.processing = false; }
         if (opciones.multiselect == null) { opciones.multiselect = false; }
+        if (opciones.enumerable == null) { opciones.enumerable = false; }
         if (opciones.GridLocal == null) 
             opciones.GridLocal = false;
         var language = {
@@ -38,17 +38,26 @@ DataTable = {
         //alert(opciones.Lenguaje);
 
         if (opciones.multiselect) {
-            var Multiselect = {
-                'data': id,
-                'targets': 0,
-                'checkboxes': {
-                    'selectRow': true
+            var MultiselectTh = {
+                data: id,
+                targets: 0,
+                checkboxes: {
+                    selectRow: true
                 }
             }
             typeSelect = "multi";
-            colModels.unshift(Multiselect);
+            colModels.unshift(MultiselectTh);
         }
-
+        if (opciones.enumerable &&  opciones.GridLocal == false ) {
+            var enumerableTh = {
+                data: "FILA",
+                searchable: false,
+                orderable: false,
+                name: "NRO_FILA", 
+                title: "#",
+            }
+            colModels.unshift(enumerableTh);
+        }
         var rowKey;
         var lasRowKey;
         //var DataTable = null; 
@@ -66,6 +75,7 @@ DataTable = {
                 select: {
                     style: typeSelect
                 },
+                columns: colModels,
                 ajax: {
                     type: "POST",
                     url: urlListar,
@@ -96,6 +106,7 @@ DataTable = {
                         if (res != null && res != "") {
                             var parsed = JSON.parse(res);
                             return JSON.stringify(parsed);
+
                         }
                         else {
                             alert('Error with AJAX callback');
@@ -106,10 +117,16 @@ DataTable = {
                     }
                 },
                 filter: true,
-                columns: colModels,
+               
     
             });
 
+            //DataTable.on('order.dt search.dt', function () {
+            //    let i = 1;
+            //    DataTable.cells(null, 0, {search:'applied', order:'applied'}).every( function (cell) {
+            //        this.data(i++);
+            //    } );
+            //} ).draw();
   
         } // fin de NO GridLocal
         else if (opciones.GridLocal) {
@@ -131,11 +148,14 @@ DataTable = {
             });
 
         } // fin de GridLocal
-   
+
+ 
   
-        return DataTable;
+        //return DataTable;
     },
-       
+    
+ 
+
     clearGridData: function (table) {
         $('#'+table).DataTable().clear().draw();
     },

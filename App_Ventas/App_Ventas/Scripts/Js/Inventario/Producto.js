@@ -53,7 +53,7 @@ function Producto_ConfigurarGrilla() {
 
     ];
     var opciones = {
-        GridLocal: false, multiselect: false, sort: "desc", PositionColumnSort: 1, // numero columna para ordenar
+        GridLocal: false, multiselect: false, sort: "desc",enumerable : true, PositionColumnSort: 2, // numero columna para ordenar
         eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: true, responsive: true, processing: true
     };
     DataTable.Grilla(Producto_Grilla, url, 'ID_PRODUCTO', colModels, opciones);
@@ -123,7 +123,6 @@ function Producto_FormatterMoneda(PRECIO) {
 function Producto_FormatterFechaVecimiento(FECHA_VENCIMIENTO) {
     var _FechaVencimiento = FECHA_VENCIMIENTO
     var _FechaActual = moment().format('DD/MM/YYYY');
-    debugger;
     var _text = ""; 
     if (_FechaActual == _FechaVencimiento) {
         _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto vencido\">" + FECHA_VENCIMIENTO + " <i class=\"bi bi-exclamation-circle\"></i></span>";
@@ -194,6 +193,8 @@ function Producto_MostrarNuevo() {
 }
 
 function Producto_MostrarEditar(ID_PRODUCTO) {
+    var xd = DataTable.getGridData(Producto_Grilla);
+    debugger; 
     jQuery("#myModalNuevo").html('');
     jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/Mantenimiento?id=" + ID_PRODUCTO + "&Accion=M&ID_SUCURSAL=0&DESC_SUCURSAL=x", function (responseText, textStatus, request) {
         $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });

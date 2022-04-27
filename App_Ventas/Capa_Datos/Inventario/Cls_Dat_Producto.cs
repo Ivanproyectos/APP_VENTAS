@@ -65,11 +65,11 @@ namespace Capa_Datos.Inventario
                 if (dr.HasRows)
                 {
                     Cls_Ent_Producto obj = null;
-                    int FILA = 0;
+                    int FILA = START + 1;
                     while (dr.Read())
                     {
                         obj = new Cls_Ent_Producto();
-                        obj.FILA = FILA++;
+                        obj.FILA = FILA++; 
 
                         if (dr.IsDBNull(pos_ID_PRODUCTO)) obj.ID_PRODUCTO = 0;
                         else obj.ID_PRODUCTO = int.Parse(dr[pos_ID_PRODUCTO].ToString());
