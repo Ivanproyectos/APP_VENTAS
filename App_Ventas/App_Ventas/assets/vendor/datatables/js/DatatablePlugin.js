@@ -1,13 +1,14 @@
 ﻿
 DataTable = {
-    Grilla: function (grilla, urlListar, id, colModels, opciones) {
+    Grilla: function (grilla, urlListar, id, colModels, opciones, SortColunm) {
+        debugger; 
         var DataTable = null; 
         var grid = jQuery('#' + grilla);
         var estadoSubGrid = false;
         var typeSelect = "api";
         if (opciones.responsive == null) { responsive = false; }
         if (opciones.sort == null) { opciones.sort = 'desc'; }
-        if (opciones.PositionColumnSort == null) { opciones.PositionColumnSort = 0; }
+        //if (opciones.PositionColumnSort == null) { opciones.PositionColumnSort = 0; }
         if (opciones.rowNumber == null) { opciones.rowNumber = 10; }
         if (opciones.rowNumbers == null) { opciones.rowNumbers = [opciones.rowNumber, 10, 25, 50]; }
         if (opciones.rules == null) { opciones.rules = false; }
@@ -35,8 +36,8 @@ DataTable = {
                 "previous": "<i class=\"bi bi-chevron-left\"></i>"
             }
         };
-        //alert(opciones.Lenguaje);
 
+       // checkbox select
         if (opciones.multiselect) {
             var MultiselectTh = {
                 data: id,
@@ -48,7 +49,9 @@ DataTable = {
             typeSelect = "multi";
             colModels.unshift(MultiselectTh);
         }
-        if (opciones.enumerable &&  opciones.GridLocal == false ) {
+
+        // enumarar filas paginado
+        if (opciones.enumerable ) {
             var enumerableTh = {
                 data: "FILA",
                 searchable: false,
@@ -59,98 +62,100 @@ DataTable = {
             colModels.unshift(enumerableTh);
         }
         var rowKey;
-        var lasRowKey;
-        //var DataTable = null; 
-        if (!opciones.GridLocal) {
-            DataTable = grid.DataTable({
-                responsive: opciones.responsive,
-                processing: opciones.processing,
-                serverSide: true,      
-                lengthMenu: opciones.rowNumbers,
-                pageLength: opciones.rowNumber,
-                order: [[opciones.PositionColumnSort, opciones.sort]],
-                searching: opciones.search,
-                rowId: id,
-                language: language,
-                select: {
-                    style: typeSelect
-                },
-                columns: colModels,
-                ajax: {
-                    type: "POST",
-                    url: urlListar,
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: "json",
-                    data: function (dtParms) {
-                        ObjectRules =  GetRules(grilla);
-                        var migrilla = new Object();
-                        migrilla.draw = dtParms.draw;
-                        migrilla.rows = dtParms.length;
-                        migrilla.start = dtParms.start;
-                        migrilla.sidx = dtParms.columns[dtParms.order[0].column].name;
-                        migrilla.sord =  dtParms.order[0].dir;
-                        migrilla._search = opciones.search;
-                        if (opciones.rules != false) {
-                            migrilla.Rules = ObjectRules.rules;
-                        }
-                        if (migrilla._search == true) {
-                            migrilla.SearchFields = ObjectRules.SearchFields;
-                            migrilla.searchString = dtParms.search.value;
-                        }
+        var PositionColumnSort =  colModels.findIndex(colModels => colModels.name === SortColunm);
+        if(PositionColumnSort != -1){
+            //var DataTable = null; 
+            if (!opciones.GridLocal) {
+                DataTable = grid.DataTable({
+                    responsive: opciones.responsive,
+                    processing: opciones.processing,
+                    serverSide: true,      
+                    lengthMenu: opciones.rowNumbers,
+                    pageLength: opciones.rowNumber,
+                    order: [[PositionColumnSort, opciones.sort]],
+                    searching: opciones.search,
+                    rowId: id,
+                    language: language,
+                    select: {
+                        style: typeSelect
+                    },
+                    columns: colModels,
+                    ajax: {
+                        type: "POST",
+                        url: urlListar,
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: "json",
+                        data: function (dtParms) {
+                            ObjectRules =  GetRules(grilla);
+                            var migrilla = new Object();
+                            migrilla.draw = dtParms.draw;
+                            migrilla.rows = dtParms.length;
+                            migrilla.start = dtParms.start;
+                            migrilla.sidx = dtParms.columns[dtParms.order[0].column].name;
+                            migrilla.sord =  dtParms.order[0].dir;
+                            migrilla._search = opciones.search;
+                            if (opciones.rules != false) {
+                                migrilla.Rules = ObjectRules.rules;
+                            }
+                            if (migrilla._search == true) {
+                                migrilla.SearchFields = ObjectRules.SearchFields;
+                                migrilla.searchString = dtParms.search.value;
+                            }
                         
-                        var params = { grid: migrilla };
-                        return JSON.stringify(params);
-                    },
-                    dataFilter: function (res) {
-                        //recibimos del servidor
-                        if (res != null && res != "") {
-                            var parsed = JSON.parse(res);
-                            return JSON.stringify(parsed);
+                            var params = { grid: migrilla };
+                            return JSON.stringify(params);
+                        },
+                        dataFilter: function (res) {
+                            //recibimos del servidor
+                            if (res != null && res != "") {
+                                var parsed = JSON.parse(res);
+                                return JSON.stringify(parsed);
 
-                        }
-                        else {
-                            alert('Error with AJAX callback');
+                            }
+                            else {
+                                alert('Error with AJAX callback');
+                            }
+                        },
+                        error: function (x, y) {
+                            console.log(x);
                         }
                     },
-                    error: function (x, y) {
-                        console.log(x);
-                    }
-                },
-                filter: true,
+                    filter: true,
                
     
-            });
+                });
 
-            //DataTable.on('order.dt search.dt', function () {
-            //    let i = 1;
-            //    DataTable.cells(null, 0, {search:'applied', order:'applied'}).every( function (cell) {
-            //        this.data(i++);
-            //    } );
-            //} ).draw();
+                //DataTable.on('order.dt search.dt', function () {
+                //    let i = 1;
+                //    DataTable.cells(null, 0, {search:'applied', order:'applied'}).every( function (cell) {
+                //        this.data(i++);
+                //    } );
+                //} ).draw();
   
-        } // fin de NO GridLocal
-        else if (opciones.GridLocal) {
-             DataTable = grid.DataTable({
-                responsive: opciones.responsive,
-                processing: opciones.processing,
-                serverSide: false,
-                lengthMenu: opciones.rowNumbers,
-                pageLength: opciones.rowNumber,
-                order: [[opciones.PositionColumnSort, opciones.sort]],
-                searching: opciones.search,
-                rowId: id,
-                language: language,
-                select: {
-                    style: typeSelect
-                },
-                filter: false,
-                columns: colModels,
-            });
+            } // fin de NO GridLocal
+            else if (opciones.GridLocal) {
+                debugger; 
+                DataTable = grid.DataTable({
+                    responsive: opciones.responsive,
+                    processing: opciones.processing,
+                    serverSide: false,
+                    lengthMenu: opciones.rowNumbers,
+                    pageLength: opciones.rowNumber,
+                    order: [[PositionColumnSort, opciones.sort]],
+                    searching: opciones.search,
+                    rowId: id,
+                    language: language,
+                    select: {
+                        style: typeSelect
+                    },
+                    filter: false,
+                    columns: colModels,
+                });
 
-        } // fin de GridLocal
-
- 
-  
+            } // fin de GridLocal
+        }else{
+            alert('DataTable: sort column does not exist'); 
+        }
         //return DataTable;
     },
     

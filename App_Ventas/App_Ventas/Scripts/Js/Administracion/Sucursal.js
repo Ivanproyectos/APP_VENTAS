@@ -9,63 +9,61 @@ function Sucursal_Cerrar() {
 function Sucursal_Limpiar() {
     $("#Sucursal_Desc_Sucursal").val('');
     $('#Sucursal_Estado').val(2);
-
     Sucursal_CargarGrilla();
 }
 
 function Sucursal_ConfigurarGrilla() {
-    $("#" + Sucursal_Grilla).GridUnload();
-    var colNames = ['Editar', 'Eliminar', 'Estado', 'codigo', 'ID', 'Sucursal', 'Dirección', 'Telefono', 'Correo', 'Urbanización', 'Ubigeo',
-        'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación'];
+    DataTable.GridUnload(Sucursal_Grilla);
     var colModels = [
-            { name: 'EDITAR', index: 'EDITAR', align: 'center', width: 60, hidden: false, formatter: Sucursal_actionEditar, sortable: false },
-            { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: false, formatter: Sucursal_actionEliminar, sortable: false },
-            { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Sucursal_actionActivo, sortable: false },
-            { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
-            { name: 'ID_SUCURSAL', index: 'ID_SUCURSAL', width: 100, hidden: true, key: true },
-            { name: 'DESC_SUCURSAL', index: 'DESC_SUCURSAL', width: 250, hidden: false, align: "left" },
-            { name: 'DIRECCION', index: 'DIRECCION', width: 200, hidden: false, align: "left" },
-            { name: 'TELEFONO', index: 'TELEFONO', width: 150, hidden: false, align: "left" },
-            { name: 'CORREO', index: 'CORREO', width: 150, hidden: false, align: "left",rezible:true },
-            { name: 'URBANIZACION', index: 'URBANIZACION', width: 200, hidden: false, align: "left" },
-            { name: 'DESC_UBIGEO', index: 'DESC_UBIGEO', width: 250, hidden: false, align: "left" },
-            { name: 'FLG_ESTADO', index: 'FLG_ESTADO', width: 300, hidden: true, align: "left" },
-            { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },
-            { name: 'USU_CREACION', index: 'USU_CREACION', width: 150, hidden: false, align: "left" },
-            { name: 'FEC_MODIFICACION', index: 'FEC_MODIFICACION', width: 150, hidden: false, align: "left" },
-            { name: 'USU_MODIFICACION', index: 'USU_MODIFICACION', width: 150, hidden: false, align: "left" },
+          { data: "ID_SUCURSAL", name: "ID_SUCURSAL", title: "ID_SUCURSAL", autoWidth: false, visible: false, },
+          { data: "DESC_SUCURSAL", name: "DESC_SUCURSAL", title: "Sucursal",  autoWidth: true },
+          { data: "DIRECCION", name: "DIRECCION", title: "Dirección", autoWidth: false, },
+          { data: "TELEFONO", name: "TELEFONO", title: "Telefono", autoWidth: false, visible: false, },
+          { data: "CORREO", name: "CORREO", title: "Correo",  autoWidth: true, },
+          { data: "URBANIZACION", name: "URBANIZACION", title: "Urbanización", autoWidth: true },
+          { data: "DESC_UBIGEO", name: "DESC_UBIGEO", title: "Ubigeo", autoWidth: true },
+          {
+              data: null, name: "FLG_ESTADO", title: "Activo", autoWidth: true, sortable: false,
+              render: function (data, type, row, meta) { return Sucursal_actionActivo(data.FLG_ESTADO, data.ID_SUCURSAL); }
+          },
+          {
+              data: null, sortable: false, title: "Acciones", width: "60px",
+              render: function (data, type, row, meta) { return Sucursal_actionAcciones(data.ID_SUCURSAL); }
+          },
+
+
     ];
     var opciones = {
-        GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
+        GridLocal: true, multiselect: false, sort: "desc", enumerable: false,
+        eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: false, responsive: true, processing: true
     };
-    SICA.Grilla(Sucursal_Grilla, Sucursal_Barra, Sucursal_Grilla, 400, '', "Lista de Sucursal", '', 'ID_SUCURSAL', colNames, colModels, '', opciones);
-    jqGridResponsive($(".jqGrid"));
+    DataTable.Grilla(Sucursal_Grilla, '', 'ID_SUCURSAL', colModels, opciones, "ID_SUCURSAL");
 }
 
-function Sucursal_actionActivo(cellvalue, options, rowObject) {
+
+function Sucursal_actionAcciones(ID_SUCURSAL) {
+    var _btn_Editar = "<a class=\"dropdown-item\" onclick='Sucursal_MostrarEditar(" + ID_SUCURSAL + ")'><i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;\"></i>&nbsp;  Editar</a>";
+    var _btn_Eliminar = "<a class=\"dropdown-item\" onclick='Sucursal_Eliminar(" + ID_SUCURSAL + ")'><i class=\"bi bi-trash-fill\" style=\"color:#e40613;\"></i>&nbsp;  Eliminar</a>";
+    var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
+           "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn  dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
+           "<div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
+           _btn_Editar +
+           _btn_Eliminar +
+            "</div>" +
+        "</div>";
+    return _btn;
+}
+
+
+function Sucursal_actionActivo(FLG_ESTADO, ID_SUCURSAL) {
     var check_ = 'check';
-    if (rowObject.FLG_ESTADO == 1)
+    if (FLG_ESTADO == 1)
         check_ = 'checked';
 
-    var _btn = " <label class=\"content_toggle_1\">"
-            + "<input id=\"Sucursal_chk_" + rowObject.ID_SUCURSAL + "\" class=\"toggle_Beatiful_1\" type=\"checkbox\" onchange=\"Sucursal_Estado(" + rowObject.ID_SUCURSAL + ",this)\" " + check_ + ">"
-            + "<div class=\"content_toggle_2\">"
-            + "  <span class=\"Label_toggle_1\" ></span>"
-             + "</div>"
-            + "</label>";
+    var _btn = "<input type=\"checkbox\" id=\"Usuarios_chk_" + ID_SUCURSAL + "\"  data-switch=\"state\" onchange=\"Sucursal_Estado(" + ID_SUCURSAL + ",this)\" " + check_ + ">"
+              + " <label for=\"Usuarios_chk_" + ID_SUCURSAL + "\" data-on-label=\"Yes\" data-off-label=\"No\"></label>";
     return _btn;
 }
-
-function Sucursal_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Sucursal_MostrarEditar(" + rowObject.ID_SUCURSAL + ");' class=\"btn btn-outline-light\" type=\"button\"   style=\"height: 39px;line-height: 5px;\"> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
-    return _btn;
-}
-
-function Sucursal_actionEliminar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Eliminar'  onclick='Sucursal_Eliminar(" + rowObject.ID_SUCURSAL + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>";
-    return _btn;
-}
-
 
 function Sucursal_MostrarNuevo() {
     jQuery("#myModalNuevo").html('');
@@ -93,19 +91,19 @@ function Sucursal_MostrarEditar(ID_SUCURSAL) {
 function Sucursal_CargarGrilla() {
     var item =
        {
-           DESC_SUCURSAL: $('#Sucursal_Desc_Sucursal').val(),
-           FLG_ESTADO: $('#Sucursal_Estado').val()
+           //DESC_SUCURSAL: $('#Sucursal_Desc_Sucursal').val(),
+           FLG_ESTADO:2
        };
     var url = baseUrl + 'Administracion/Sucursal/Sucursal_Listar';
     var auditoria = SICA.Ajax(url, item, false);
-    jQuery("#" + Sucursal_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
+    DataTable.clearGridData(Sucursal_Grilla);
     if (auditoria.EJECUCION_PROCEDIMIENTO) {
         if (!auditoria.RECHAZAR) {
             $.each(auditoria.OBJETO, function (i, v) {
                 var idgrilla = i + 1;
                 var myData =
                  {
-                     CODIGO: idgrilla,
+                     FILA: idgrilla,
                      ID_SUCURSAL: v.ID_SUCURSAL,
                      DESC_SUCURSAL: v.DESC_SUCURSAL,
                      DIRECCION: v.DIRECCION,
@@ -119,9 +117,8 @@ function Sucursal_CargarGrilla() {
                      FEC_MODIFICACION: v.FEC_MODIFICACION,
                      USU_MODIFICACION: v.USU_MODIFICACION
                  };
-                jQuery("#" + Sucursal_Grilla).jqGrid('addRowData', i, myData);
+                DataTable.addRowData(Sucursal_Grilla, myData);
             });
-            jQuery("#" + Sucursal_Grilla).trigger("reloadGrid");
         }
     } else {
         jError(auditoria.MENSAJE_SALIDA, "Atención");

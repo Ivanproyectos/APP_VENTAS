@@ -11,71 +11,71 @@ function Usuarios_Limpiar() {
     $("#Usuarios_NombresApe").val('');
     $("#Usuarios_Documento").val('');
     $('#Usuarios_Estado').val(2);
-
     Usuarios_CargarGrilla();
 }
 
 function Usuarios_ConfigurarGrilla() {
-    $("#" + Usuarios_Grilla).GridUnload();
-    var colNames = ['Editar', 'Eliminar', 'Estado', 'codigo', 'ID','Es Jefe', 'Nombre y Apellidos','Clave Usuario','Codigo Usuario' ,'Tipo Documento', 'Dni', 'Celular','Telefono','Correo',
-        'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación'];
+    DataTable.GridUnload(Usuarios_Grilla);
     var colModels = [
-            { name: 'EDITAR', index: 'EDITAR', align: 'center', width: 60, hidden: false, formatter: Usuarios_actionEditar, sortable: false },
-            { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: false, formatter: Usuarios_actionEliminar, sortable: false },
-            { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Usuarios_actionActivo, sortable: false },
-            { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
-            { name: 'ID_USUARIO', index: 'ID_USUARIO', width: 100, hidden: true, key: true },
-            { name: 'ES_JEFE', index: 'ES_JEFE', width: 100, hidden: false, align: "left" },
-            { name: 'NOMBRES_APE', index: 'NOMBRES_APE', width: 250, hidden: false, align: "left", formatter:Usuario_TextUsuario },
-            { name: 'CLAVE_USUARIO', index: 'CLAVE_USUARIO', width: 150, hidden: false, align: "left" },
-            { name: 'COD_USUARIO', index: 'COD_USUARIO', width: 100, hidden: true, align: "left" },
-            { name: 'DESC_TIPO_DOCUMENTO', index: 'DESC_TIPO_DOCUMENTO', width: 150, hidden: false, align: "left" },
-            { name: 'DNI', index: 'DNI', width: 150, hidden: false, align: "left" },
-            { name: 'CELULAR', index: 'CELULAR', width: 100, hidden: false, align: "left" },
-            { name: 'TELEFONO', index: 'TELEFONO', width: 100, hidden: false, align: "left" },
-            { name: 'CORREO', index: 'CORREO', width: 200, hidden: false, align: "left" },
-            { name: 'FLG_ESTADO', index: 'FLG_ESTADO', width: 300, hidden: true, align: "left" },
-            { name: 'FEC_CREACION', index: 'FEC_CREACION',  width: 150, hidden: false, align: "left" },
-            { name: 'USU_CREACION', index: 'USU_CREACION',  width: 150, hidden: false, align: "left" },
-            { name: 'FEC_MODIFICACION', index: 'FEC_MODIFICACION',  width: 150, hidden: false, align: "left" },
-            { name: 'USU_MODIFICACION', index: 'USU_MODIFICACION', width: 150, hidden: false, align: "left" },
+           {
+               data: null, sortable: true, title: "Nombre y Apellidos", autoWidth: true,
+               render: function (data, type, row, meta) { return Usuario_TextUsuario(data.NOMBRES_APE , data.COD_USUARIO); }
+           },
+          { data: "CLAVE_USUARIO", name: "CLAVE_USUARIO", title: "Clave Usuario", autoWidth: true },
+          { data: "ES_JEFE", name: "ES_JEFE", title: "Es Jefe", autoWidth: false, width: "90px", },
+          { data: "ID_USUARIO", name: "ID_USUARIO", title: "ID_PRODUCTO", autoWidth: false, visible: false, },
+          { data: "DESC_TIPO_DOCUMENTO", name: "DESC_TIPO_DOCUMENTO", title: "Tipo Documento", autoWidth: true, },
+          { data: "DNI", name: "DNI", title: "Número Documento",  autoWidth: true },
+          { data: "CELULAR", name: "CELULAR", title: "Celular",  autoWidth: true },
+          { data: "TELEFONO", name: "TELEFONO", title: "Telefono",  autoWidth: true },
+          { data: "CORREO", name: "CORREO", title: "Correo",  autoWidth: true },
+          {
+              data: null, name: "FLG_ESTADO", title: "Activo", autoWidth: true, sortable: false,
+              render: function (data, type, row, meta) { return Usuarios_actionActivo(data.FLG_ESTADO, data.ID_USUARIO); }
+          },
+          {
+            data: null, sortable: false, title: "Acciones", width: "60px",
+            render: function (data, type, row, meta) { return Usuarios_actionAcciones(data.ID_USUARIO); }
+          },
+
     ];
     var opciones = {
-        GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false ,rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
+        GridLocal: true, multiselect: false, sort: "desc", enumerable: false,
+        eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: false, responsive: true, processing: true
     };
-    SICA.Grilla(Usuarios_Grilla, Usuarios_Barra, Usuarios_Grilla, 400, '', "Lista de Usuarios", '', 'ID_USUARIO', colNames, colModels, '', opciones);
+    DataTable.Grilla(Usuarios_Grilla, '', 'ID_USUARIO', colModels, opciones, "ID_USUARIO");
+
 }
 
-function Usuarios_actionActivo(cellvalue, options, rowObject) {
-    var check_ = 'check';
-    if (rowObject.FLG_ESTADO == 1)
-        check_ = 'checked';
-
-    var _btn = " <label class=\"content_toggle_1\">"
-            + "<input id=\"Usuarios_chk_" + rowObject.ID_USUARIO + "\" class=\"toggle_Beatiful_1\" type=\"checkbox\" onchange=\"Usuarios_Estado(" + rowObject.ID_USUARIO + ",this)\" " + check_ + ">"
-            + "<div class=\"content_toggle_2\">"
-            + "  <span class=\"Label_toggle_1\" ></span>"
-             + "</div>"
-            + "</label>";
+function Usuarios_actionAcciones(ID_USUARIO) {
+    var _btn_Editar = "<a class=\"dropdown-item\" onclick='Usuarios_MostrarEditar(" + ID_USUARIO + ")'><i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;\"></i>&nbsp;  Editar</a>";
+    var _btn_Eliminar = "<a class=\"dropdown-item\" onclick='Usuarios_Eliminar(" + ID_USUARIO + ")'><i class=\"bi bi-trash-fill\" style=\"color:#e40613;\"></i>&nbsp;  Eliminar</a>";
+    var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
+           "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn  dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
+           "<div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
+           _btn_Editar +
+           _btn_Eliminar +
+            "</div>" +
+        "</div>";
     return _btn;
 }
 
-function Usuario_TextUsuario(cellvalue, options, rowObject) {
-    var Usuario = rowObject.NOMBRES_APE;
-    var Cod_usuario = rowObject.COD_USUARIO;
+function Usuarios_actionActivo(FLG_ESTADO, ID_USUARIO) {
+    var check_ = 'check';
+    if (FLG_ESTADO == 1)
+        check_ = 'checked';
+
+    var _btn = "<input type=\"checkbox\" id=\"Usuarios_chk_" + ID_USUARIO + "\"  data-switch=\"state\" onchange=\"Usuarios_Estado(" + ID_USUARIO + ",this)\" " + check_ + ">"
+              + " <label for=\"Usuarios_chk_" + ID_USUARIO + "\" data-on-label=\"Yes\" data-off-label=\"No\"></label>";
+    return _btn;
+}
+
+function Usuario_TextUsuario(NOMBRES_APE, COD_USUARIO) {
+    var Usuario = NOMBRES_APE;
+    var Cod_usuario = COD_USUARIO;
     var _text = '<span>' + Usuario + '</span><br><span style="font-size: 12px; color: #2c7be5;"><i class="bi bi-person"></i>&nbsp;Usuario: ' + Cod_usuario + '</span>';
 
     return _text
-}
-
-function Usuarios_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Usuarios_MostrarEditar(" + rowObject.ID_USUARIO + ");' class=\"btn btn-outline-light\" type=\"button\"  style=\"height: 39px;line-height: 5px;\"> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
-    return _btn;
-}
-
-function Usuarios_actionEliminar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Eliminar'  onclick='Usuarios_Eliminar(" + rowObject.ID_USUARIO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>";
-    return _btn;
 }
 
 
@@ -105,13 +105,13 @@ function Usuarios_MostrarEditar(ID_USUARIO) {
 function Usuarios_CargarGrilla() {
     var item =
        {
-           NOMBRES_APE: $('#Usuarios_NombresApe').val(),
-           DNI: $('#Usuarios_Documento').val(),
-           FLG_ESTADO: $('#Usuarios_Estado').val()
+           //NOMBRES_APE: $('#Usuarios_NombresApe').val(),
+           //DNI: $('#Usuarios_Documento').val(),
+           FLG_ESTADO: 2
        };
     var url = baseUrl + 'Administracion/Usuarios/Usuario_Listar';
     var auditoria = SICA.Ajax(url, item, false);
-    jQuery("#" + Usuarios_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
+    DataTable.clearGridData(Usuarios_Grilla);
     if (auditoria.EJECUCION_PROCEDIMIENTO) {
         if (!auditoria.RECHAZAR) {
             $.each(auditoria.OBJETO, function (i, v) {
@@ -119,7 +119,7 @@ function Usuarios_CargarGrilla() {
 
                 var myData =
                  {
-                     CODIGO: idgrilla,
+                     FILA: idgrilla,
                      ID_USUARIO: v.ID_USUARIO,
                      ES_JEFE : v.FLG_ADMIN == 1? 'SI' : 'NO',
                      NOMBRES_APE: v.NOMBRES_APE,
@@ -130,7 +130,6 @@ function Usuarios_CargarGrilla() {
                      CORREO: v.CORREO,
                      COD_USUARIO: v.COD_USUARIO,
                      CLAVE_USUARIO: v.CLAVE_USUARIO,
-                     FLG_ADMIN: v.FLG_ADMIN,
                      FLG_ESTADO: v.FLG_ESTADO,
                      FEC_CREACION: v.FEC_CREACION,
                      USU_CREACION: v.USU_CREACION,
@@ -138,9 +137,8 @@ function Usuarios_CargarGrilla() {
                      USU_MODIFICACION: v.USU_MODIFICACION,
 
                  };
-                jQuery("#" + Usuarios_Grilla).jqGrid('addRowData', i, myData);
+                DataTable.addRowData(Usuarios_Grilla, myData);
             });
-            jQuery("#" + Usuarios_Grilla).trigger("reloadGrid");
         }
     } else {
         jError(auditoria.MENSAJE_SALIDA, "Atención");
