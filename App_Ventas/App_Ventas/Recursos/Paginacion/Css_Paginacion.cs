@@ -154,7 +154,7 @@ namespace App_Ventas.Recursos.Paginacion
                             if ((!string.IsNullOrEmpty(regla.field.ToUpper())))
                             {
                                 if (count == 0)
-                                    @whereSearch = "(" + regla.field.ToUpper() + " like '%" + searchString + "%' ";
+                                    @whereSearch = "( " + regla.field.ToUpper() + " like '%" + searchString + "%' ";
                                 else
                                     @whereSearch += " OR " + regla.field.ToUpper() + " like '%" + searchString + "%' ";
                                     count++; 

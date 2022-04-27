@@ -50,9 +50,9 @@ function Clientes_ConfigurarGrilla() {
     var colModels = [
           { data: "ID_CLIENTE", name: "ID_CLIENTE", title: "ID_CLIENTE", autoWidth: false, visible: false, },
           { data: "NOMBRES_APE", name: "NOMBRES_APE", title: "Nombres y apellidos", autoWidth: true },
-          { data: "DESC_TIPO_DOCUMENTO", name: "DESC_TIPO_DOCUMENTO", title: "Tipo documento", autoWidth: false, width: "90px", },
-          { data: "NUMERO_DOCUMENTO", name: "NUMERO_DOCUMENTO", title: "Número Documento", autoWidth: false, },
-          { data: "DIRECCION", name: "DIRECCION", title: "Número Documento", autoWidth: true },
+          { data: "DESC_TIPO_DOCUMENTO", name: "DESC_TIPO_DOCUMENTO", title: "Tipo Doc.", autoWidth: false, width: "90px", },
+          { data: "NUMERO_DOCUMENTO", name: "NUMERO_DOCUMENTO", title: "NumDoc.", autoWidth: false, },
+          { data: "DIRECCION", name: "DIRECCION", title: "Dirección", autoWidth: true },
           { data: "CELULAR", name: "CELULAR", title: "Celular", autoWidth: true },
           { data: "TELEFONO", name: "TELEFONO", title: "Telefono", autoWidth: true },
           { data: "CORREO", name: "CORREO", title: "Correo", autoWidth: true },

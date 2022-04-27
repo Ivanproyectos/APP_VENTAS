@@ -19,36 +19,43 @@ function Caja_Limpiar() {
 
 
 function Caja_ConfigurarGrilla() {
-    $("#" + Caja_Grilla).GridUnload();
-    var colNames = ['Editar','Eliminar','codigo', 'ID', 'Fecha y Hora', 'Tipo', 'Descripción','Monto', 'Usuario Creación'];
+    DataTable.GridUnload(Caja_Grilla);
     var colModels = [
-            { name: 'EDITAR', index: 'EDITAR', align: 'center', width: 70, hidden: false, sortable: false, formatter: Caja_Movimiento_actionEditar, sortable: false },
-            { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 70, hidden: false, sortable: false, formatter: Caja_Movimiento_actionEliminar, sortable: false },
-            { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
-            { name: 'ID_TIPO_MOVIMIENTO', index: 'ID_TIPO_MOVIMIENTO', align: 'center', width: 100, hidden: true, key: true },
-            { name: 'FEC_CREACION', index: 'FEC_CREACION', align: 'left', width: 200, hidden: false },
-            { name: 'TIPO', index: 'TIPO', align: 'left', width: 200, hidden: false },
-            { name: 'DESC_MOVIMIENTO', index: 'DESC_MOVIMIENTO', align: 'left', width: 200, hidden: false },
-            { name: 'MONTO', index: 'MONTO', align: 'left', width: 100, hidden: false },
-            { name: 'USU_CREACION', index: 'USU_CREACION', align: 'left', width: 200, hidden: false },
-        
+          { data: "ID_TIPO_MOVIMIENTO", name: "ID_TIPO_MOVIMIENTO", title: "ID_TIPO_MOVIMIENTO", autoWidth: false, visible: false, },
+          { data: "FEC_CREACION", name: "FEC_CREACION", title: "Fecha y Hora", autoWidth: false, width: "90px", },
+          { data: "TIPO", name: "TIPO", title: "Tipo", autoWidth: false, },
+          { data: "DESC_MOVIMIENTO", name: "DESC_MOVIMIENTO", title: "Descripción", autoWidth: true },
+          { data: "MONTO", name: "MONTO", title: "Monto", autoWidth: true },
+          { data: "USU_CREACION", name: "USU_CREACION", title: "Usuario Creación", autoWidth: true },
+          {
+              data: null, sortable: false, title: "Acciones", width: "60px",
+              render: function (data, type, row, meta) { return Caja_Movimiento_actionAcciones(data.ID_TIPO_MOVIMIENTO); }
+          },
+
     ];
     var opciones = {
-        GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false
+        GridLocal: true, multiselect: false, sort: "desc", enumerable: false,
+        eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: false, responsive: true, processing: true
     };
-    SICA.Grilla(Caja_Grilla, Barra_Grilla, Caja_Grilla, 400, '', "", '', 'ID_TIPO_MOVIMIENTO', colNames, colModels, '', opciones);
+    DataTable.Grilla(Caja_Grilla, '', 'ID_TIPO_MOVIMIENTO', colModels, opciones, "ID_TIPO_MOVIMIENTO");
 }
 
 
-function Caja_Movimiento_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Caja_Movimiento_MostrarEditar(" + rowObject.ID_TIPO_MOVIMIENTO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
+
+function Caja_Movimiento_actionAcciones(ID_TIPO_MOVIMIENTO) {
+    var _btn_Editar = "<a class=\"dropdown-item\" onclick='Caja_Movimiento_MostrarEditar(" + ID_TIPO_MOVIMIENTO + ")'><i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;\"></i>&nbsp;  Editar</a>";
+    var _btn_Eliminar = "<a class=\"dropdown-item\" onclick='Caja_Movimiento_Eliminar(" + ID_TIPO_MOVIMIENTO + ")'><i class=\"bi bi-trash-fill\" style=\"color:#e40613;\"></i>&nbsp;  Eliminar</a>";
+    var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
+           "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn  dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
+           "<div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
+           _btn_Editar +
+           _btn_Eliminar +
+            "</div>" +
+        "</div>";
     return _btn;
 }
 
-function Caja_Movimiento_actionEliminar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Eliminar'  onclick='Caja_Movimiento_Eliminar(" + rowObject.ID_TIPO_MOVIMIENTO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>";
-    return _btn;
-}
+
 
 function Caja_Movimieto_MostrarNuevo() {
     jQuery("#myModalNuevo").html('');
@@ -132,7 +139,7 @@ function Caja_Movimiento_CargarGrilla() {
        };
     var url = baseUrl + 'Caja/Caja/Caja_Movimiento_Listar';
     var auditoria = SICA.Ajax(url, item, false);
-    jQuery("#" + Caja_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
+    DataTable.clearGridData(Caja_Grilla);
     if (auditoria.EJECUCION_PROCEDIMIENTO) {
         if (!auditoria.RECHAZAR) {
             $.each(auditoria.OBJETO, function (i, v) {
@@ -157,9 +164,8 @@ function Caja_Movimiento_CargarGrilla() {
                      USU_MODIFICACION: v.USU_MODIFICACION,
 
                  };
-                jQuery("#" + Caja_Grilla).jqGrid('addRowData', i, myData);
+                DataTable.addRowData(Caja_Grilla, myData);
             });
-            jQuery("#" + Caja_Grilla).trigger("reloadGrid");
         }
     } else {
         jError(auditoria.MENSAJE_SALIDA, "Atención");

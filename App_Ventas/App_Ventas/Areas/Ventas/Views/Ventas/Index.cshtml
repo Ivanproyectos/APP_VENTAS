@@ -49,8 +49,8 @@
 
                         <div class="form-group col-md-3">
                             <label>Tipo Pago:</label>
-                              @Html.DropDownListFor(model => model.ID_TIPO_PAGO_SEARCH, Model.Lista_Tipo_Pago, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
-                        </div>  
+                            @Html.DropDownListFor(model => model.ID_TIPO_PAGO_SEARCH, Model.Lista_Tipo_Pago, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-3">
@@ -78,9 +78,9 @@
 
             </div>
             <div class="card-body">
-                <div class="jqGrid">
-                    <table id="Ventas_Grilla"></table>
-                    <div id="Ventas_Barra"></div>
+                <div class="table-responsive">
+                    <table id="Ventas_Grilla" style="width: 100%" class="table"></table>
+                    @*<div id="Ventas_Barra"></div>*@
                 </div>
             </div>
         </div>

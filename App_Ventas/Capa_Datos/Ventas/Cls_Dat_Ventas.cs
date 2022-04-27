@@ -23,7 +23,7 @@ namespace Capa_Datos.Ventas
 
         ///*********************************************** Lista usuarios paginado *************************************************/
 
-        public List<Cls_Ent_Ventas> Ventas_Paginado(string ORDEN_COLUMNA, string ORDEN, int FILAS, int PAGINA, string @WHERE, ref Cls_Ent_Auditoria auditoria)
+        public List<Cls_Ent_Ventas> Ventas_Paginado(string ORDEN_COLUMNA, string ORDEN, int FILAS, int START, string @WHERE, ref Cls_Ent_Auditoria auditoria)
         {
             auditoria.Limpiar();
             List<Cls_Ent_Ventas> lista = new List<Cls_Ent_Ventas>();
@@ -33,13 +33,11 @@ namespace Capa_Datos.Ventas
                 SqlDataReader dr = null;
                 SqlCommand cmd = new SqlCommand("USP_VENTA_VENTAS_PAGINACION", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                //cmd.Parameters.Add(new SqlParameter("PO_RESULTADO", SqlDbType.RefCursor)).Direction = System.Data.ParameterDirection.Output;
-                cmd.Parameters.Add(new SqlParameter("@PI_PAGINA", SqlDbType.Int)).Value = PAGINA;
                 cmd.Parameters.Add(new SqlParameter("@PI_NROREGISTROS", SqlDbType.Int)).Value = FILAS;
+                cmd.Parameters.Add(new SqlParameter("@PI_START", SqlDbType.Int)).Value = START;
                 cmd.Parameters.Add(new SqlParameter("@PI_ORDEN_COLUMNA", SqlDbType.VarChar, 100)).Value = ORDEN_COLUMNA;
                 cmd.Parameters.Add(new SqlParameter("@PI_ORDEN", SqlDbType.VarChar, 100)).Value = ORDEN;
                 cmd.Parameters.Add(new SqlParameter("@PI_WHERE", SqlDbType.VarChar, 1000)).Value = @WHERE;
-                cmd.Parameters.Add(new SqlParameter("@PI_TABLA", SqlDbType.VarChar, 100)).Value = TABLA;
                 cmd.Parameters.Add(new SqlParameter("PO_CUENTA", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
                 dr = cmd.ExecuteReader();
                 int pos_ID_VENTA = dr.GetOrdinal("ID_VENTA");
@@ -74,7 +72,7 @@ namespace Capa_Datos.Ventas
                 if (dr.HasRows)
                 {
                     Cls_Ent_Ventas obj = null;
-                    int FILA = 0;
+                    int FILA = START + 1;
                     while (dr.Read())
                     {
                         obj = new Cls_Ent_Ventas();
