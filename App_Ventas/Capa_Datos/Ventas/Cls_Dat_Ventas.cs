@@ -29,7 +29,6 @@ namespace Capa_Datos.Ventas
             List<Cls_Ent_Ventas> lista = new List<Cls_Ent_Ventas>();
             using (SqlConnection cn = this.GetNewConnection())
             {
-                string TABLA = "";
                 SqlDataReader dr = null;
                 SqlCommand cmd = new SqlCommand("USP_VENTA_VENTAS_PAGINACION", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;

@@ -201,78 +201,41 @@ namespace App_Ventas.Areas.Compras.Controllers
             Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
             try
             {
-            //    grid.page = (grid.page == 0) ? 1 : grid.page;
-            //    grid.rows = (grid.rows == 0) ? 100 : grid.rows;
+                grid.rows = (grid.rows == 0) ? 100 : grid.rows;
+                var @where = (Recursos.Paginacion.Css_Paginacion.GetWhere(grid.SearchFields, grid.searchString, grid.rules));
+                if (string.IsNullOrEmpty(@where))
+                {
+                    @where = @where + " 1=1 ";
+                }
 
-            //    var @where = (Recursos.Paginacion.Css_Paginacion.GetWhere(grid.filters, grid.rules));
-            //    if (!string.IsNullOrEmpty(@where))
-            //    {
-            //        grid._search = true;
-            //        if (!string.IsNullOrEmpty(grid.searchString))
-            //        {
-            //            @where = @where + " and ";
-            //        }
-            //    }
-            //    else
-            //    {
-            //        @where = @where + " 1=1 ";
-            //    }
+                using (ComprasRepositorio repositorio = new ComprasRepositorio())
+                {
+                    IList<Cls_Ent_Compras> lista = repositorio.Compras_Paginado(grid.sidx, grid.sord, grid.rows, grid.start, @where, ref auditoria);
+                    if (auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        var generic = Recursos.Paginacion.Css_Paginacion.BuscarPaginador(grid.draw, (int)auditoria.OBJETO, lista);
+                        generic.Value.data = generic.List;
+                        var jsonResult = Json(generic.Value, JsonRequestBehavior.AllowGet);
+                        jsonResult.MaxJsonLength = int.MaxValue;
+                        return jsonResult;
+                    }
+                    else
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                        return null;
+                    }
 
-            //    using (ComprasRepositorio repositorio = new ComprasRepositorio())
-            //    {
-            //        IList<Cls_Ent_Compras> lista = repositorio.Compras_Paginado(grid.sidx, grid.sord, grid.rows, grid.page, @where, ref auditoria);
-            //        if (auditoria.EJECUCION_PROCEDIMIENTO)
-            //        {
-            //            var generic = Recursos.Paginacion.Css_Paginacion.BuscarPaginador(grid.page, grid.rows, (int)auditoria.OBJETO, lista);
-            //            generic.Value.rows = generic.List.Select(item => new Recursos.Paginacion.Css_Row
-            //            {
-            //                id = item.ID_COMPRA.ToString(),
-            //                cell = new string[] {
-            //                null, 
-            //                item.FILA.ToString(),   
-            //                item.ID_COMPRA.ToString(), 
-            //                item.COD_COMPROBANTE,
-            //                item.FECHA_COMPROBANTE,
-            //                item.DESC_TIPO_COMPROBANTE,
-            //                item.Proveedor.NOMBRES_APE ,    
-            //                item.DESCUENTO.ToString(),
-            //                item.SUB_TOTAL.ToString(),
-            //                item.IGV.ToString(), 
-            //                item.TOTAL.ToString(),                               
-            //                item.DESC_TIPO_PAGO,
-            //                item.DESC_ESTADO_COMPRA,
-            //                item.DETALLE.ToString(),
-            //                item.FEC_CREACION.ToString(),
-            //                item.USU_CREACION,
-            //                item.FLG_ANULADO.ToString(),
-            //                item.NRO_OPERACION,
-            //                item.ID_TIPO_PAGO.ToString(),
-            //                item.FEC_MODIFICACION,
-
-            //                }
-            //            }).ToArray();
-
-            //            var jsonResult = Json(generic.Value, JsonRequestBehavior.AllowGet);
-            //            jsonResult.MaxJsonLength = int.MaxValue;
-            //            return jsonResult;
-            //        }
-            //        else
-            //        {
-            //            string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
-            //            auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
-            //            return null;
-            //        }
-
-            //    }
+                }
             }
             catch (Exception ex)
             {
-                // Recursos.Clases.Css_Log.Guardar(ex.ToString());
+                Recursos.Clases.Css_Log.Guardar(ex.ToString());
                 string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
                 auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
                 return null;
             }
-            return null;
+
         }
 
 

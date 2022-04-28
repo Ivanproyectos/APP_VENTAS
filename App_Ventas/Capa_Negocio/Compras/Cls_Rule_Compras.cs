@@ -13,11 +13,11 @@ namespace Capa_Negocio.Compras
     {
         private Cls_Dat_Compras OData = new Cls_Dat_Compras();
 
-        public List<Cls_Ent_Compras> Compras_Paginado(string ORDEN_COLUMNA, string ORDEN, int FILAS, int PAGINA, string @WHERE, ref Cls_Ent_Auditoria auditoria)
+        public List<Cls_Ent_Compras> Compras_Paginado(string ORDEN_COLUMNA, string ORDEN, int FILAS, int START, string @WHERE, ref Cls_Ent_Auditoria auditoria)
         {
             try
             {
-                return OData.Compras_Paginado(ORDEN_COLUMNA, ORDEN, FILAS, PAGINA, @WHERE, ref auditoria);
+                return OData.Compras_Paginado(ORDEN_COLUMNA, ORDEN, FILAS, START, @WHERE, ref auditoria);
             }
             catch (Exception ex)
             {

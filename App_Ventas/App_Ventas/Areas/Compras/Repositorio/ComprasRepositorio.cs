@@ -12,11 +12,11 @@ namespace App_Ventas.Areas.Compras.Repositorio
     {
         private Cls_Rule_Compras _rule = new Cls_Rule_Compras();
 
-        public List<Cls_Ent_Compras> Compras_Paginado(string ORDEN_COLUMNA, string ORDEN, int FILAS, int PAGINA, string @WHERE, ref Cls_Ent_Auditoria auditoria)
+        public List<Cls_Ent_Compras> Compras_Paginado(string ORDEN_COLUMNA, string ORDEN, int FILAS, int START, string @WHERE, ref Cls_Ent_Auditoria auditoria)
         {
             try
             {
-                return _rule.Compras_Paginado(ORDEN_COLUMNA, ORDEN, FILAS, PAGINA, @WHERE, ref auditoria);
+                return _rule.Compras_Paginado(ORDEN_COLUMNA, ORDEN, FILAS, START, @WHERE, ref auditoria);
             }
             catch (Exception ex)
             {

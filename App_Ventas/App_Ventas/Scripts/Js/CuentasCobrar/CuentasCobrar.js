@@ -11,47 +11,13 @@ function CuentasCobrar_Limpiar() {
     $("#CuentasCobrar_CodigoVenta").val('');
     $('#CuentasCobrar_FLG_CREDITO').val('');
     $('#ID_CLIENTE').val('');
-    $('#CuentasCobrar_FechaInicio').val('');
+    $('#CuentasCobrar_FechaVenta').val('');
 
     CuentasCobrar_ConfigurarGrilla();
 }
 
 function CuentasCobrar_ConfigurarGrilla() {
     var url = baseUrl + 'CuentasCobrar/CuentasCobrar/CuentasCobrar_Paginado';
-    //$("#" + CuentasCobrar_Grilla).GridUnload();
-    //var colNames = ['Acciones', 'Código', 'ID', 'Código Venta', 'Tipo Comprobante', 'Cliente', 'Descuento','Adelanto', 'Total', 'Debe', 
-    //   'Fecha Venta', 'COD_COMPROBANTE',  'flg_credito','Estado Credito','flg_anulado','Detalle','Fecha Cancelado'];
-    //var colModels = [
-    //        { name: 'ACCION', index: 'ACCION', align: 'center', width: 80, hidden: false, formatter: CuentasCobrar_actionAcciones, sortable: false }, // 0
-    //        { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },// 1
-    //        { name: 'ID_VENTA', index: 'ID_VENTA', width: 100, hidden: true, key: true }, // 2
-    //        { name: 'COD_VENTA', index: 'COD_VENTA', width: 100, hidden: false, align: "left" }, // 3
-    //        { name: 'TIPO_COMPROBANTE', index: 'TIPO_COMPROBANTE', width: 150, hidden: false, align: "left", formatter: CuentasCobrar_FormaterComprobante }, // 4
-    //        { name: 'CLIENTE', index: 'CLIENTE', width: 250, hidden: false, align: "left" }, // 5
-    //        { name: 'DESCUENTO', index: 'DESCUENTO', width: 100, hidden: false, align: "left" }, // 6
-    //        { name: 'ADELANTO', index: 'ADELANTO', width: 100, hidden: false, align: "left" }, // 7
-    //        { name: 'TOTAL', index: 'TOTAL', width: 100, hidden: false, align: "left", formatter: CuentasCobrar_FormatterTotal }, // 8
-    //        { name: 'DEBE', index: 'DEBE', width: 100, hidden: false, align: "left", formatter: CuentasCobrar_FormatterDebe }, // 9
-    //        { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },//10
-    //        { name: 'COD_COMPROBANTE', index: 'COD_COMPROBANTE', width: 150, hidden: true, align: "left" },//11
-    //        { name: 'FLG_ESTADO_CREDITO', index: 'FLG_CRED_CANCELADO', width: 150, hidden: true, align: "left" },//12
-    //        { name: 'DESC_ESTADO_CREDITO', index: 'DESC_ESTADO_CREDITO', width: 150, hidden: false, align: "left", formatter: CuentasCobrar_formatterEstadoCredito },//13
-    //        { name: 'FLG_ANULADO', index: 'FLG_ANULADO', width: 150, hidden: true, align: "left"},//14
-    //        { name: 'DETALLE', index: 'DETALLE', width: 200, hidden: false, align: "left" },//15
-    //        { name: 'STR_FECHA_CREDITO_CANCELADO', index: 'STR_FECHA_CREDITO_CANCELADO', width: 200, hidden: true, align: "left" },//16
-            
-    //];
-    //var opciones = {
-    //    GridLocal: false, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rules: true, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
-    //    gridCompleteFunc: function () {
-    //        debugger;
-    //        var _COUNT = jQuery("#CuentasCobrar_Grilla").jqGrid('getGridParam', 'records');
-    //        if (_COUNT > 0 )
-    //        $(".badge").tooltip({ placement: "bottom", delay: { show: 100, hide: 400 } });
-    //    }
-    //};
-    //SICA.Grilla(CuentasCobrar_Grilla, CuentasCobrar_Barra, CuentasCobrar_Grilla, 400, '', "Lista de Cuentas por Cobrar", url, 'ID_VENTA', colNames, colModels, 'ID_VENTA', opciones);
-
     DataTable.GridUnload(CuentasCobrar_Grilla);
     var colModels = [
           { data: "ID_VENTA", name: "ID_VENTA", title: "ID_VENTA", autoWidth: false, visible: false, },
@@ -62,23 +28,23 @@ function CuentasCobrar_ConfigurarGrilla() {
           { data: "Cliente.NOMBRES_APE", name: "CLIENTE", title: "Cliente", autoWidth: true, },
           {
               data: null, name: "DESCUENTO", title: "Descuento", autoWidth: true, sortable: false,
-              render: function (data, type, row, meta) { return Ventas_FormatterMoneda(data.DESCUENTO); }
+              render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.DESCUENTO); }
           },
           {
               data: null, name: "SUBTOTAL", title: "Subtotal", autoWidth: true, sortable: false,
-              render: function (data, type, row, meta) { return Ventas_FormatterMoneda(data.SUB_TOTAL); }
+              render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.SUB_TOTAL); }
           },
           {
               data: null, name: "IGV", title: "Igv", autoWidth: true, sortable: false,
-              render: function (data, type, row, meta) { return Ventas_FormatterMoneda(data.IGV); }
+              render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.IGV); }
           },
           {
               data: null, name: "TOTAL", title: "Total", autoWidth: true, sortable: false,
-              render: function (data, type, row, meta) { return Ventas_FormatterMoneda(data.TOTAL); }
+              render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.TOTAL); }
           },
           {
               data: null, name: "DEBE", title: "Total", autoWidth: true, sortable: false,
-              render: function (data, type, row, meta) { return Ventas_FormatterMoneda(data.DEBE); }
+              render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.DEBE); }
           },
           {
               data: null, name: "DESC_ESTADO_CREDITO", title: "Estado", autoWidth: true, sortable: false,
@@ -100,6 +66,7 @@ function CuentasCobrar_ConfigurarGrilla() {
 
 
 function GetRules(CuentasCobrar_Grilla) {
+    debugger; 
     var rules = new Array();
     var SearchFields = new Array();
     var CODIGO_COMPROBANTE = jQuery('#CuentasCobrar_CodigoVenta').val();
@@ -126,7 +93,12 @@ function GetRules(CuentasCobrar_Grilla) {
     SearchFields.push({ field: 'UPPER(V.DESC_TIPO_PAGO)' });
     SearchFields.push({ field: 'UPPER(V.DESC_TIPO_COMPROBANTE)' });
 
-    return rules;
+    var ObjectRules = {
+        SearchFields: SearchFields,
+        rules: rules
+    }
+
+    return ObjectRules;
 }
 
 function CuentasCobrar_actionAcciones(ID_VENTA, FLG_ANULADO, FLG_ESTADO_CREDITO) {
@@ -168,7 +140,7 @@ function CuentasCobrar_FormaterComprobante(DESC_TIPO_COMPROBANTE ,COD_COMPROBANT
     return _text;
 }
 
-function Ventas_FormatterMoneda(MONTO) {
+function CuentasCobrar_FormatterMoneda(MONTO) {
     var _TOTAL = Number(MONTO).toFixed(2);
     var _text = _SimboloMoneda + " " + _TOTAL;
     return _text;

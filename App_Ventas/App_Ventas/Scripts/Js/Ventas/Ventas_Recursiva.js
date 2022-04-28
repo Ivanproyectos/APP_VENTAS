@@ -1,6 +1,23 @@
 ﻿
 ///*********************************************** ----------------- *************************************************/
 
+///*********************************************** ver detalle  ***************************************************/
+
+function Ventas_ViewDetalleVenta(ID_VENTA) {
+    var _TIPO_DETALLE = "DETALLE";
+    jQuery("#myModalNuevo").html('');
+    jQuery("#myModalNuevo").load(baseUrl + "Ventas/Ventas/Mantenimiento_ViewDetalleProducto?ID_VENTA=" + ID_VENTA + "&TIPO=" + _TIPO_DETALLE, function (responseText, textStatus, request) {
+        $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
+        $.validator.unobtrusive.parse('#myModalNuevo');
+        if (request.status != 200) return;
+    });
+}
+
+
+
+
+///*********************************************** ----------------- *************************************************/
+
 ///*********************************************** anular ventas  ***************************************************/
 
 function Ventas_AnularVenta(ID_VENTA) {

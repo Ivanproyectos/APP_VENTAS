@@ -8,8 +8,6 @@ function Ventas_Cerrar() {
     jQuery("#myModalNuevo").html('');
 }
 
-
-
 function Ventas_ConfigurarGrilla(_Modulo) {
     Modulo = _Modulo; 
     var url = baseUrl + 'Ventas/Ventas/Ventas_Paginado';
@@ -79,7 +77,6 @@ function GetRules(Ventas_Grilla) {
         rules.push({ field: 'UPPER(V.USU_CREACION)', data: _USUARIO_LOGEADO, op: " = " });
 
     } else if (Modulo == "Consulta_Venta") {
-        debugger;
         var FECHA_INICIO = jQuery('#Ventas_FechaRange').val() == '' ? null : "'" + jQuery('#Ventas_FechaRange').val().split('-')[0].trim() + "'";
         var FECHA_FIN = jQuery('#Ventas_FechaRange').val() == '' ? null : "'" + jQuery('#Ventas_FechaRange').val().split('-')[1].trim() + "'";
         var _USUARIO = jQuery('#ID_USUARIO').val() == '' ? null : "'" + jQuery('#ID_USUARIO').val() + "'";
@@ -212,17 +209,6 @@ function Ventas_MostrarDevolverProducto(ID_VENTA) {
         if (request.status != 200) return;
     });
 }
-
-function Ventas_ViewDetalleVenta(ID_VENTA) {
-    var _TIPO_DETALLE ="DETALLE"; 
-    jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Ventas/Ventas/Mantenimiento_ViewDetalleProducto?ID_VENTA=" + ID_VENTA + "&TIPO=" +_TIPO_DETALLE, function (responseText, textStatus, request) {
-        $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
-        $.validator.unobtrusive.parse('#myModalNuevo');
-        if (request.status != 200) return;
-    });
-}
-
 
 ///*********************************************** ----------------- *************************************************/
 

@@ -9,18 +9,19 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $('#CuentasCobrar_FechaVenta').val('');
         CuentasCobrar_ConfigurarGrilla();
         $('#ID_CLIENTE').select2();
-     
-        //CuentasCobrar_CargarGrilla();
     });
-    $('#CuentasCobrar_FechaVenta').datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: "dd/mm/yy",
-        firstDay: 1,
-        changeFirstDay: false,
-        showAnim: 'slideDown'
+
+    $('#CuentasCobrar_FechaVenta').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: false,
+        minYear: 2000,
+        maxYear: parseInt(moment().format('YYYY'), 10),
+        locale: {
+            "format": "DD/MM/YYYY",
+        },
     });
 
     $("#CuentasCobrar_btnBuscar").click(function (e) {
@@ -38,7 +39,7 @@
 
     $('#ID_SUCURSAL').change(function () {
         CuentasCobrar_ConfigurarGrilla();
-    }); 
+    });
 
 
 </script>
@@ -55,8 +56,20 @@
 
                 <div class="basic-form">
                     <div class="form-row">
+
+                       <div class="form-group col-md-3">
+                            <label>Fecha Venta:</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="CuentasCobrar_FechaVenta" class="form-control" placeholder="dd/mm/yyyy", autocomplete="off" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                </div>
+                            </div>
+                       </div>
+
+
                         <div class="form-group col-md-3">
-                            <label>Código Código Venta:</label>
+                            <label>Código Comprobante:</label>
                             <input id="CuentasCobrar_CodigoVenta" type="text" class="form-control" placeholder="Ejm: F55402">
                         </div>
 
@@ -74,18 +87,7 @@
                             <label>Cliente:</label>
                             @Html.DropDownListFor(model => model.ID_CLIENTE, Model.Lista_Cliente, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         </div>
-
-                        
-                        <div class="form-group col-md-3">
-                            <label>Fecha Venta:</label>
-                            <div class="input-group mb-3">
-                                <input type="text" id="CuentasCobrar_FechaVenta" class="form-control" placeholder="dd/mm/yyyy", autocomplete="off" />
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
-                                </div>
-                            </div>
-                       </div>
-                     
+   
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-3">

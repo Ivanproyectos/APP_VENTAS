@@ -2854,11 +2854,11 @@ input[type="button"].btn-block {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #495057;
+  color: #6c757d;
   text-align: center;
   white-space: nowrap;
-  background-color: #e9ecef;
-  border: 1px solid #eaeaea;
+  background-color: #eef2f7;
+  border: 1px solid #c7c6c6;
   border-radius: 0.25rem; }
   .input-group-text input[type="radio"],
   .input-group-text input[type="checkbox"] {
@@ -13594,14 +13594,14 @@ svg text {
   border-radius: 100px; }
 
 .input-group-text {
-  background: #656c73;
-  color: #fff;
-  border: 1px solid transparent;
+  background: #eef2f7;
+  color: #6c757d;
+  border: 1px solid c7c6c6;
   min-width: 50px;
   display: flex;
   justify-content: center; }
   .input-group-text i {
-    color: #fff;
+    color: #6c757d;
      font-size: 14px;; }
 
 .input-group-prepend .btn,

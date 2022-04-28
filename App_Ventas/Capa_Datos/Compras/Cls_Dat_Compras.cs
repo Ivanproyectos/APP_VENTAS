@@ -20,7 +20,7 @@ namespace Capa_Datos.Compras
 
         ///*********************************************** Lista usuarios paginado *************************************************/
 
-        public List<Cls_Ent_Compras> Compras_Paginado(string ORDEN_COLUMNA, string ORDEN, int FILAS, int PAGINA, string @WHERE, ref Cls_Ent_Auditoria auditoria)
+        public List<Cls_Ent_Compras> Compras_Paginado(string ORDEN_COLUMNA, string ORDEN, int FILAS, int START, string @WHERE, ref Cls_Ent_Auditoria auditoria)
         {
             auditoria.Limpiar();
             List<Cls_Ent_Compras> lista = new List<Cls_Ent_Compras>();
@@ -29,9 +29,8 @@ namespace Capa_Datos.Compras
                 SqlDataReader dr = null;
                 SqlCommand cmd = new SqlCommand("USP_COMPRA_COMPRAS_PAGINACION", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                //cmd.Parameters.Add(new SqlParameter("PO_RESULTADO", SqlDbType.RefCursor)).Direction = System.Data.ParameterDirection.Output;
-                cmd.Parameters.Add(new SqlParameter("@PI_PAGINA", SqlDbType.Int)).Value = PAGINA;
                 cmd.Parameters.Add(new SqlParameter("@PI_NROREGISTROS", SqlDbType.Int)).Value = FILAS;
+                cmd.Parameters.Add(new SqlParameter("@PI_START", SqlDbType.Int)).Value = START;
                 cmd.Parameters.Add(new SqlParameter("@PI_ORDEN_COLUMNA", SqlDbType.VarChar, 100)).Value = ORDEN_COLUMNA;
                 cmd.Parameters.Add(new SqlParameter("@PI_ORDEN", SqlDbType.VarChar, 100)).Value = ORDEN;
                 cmd.Parameters.Add(new SqlParameter("@PI_WHERE", SqlDbType.VarChar, 1000)).Value = @WHERE;
@@ -61,11 +60,10 @@ namespace Capa_Datos.Compras
                 int pos_FEC_MODIFICACION = dr.GetOrdinal("STR_FECHA_ANULACION");
                 int pos_NRO_OPERACION = dr.GetOrdinal("NRO_OPERACION");
 
-
                 if (dr.HasRows)
                 {
                     Cls_Ent_Compras obj = null;
-                    int FILA = 0;
+                    int FILA = START + 1;
                     while (dr.Read())
                     {
                         obj = new Cls_Ent_Compras();
@@ -73,50 +71,32 @@ namespace Capa_Datos.Compras
 
                         if (dr.IsDBNull(pos_ID_COMPRA)) obj.ID_COMPRA = 0;
                         else obj.ID_COMPRA = int.Parse(dr[pos_ID_COMPRA].ToString());
-
                         if (dr.IsDBNull(pos_COD_COMPROBANTE)) obj.COD_COMPROBANTE = "";
                         else obj.COD_COMPROBANTE = dr.GetString(pos_COD_COMPROBANTE);
-
                         if (dr.IsDBNull(pos_FLG_ANULADO)) obj.FLG_ANULADO = 0;
                         else obj.FLG_ANULADO = int.Parse(dr[pos_FLG_ANULADO].ToString());
-
                         if (dr.IsDBNull(pos_ID_TIPO_PAGO)) obj.ID_TIPO_PAGO = 0;
                         else obj.ID_TIPO_PAGO = int.Parse(dr[pos_ID_TIPO_PAGO].ToString());
-
-
                         if (dr.IsDBNull(pos_DESC_TIPO_COMPROBANTE)) obj.DESC_TIPO_COMPROBANTE = "";
                         else obj.DESC_TIPO_COMPROBANTE = dr.GetString(pos_DESC_TIPO_COMPROBANTE);
-
                         if (dr.IsDBNull(pos_SUB_TOTAL)) obj.SUB_TOTAL = 0;
                         else obj.SUB_TOTAL = decimal.Parse(dr[pos_SUB_TOTAL].ToString());
-
                         if (dr.IsDBNull(pos_IGV)) obj.IGV = 0;
                         else obj.IGV = decimal.Parse(dr[pos_IGV].ToString());
-
                         if (dr.IsDBNull(pos_DESCUENTO)) obj.DESCUENTO = 0;
                         else obj.DESCUENTO = decimal.Parse(dr[pos_DESCUENTO].ToString());
-
                         if (dr.IsDBNull(pos_TOTAL)) obj.TOTAL = 0;
                         else obj.TOTAL = decimal.Parse(dr[pos_TOTAL].ToString());
-
- 
                         if (dr.IsDBNull(pos_DETALLE)) obj.DETALLE = "";
                         else obj.DETALLE = dr.GetString(pos_DETALLE);
-
                         if (dr.IsDBNull(pos_NRO_OPERACION)) obj.NRO_OPERACION = "";
                         else obj.NRO_OPERACION = dr.GetString(pos_NRO_OPERACION);
-
                         if (dr.IsDBNull(pos_FEC_COMPROBANTE)) obj.FECHA_COMPROBANTE = "";
                         else obj.FECHA_COMPROBANTE = dr.GetString(pos_FEC_COMPROBANTE);
-
-
                         if (dr.IsDBNull(pos_DESC_TIPO_PAGO)) obj.DESC_TIPO_PAGO = "";
                         else obj.DESC_TIPO_PAGO = dr.GetString(pos_DESC_TIPO_PAGO);
-
-
                         if (dr.IsDBNull(pos_DESC_ESTADO_COMPRA)) obj.DESC_ESTADO_COMPRA = "";
                         else obj.DESC_ESTADO_COMPRA = dr.GetString(pos_DESC_ESTADO_COMPRA);
-
                         if (dr.IsDBNull(pos_USU_CREACION)) obj.USU_CREACION = "";
                         else obj.USU_CREACION = dr.GetString(pos_USU_CREACION);
                         if (dr.IsDBNull(pos_FEC_CREACION)) obj.FEC_CREACION = "";
@@ -125,9 +105,6 @@ namespace Capa_Datos.Compras
                         else obj.USU_MODIFICACION = dr.GetString(pos_USU_MODIFICACION);
                         if (dr.IsDBNull(pos_FEC_MODIFICACION)) obj.FEC_MODIFICACION = "";
                         else obj.FEC_MODIFICACION = dr.GetString(pos_FEC_MODIFICACION);
-
-                 
-
                         obj.Proveedor = new Cls_Ent_Proveedor();
                         {
                             if (dr.IsDBNull(pos_PROVEEDOR)) obj.Proveedor.NOMBRES_APE = "";

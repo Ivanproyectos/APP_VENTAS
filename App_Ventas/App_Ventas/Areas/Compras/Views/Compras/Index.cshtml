@@ -121,9 +121,9 @@
                         @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                     </div>
                 </div>
-                <div class="jqGrid">
-                    <table id="Compras_Grilla"></table>
-                    <div id="Compras_Barra"></div>
+              <div class="table-responsive">
+                    <table id="Compras_Grilla" style="width: 100%" class="table"> </table>
+                    @*<div id="Compras_Barra"></div>*@
                 </div>
             </div>
         </div>
