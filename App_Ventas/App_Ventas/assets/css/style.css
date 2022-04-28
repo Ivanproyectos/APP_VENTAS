@@ -2497,13 +2497,16 @@ input[type="button"].btn-block {
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 0.875rem;
-  color: #BDBDC7;
+  color: #313a46;
   text-align: left;
   list-style: none;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem; }
+  border-radius: 0.30rem; 
+ box-shadow: 0 4px 20px 0 rgba(0, 0, 0 ,.05);
+
+}
 
 .dropdown-menu-left {
   right: auto;
@@ -13770,13 +13773,15 @@ input[type="checkbox"]:checked:after {
   top: .5rem; }
 
 .daterangepicker td.active {
-  background-color: #593bdb; }
+   background-color: #727cf5; }
   .daterangepicker td.active:hover {
     background-color: #593bdb; }
 
 .daterangepicker button.applyBtn {
-  background-color: #593bdb;
-  border-color: #593bdb; }
+    background-color: #727cf5;
+    border-color: #727cf5;
+
+}
 
 .datepicker.datepicker-dropdown {
   background: #F7FAFC;
@@ -15036,7 +15041,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 
 .badge {
   line-height: 1.5;
-  padding: 5px 10px;
+  padding: .25em .4em;
   font-size: 12px;
 
 }

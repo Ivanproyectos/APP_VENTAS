@@ -216,7 +216,6 @@ namespace App_Ventas.Areas.Ventas.Controllers
             try
             {
                 grid.rows = (grid.rows == 0) ? 100 : grid.rows;
-
                 var @where = (Recursos.Paginacion.Css_Paginacion.GetWhere(grid.SearchFields, grid.searchString, grid.rules));
                 if (string.IsNullOrEmpty(@where))
                 {
@@ -250,8 +249,6 @@ namespace App_Ventas.Areas.Ventas.Controllers
                 auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
                 return null;
             }
-
-
 
         }
 

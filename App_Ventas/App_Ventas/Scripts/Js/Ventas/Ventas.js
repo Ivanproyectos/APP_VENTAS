@@ -1,21 +1,17 @@
 ﻿var Ventas_Grilla = 'Ventas_Grilla';
 var Ventas_Barra = 'Ventas_Barra';
 var Items_Motivo = "";
-var _Modulo = "VENTAS";
+var Modulo = "";
 
 function Ventas_Cerrar() {
     $('#myModalNuevo').modal('hide');
     jQuery("#myModalNuevo").html('');
 }
 
-function Ventas_Limpiar() {
-    $("#Ventas_CodigoVenta").val('');
-    $('#ID_TIPO_COMPROBANTE_SEARCH').val('');
-    $('#Ventas_ID_TIPO_PAGO').val('');
-    Ventas_ConfigurarGrilla();
-}
 
-function Ventas_ConfigurarGrilla() {
+
+function Ventas_ConfigurarGrilla(_Modulo) {
+    Modulo = _Modulo; 
     var url = baseUrl + 'Ventas/Ventas/Ventas_Paginado';
     DataTable.GridUnload(Ventas_Grilla);
     var colModels = [
@@ -24,7 +20,7 @@ function Ventas_ConfigurarGrilla() {
               data: null, name: "TIPO_COMPROBANTE", title: "Comprobante", autoWidth: true, sortable: false,
               render: function (data, type, row, meta) { return Ventas_FormaterComprobante(data.DESC_TIPO_COMPROBANTE, data.COD_COMPROBANTE); }
            },
-          { data: "Cliente.NOMBRES_APE", name: "CLIENTE", title: "Cliente", autoWidth: false, width: "90px", },
+          { data: "Cliente.NOMBRES_APE", name: "CLIENTE", title: "Cliente", autoWidth: true},
           {
               data: null, name: "DESCUENTO", title: "Descuento", autoWidth: true, sortable: false,
               render: function (data, type, row, meta) { return Ventas_FormatterMoneda(data.DESCUENTO); }
@@ -65,22 +61,41 @@ function Ventas_ConfigurarGrilla() {
 function GetRules(Ventas_Grilla) {
     var rules = new Array();
     var SearchFields = new Array();
-    var FECHA_VENTA = moment().format('DD/MM/YYYY');
-    var ID_TIPO_COMPROBANTE = jQuery('#ID_TIPO_COMPROBANTE_SEARCH').val() == '' ? null : "'" + jQuery('#ID_TIPO_COMPROBANTE_SEARCH').val() + "'";
-    var ID_TIPO_PAGO = jQuery('#ID_TIPO_PAGO_SEARCH').val() == '' ? null : "'" + jQuery('#ID_TIPO_PAGO_SEARCH').val() + "'";
-    var CODIGO_VENTA = "'" + jQuery('#Ventas_CodigoVenta').val() + "'";
-    var _USUARIO_LOGEADO = "'" + jQuery('#input_hdcodusuario').val() + "'"; 
-
     var POR = "'%'";
+
     rules = []
-    rules.push({ field: 'UPPER(V.COD_COMPROBANTE)', data: POR + ' + ' + CODIGO_VENTA + ' + ' + POR, op: " LIKE " });
-    rules.push({ field: 'V.ID_TIPO_COMPROBANTE', data: '  ISNULL(' + ID_TIPO_COMPROBANTE + ',V.ID_TIPO_COMPROBANTE) ', op: " = " });
-    rules.push({ field: 'V.ID_TIPO_PAGO', data: '  ISNULL(' + ID_TIPO_PAGO + ',V.ID_TIPO_PAGO) ', op: " = " });
-    rules.push({ field: 'CONVERT(DATE,V.FEC_CREACION,103)', data: 'CONVERT(DATE,\'' + FECHA_VENTA + '\',103) ', op: " = " });
-    rules.push({ field: 'UPPER(V.USU_CREACION)', data: _USUARIO_LOGEADO, op: " = " });
+    if (Modulo == "Ventas") {
+        var FECHA_VENTA = moment().format('DD/MM/YYYY');
+        var ID_TIPO_COMPROBANTE = jQuery('#ID_TIPO_COMPROBANTE_SEARCH').val() == '' ? null : "'" + jQuery('#ID_TIPO_COMPROBANTE_SEARCH').val() + "'";
+        var ID_TIPO_PAGO = jQuery('#ID_TIPO_PAGO_SEARCH').val() == '' ? null : "'" + jQuery('#ID_TIPO_PAGO_SEARCH').val() + "'";
+        var CODIGO_VENTA = "'" + jQuery('#Ventas_CodigoVenta').val() + "'";
+        var _USUARIO_LOGEADO = "'" + jQuery('#input_hdcodusuario').val() + "'";
+
+
+        rules.push({ field: 'UPPER(V.COD_COMPROBANTE)', data: POR + ' + ' + CODIGO_VENTA + ' + ' + POR, op: " LIKE " });
+        rules.push({ field: 'V.ID_TIPO_COMPROBANTE', data: '  ISNULL(' + ID_TIPO_COMPROBANTE + ',V.ID_TIPO_COMPROBANTE) ', op: " = " });
+        rules.push({ field: 'V.ID_TIPO_PAGO', data: '  ISNULL(' + ID_TIPO_PAGO + ',V.ID_TIPO_PAGO) ', op: " = " });
+        rules.push({ field: 'CONVERT(DATE,V.FEC_CREACION,103)', data: 'CONVERT(DATE,\'' + FECHA_VENTA + '\',103) ', op: " = " });
+        rules.push({ field: 'UPPER(V.USU_CREACION)', data: _USUARIO_LOGEADO, op: " = " });
+
+    } else if (Modulo == "Consulta_Venta") {
+        debugger;
+        var FECHA_INICIO = jQuery('#Ventas_FechaRange').val() == '' ? null : "'" + jQuery('#Ventas_FechaRange').val().split('-')[0].trim() + "'";
+        var FECHA_FIN = jQuery('#Ventas_FechaRange').val() == '' ? null : "'" + jQuery('#Ventas_FechaRange').val().split('-')[1].trim() + "'";
+        var _USUARIO = jQuery('#ID_USUARIO').val() == '' ? null : "'" + jQuery('#ID_USUARIO').val() + "'";
+        var _ID_SUCURSAL = jQuery('#ID_SUCURSAL').val() == '' ? null : "'" + jQuery('#ID_SUCURSAL').val() + "'";
+        var _FLG_ANULADO = jQuery('#Ventas_FLG_ANULADO').val() == '' ? null : "'" + jQuery('#Ventas_FLG_ANULADO').val() + "'";
+
+        rules.push({ field: 'V.USU_CREACION', data: '  ISNULL(' + _USUARIO + ',V.USU_CREACION) ', op: " = " });
+        rules.push({ field: 'V.ID_SUCURSAL', data: '  ISNULL(' + _ID_SUCURSAL + ',V.ID_SUCURSAL) ', op: " = " });
+        rules.push({ field: 'V.FLG_ANULADO', data: '  ISNULL(' + _FLG_ANULADO + ',V.FLG_ANULADO) ', op: " = " });
+        rules.push({ field: 'CONVERT(DATE,V.FEC_CREACION,103)', data: 'CONVERT(DATE,ISNULL(' + FECHA_INICIO + ',V.FEC_CREACION),103)  AND CONVERT(DATE,ISNULL(' + FECHA_FIN + ',V.FEC_CREACION),103)  ', op: " BETWEEN " });
+    }
 
     SearchFields.push({ field: 'UPPER(V.CLIENTE)' });
     SearchFields.push({ field: 'UPPER(V.COD_COMPROBANTE)' });
+    SearchFields.push({ field: 'UPPER(V.DESC_TIPO_PAGO)' });
+    SearchFields.push({ field: 'UPPER(V.DESC_TIPO_COMPROBANTE)' });
 
     var ObjectRules = {
         SearchFields: SearchFields,
@@ -118,7 +133,7 @@ function Ventas_FormaterComprobante(TIPO_COMPROBANTE, COD_COMPROBANTE) {
     var _DESC_COMPROBANTE = TIPO_COMPROBANTE;
     var _DESC_COD_COMPROBANTE = COD_COMPROBANTE; 
     var _text = "";
-    var _text = '<span>' + _DESC_COMPROBANTE + '</span><br><span style="font-size: 12px; color: #2c7be5;"><i class="bi bi-upc"></i>&nbsp;Código: ' + _DESC_COD_COMPROBANTE + '</span>';
+    var _text = '<span>' + _DESC_COMPROBANTE + '</span><br><span style="font-size: 12px; color: #2c7be5;"><i class="bi bi-upc"></i>&nbsp;Nro: ' + _DESC_COD_COMPROBANTE + '</span>';
     return _text;
 }
 

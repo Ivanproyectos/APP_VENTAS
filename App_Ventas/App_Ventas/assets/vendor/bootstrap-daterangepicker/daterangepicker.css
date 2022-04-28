@@ -157,6 +157,7 @@
   border: 1px solid transparent;
   white-space: nowrap;
   cursor: pointer;
+  color: #000;
 }
 
 .daterangepicker .calendar-table {
@@ -175,7 +176,7 @@
 .daterangepicker td.available:hover, .daterangepicker th.available:hover {
   background-color: #eee;
   border-color: transparent;
-  color: inherit;
+  color: #000;
 }
 
 .daterangepicker td.week, .daterangepicker th.week {

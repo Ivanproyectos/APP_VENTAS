@@ -1,0 +1,3 @@
+System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en App_Ventas.Recursos.Paginacion.Css_Paginacion.GetWhere(List`1 SearchFields, String searchString, List`1 rules) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Recursos\Paginacion\Css_Paginacion.cs:línea 122
+   en App_Ventas.Areas.Ventas.Controllers.VentasController.Ventas_Paginado(GridTable grid) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Areas\Ventas\Controllers\VentasController.cs:línea 220

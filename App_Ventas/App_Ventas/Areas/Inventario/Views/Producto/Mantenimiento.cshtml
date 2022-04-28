@@ -41,14 +41,29 @@
                 $('#FECHA_VENCIMIENTO').prop('disabled', false);
         }
     });
-    $('#FECHA_VENCIMIENTO').datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: "dd/mm/yy",
-        firstDay: 1,
-        changeFirstDay: false,
-        showAnim: 'slideDown'
+
+
+    $('#FECHA_VENCIMIENTO').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        minYear: 2000,
+        maxYear: parseInt(moment().format('YYYY'), 10),
+        locale: {
+            "format": "DD/MM/YYYY",
+        }
     });
+
+
+    //$('#FECHA_VENCIMIENTO').datepicker({
+    //    changeMonth: true,
+    //    changeYear: true,
+    //    dateFormat: "dd/mm/yy",
+    //    firstDay: 1,
+    //    changeFirstDay: false,
+    //    showAnim: 'slideDown'
+    //});
+
+
     $('#Usuarios_btn_Guardar').click(function () {
         Producto_Ingresar();
     });
