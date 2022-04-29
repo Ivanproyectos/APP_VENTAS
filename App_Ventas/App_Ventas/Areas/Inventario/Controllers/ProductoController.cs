@@ -78,8 +78,6 @@ namespace App_Ventas.Areas.Inventario.Controllers
             return Json(auditoria.OBJETO, JsonRequestBehavior.AllowGet);
         }
 
-
-
         public JsonResult Productos_Paginado(Recursos.Paginacion.GridTable grid)
         {
 
@@ -466,7 +464,24 @@ namespace App_Ventas.Areas.Inventario.Controllers
             return View(model);
         }
 
+        public ActionResult Producto_Movimiento_Insertar(Cls_Ent_Movimiento_Producto entidad)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            var ip_local = Recursos.Clases.Css_IP.ObtenerIp();
+            using (ProductoRepositorio Productorepositorio = new ProductoRepositorio())
+            {
+                Productorepositorio.Producto_Movimiento_Insertar(entidad, ref auditoria);
 
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                }
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+        
 
 
     }

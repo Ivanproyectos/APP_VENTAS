@@ -116,6 +116,19 @@ namespace App_Ventas.Areas.Inventario.Repositorio
             }
         }
 
+        public void Producto_Movimiento_Insertar(Cls_Ent_Movimiento_Producto entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                _rule.Producto_Movimiento_Insertar(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+        }
+
+        
 
 
         public void Dispose()

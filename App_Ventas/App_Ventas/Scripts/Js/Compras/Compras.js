@@ -8,46 +8,13 @@ function Compras_Cerrar() {
 
 function Compras_Limpiar() {
     $("#Compras_CodigoComprobante").val('');
-    $('#ID_PROVEEDOR_SEARCH').val('');
+    $('#ID_PROVEEDOR_SEARCH').val('').trigger('change');
     $('#Compras_FLG_ANULADO').val('');
-    $('#Compras_FechaInicio').val('');
-    $('#Compras_FechaFin').val('');
+    $('#Compras_FechaRange').val('');
     Compras_ConfigurarGrilla();
 }
 
 function Compras_ConfigurarGrilla() {
-    //var url = baseUrl + 'Compras/Compras/Compras_Paginado';
-    //$("#" + Compras_Grilla).GridUnload();
-    //var colNames = ['Acciones', 'Código', 'Código Compra', 'Código Comprobante', 'Fecha Compra', 'Tipo Comprobante', 'Proveedor',
-    //    'Descuento', 'Subtotal', 'Igv', 'Total', 'Tipo Pago','Estado Compra',
-    //    'Detalle', 'Fecha Creación', 'Usuario Creación', 'Flg_Anulado', 'Nro Operacion','Id_TipoPago','Fec_Anulado'];
-    //var colModels = [
-    //        { name: 'ACCIONES', index: 'ACCIONES', align: 'center', width: 80, hidden: false, formatter: Compras_Acciones, sortable: false }, //0
-    //        { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, }, //1
-    //        { name: 'ID_COMPRA', index: 'ID_COMPRA', width: 100, hidden: true, key: true },//2
-    //        { name: 'COD_DOCUMENTO', index: 'COD_DOCUMENTO', width: 150, hidden: true, align: "left" }, //3
-    //        { name: 'FCHA_DOCUMENTO', index: 'FCHA_DOCUMENTO', width: 120, hidden: false, align: "left" }, //4
-    //        { name: 'TIPO_COMPROBANTE', index: 'TIPO_COMPROBANTE', width: 200, hidden: false, align: "left", formatter:Compras_FormaterComprobante }, //5
-    //        { name: 'PROVEEDOR', index: 'PROVEEDOR', width: 200, hidden: false, align: "left" },  //6
-    //        { name: 'DESCUENTO', index: 'DESCUENTO', width: 100, hidden: false, align: "left" }, //7
-    //        { name: 'SUBTOTAL', index: 'SUBTOTAL', width: 100, hidden: false, align: "left" },  //8
-    //        { name: 'IGV', index: 'IGV', width: 100, hidden: false, align: "left" }, //9
-    //        { name: 'TOTAL', index: 'TOTAL', width: 100, hidden: false, align: "left" }, //10
-    //        { name: 'DESC_TIPO_PAGO', index: 'DESC_TIPO_PAGO', width: 150, hidden: false, align: "left", formatter: Compras_FormatterTipoPago }, //11
-    //        { name: 'DESC_ESTADO_COMPRA', index: 'DESC_ESTADO_COMPRA', width: 150, hidden: false, align: "left", formatter: Compras_FormatterEstadoCompra }, //12
-    //        { name: 'DETALLE', index: 'DETALLE', width: 300, hidden: false, align: "left" }, //13
-    //        { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" }, //14
-    //        { name: 'USU_CREACION', index: 'USU_CREACION', width: 150, hidden: false, align: "left" }, //15
-    //        { name: 'FLG_ANULADO', index: 'FLG_ANULADO', width: 150, hidden: true, align: "left" }, //16
-    //        { name: 'NRO_OPERACION', index: 'NRO_OPERACION', width: 150, hidden: true, align: "left" }, //17
-    //        { name: 'ID_TIPO_PAGO', index: 'ID_TIPO_PAGO', width: 150, hidden: true, align: "left" }, //18
-    //        { name: 'FECHA_ANULADO', index: 'FECHA_ANULADO', width: 150, hidden: true, align: "left" }, //19
-    //];
-    //var opciones = {
-    //    GridLocal: false, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rules: true, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
-    //};
-    //SICA.Grilla(Compras_Grilla, Compras_Barra, '', 400, '', "Lista de Compras", url, 'ID_COMPRA', colNames, colModels, 'ID_COMPRA', opciones);
-
     var url = baseUrl + 'Compras/Compras/Compras_Paginado';
     DataTable.GridUnload(Compras_Grilla);
     var colModels = [
@@ -100,14 +67,12 @@ function GetRules(Compras_Grilla) {
     var SearchFields = new Array();
     var ID_PROVEEDOR = jQuery('#ID_PROVEEDOR_SEARCH').val() == '' ? null : "'" + jQuery('#ID_PROVEEDOR_SEARCH').val() + "'";
     var FLG_ANULADO = jQuery('#Compras_FLG_ANULADO').val() == '' ? null : "'" + jQuery('#Compras_FLG_ANULADO').val() + "'";
-    var FECHA_INICIO = jQuery('#Compras_FechaInicio').val() == '' ? null : "'" + jQuery('#Compras_FechaInicio').val() + "'";
-    var FECHA_FIN = jQuery('#Compras_FechaFin').val() == '' ? null : "'" + jQuery('#Compras_FechaFin').val() + "'";
-    var CODIGO_COMPROBANTE = "'" + jQuery('#Compras_CodigoComprobante').val() + "'";
+    var FECHA_INICIO = jQuery('#Compras_FechaRange').val() == '' ? null : "'" + jQuery('#Compras_FechaRange').val().split('-')[0].trim() + "'";
+    var FECHA_FIN = jQuery('#Compras_FechaRange').val() == '' ? null : "'" + jQuery('#Compras_FechaRange').val().split('-')[1].trim() + "'";
     var ID_SUCURSAL = jQuery('#ID_SUCURSAL').val() == '' ? null : "'" + jQuery('#ID_SUCURSAL').val() + "'";
 
     var POR = "'%'";
     rules = []
-    rules.push({ field: 'UPPER(COD_COMPROBANTE)', data: POR + ' + ' + CODIGO_COMPROBANTE + ' + ' + POR, op: " LIKE " });
     rules.push({ field: 'FLG_ANULADO', data: '  ISNULL(' + FLG_ANULADO + ',FLG_ANULADO) ', op: " = " });
     rules.push({ field: 'CONVERT(DATE,FECHA_COMPROBANTE,103)', data: 'CONVERT(DATE,ISNULL(' + FECHA_INICIO + ',FECHA_COMPROBANTE),103)  AND CONVERT(DATE,ISNULL(' + FECHA_FIN + ',FECHA_COMPROBANTE),103)  ', op: " BETWEEN " });
     rules.push({ field: 'ID_SUCURSAL', data: '  ISNULL(' + ID_SUCURSAL + ',ID_SUCURSAL) ', op: " = " });

@@ -155,8 +155,6 @@ namespace Capa_Datos.Inventario
         }
 
 
-
-
         ///*********************************************** ----------------- **************************************************/
 
         ///*********************************************** Lista los  cargo *************************************************/
@@ -425,11 +423,6 @@ namespace Capa_Datos.Inventario
             }
             return lista;
         }
-
-
-        
-
-
 
         ///*********************************************** ----------------- **************************************************/
 
@@ -790,6 +783,45 @@ namespace Capa_Datos.Inventario
                 auditoria.Error(ex);
             }
         }
+
+
+        ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** Inserta moviento producto  *************************************************/
+
+        public void Producto_Movimiento_Insertar(Cls_Ent_Movimiento_Producto entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            try
+            {
+                using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlCommand cmd = new SqlCommand("USP_INVEN_MOV_PRODUCTO_INSERTAR", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_PRODUCTO", SqlDbType.BigInt)).Value = entidad.ID_PRODUCTO;
+                    cmd.Parameters.Add(new SqlParameter("@PI_CANTIDAD", SqlDbType.Int)).Value = entidad.CANTIDAD;
+                    cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar,1000)).Value = entidad.DETALLE;
+                    cmd.Parameters.Add(new SqlParameter("@PI_FLG_MOVIMIENTO", SqlDbType.Int)).Value = entidad.FLG_MOVIMIENTO;
+                    cmd.Parameters.Add(new SqlParameter("@PI_USUARIO_CREACION", SqlDbType.VarChar, 200)).Value = entidad.USU_CREACION;
+                    cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
+                    if (cn.State != System.Data.ConnectionState.Open)
+                    {
+                        cn.Open();
+                    }
+                    cmd.ExecuteReader();
+                    string PO_VALIDO = cmd.Parameters["PO_VALIDO"].Value.ToString();
+                    cn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+        }
+
+        
+
+
 
     }
 }

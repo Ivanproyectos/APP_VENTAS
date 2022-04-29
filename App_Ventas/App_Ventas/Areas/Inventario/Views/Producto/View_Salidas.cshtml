@@ -23,7 +23,6 @@
         var _CANTIDAD = parseInt($(this).val());
         var _CodUnidadMedida = $('#HDF_COD_UNIDAD_MEDIDA').val();
         var _Stock = $('#STOCK').val();
-        //Ventas_Detalle_CalcularPrecio(_ID_UNIDAD_MEDIDA);
         if (!isNaN(_CANTIDAD) && _CANTIDAD != 0) {
             if (_CANTIDAD < _Stock) {
                 _TOTAL = Producto_MovientoProducto_Total(2); // salidas
@@ -147,7 +146,7 @@
 
     #ModalMovimiento {
         padding: 8px;
-        background: #FF1616 !important;
+        background: #d54e69 !important;
     }
 </style>
 
@@ -247,4 +246,3 @@
 @Html.Hidden("Hdf_flg_Servicio", Model.FLG_SERIVICIO)
 @Html.Hidden("AccionBuscarProducto", Model.Accion)
 @Html.Hidden("HDF_COD_UNIDAD_MEDIDA", Model.COD_UNIDAD_MEDIDA)
-@Html.Hidden("hfd_TIPO_PROCESO", Model.TIPO_PROCESO)

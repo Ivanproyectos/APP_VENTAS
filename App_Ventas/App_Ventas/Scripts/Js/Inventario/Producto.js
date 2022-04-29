@@ -54,7 +54,7 @@ function Producto_ConfigurarGrilla() {
     ];
     var opciones = {
         GridLocal: false, multiselect: false, sort: "desc",enumerable : true,
-        eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: true, responsive: true, processing: true
+        eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: true, responsive: true, processing: false
     };
     DataTable.Grilla(Producto_Grilla, url, 'ID_PRODUCTO', colModels, opciones, "ID_PRODUCTO");
 }
@@ -250,69 +250,6 @@ function Producto_MostrarTranslado() {
 
 ///*********************************************** ----------------- *************************************************/
 
-///*********************************************** Lista los  producto **************************************************/
-
-//function Producto_CargarGrilla() {
-//    var item =
-//       {
-//           DESC_PRODUCTO: $('#Producto_Desc').val(),
-//           COD_PRODUCTO: $('#Producto_codigo').val(),
-//           ID_CATEGORIA: $('#ID_CATEGORIA_SEARCH').val(),
-//           FLG_SERVICIO: $('#Producto_flg_servicio').val(),
-//           FLG_ESTADO: $('#Producto_Estado').val()
-//       };
-//    var url = baseUrl + 'Inventario/Producto/Producto_Listar';
-//    var auditoria = SICA.Ajax(url, item, false);
-//    jQuery("#" + Producto_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
-//    if (auditoria.EJECUCION_PROCEDIMIENTO) {
-//        if (!auditoria.RECHAZAR) {
-//            $.each(auditoria.OBJETO, function (i, v)   {
-//                var idgrilla = i + 1;
-//                var _STOCK = v.STOCK;
-//                var _STOCK_MINIMO = v.STOCK_MINIMO;
-//                if (v.ID_UNIDAD_MEDIDA == 1) // si es kilos
-//                {
-//                    _STOCK = (v.STOCK / 1000) // gramo a kilos
-//                    _STOCK_MINIMO = (v.STOCK_MINIMO / 1000) // gramo a kilos
-//                }
-//                var myData =
-//                 {
-//                     CODIGO: idgrilla,
-//                     ID_PRODUCTO: v.ID_PRODUCTO,
-//                     DESC_PRODUCTO: v.DESC_PRODUCTO,
-//                     COD_PRODUCTO: v.COD_PRODUCTO,
-//                     DESC_UNIDAD_MEDIDA: v.DESC_UNIDAD_MEDIDA,
-//                     DESC_CATEGORIA: v.DESC_CATEGORIA,
-//                     PRECIO_COMPRA:   Number(v.PRECIO_COMPRA).toFixed(2),
-//                     PRECIO_VENTA:    Number(v.PRECIO_VENTA).toFixed(2), 
-//                     STOCK: _STOCK,
-//                     STOCK_MINIMO: _STOCK_MINIMO,
-//                     FLG_SERIVICIO: v.FLG_SERIVICIO,
-//                     FLG_VENCE: v.FLG_VENCE,
-//                     FECHA_VENCIMIENTO: v.FECHA_VENCIMIENTO,
-//                     MARCA: v.MARCA,
-//                     MODELO: v.MODELO,
-//                     DETALLE: v.DETALLE,
-//                     FLG_ESTADO : v.FLG_ESTADO,
-//                     FEC_CREACION: v.FEC_CREACION,
-//                     USU_CREACION: v.USU_CREACION,
-//                     FEC_MODIFICACION: v.FEC_MODIFICACION,
-//                     USU_MODIFICACION: v.USU_MODIFICACION,
-
-//                 };
-//                jQuery("#" + Producto_Grilla).jqGrid('addRowData', i, myData);
-//            });
-//            jQuery("#" + Producto_Grilla).trigger("reloadGrid");
-//        }
-//    } else {
-//        jError(auditoria.MENSAJE_SALIDA, "Atención");
-//    }
-//}
-
-
-
-///*********************************************** ----------------- *************************************************/
-
 ///*********************************************** Actualiza  productos  ************************************************/
 
 function Producto_Actualizar() {
@@ -370,7 +307,7 @@ function Producto_Actualizar() {
                 if (auditoria != null && auditoria != "") {
                     if (auditoria.EJECUCION_PROCEDIMIENTO) {
                         if (!auditoria.RECHAZAR) {
-                            Producto_CargarGrilla();
+                            Producto_ConfigurarGrilla();
                             Producto_Cerrar();
                             jOkas("Producto actualizado satisfactoriamente", "Proceso");
                         } else {
@@ -446,7 +383,7 @@ function Producto_Ingresar() {
                     if (auditoria != null && auditoria != "") {
                         if (auditoria.EJECUCION_PROCEDIMIENTO) {
                             if (!auditoria.RECHAZAR) {
-                                Producto_CargarGrilla();
+                                Producto_ConfigurarGrilla();
                                 Producto_Cerrar();
                                 jOkas("Producto registrado satisfactoriamente", "Proceso");
                             } else {
@@ -477,7 +414,7 @@ function Producto_Eliminar(ID_PRODUCTO) {
             if (auditoria != null && auditoria != "") {
                 if (auditoria.EJECUCION_PROCEDIMIENTO) {
                     if (!auditoria.RECHAZAR) {
-                        Producto_CargarGrilla();
+                        Producto_ConfigurarGrilla();
                         Producto_Cerrar();
                         jOkas("Producto eliminado satisfactoriamente", "Proceso");
                     } else {
@@ -518,23 +455,3 @@ function Producto_Estado(ID_PRODUCTO, CHECK) {
 
 
 
-function DifferenceDaysFechas(Fecha_ini, Fecha_fin) {
-    // First we split the values to arrays date1[0] is the year, [1] the month and [2] the day date1 = date1.split('-'); date2 = date2.split('-'); // Now we convert the array to a Date object, which has several helpful methods date1 = new Date(date1[0], date1[1], date1[2]); date2 = new Date(date2[0], date2[1], date2[2]); // We use the getTime() method and get the unixtime (in milliseconds, but we want seconds, therefore we divide it through 1000) date1_unixtime = parseInt(date1.getTime() / 1000); date2_unixtime = parseInt(date2.getTime() / 1000); // This is the calculated difference in seconds var timeDifference = date2_unixtime - date1_unixtime; // in Hours var timeDifferenceInHours = timeDifference / 60 / 60; // and finaly, in days :) var timeDifferenceInDays = timeDifferenceInHours / 24; alert(timeDifferenceInDays);
-    var date1 = Fecha_ini;
-    var date2 = Fecha_fin;
-    // First we split the values to arrays date1[0] is the year, [1] the month and [2] the day 
-    date1 = date1.split('/'); date2 = date2.split('/'); // Now we convert the array to a Date object, which has several helpful methods 
-    date1 = new Date(date1[2], date1[1], date1[0]);
-    date2 = new Date(date2[2], date2[1], date2[0]); // We use the getTime() method and get the unixtime (in milliseconds, but we want seconds, therefore we divide it through 1000) 
-    date1_unixtime = parseInt(date1.getTime() / 1000);
-    date2_unixtime = parseInt(date2.getTime() / 1000); // This is the calculated difference in seconds 
-    var timeDifference = date2_unixtime - date1_unixtime; // in Hours 
-    var timeDifferenceInHours = timeDifference / 60 / 60; // and finaly, in days :)
-    var timeDifferenceInDays = timeDifferenceInHours / 24;
-
-    if ( isNaN(timeDifferenceInDays) || timeDifferenceInDays < 0)
-        timeDifferenceInDays = 0;
- 
-    return timeDifferenceInDays;
-
-}

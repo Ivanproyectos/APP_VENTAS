@@ -14836,9 +14836,10 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   border-radius: 30px; }
 
 .alert-primary {
-  background: #b4a7ef;
-  border-color: #b4a7ef;
-  color: #593bdb; }
+    color: #6c76e9;
+    background-color: rgba(114,124,245,.18);
+    border-color: rgba(114,124,245,.25);
+    }
 
 .alert-secondary {
   background: #ae95dd;
@@ -14846,24 +14847,31 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   color: #673BB7; }
 
 .alert-success {
-  background: #cdf1a6;
-  border-color: #cdf1a6;
-  color: #7ED321; }
+    color: #0ac58f;
+    background-color: rgba(10,207,151,.18);
+    border-color: rgba(10,207,151,.25);
+
+}
 
 .alert-warning {
-  background: #ffd996;
-  border-color: #ffd996;
-  color: #5c5c5c; }
+    color: #f2b300;
+    background-color: rgba(255,188,0,.18);
+    border-color: rgba(255,188,0,.25);
 
+}
 .alert-danger {
-  background: #ff9696;
-  border-color: #ff9696;
-  color: #FF1616; }
+    color: #ee5776;
+    background-color: rgba(250,92,124,.18);
+    border-color: rgba(250,92,124,.25);
+
+}
 
 .alert-info {
-  background: #bef5e8;
-  border-color: #bef5e8;
-  color:#424242; }
+ color: #36a6c7;
+    background-color: rgba(57,175,209,.18);
+    border-color: rgba(57,175,209,.25);
+
+}
 
 .alert-dark {
   background: #dedede;
@@ -14891,7 +14899,8 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   border-left: 4px solid #FF1616; }
 
 .alert-alt.alert-info {
-  border-left: 4px solid #50E3C2; }
+  border-left: 4px solid #36a6c7;
+}
 
 .alert-alt.alert-dark {
   border-left: 4px solid #454545; }

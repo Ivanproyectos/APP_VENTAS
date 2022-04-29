@@ -6,9 +6,19 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $('#Compras_FechaRange').val('');
         Compras_ConfigurarGrilla();
         $('#ID_PROVEEDOR_SEARCH').select2();
         //Compras_CargarGrilla();
+    });
+
+    $('#Compras_FechaRange').daterangepicker({
+        opens: 'right',
+        locale: {
+            format: "DD/MM/YYYY",
+            applyLabel: "Aplicar",
+            cancelLabel: "Cancelar",
+        }
     });
 
     $("#Compras_btnBuscar").click(function (e) {
@@ -24,15 +34,6 @@
         Compras_MostrarNuevo();
     });
 
-    $('#Compras_FechaInicio, #Compras_FechaFin').datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: "dd/mm/yy",
-        firstDay: 1,
-        changeFirstDay: false,
-        showAnim: 'slideDown'
-    });
-
 
 </script>
 
@@ -43,60 +44,60 @@
 <div class="row ">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
-            <div class="card-header border-bottom-head">
-                <h4 class="card-title">Criterios de Busqueda</h4>
-            </div>
             <div class="card-body">
+                <div id="accordion-one" class="accordion">
+                    <div class="accordion__item" style="margin-bottom:0px;">
+                        <div class="accordion__header collapsed" data-toggle="collapse" data-target="#default_collapseOne" aria-expanded="false" style="cursor: pointer;">
+                            <span class="accordion__header--text"><i class="bi bi-search"></i>&nbsp; Busqueda avanzada</span>
+                            <span class="accordion__header--indicator"></span>
+                        </div>
+                        <div id="default_collapseOne" class="accordion__body collapse" data-parent="#accordion-one" style="">
+                            <div class="accordion__body--text">
+                                <div class="basic-form">
+                                    <div class="form-row mb-3">
 
-                <div class="basic-form">
-                    <div class="form-row mb-3">
-                           <div class=" col-md-3">
-                            <label>Fecha Inicio:</label>
-                            <div class="input-group mb-3">
-                                <input type="text" id="Compras_FechaInicio" class="form-control" placeholder="dd/mm/yyyy", autocomplete="off" />
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                        <div class="form-group col-md-3">
+                                            <label>Fecha:</label>
+                                            <div class="input-group mb-3">
+                                                <input class="form-control input-daterange-datepicker" id="Compras_FechaRange" type="text" name="daterange" placeholder="dd/mm/yyyy" autocomplete="off">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label>Proveedor:</label>
+                                            @Html.DropDownListFor(model => model.ID_PROVEEDOR_SEARCH, Model.Lista_Proveedor, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label>Estado:</label>
+                                            <select class="form-control" id="Compras_FLG_ANULADO">
+                                                <option value="">-- Seleccione --</option>
+                                                <option value="1">Realizado</option>
+                                                <option value="0">Anulado</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <button type="button" id="Compras_btnBuscar" class="btn btn-hover-shine  btn-square btn-primary "><i class="fa fa-search"></i>&nbsp Buscar</button>
+                                            <button type="button" id="Compras_btnLimpiar" class="btn  btn-square btn-light"><i class="bi bi-arrow-clockwise"></i>&nbsp Limpiar</button>
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
-                        </div>
-                        <div class=" col-md-3">
-                            <label>Fecha Fin:</label>
-                            <div class="input-group mb-3">
-                                <input type="text" id="Compras_FechaFin" class="form-control" placeholder="dd/mm/yyyy" data-toggle="tooltip" data-placement="bottom" title="Ingrese fecha fin" , autocomplete="off">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class=" col-md-3">
-                            <label>Código Comprobante:</label>
-                            <input type="text" class="form-control" id="Compras_CodigoComprobante" placeholder="Ejm: F55402">
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Proveedor:</label>
-                          @Html.DropDownListFor(model => model.ID_PROVEEDOR_SEARCH, Model.Lista_Proveedor, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Estado:</label>
-                            <select class="form-control" id="Compras_FLG_ANULADO">
-                                <option value="">-- Seleccione --</option>
-                                <option value="1">Realizado</option>
-                                <option value="0">Anulado</option>
-                            </select>
-                        </div>            
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <button type="button" id="Compras_btnBuscar" class="btn btn-hover-shine  btn-square btn-primary "><i class="fa fa-search"></i>&nbsp Buscar</button>
-                            <button type="button" id="Compras_btnLimpiar" class="btn  btn-square btn-light"><i class="bi bi-arrow-clockwise"></i>&nbsp Limpiar</button>
                         </div>
                     </div>
                 </div>
+
+
+
+
+
 
             </div>
         </div>
@@ -121,8 +122,8 @@
                         @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                     </div>
                 </div>
-              <div class="table-responsive">
-                    <table id="Compras_Grilla" style="width: 100%" class="table"> </table>
+                <div class="table-responsive">
+                    <table id="Compras_Grilla" style="width: 100%" class="table"></table>
                     @*<div id="Compras_Barra"></div>*@
                 </div>
             </div>

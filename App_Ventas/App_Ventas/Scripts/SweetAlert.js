@@ -8,7 +8,7 @@
     jConfirm = function (message, title, callback) {
         swal.fire({
             title: title,
-            text: message,
+            html: message,
             icon: "warning",
             showCancelButton: !0,
             confirmButtonColor: "#DD6B55",

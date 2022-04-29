@@ -51,7 +51,7 @@ function Ventas_ConfigurarGrilla(_Modulo) {
     ];
     var opciones = {
         GridLocal: false, multiselect: false, sort: "desc", enumerable: true,
-        eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: true, responsive: true, processing: true
+        eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: true, responsive: true, processing: false
     };
     DataTable.Grilla(Ventas_Grilla, url, 'ID_VENTA', colModels, opciones, "ID_VENTA");
 }

@@ -15,37 +15,6 @@ function Clientes_Limpiar() {
 }
 
 function Clientes_ConfigurarGrilla() {
-    //$("#" + Clientes_Grilla).GridUnload();
-    //var colNames = ['Editar', 'Eliminar', 'Estado', 'codigo', 'ID', 'Nombres y apellidos', 'Tipo documento', 'Número Documento', 'Dirección', 'Telefono','Celular', 'Correo',
-    //     'Ubigeo','Detalle', 'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación'];
-    //var colModels = [
-    //        { name: 'EDITAR', index: 'EDITAR', align: 'center', width: 60, hidden: false, formatter: Clientes_actionEditar, sortable: false },
-    //        { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: false, formatter: Clientes_actionEliminar, sortable: false },
-    //        { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Clientes_actionActivo, sortable: false },
-    //        { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
-    //        { name: 'ID_CLIENTE', index: 'ID_CLIENTE', width: 100, hidden: true, key: true },
-    //        { name: 'NOMBRES_APE', index: 'NOMBRES_APE', width: 300, hidden: false, align: "left" },
-    //        { name: 'DESC_TIPO_DOCUMENTO', index: 'DESC_TIPO_DOCUMENTO', width: 200, hidden: false, align: "left" },
-    //        { name: 'NUMERO_DOCUMENTO', index: 'NUMERO_DOCUMENTO', width: 150, hidden: false, align: "left" },
-    //        { name: 'DIRECCION', index: 'DIRECCION', width: 200, hidden: false, align: "left" },
-    //        { name: 'TELEFONO', index: 'TELEFONO', width: 100, hidden: false, align: "left" },
-    //        { name: 'CELULAR', index: 'CELULAR', width: 100, hidden: false, align: "left" },
-    //        { name: 'CORREO', index: 'CORREO', width: 100, hidden: false, align: "left" },
-    //        { name: 'DESC_UBIGEO', index: 'DESC_UBIGEO', width: 200, hidden: false, align: "left" },
-    //        { name: 'DETALLE', index: 'DETALLE', width: 250, hidden: false, align: "left" },
-    //        { name: 'FLG_ESTADO', index: 'FLG_ESTADO', width: 300, hidden: true, align: "left" },
-    //        { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },
-    //        { name: 'USU_CREACION', index: 'USU_CREACION', width: 150, hidden: false, align: "left" },
-    //        { name: 'FEC_MODIFICACION', index: 'FEC_MODIFICACION', width: 150, hidden: false, align: "left" },
-    //        { name: 'USU_MODIFICACION', index: 'USU_MODIFICACION', width: 150, hidden: false, align: "left" },
-    //];
-    //var opciones = {
-    //    GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
-    //};
-    //SICA.Grilla(Clientes_Grilla, Clientes_Barra, Clientes_Grilla, 400, '', "Lista de Clientes", '', 'ID_CLIENTE', colNames, colModels, '', opciones);
-    //jqGridResponsive($(".jqGrid"));
-
-
     DataTable.GridUnload(Clientes_Grilla);
     var colModels = [
           { data: "ID_CLIENTE", name: "ID_CLIENTE", title: "ID_CLIENTE", autoWidth: false, visible: false, },

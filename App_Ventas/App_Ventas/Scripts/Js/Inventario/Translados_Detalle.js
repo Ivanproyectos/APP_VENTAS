@@ -23,7 +23,6 @@ function Translados_Detalle_ConfigurarGrilla() {
     SICA.Grilla(Translados_Detalle_Grilla, Translados_Detalle_Barra, Translados_Detalle_Grilla, 200, '', "", '', 'CODIGO', colNames, colModels, '', opciones);
 }
 
-
 function Translados_Detalle_FormatterBorrar(cellvalue, options, rowObject) {
     var _btn_Eliminar = "<button title='Eliminar producto'  onclick='Translados_Detalle_Borrar(" + rowObject.CODIGO + ");' class=\"btn btn-outline-light\" type=\"button\"  style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:14px\"></i></button>"
     return _btn_Eliminar;

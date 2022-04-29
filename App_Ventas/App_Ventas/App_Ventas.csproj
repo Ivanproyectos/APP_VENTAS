@@ -4247,7 +4247,8 @@
     <Content Include="Scripts\Js\Dashboard\Dashboard_Grafics.js" />
     <Content Include="Scripts\Js\Dashboard\Dashboard.js" />
     <Content Include="Scripts\Js\Inventario\Categoria.js" />
-    <Content Include="Scripts\Js\Inventario\Translados.js" />
+    <Content Include="Scripts\Js\Inventario\Movimiento_Producto.js" />
+    <Content Include="Scripts\Js\Inventario\Translados_Detalle.js" />
     <Content Include="Scripts\Js\Inventario\Producto.js" />
     <Content Include="Scripts\Js\Inventario\Producto_Recursos.js" />
     <Content Include="Scripts\Js\Prueba.js" />

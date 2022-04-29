@@ -117,7 +117,8 @@ namespace App_Ventas.Areas.Inventario.Models
 
         public string Accion { get; set; }
         public string DESC_SUCURSAL { get; set; }
-        
+        public int FLG_TIPO_MOVIMIENTO { get; set; }
+
         public Cls_Ent_Archivo MiArchivo { get; set; }
     }
 }
