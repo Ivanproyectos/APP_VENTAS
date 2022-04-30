@@ -55,6 +55,7 @@
     <Compile Include="Dashboard\Cls_Dat_Dashboard.cs" />
     <Compile Include="Inventario\Cls_Dat_Categoria.cs" />
     <Compile Include="Inventario\Cls_Dat_Producto.cs" />
+    <Compile Include="Inventario\Cls_Dat_Translado_Producto.cs" />
     <Compile Include="Listados_Combos\Cls_Dat_Listados.cs" />
     <Compile Include="Login\Cls_Dat_Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

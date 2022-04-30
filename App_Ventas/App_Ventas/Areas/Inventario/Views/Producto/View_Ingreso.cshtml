@@ -26,17 +26,14 @@
         var _CANTIDAD = parseInt($(this).val());
         var _CodUnidadMedida = $('#HDF_COD_UNIDAD_MEDIDA').val();
         var _Stock = $('#STOCK').val();
-        //Ventas_Detalle_CalcularPrecio(_ID_UNIDAD_MEDIDA);
         if (!isNaN(_CANTIDAD) && _CANTIDAD != 0) {
             _TOTAL = Producto_MovientoProducto_Total(1); // Ingresos
             var Textinfo = "Se agregarán <b>" + _CANTIDAD + " " + _CodUnidadMedida +
                              "</b>. al stock actual, haciendo un nuevo total de: <b>" + _TOTAL + " " + _CodUnidadMedida + "</b>";
             $('#Text_InfoStock').html(Textinfo);
             $('#Alert_Info').show('slow');
-            _Valido = true;
         } else {
             $('#Alert_Info').hide();
-            _Valido = false;
         }
     });
 
@@ -90,7 +87,7 @@
                 $("#_Info_codigoUnidad").text(ui.item.COD_UNIDAD_MEDIDA);
                 $("#COD_PRODUCTO").val(ui.item.COD_PRODUCTO);
                 if (ui.item.ID_UNIDAD_MEDIDA == 1) {
-                    _STOCK = ConvertGramos_Kilos(_STOCK);        
+                    _STOCK = ConvertGramos_Kilos(_STOCK);
                 }
                 $("#hfd_STOCK").val(_STOCK);
                 $("#STOCK").val(_STOCK);
@@ -255,4 +252,3 @@
 @Html.Hidden("Hdf_flg_Servicio", Model.FLG_SERIVICIO)
 @Html.Hidden("AccionBuscarProducto", Model.Accion)
 @Html.Hidden("HDF_COD_UNIDAD_MEDIDA", Model.COD_UNIDAD_MEDIDA)
-@Html.Hidden("hfd_TIPO_PROCESO", Model.TIPO_PROCESO)
