@@ -18,8 +18,7 @@ namespace App_Ventas.Areas.Inventario.Models
         [DataType(DataType.Text)]
         public string SEARCH_PRODUCTO { get; set; }
 
-        
-
+    
         [Display(Name = "Código: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Código] es obligatorio")]
@@ -32,14 +31,14 @@ namespace App_Ventas.Areas.Inventario.Models
 
         [Display(Name = "Almacén Origen: ")]
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "[Almacen] es obligatorio")]
+        [Required(ErrorMessage = "[Almacén Origen] es obligatorio")]
         public int ID_SUCURSAL_ORIGEN { get; set; }
         public List<SelectListItem> Lista_Sucursal { get; set; }
 
 
         [Display(Name = "Almacén Destino: ")]
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "[Almacen] es obligatorio")]
+        [Required(ErrorMessage = "[Almacén Destino] es obligatorio")]
         public int ID_SUCURSAL_DESTINO { get; set; }
 
         [Display(Name = "Cantidad: ")]

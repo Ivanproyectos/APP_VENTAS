@@ -56,7 +56,8 @@ function CountCharactersControlTxt(obj, lblObject, max) {
             document.getElementById(obj).value = aux.substring(0, max);
             return;
         }
-        $("#" + lblObject).html("Nº Caracteres: " + cant + " restan " + total);
+            $("#" + lblObject).html("<span class=\"text-success\">Nº Caracteres: " + cant + " restan " + total + "</span>");
+
     } catch (e) {
         alert(e.Message);
     }

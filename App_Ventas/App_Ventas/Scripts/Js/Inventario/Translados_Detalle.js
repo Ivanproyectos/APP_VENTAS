@@ -5,20 +5,21 @@ var _CODIGO_GRILLA = 0;
 
 function Translados_Detalle_ConfigurarGrilla() {
     $("#" + Translados_Detalle_Grilla).GridUnload();
-    var colNames = ['Eliminar', 'Editar', 'codigo', 'ID_PRODUCTO', 'Producto', 'Unid. Medida', 'Cantidad','id_unidadMedida'];
+    var colNames = ['Eliminar', 'Editar', 'codigo', 'ID_PRODUCTO','Código', 'Producto', 'Unid. Medida', 'Cantidad','id_unidadMedida'];
     var colModels = [
             { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 70, hidden: false, formatter: Translados_Detalle_FormatterBorrar, sortable: false },
             { name: 'EDITAR', index: 'EDITAR', align: 'center', width: 60, hidden: false, formatter: Translados_Detalle_actionEditar, sortable: false },
             { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, key: true },
             { name: 'ID_PRODUCTO', index: 'ID_PRODUCTO', align: 'center', width: 100, hidden: true },
-            { name: 'PRODUCTO', index: 'PRODUCTO', align: 'left', width: 300, hidden: false },
+            { name: 'COD_PRODUCTO', index: 'COD_PRODUCTO', align: 'left', width: 150, hidden: false },
+            { name: 'PRODUCTO', index: 'PRODUCTO', align: 'left', width: 250, hidden: false },
             { name: 'COD_UNIDAD_MEDIDA', index: 'COD_UNIDAD_MEDIDA', align: 'left', width: 100, hidden: false },
             { name: 'CANTIDAD', index: 'CANTIDAD', align: 'left', width: 100, hidden: false },
             { name: 'ID_UNIDAD_MEDIDA', index: 'ID_UNIDAD_MEDIDA', align: 'left', width: 100, hidden: true },
 
     ];
     var opciones = {
-        GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
+        GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber: 1000,
     };
     SICA.Grilla(Translados_Detalle_Grilla, Translados_Detalle_Barra, Translados_Detalle_Grilla, 200, '', "", '', 'CODIGO', colNames, colModels, '', opciones);
 }
@@ -49,26 +50,35 @@ function Translados_Detalle_actionEditar(cellvalue, options, rowObject) {
 }
 
 function Translados_Detalle_MostarEditarProducto(CODIGO) {
-        var Url_ = "Inventario/Producto/View_BuscarProducto";
-          _CODIGO_GRILLA = CODIGO;
+    var Url_ = "Inventario/Translado_Producto/View_BuscarProducto";
+    _CODIGO_GRILLA = CODIGO;
     var data = jQuery("#" + Translados_Detalle_Grilla).jqGrid('getRowData', CODIGO);
+    var _DESC_SUCURSAL = $('select[name="ID_SUCURSAL_ORIGEN"] option:selected').text();
+        _DESC_SUCURSAL = _DESC_SUCURSAL.replace(/ /g, "+");
     jQuery("#myModalBuscarProduc").html('');
-    jQuery("#myModalBuscarProduc").load(baseUrl + Url_ + "?ID_PRODUCTO=" + data.ID_PRODUCTO + "&_CANTIDAD=" + data.CANTIDAD + "&Accion=M", function (responseText, textStatus, request) {
+    jQuery("#myModalBuscarProduc").load(baseUrl + Url_ + "?ID_PRODUCTO=" + data.ID_PRODUCTO +
+                                                    "&_CANTIDAD=" + data.CANTIDAD + "&Accion=M&DESC_SUCURSAL=" + _DESC_SUCURSAL, function (responseText, textStatus, request) {
                 $('#myModalBuscarProduc').modal({ show: true, backdrop: 'static', keyboard: false });
                 $.validator.unobtrusive.parse('#myModalBuscarProduc');
                 if (request.status != 200) return;
             });
 }
 
-
 function Translados_ViewBuscarProducto() {
-    jQuery("#myModalBuscarProduc").html('');
-    jQuery("#myModalBuscarProduc").load(baseUrl + "Inventario/Producto/View_BuscarProducto?ID_PRODUCTO=0&_CANTIDAD=0&Accion=N",
-        function (responseText, textStatus, request) {
-            $('#myModalBuscarProduc').modal({ show: true, backdrop: 'static', keyboard: false });
-            $.validator.unobtrusive.parse('#myModalBuscarProduc');
-            if (request.status != 200) return;
-        });
+    var _ID_SUCURSAL = $('#ID_SUCURSAL_ORIGEN').val();
+    var _DESC_SUCURSAL = $('select[name="ID_SUCURSAL_ORIGEN"] option:selected').text();
+    if (_ID_SUCURSAL != "") {
+        _DESC_SUCURSAL = _DESC_SUCURSAL.replace(/ /g, "+");
+        jQuery("#myModalBuscarProduc").html('');
+        jQuery("#myModalBuscarProduc").load(baseUrl + "Inventario/Translado_Producto/View_BuscarProducto?ID_PRODUCTO=0&_CANTIDAD=0&Accion=N&DESC_SUCURSAL=" + _DESC_SUCURSAL,
+            function (responseText, textStatus, request) {
+                $('#myModalBuscarProduc').modal({ show: true, backdrop: 'static', keyboard: false });
+                $.validator.unobtrusive.parse('#myModalBuscarProduc');
+                if (request.status != 200) return;
+            });
+    } else {
+        jInfo('Seleccione sucursal origen de donde se transladarán los productos.', 'Atención')
+    }
 }
 
 function Translados_Detalle_Insertar() {
@@ -86,6 +96,7 @@ function Translados_Detalle_Insertar() {
                           ID_VENTA_DETALLE: 0,
                           CODIGO: ix,
                           ID_PRODUCTO: $("#hfd_ID_PRODUCTO").val(),
+                          COD_PRODUCTO: $("#COD_PRODUCTO").val(),
                           PRODUCTO: $("#SEARCH_PRODUCTO").val(),
                           CANTIDAD: _CANTIDAD,
                           COD_UNIDAD_MEDIDA: $("#_Info_codigoUnidad").text(),
@@ -111,7 +122,6 @@ function Translados_Detalle_Insertar() {
     }
 
 }
-
 
 function Translados_Detalle_BuscarProducto_Grilla(ID_PRODUCTO) {
     var buscado = false;

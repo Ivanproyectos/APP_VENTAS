@@ -47,3 +47,58 @@ function Producto_Movimiento_Insertar(Tipo) {
         jError("La cantidad a ingresar debe ser mayor a cero.", "Atención");
     }
 }
+
+
+function Producto_Translados_Insertar() {
+    if ($("#frmMantenimiento_TransladoOrgigen").valid() && $("#frmMantenimiento_TransladoDestino").valid()) {
+        var ListaDetalleProductos = new Array();
+        var ListaDetalle = new Array();
+        ListaDetalleProductos = $("#" + Translados_Detalle_Grilla).jqGrid('getGridParam', 'data');
+        for (var i = 0; i < ListaDetalleProductos.length; i++) {
+            var rowData = ListaDetalleProductos[i];
+            var _CANTIDAD = rowData.CANTIDAD;
+            if (rowData.ID_UNIDAD_MEDIDA == 1) { // si es kilos convertir a gramos
+                _CANTIDAD = ConvertKilos_Gramos(_CANTIDAD);
+            }
+            var myData =
+            {
+                ID_PRODUCTO: rowData.ID_PRODUCTO,
+                CANTIDAD: _CANTIDAD,
+            };
+            ListaDetalle.push(myData);
+        }
+        if (ListaDetalle.length > 0) {
+            if (ValidarRepeatSucursal()) {
+                jConfirm("¿ Desea transladar esta mercaderia. ?", "Atención", function (r) {
+                    if (r) {
+                        var item =
+                            {
+                                ID_SUCURSAL_ORIGEN: $("#ID_SUCURSAL_ORIGEN").val(),
+                                ID_SUCURSAL_DESTINO: $("#ID_SUCURSAL_DESTINO").val(),
+                                DETALLE: $("#DETALLE").val(),
+                                ListaDetalle: ListaDetalle,
+                                USU_CREACION: $('#input_hdcodusuario').val(),
+                            };
+                        var url = baseUrl + 'Inventario/Translado_Producto/Producto_Translado_Insertar';
+                        var auditoria = SICA.Ajax(url, item, false);
+                        if (auditoria != null && auditoria != "") {
+                            if (auditoria.EJECUCION_PROCEDIMIENTO) {
+                                if (!auditoria.RECHAZAR) {
+                                    Producto_ConfigurarGrilla();
+                                    Producto_Cerrar();
+                                    jOkas("Translado realizado correctamente", "Proceso");
+                                } else {
+                                    jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                }
+                            } else {
+                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            }
+                        }
+                    }
+                });
+            }
+        } else {
+            jError("La lista de productos no puede estar vacia.", "Atención");
+        }
+    }
+}

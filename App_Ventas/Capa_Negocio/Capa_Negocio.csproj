@@ -54,6 +54,7 @@
     <Compile Include="Dashboard\Cls_Rule_Dashboard.cs" />
     <Compile Include="Inventario\Cls_Rule_Categoria.cs" />
     <Compile Include="Inventario\Cls_Rule_Producto.cs" />
+    <Compile Include="Inventario\Cls_Rule_Translado_Producto.cs" />
     <Compile Include="Listados_Combos\Cls_Rule_Listados.cs" />
     <Compile Include="Login\Cls_Rule_Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

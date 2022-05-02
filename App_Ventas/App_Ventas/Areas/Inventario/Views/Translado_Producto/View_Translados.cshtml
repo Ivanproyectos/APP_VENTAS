@@ -7,13 +7,32 @@
         $('#ID_SUCURSAL_DESTINO').select2();
     });
 
-    $('#Compras_btn_Guardar').click(function () {
-        Compras_Ingresar();
+    $('#Transladar_btn_Guardar').click(function () {
+        Producto_Translados_Insertar();
     });
 
     $('#Translados_btn_BuscarProductos').click(function () {
         Translados_ViewBuscarProducto();
     });
+
+    $('#ID_SUCURSAL_ORIGEN').change(function () {
+        jQuery("#" + Translados_Detalle_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
+        ValidarRepeatSucursal();
+    });
+    $('#ID_SUCURSAL_DESTINO').change(function () {
+        ValidarRepeatSucursal();
+    });
+
+    function ValidarRepeatSucursal() {
+        var valido = true;
+        var Origen = $('#ID_SUCURSAL_ORIGEN').val();
+        var Destino = $('#ID_SUCURSAL_DESTINO').val();
+        if (Origen == Destino) {
+            valido = false;
+            jError('Sucursal destino y sucursal origen deben ser diferentes. ', 'Atención');
+        }
+        return valido;
+    }
 
 </script>
 
@@ -27,14 +46,14 @@
 
 <div class="modal-dialog modal-lg_" role="document">
     <div class="modal-content">
-        <div class="modal-header" style="background:#3095b2">
+        <div class="modal-header" style="background: #3095b2">
             <h5 class="modal-title"><i class="bi bi-truck"></i>&nbsp; Translado de productos </h5>
             <button type="button" class="close" data-dismiss="modal">
                 <span>&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            @using (Html.BeginForm("Compras", "Compras", new { @area = "Compras" }, FormMethod.Post, new { @id = "frmMantenimiento_Compras" }))
+            @using (Html.BeginForm("Compras", "Compras", new { @area = "Compras" }, FormMethod.Post, new { @id = "frmMantenimiento_TransladoOrgigen" }))
             {
                 @Html.ValidationSummary(true) 
                 <div class="form-row">
@@ -67,7 +86,7 @@
                 <div class="form-group col-md-12">
                     <div class="jqGrid">
                         <table id="Translados_Detalle_Grilla"></table>
-                        <div id="Translados_Detalle_Barra"></div>
+                        @*<div id="Translados_Detalle_Barra"></div>*@
                     </div>
                 </div>
             </div>
@@ -77,29 +96,27 @@
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.ID_SUCURSAL_DESTINO)
-                    @Html.DropDownListFor(model => model.ID_SUCURSAL_DESTINO, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
-                    @Html.ValidationMessageFor(model => model.ID_SUCURSAL_DESTINO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+            @using (Html.BeginForm("Compras", "Compras", new { @area = "Compras" }, FormMethod.Post, new { @id = "frmMantenimiento_TransladoDestino" }))
+            {
+                @Html.ValidationSummary(true) 
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.ID_SUCURSAL_DESTINO)
+                        @Html.DropDownListFor(model => model.ID_SUCURSAL_DESTINO, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.ID_SUCURSAL_DESTINO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.DETALLE)
+                        @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "1000", @aucomplete = "off", @placeholder = "Ingrese descripción", @onkeyup = "CountCharactersControlTxt(this.id,'lbl_countdetalle', 1000)" })
+                        <label id="lbl_countdetalle" style="width: 100%" class="Formato" runat="server">Nº Caracteres: 0 restan 1000</label>
+                    </div>
                 </div>
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.DETALLE)
-                    @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "200", @aucomplete = "off", @placeholder = "Ingrese descripción" })
-                    @Html.ValidationMessageFor(model => model.DETALLE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
-                </div>
-
-            </div>
-
+            }
 
         </div>
         <div class="modal-footer">
-            <button type="button" id="Compras_btn_Guardar" class="btn btn-hover-shine btn-square btn-info"><i class="bi bi-truck"></i>&nbsp;Iniciar translado</button>
+            <button type="button" id="Transladar_btn_Guardar" class="btn btn-hover-shine btn-square btn-info"><i class="bi bi-truck"></i>&nbsp;Iniciar translado</button>
             <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
         </div>
     </div>
 </div>
-
-
-@*@Html.Hidden("hfd_ID_COMPRA", Model.ID_COMPRA)*@
-@Html.Hidden("HDF_COD_UNIDAD_MEDIDA")

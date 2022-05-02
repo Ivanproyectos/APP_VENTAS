@@ -40,7 +40,7 @@ function Producto_ConfigurarGrilla() {
            },
            {
                 data: null, sortable: false, title: "Fec. Vencimiento", width: "120px",
-                render: function (data, type, row, meta) { return Producto_FormatterFechaVecimiento(data.FECHA_VENCIMIENTO); } 
+                render: function (data, type, row, meta) { return Producto_FormatterFechaVecimiento(data.FECHA_VENCIMIENTO, data.FLG_VENCE); } 
            },
             {
                 data: null, sortable: false, title: "Activo", width: "60px",
@@ -96,7 +96,7 @@ function Producto_actionAcciones(_ID_PRODUCTO) {
     var _btn_Eliminar = "<a class=\"dropdown-item\" onclick='Producto_Eliminar(" + _ID_PRODUCTO + ")'><i class=\"bi bi-trash-fill\" style=\"color:#e40613;\"></i>&nbsp;  Eliminar</a>";
     var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
            "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn  dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
-           "<div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
+           "<div class=\"dropdown-menu \" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
            _btn_Editar +
            _btn_Eliminar +
             "</div>" +
@@ -120,20 +120,27 @@ function Producto_FormatterMoneda(PRECIO) {
     return _text;
 }
 
-function Producto_FormatterFechaVecimiento(FECHA_VENCIMIENTO) {
-    var _FechaVencimiento = FECHA_VENCIMIENTO
-    var _FechaActual = moment().format('DD/MM/YYYY');
-    var _text = ""; 
-    if (_FechaActual == _FechaVencimiento) {
-        _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto vencido\">" + FECHA_VENCIMIENTO + " <i class=\"bi bi-exclamation-circle\"></i></span>";
-    } else {
-        var Dias= DifferenceDaysFechas(_FechaActual, _FechaVencimiento);
-        if (Dias == 0) {
-            _text = FECHA_VENCIMIENTO
-        } else if (Dias <= 5) {
-            _text = "<span class=\"badge badge-warning \" data-bs-toggle=\"tooltip\" title=\"Producto a punto de vencer!\">" + FECHA_VENCIMIENTO + " <i class=\"bi bi-exclamation-triangle\"></i></span>";
+function Producto_FormatterFechaVecimiento(FECHA_VENCIMIENTO, FLG_VENCE) {
+    var _text = "";
+    if (FLG_VENCE == 1 && FECHA_VENCIMIENTO != "") {
+        var _FechaVencimiento = FECHA_VENCIMIENTO
+        var _FechaActual = moment().format('DD/MM/YYYY');
+        if ((new Date(parseInt(_FechaActual.split('/')[2]), parseInt(_FechaActual.split('/')[1]) - 1 , parseInt(_FechaActual.split('/')[0]))) >=
+            (new Date(parseInt(_FechaVencimiento.split('/')[2]), parseInt(_FechaVencimiento.split('/')[1] - 1), parseInt(_FechaVencimiento.split('/')[0])))) {
+            _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto vencido\">" + FECHA_VENCIMIENTO + " <i class=\"bi bi-exclamation-circle\"></i></span>";
+        } else {
+            var Dias = DifferenceDaysFechas(_FechaActual, _FechaVencimiento);
+            debugger;
+            if (Dias == 0) {
+                _text = FECHA_VENCIMIENTO
+            } else if (Dias <= 5) {
+                _text = "<span class=\"badge badge-warning\" data-bs-toggle=\"tooltip\" title=\"Producto a punto de vencer!\">" + FECHA_VENCIMIENTO + " <i class=\"bi bi-exclamation-triangle\"></i></span>";
+            } else {
+                _text = FECHA_VENCIMIENTO
+            }
         }
-
+    } else {
+        _text = FECHA_VENCIMIENTO; 
     }
 
     return _text;
@@ -148,7 +155,8 @@ function Producto_FormatterImagenProducto(DESC_PRODUCTO, CODIGO_IMAGE) {
     } else {
         _RutaImage = _RutaImage + _Noimage;
     }
-    var ImgFrame = "<div style=\"display:flex\"><div style=\"background-image:url(" + _RutaImage + ");\"  class=\"img-produc\"></div> <p>" + DESC_PRODUCTO + "</p></div>"
+    var ImgFrame = "<div style=\"display:flex;align-items: center;\"><div style=\"background-image:url(" + _RutaImage + ");\"  class=\"img-produc\"></div>  "
+                    + "<p style=\"margin-bottom: 0px;\">" + DESC_PRODUCTO + "</p></div>"
     return ImgFrame;
 }
 
@@ -193,8 +201,6 @@ function Producto_MostrarNuevo() {
 }
 
 function Producto_MostrarEditar(ID_PRODUCTO) {
-    var xd = DataTable.getGridData(Producto_Grilla);
-    debugger; 
     jQuery("#myModalNuevo").html('');
     jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/Mantenimiento?id=" + ID_PRODUCTO + "&Accion=M&ID_SUCURSAL=0&DESC_SUCURSAL=x", function (responseText, textStatus, request) {
         $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
@@ -241,7 +247,7 @@ function Producto_MostrarSalidasProducto() {
 
 function Producto_MostrarTranslado() {
     jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/View_Translados", function (responseText, textStatus, request) {
+    jQuery("#myModalNuevo").load(baseUrl + "Inventario/Translado_Producto/View_Translados", function (responseText, textStatus, request) {
             $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
             $.validator.unobtrusive.parse('#myModalNuevo');
             if (request.status != 200) return;
@@ -253,16 +259,17 @@ function Producto_MostrarTranslado() {
 ///*********************************************** Actualiza  productos  ************************************************/
 
 function Producto_Actualizar() {
-    if ($("#frmMantenimiento_Productos").valid()) {
-        
-        if (!_FlgServicio) {
+    if (!_FlgServicio)
+        var formvalid = "frmMantenimiento_Productos";
+    else
+        var formvalid = "frmMantenimiento_Servicios";
 
-                var STOCK = $("#STOCK").val();
+    if ($("#" + formvalid).valid()) {
+        if (!_FlgServicio) {
                 var STOCK_MINIMO = $("#STOCK_MINIMO").val();
                 if ($("#ID_UNIDAD_MEDIDA").val() == 1) // si es kilos guardo en gramos 
                 {
-                    STOCK = (STOCK * 1000) // convertir a gramos 
-                    STOCK_MINIMO = (STOCK_MINIMO * 1000) // convertir a gramos 
+                    STOCK_MINIMO = ConvertKilos_Gramos(STOCK_MINIMO) // convertir a gramos 
                 }
             var item =
                 {
@@ -271,10 +278,10 @@ function Producto_Actualizar() {
                     DESC_PRODUCTO: $("#DESC_PRODUCTO").val(),
                     ID_UNIDAD_MEDIDA: $("#ID_UNIDAD_MEDIDA").val(),  
                     ID_SUCURSAL: $("#hfd_ID_SUCURSAL").val(),
-                    STOCK: $("#STOCK").val(),
+                    ID_CATEGORIA: $("#ID_CATEGORIA").val(),
                     PRECIO_COMPRA: parseFloat($("#PRECIO_COMPRA").val()),
                     PRECIO_VENTA: parseFloat($("#PRECIO_VENTA").val()),
-                    STOCK_MINIMO: $("#STOCK_MINIMO").val(),
+                    STOCK_MINIMO: STOCK_MINIMO,
                     MARCA: $("#MARCA").val(),
                     MODELO: $("#MODELO").val(),
                     FLG_VENCE: $("#FLG_VENCE").is(':checked') ? 1 : 0,
@@ -327,10 +334,15 @@ function Producto_Actualizar() {
 ///************************************************ Inserta productos  **************************************************/
 
 function Producto_Ingresar() {
+    if (!_FlgServicio)
+        var formvalid = "frmMantenimiento_Productos";
+    else
+        var formvalid = "frmMantenimiento_Servicios";
+
     if ($('#AccionProducto').val() != 'N') {
         Producto_Actualizar();
     } else {
-        if ($("#frmMantenimiento_Productos").valid()) {
+        if ($("#" + formvalid).valid()) {
             jConfirm("¿ Desea registrar este producto ?", "Atención", function (r) {
                 if (r) {
                     if (!_FlgServicio) {
@@ -339,8 +351,8 @@ function Producto_Ingresar() {
                         var STOCK_MINIMO = $("#STOCK_MINIMO").val();
                         if ($("#ID_UNIDAD_MEDIDA").val() == 1) // si es kilos guardo en gramos 
                             {
-                                STOCK = (STOCK * 1000) // convertir a gramos 
-                                STOCK_MINIMO = (STOCK_MINIMO * 1000) // convertir a gramos 
+                                STOCK = ConvertKilos_Gramos(STOCK) // convertir a gramos 
+                                STOCK_MINIMO = ConvertKilos_Gramos(STOCK_MINIMO)// convertir a gramos 
                             }
 
                         var item =
@@ -349,6 +361,7 @@ function Producto_Ingresar() {
                                 DESC_PRODUCTO: $("#DESC_PRODUCTO").val(),
                                 ID_UNIDAD_MEDIDA: $("#ID_UNIDAD_MEDIDA").val(),
                                 ID_SUCURSAL: $("#hfd_ID_SUCURSAL").val(),
+                                ID_CATEGORIA: $("#ID_CATEGORIA").val(),
                                 STOCK: STOCK,
                                 PRECIO_COMPRA: $("#PRECIO_COMPRA").val(),
                                 PRECIO_VENTA: $("#PRECIO_VENTA").val(),

@@ -212,12 +212,14 @@
     <Compile Include="Areas\Dashboard\Repositorio\DashboardRepositorio.cs" />
     <Compile Include="Areas\Inventario\Controllers\CategoriaController.cs" />
     <Compile Include="Areas\Inventario\Controllers\ProductoController.cs" />
+    <Compile Include="Areas\Inventario\Controllers\Translado_ProductoController.cs" />
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
     <Compile Include="Areas\Inventario\Models\CategoriaModelView.cs" />
     <Compile Include="Areas\Inventario\Models\TransladoModelView.cs" />
     <Compile Include="Areas\Inventario\Models\ProductoModelView.cs" />
     <Compile Include="Areas\Inventario\Repositorio\CategoriaRepositorio.cs" />
     <Compile Include="Areas\Inventario\Repositorio\ProductoRepositorio.cs" />
+    <Compile Include="Areas\Inventario\Repositorio\Translado_ProductoRepositorio.cs" />
     <Compile Include="Areas\Login\LoginAreaRegistration.cs" />
     <Compile Include="Areas\Login\Repositorio\LoginRepositorio.cs" />
     <Compile Include="Areas\Login\Repositorio\ModulosRepositorio.cs" />
@@ -331,6 +333,7 @@
     <Content Include="assets\images\profile\9.jpg" />
     <Content Include="assets\images\profile\cover.jpg" />
     <Content Include="assets\images\profile\profile.png" />
+    <Content Include="assets\images\radio.png" />
     <Content Include="assets\images\svg\actions.svg" />
     <Content Include="assets\images\svg\apps.svg" />
     <Content Include="assets\images\svg\arrow_down.svg" />
@@ -368,6 +371,7 @@
     <Content Include="assets\images\svg\plane.svg" />
     <Content Include="assets\images\svg\profile.svg" />
     <Content Include="assets\images\svg\project.svg" />
+    <Content Include="assets\images\svg\radio.png" />
     <Content Include="assets\images\svg\reload.svg" />
     <Content Include="assets\images\svg\reports.svg" />
     <Content Include="assets\images\svg\schedule.svg" />
@@ -4194,8 +4198,8 @@
     <Content Include="Areas\Dashboard\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Inventario\Views\Producto\View_Ingreso.cshtml" />
     <Content Include="Areas\Inventario\Views\Producto\View_Salidas.cshtml" />
-    <Content Include="Areas\Inventario\Views\Producto\View_Translados.cshtml" />
-    <Content Include="Areas\Inventario\Views\Producto\View_BuscarProducto.cshtml" />
+    <Content Include="Areas\Inventario\Views\Translado_Producto\View_Translados.cshtml" />
+    <Content Include="Areas\Inventario\Views\Translado_Producto\View_BuscarProducto.cshtml" />
     <Content Include="assets\jqGrid\Griddo\jquery.jqgrid.min.js.map" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />

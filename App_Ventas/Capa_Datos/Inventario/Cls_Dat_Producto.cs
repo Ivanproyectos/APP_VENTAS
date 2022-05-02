@@ -104,6 +104,10 @@ namespace Capa_Datos.Inventario
                         if (dr.IsDBNull(pos_FLG_SERIVICIO)) obj.FLG_SERVICIO = 0;
                         else obj.FLG_SERVICIO = int.Parse(dr[pos_FLG_SERIVICIO].ToString());
 
+
+                        if (dr.IsDBNull(pos_FLG_VENCE)) obj.FLG_VENCE = 0;
+                        else obj.FLG_VENCE = int.Parse(dr[pos_FLG_VENCE].ToString());
+
                         if (dr.IsDBNull(pos_FECHA_VENCIMIENTO)) obj.FECHA_VENCIMIENTO = "";
                         else obj.FECHA_VENCIMIENTO = dr.GetString(pos_FECHA_VENCIMIENTO);
 
@@ -297,7 +301,7 @@ namespace Capa_Datos.Inventario
         }
 
 
-          ///*********************************************** ----------------- **************************************************/
+        ///*********************************************** ----------------- **************************************************/
 
         ///*********************************************** Lista los  cargo *************************************************/
 
@@ -648,11 +652,11 @@ namespace Capa_Datos.Inventario
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_PRODUCTO", SqlDbType.Int)).Value = entidad.ID_PRODUCTO;
                     cmd.Parameters.Add(new SqlParameter("@PI_COD_PRODUCTO", SqlDbType.VarChar, 200)).Value = entidad.COD_PRODUCTO;
                     cmd.Parameters.Add(new SqlParameter("@PI_DESC_PRODUCTO", SqlDbType.VarChar, 200)).Value = entidad.DESC_PRODUCTO;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = entidad.ID_SUCURSAL;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_UNIDAD_MEDIDA", SqlDbType.Int)).Value = entidad.ID_UNIDAD_MEDIDA;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_CATEGORIA", SqlDbType.Int)).Value = entidad.ID_CATEGORIA;
                     cmd.Parameters.Add(new SqlParameter("@PI_PRECIO_COMPRA", SqlDbType.Decimal)).Value = entidad.PRECIO_COMPRA;
                     cmd.Parameters.Add(new SqlParameter("@PI_PRECIO_VENTA ", SqlDbType.Decimal)).Value = entidad.PRECIO_VENTA;
-                    cmd.Parameters.Add(new SqlParameter("@PI_STOCK", SqlDbType.Decimal)).Value = entidad.STOCK;
                     cmd.Parameters.Add(new SqlParameter("@PI_STOCK_MINIMO", SqlDbType.Decimal)).Value = entidad.STOCK_MINIMO;
                     cmd.Parameters.Add(new SqlParameter("@PI_FLG_SERVICIO", SqlDbType.Int)).Value = entidad.FLG_SERVICIO;
                     cmd.Parameters.Add(new SqlParameter("@PI_FLG_VENCE", SqlDbType.Int)).Value = entidad.FLG_VENCE;
@@ -800,7 +804,11 @@ namespace Capa_Datos.Inventario
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_PRODUCTO", SqlDbType.BigInt)).Value = entidad.ID_PRODUCTO;
                     cmd.Parameters.Add(new SqlParameter("@PI_CANTIDAD", SqlDbType.Int)).Value = entidad.CANTIDAD;
-                    cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar,1000)).Value = entidad.DETALLE;
+                    //cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = entidad.DETALLE;
+                    if (entidad.DETALLE == null)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = entidad.DETALLE; }
                     cmd.Parameters.Add(new SqlParameter("@PI_FLG_MOVIMIENTO", SqlDbType.Int)).Value = entidad.FLG_MOVIMIENTO;
                     cmd.Parameters.Add(new SqlParameter("@PI_USUARIO_CREACION", SqlDbType.VarChar, 200)).Value = entidad.USU_CREACION;
                     cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;

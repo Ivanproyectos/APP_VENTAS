@@ -161,9 +161,9 @@
             {
                 @Html.ValidationSummary(true)
                 <div class="form-row">
+                     <h5><i class="bi bi-info-circle text-info "></i>&nbsp;<span class="text-info">Productos del sucursal: @Model.DESC_SUCURSAL </span></h5>
                     <p style="font-weight: bold; color: black;"><i class="bi bi-cart-plus"></i>&nbsp; Busca productos para agregar a la lista de productos. </p>
                     <div class="form-group col-md-12 border-bottom-head">
-                        @Html.LabelFor(model => model.SEARCH_PRODUCTO)
                         <div class="input-group mb-3 ">
                             @Html.TextBoxFor(model => model.SEARCH_PRODUCTO, new { @class = "form-control", @maxlength = "200", @aucomplete = "off", @placeholder = "Ingrese descripción o código de producto..." })
                             <div class="input-group-append  btn-hover-shine waves-effect waves-light ">
