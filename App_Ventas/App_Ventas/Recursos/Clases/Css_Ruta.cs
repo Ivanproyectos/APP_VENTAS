@@ -57,6 +57,13 @@ namespace App_Ventas.Recursos.Clases
             return ruta;
         }
 
+        public static string Ruta_Plantilla()
+        {
+            string ruta = "";
+            ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"Recursos\Plantillas\");
+            return ruta;
+        }
+
         public static MisRuta Ruta_TemporalI()
         {
             MisRuta Mir = new MisRuta();

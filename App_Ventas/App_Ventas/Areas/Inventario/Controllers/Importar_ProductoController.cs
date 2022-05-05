@@ -29,6 +29,14 @@ namespace App_Ventas.Areas.Inventario.Controllers
             model.DESC_SUCURSAL = DESC_SUCURSAL;
             return View(model);
         }
+        public ActionResult Importar_DescagarPlantilla()
+        {
+            return View();
+        }
 
+        public ActionResult Importar_Producto(IEnumerable<HttpPostedFileBase> fileArchivo, FormCollection forms)
+        {
+            return null; 
+        }
     }
 }

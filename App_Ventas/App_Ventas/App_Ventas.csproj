@@ -255,6 +255,13 @@
     <Compile Include="Recursos\Clases\Css_Log.cs" />
     <Compile Include="Recursos\Clases\Css_Mail.cs" />
     <Compile Include="Recursos\Clases\Css_Ruta.cs" />
+    <Compile Include="Recursos\Descargas\DescargarPlantillaExcel.aspx.cs">
+      <DependentUpon>DescargarPlantillaExcel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Recursos\Descargas\DescargarPlantillaExcel.aspx.designer.cs">
+      <DependentUpon>DescargarPlantillaExcel.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\Forms\GenerarComprobante.aspx.cs">
       <DependentUpon>GenerarComprobante.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4203,8 +4210,11 @@
     <Content Include="Areas\Inventario\Views\Translado_Producto\View_BuscarProducto.cshtml" />
     <Content Include="assets\jqGrid\Griddo\jquery.jqgrid.min.js.map" />
     <Content Include="Areas\Inventario\Views\Importar_Producto\View_Importar.cshtml" />
+    <Content Include="Areas\Inventario\Views\Importar_Producto\Importar_DescagarPlantilla.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
+    <Content Include="Recursos\Plantillas\Plantilla_Producto.xlsx" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Recursos\Descargas\DescargarPlantillaExcel.aspx" />
     <Content Include="Recursos\Forms\GenerarComprobante.aspx" />
     <Content Include="Recursos\Imagenes\tulogo.png" />
     <Content Include="Recursos\ImagenProducto\no-image.png" />

@@ -4,13 +4,45 @@
     var _ID_SUCURSAL = @Model.ID_SUCURSAL
 
     $(document).ready(function () {
+        $("#file-upload").change(function () {
+            $("#Lbl_Namefile").html("Sin archivo cargado...");
+            var input = document.getElementById('file-upload');
+            var file = input.files[0];
+            var PesodeArchivo = parseFloat(file.size);
+            var ext = input.files[0].name.split('.').pop();
+            var nombre = input.files[0].name;
+            if (nombre.length > 100) {
+                jAlert("El nombre del archivo es muy largo", 'Alerta');
+                $(this).val('');
+                return false;
+            } else {
+                var validopes = false;
+                if (PesodeArchivo <= Tamanio_Valido)
+                    validopes = true;
+
+                if (!validopes) {
+                    $(this).val('');
+                    jAlert("El peso del archivo no pueden pesar más de " + Tamanio_Valido / 1024 / 1024 + "Mb", 'Alerta');
+                    return false;
+                } else {
+                    $("#Lbl_Namefile").html(nombre);
+                }
+            }
+        });
     });
+
     $(function () {
         $(".modal-content").draggable();
     });
     $('#Importar_btn_DPlantilla').click(function () {
+        Producto_DescargarPlantillaProducto(); 
+    });
 
-    }); 
+    $('#Producto_Btn_Importar').click(function () {
+        Producto_ImportarProducto();
+    });
+
+    
 </script>
 <style>
     #modal-dialog_this {
@@ -31,7 +63,7 @@
             <h5 class="modal-title"><i class="bi bi-cloud-upload"></i>&nbsp; Carga masiva productos</h5>
         </div>
         <div class="modal-body">
-            @using (Html.BeginForm("", "", new { @area = "" }, FormMethod.Post, new { @id = "frmMantenimiento_BuscarProducto" }))
+            @using (Html.BeginForm("Importar_Producto", "Importar_Producto", new { @area = "Inventario" }, FormMethod.Post, new { @id = "Form_CargarProductos", @class = "form-horizontal", @enctype = "multipart/form-data" }))
             {
                 @Html.ValidationSummary(true)
                 <div class="form-row">
@@ -48,8 +80,8 @@
                         <div class="card mb-0">
                             <div class="card-body mb-0">
                                 <div class="custom-file mb-3">
-                                    <input id="FileExcel" type="file" class="custom-file-input" accept=".csv, .xls, .xlsx" >
-                                    <label class="custom-file-label" id="Lbl_NameArchivo">Sin archivo cargado..</label>
+                                    <input id="file-upload" type="file" name="fileArchivo" class="custom-file-input" accept=".csv, .xls, .xlsx" >
+                                    <label class="custom-file-label" id="Lbl_Namefile">Sin archivo cargado..</label>
                                 </div>
 
                                 <div class="alert alert-info alert-dismissible alert-alt fade show">
@@ -61,10 +93,11 @@
                         </div>
                     </div>
                 </div>
+                @Html.Hidden("ID_SUCURSAL", Model.ID_SUCURSAL); 
             }
         </div>
         <div class="modal-footer">
-            <button type="button" id="Producto_Btn_Ingreso" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-cloud-upload"></i>&nbsp; Comenzar carga</button>
+            <button type="button" id="Producto_Btn_Importar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-cloud-upload"></i>&nbsp; Comenzar carga</button>
             <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
         </div>
     </div>
