@@ -193,7 +193,7 @@
 .daterangepicker td.in-range {
   background-color: #ebf4f8;
   border-color: transparent;
-  color: #000;
+  color: #212529;
   border-radius: 0;
 }
 
@@ -324,6 +324,7 @@
   font-size: 12px;
   padding: 8px 12px;
   cursor: pointer;
+  color:#212529; 
 }
 
 .daterangepicker .ranges li:hover {

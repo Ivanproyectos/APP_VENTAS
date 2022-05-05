@@ -211,6 +211,7 @@
     <Compile Include="Areas\Dashboard\Models\DashboardModelView.cs" />
     <Compile Include="Areas\Dashboard\Repositorio\DashboardRepositorio.cs" />
     <Compile Include="Areas\Inventario\Controllers\CategoriaController.cs" />
+    <Compile Include="Areas\Inventario\Controllers\Importar_ProductoController.cs" />
     <Compile Include="Areas\Inventario\Controllers\ProductoController.cs" />
     <Compile Include="Areas\Inventario\Controllers\Translado_ProductoController.cs" />
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
@@ -4201,6 +4202,7 @@
     <Content Include="Areas\Inventario\Views\Translado_Producto\View_Translados.cshtml" />
     <Content Include="Areas\Inventario\Views\Translado_Producto\View_BuscarProducto.cshtml" />
     <Content Include="assets\jqGrid\Griddo\jquery.jqgrid.min.js.map" />
+    <Content Include="Areas\Inventario\Views\Importar_Producto\View_Importar.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Recursos\Forms\GenerarComprobante.aspx" />
@@ -4251,9 +4253,10 @@
     <Content Include="Scripts\Js\Dashboard\Dashboard_Grafics.js" />
     <Content Include="Scripts\Js\Dashboard\Dashboard.js" />
     <Content Include="Scripts\Js\Inventario\Categoria.js" />
-    <Content Include="Scripts\Js\Inventario\Movimiento_Producto.js" />
-    <Content Include="Scripts\Js\Inventario\Translados_Detalle.js" />
-    <Content Include="Scripts\Js\Inventario\Producto.js" />
+    <Content Include="Scripts\Js\Inventario\Producto\Importar_Producto.js" />
+    <Content Include="Scripts\Js\Inventario\Producto\Movimiento_Producto.js" />
+    <Content Include="Scripts\Js\Inventario\Producto\Translados_Detalle.js" />
+    <Content Include="Scripts\Js\Inventario\Producto\Producto.js" />
     <Content Include="Scripts\Js\Inventario\Producto_Recursos.js" />
     <Content Include="Scripts\Js\Prueba.js" />
     <Content Include="Scripts\Js\Recursiva\Configuracion.js" />

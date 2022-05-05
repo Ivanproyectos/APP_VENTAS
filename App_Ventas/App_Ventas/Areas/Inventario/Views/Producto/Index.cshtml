@@ -1,9 +1,10 @@
 ﻿@model App_Ventas.Areas.Inventario.Models.ProductoModelView
-<script src="@Url.Content("~/Scripts/Js/Inventario/Producto.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Inventario/Producto/Producto.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Inventario/Producto_Recursos.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Recursiva/Configuracion.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/Js/Inventario/Translados_Detalle.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/Js/Inventario/Movimiento_Producto.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Inventario/Producto/Translados_Detalle.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Inventario/Producto/Movimiento_Producto.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Inventario/Producto/Importar_Producto.js")" type="text/javascript"></script>
 
 <script type="text/javascript">
     var _SimboloMoneda = $('#inputL_SimboloMoneda').val();
@@ -43,6 +44,11 @@
         Producto_MostrarTranslado();
     });
 
+    $("#Producto_Btn_Importar").click(function (e) {
+        Producto_ImportarProducto();
+    });
+
+    
 
 </script>
 
@@ -53,82 +59,21 @@
         width: 60px;
         background-size: contain;
         background-repeat: no-repeat;
-        background-position:center 100%;
+        background-position: center 100%;
         margin-right: 20px;
     }
-
 </style>
-
 <div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
-
-@*<div class="row">
-    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
-        <div class="card">
-            <div class="card-header border-bottom-head card-collapse" onclick="CollapsearchCard(this);">
-                <h4 class="card-title"><i class="bi bi-pencil-square"></i>&nbsp;Criterios de Busqueda</h4>
-            </div>
-            <div class="card-body">
-                <div class="basic-form">
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <label>Código:</label>
-                            <input id="Producto_codigo" type="text" class="form-control" placeholder="Código Producto">
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            <label>Producto:</label>
-                            <input id="Producto_Desc" type="text" class="form-control" placeholder="Ejm: Bebidas">
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            <label>Categoria:</label>
-                            @Html.DropDownListFor(model => model.ID_CATEGORIA_SEARCH, Model.Lista_Categoria, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            <label>Tipo Producto:</label>
-                            <select class="form-control" id="Producto_flg_servicio">
-                                <option value="">-- Seleccione --</option>
-                                <option value="0">Producto</option>
-                                <option value="1">Servicios</option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group col-md-3">
-                            <label>Estado:</label>
-                            <select class="form-control" id="Producto_Estado">
-                                <option value="">-- Seleccione --</option>
-                                <option value="1">Activo</option>
-                                <option value="1">Inactivo</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <button type="button" id="Producto_btnBuscar" class="btn btn-hover-shine  btn-square btn-primary "><i class="fa fa-search"></i>&nbsp Buscar</button>
-                            <button type="button" id="Producto_btnLimpiar" class="btn  btn-square btn-light"><i class="bi bi-arrow-clockwise"></i>&nbsp Limpiar</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>*@
 
 <div class="row mb-3">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
-          <h4 class="card-title">Listado Productos</h4>
+        <h4 class="card-title">Listado Productos</h4>
     </div>
 </div>
 
 <div class="row ">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
-      @*      <div class="card-header">
-                <h4 class="card-title"><i class="bi bi-list-ul"></i>&nbsp;Listado Productos</h4>
-            </div>*@
             <div class="card-body">
                 <div class="form-row mb-3">
                     <button type="button" id="Producto_btnNuevo" class="btn btn-rounded btn-primary btn-hover-shine" style="margin-bottom: 5px;">
@@ -146,7 +91,7 @@
                         <span class="btn-icon-left text-info"><i class="bi bi-truck color-info"></i>
                         </span>Translados</button>
 
-                    <button type="button" class="btn btn-rounded btn-secondary btn-hover-shine" style="margin-left: 20px; margin-bottom: 5px;">
+                    <button type="button" class="btn btn-rounded btn-secondary btn-hover-shine" id="Producto_Btn_Importar" style="margin-left: 20px; margin-bottom: 5px;">
                         <span class="btn-icon-left text-secondary"><i class="bi bi-file-earmark-excel color-secondary"></i>
                         </span>Importar</button>
                 </div>

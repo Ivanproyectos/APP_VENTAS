@@ -69,7 +69,9 @@ function Producto_Translados_Insertar() {
         }
         if (ListaDetalle.length > 0) {
             if (ValidarRepeatSucursal()) {
-                jConfirm("¿ Desea transladar esta mercaderia. ?", "Atención", function (r) {
+                jConfirm("Se transladarán productos del almacen <span class='text-info'> " + $('select[name="ID_SUCURSAL_ORIGEN"] option:selected').text()
+                    + " </span> al almacen destino <span class='text-success'> " + $('select[name="ID_SUCURSAL_DESTINO"] option:selected').text() +
+                    " </span> <br/>¿Desea continuar con el traslado de los productos ?", "Atención", function (r) {
                     if (r) {
                         var item =
                             {
@@ -101,4 +103,48 @@ function Producto_Translados_Insertar() {
             jError("La lista de productos no puede estar vacia.", "Atención");
         }
     }
+}
+
+function Producto_MostrarIngresoProducto() {
+    var _ID_SUCURSAL = $('#ID_SUCURSAL').val();
+    var _DESC_SUCURSAL = $('select[name="ID_SUCURSAL"] option:selected').text();
+    if (_ID_SUCURSAL != "") {
+        _DESC_SUCURSAL = _DESC_SUCURSAL.replace(/ /g, "+");
+        jQuery("#myModalNuevo").html('');
+        jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/View_Ingreso?ID_SUCURSAL=" + _ID_SUCURSAL +
+            "&DESC_SUCURSAL=" + _DESC_SUCURSAL, function (responseText, textStatus, request) {
+                $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
+                $.validator.unobtrusive.parse('#myModalNuevo');
+                if (request.status != 200) return;
+            });
+    } else {
+        jInfo('Para registrar un ingreso de producto selecione el almacen donde se registrara.', 'Atención')
+    }
+}
+
+function Producto_MostrarSalidasProducto() {
+    var _ID_SUCURSAL = $('#ID_SUCURSAL').val();
+    var _DESC_SUCURSAL = $('select[name="ID_SUCURSAL"] option:selected').text();
+    if (_ID_SUCURSAL != "") {
+        _DESC_SUCURSAL = _DESC_SUCURSAL.replace(/ /g, "+");
+        jQuery("#myModalNuevo").html('');
+        jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/View_Salidas?ID_SUCURSAL=" + _ID_SUCURSAL +
+            "&DESC_SUCURSAL=" + _DESC_SUCURSAL, function (responseText, textStatus, request) {
+                $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
+                $.validator.unobtrusive.parse('#myModalNuevo');
+                if (request.status != 200) return;
+            });
+    } else {
+        jInfo('Para registrar una salida de producto selecione el almacen donde se registrara.', 'Atención')
+    }
+}
+
+
+function Producto_MostrarTranslado() {
+    jQuery("#myModalNuevo").html('');
+    jQuery("#myModalNuevo").load(baseUrl + "Inventario/Translado_Producto/View_Translados", function (responseText, textStatus, request) {
+        $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
+        $.validator.unobtrusive.parse('#myModalNuevo');
+        if (request.status != 200) return;
+    });
 }

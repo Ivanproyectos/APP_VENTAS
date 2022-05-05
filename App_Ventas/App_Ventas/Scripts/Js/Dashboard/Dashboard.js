@@ -1,8 +1,6 @@
 ﻿
 ///*********************************************** ----------------- *************************************************/
-
 ///*********************************************** Lista count dash **************************************************/
-
 function Dashboard_Cargar() {
     var item =
        {
@@ -33,7 +31,6 @@ function Dashboard_Cargar() {
         jError(auditoria.MENSAJE_SALIDA, "Atención");
     }
 }
-
 
 function Dashboard_Configurar_GraficoVentaMeses(_List) {
     var Model = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"];

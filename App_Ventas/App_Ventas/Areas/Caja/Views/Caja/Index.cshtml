@@ -26,15 +26,33 @@
     });
 
 
-    $('#Caja_FechaInicio, #Caja_FechaFin').datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: "dd/mm/yy",
-        firstDay: 1,
-        changeFirstDay: false,
-        showAnim: 'slideDown'
-    });
+    //$('#Caja_FechaInicio, #Caja_FechaFin').datepicker({
+    //    changeMonth: true,
+    //    changeYear: true,
+    //    dateFormat: "dd/mm/yy",
+    //    firstDay: 1,
+    //    changeFirstDay: false,
+    //    showAnim: 'slideDown'
+    //});
 
+
+    $('#Caja_FechaRange').daterangepicker({
+        opens: 'right',
+        ranges: {
+            'Hoy': [moment(), moment()],
+            'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Los últimos 7 días': [moment().subtract(6, 'days'), moment()],
+            'Los últimos 30 días': [moment().subtract(29, 'days'), moment()],
+            'Este mes': [moment().startOf('month'), moment().endOf('month')],
+            'El mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        locale: {
+            format: "DD/MM/YYYY",
+            applyLabel: "Aplicar",
+            cancelLabel: "Cancelar",
+            customRangeLabel: "Rango Personalizado",
+        }
+    });
 
 </script>
 
@@ -75,13 +93,13 @@
                         <div class="form-group col-md-3">
                             <label>Fecha Inicio:</label>
                             <div class="input-group mb-3">
-                                <input type="text" id="Caja_FechaInicio" class="form-control" placeholder="">
+                                <input type="text" id="Caja_FechaRange" class="form-control" placeholder="">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-3">
+                     @*   <div class="form-group col-md-3">
                             <label>Fecha Fin:</label>
                             <div class="input-group mb-3">
                                 <input type="text" id="Caja_FechaFin" class="form-control" placeholder="">
@@ -89,7 +107,7 @@
                                     <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
 
                         <div class="form-group col-md-3">
                             <label>Usuario:</label>

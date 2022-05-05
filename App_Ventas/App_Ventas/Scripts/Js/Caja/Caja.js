@@ -8,8 +8,8 @@ function Caja_Cerrar() {
 }
 
 function Caja_Limpiar() {
-    $("#Caja_FechaInicio").val(Fecha_Actual);
-    $('#Caja_FechaFin').val(Fecha_Actual);
+    $("#Caja_FechaRange").val(Fecha_Actual);
+    //$('#Caja_FechaFin').val(Fecha_Actual);
     $('#ID_USUARIO').val("");
     $('#ID_SUCURSAL_SEARCH').val("");
 
@@ -40,8 +40,6 @@ function Caja_ConfigurarGrilla() {
     DataTable.Grilla(Caja_Grilla, '', 'ID_TIPO_MOVIMIENTO', colModels, opciones, "ID_TIPO_MOVIMIENTO");
 }
 
-
-
 function Caja_Movimiento_actionAcciones(ID_TIPO_MOVIMIENTO) {
     var _btn_Editar = "<a class=\"dropdown-item\" onclick='Caja_Movimiento_MostrarEditar(" + ID_TIPO_MOVIMIENTO + ")'><i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;\"></i>&nbsp;  Editar</a>";
     var _btn_Eliminar = "<a class=\"dropdown-item\" onclick='Caja_Movimiento_Eliminar(" + ID_TIPO_MOVIMIENTO + ")'><i class=\"bi bi-trash-fill\" style=\"color:#e40613;\"></i>&nbsp;  Eliminar</a>";
@@ -54,8 +52,6 @@ function Caja_Movimiento_actionAcciones(ID_TIPO_MOVIMIENTO) {
         "</div>";
     return _btn;
 }
-
-
 
 function Caja_Movimieto_MostrarNuevo() {
     jQuery("#myModalNuevo").html('');
@@ -82,8 +78,8 @@ function Caja_Movimiento_MostrarEditar(ID_TIPO_MOVIMIENTO) {
 function Caja_CargarGrilla() {
     var item =
        {
-           FEC_INICIO: $('#Caja_FechaInicio').val(),
-           FEC_FIN: $('#Caja_FechaFin').val(),
+           FEC_INICIO:  $('#Caja_FechaRange').val().split('-')[0].trim(),
+           FEC_FIN:  $('#Caja_FechaRange').val().split('-')[0].trim(),
            COD_USUARIO: $('#ID_USUARIO').val(),
            ID_SUCURSAL: $('#ID_SUCURSAL_SEARCH').val(),
        };
@@ -132,8 +128,8 @@ function Caja_CargarGrilla() {
 function Caja_Movimiento_CargarGrilla() {
     var item =
        {
-           FEC_INICIO: $('#Caja_FechaInicio').val(),
-           FEC_FIN: $('#Caja_FechaFin').val(),
+           FEC_INICIO: $('#Caja_FechaRange').val().split('-')[0].trim(),
+           FEC_FIN: $('#Caja_FechaRange').val().split('-')[0].trim(),
            COD_USUARIO: $('#ID_USUARIO').val(),
            ID_SUCURSAL: $('#ID_SUCURSAL_SEARCH').val(),
        };

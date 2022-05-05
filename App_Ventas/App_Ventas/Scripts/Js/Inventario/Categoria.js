@@ -16,15 +16,15 @@ function Categoria_Limpiar() {
 function Categoria_ConfigurarGrilla() {
     DataTable.GridUnload(Categoria_Grilla);
     var colModels = [
-          { data: "ID_CATEGORIA", name: "ID_CATEGORIA", title: "ID_CATEGORIA", autoWidth: false, visible: false, },
+          { data: "ID_CATEGORIA", name: "ID_CATEGORIA", title: "Código", autoWidth: false, visible: true, },
           { data: "DESC_CATEGORIA", name: "DESC_CATEGORIA", title: "Categoria", autoWidth: true },
           { data: "DESCRIPCION", name: "DESCRIPCION", title: "Descripción", autoWidth: false, },
           {
-              data: null, name: "FLG_ESTADO", title: "Activo", width: "60px", sortable: false,
+              data: null, name: "FLG_ESTADO", title: "Activo", width: "80px", sortable: false,
               render: function (data, type, row, meta) { return Categoria_actionActivo(data.FLG_ESTADO, data.ID_CATEGORIA); }
           },
           {
-              data: null, sortable: false, title: "Acciones", width: "60px",
+              data: null, sortable: false, title: "Acciones", width: "80px",
               render: function (data, type, row, meta) { return Categoria_actionAcciones(data.ID_CATEGORIA); }
           },
 
@@ -77,7 +77,6 @@ function Categoria_MostrarEditar(ID_CATEGORIA) {
         if (request.status != 200) return;
     });
 }
-
 
 ///*********************************************** ----------------- *************************************************/
 

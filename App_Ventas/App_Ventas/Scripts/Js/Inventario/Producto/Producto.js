@@ -183,7 +183,6 @@ function Producto_StatuStock(STOCK, STOCK_MINIMO, ID_UNIDAD_MEDIDA, FLG_SERVICIO
     return _text;
 }
 
-
 function Producto_MostrarNuevo() {
     var _ID_SUCURSAL = $('#ID_SUCURSAL').val();
     var _DESC_SUCURSAL = $('select[name="ID_SUCURSAL"] option:selected').text(); 
@@ -207,51 +206,6 @@ function Producto_MostrarEditar(ID_PRODUCTO) {
         $.validator.unobtrusive.parse('#myModalNuevo');
         if (request.status != 200) return;
     });
-}
-
-
-function Producto_MostrarIngresoProducto() {
-    var _ID_SUCURSAL = $('#ID_SUCURSAL').val();
-    var _DESC_SUCURSAL = $('select[name="ID_SUCURSAL"] option:selected').text();
-    if (_ID_SUCURSAL != "") {
-        _DESC_SUCURSAL = _DESC_SUCURSAL.replace(/ /g, "+");
-        jQuery("#myModalNuevo").html('');
-        jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/View_Ingreso?ID_SUCURSAL=" + _ID_SUCURSAL +
-            "&DESC_SUCURSAL=" + _DESC_SUCURSAL, function (responseText, textStatus, request) {
-            $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
-            $.validator.unobtrusive.parse('#myModalNuevo');
-            if (request.status != 200) return;
-        });
-    } else {
-        jInfo('Para registrar un ingreso de producto selecione el almacen donde se registrara.', 'Atención')
-    }
-}
-
-function Producto_MostrarSalidasProducto() {
-    var _ID_SUCURSAL = $('#ID_SUCURSAL').val();
-    var _DESC_SUCURSAL = $('select[name="ID_SUCURSAL"] option:selected').text();
-    if (_ID_SUCURSAL != "") {
-        _DESC_SUCURSAL = _DESC_SUCURSAL.replace(/ /g, "+");
-        jQuery("#myModalNuevo").html('');
-        jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/View_Salidas?ID_SUCURSAL=" + _ID_SUCURSAL +
-            "&DESC_SUCURSAL=" + _DESC_SUCURSAL, function (responseText, textStatus, request) {
-                $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
-                $.validator.unobtrusive.parse('#myModalNuevo');
-                if (request.status != 200) return;
-            });
-    } else {
-        jInfo('Para registrar una salida de producto selecione el almacen donde se registrara.', 'Atención')
-    }
-}
-
-
-function Producto_MostrarTranslado() {
-    jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Inventario/Translado_Producto/View_Translados", function (responseText, textStatus, request) {
-            $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
-            $.validator.unobtrusive.parse('#myModalNuevo');
-            if (request.status != 200) return;
-        });
 }
 
 ///*********************************************** ----------------- *************************************************/

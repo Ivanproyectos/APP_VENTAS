@@ -44,8 +44,6 @@ function Clientes_ConfigurarGrilla() {
 
 }
 
-
-
 function Cliente_actionAcciones(ID_CLIENTE) {
     var _btn_Editar = "<a class=\"dropdown-item\" onclick='Clientes_MostrarEditar(" + ID_CLIENTE + ")'><i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;\"></i>&nbsp;  Editar</a>";
     var _btn_Eliminar = "<a class=\"dropdown-item\" onclick='Clientes_Eliminar(" + ID_CLIENTE + ")'><i class=\"bi bi-trash-fill\" style=\"color:#e40613;\"></i>&nbsp;  Eliminar</a>";
@@ -59,7 +57,6 @@ function Cliente_actionAcciones(ID_CLIENTE) {
     return _btn;
 }
 
-
 function Cliente_actionActivo(FLG_ESTADO, ID_CLIENTE) {
     var check_ = 'check';
     if (FLG_ESTADO == 1)
@@ -69,9 +66,6 @@ function Cliente_actionActivo(FLG_ESTADO, ID_CLIENTE) {
               + " <label for=\"Clientes_chk_" + ID_CLIENTE + "\" data-on-label=\"Yes\" data-off-label=\"No\"></label>";
     return _btn;
 }
-
-
-
 
 function Clientes_MostrarNuevo() {
     jQuery("#myModalNuevo").html('');
@@ -90,7 +84,6 @@ function Clientes_MostrarEditar(ID_CLIENTE) {
         if (request.status != 200) return;
     });
 }
-
 
 ///*********************************************** ----------------- *************************************************/
 
@@ -140,8 +133,6 @@ function Clientes_CargarGrilla() {
         jError(auditoria.MENSAJE_SALIDA, "Atención");
     }
 }
-
-
 
 ///*********************************************** ----------------- *************************************************/
 

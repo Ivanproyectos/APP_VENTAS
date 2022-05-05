@@ -51,9 +51,7 @@ namespace App_Ventas.Areas.Dashboard.Controllers
                 Text = x.DESCRIPCION,
                 Value = x.ID.ToString()
             }).ToList();
-            model.Lista_Anio.Insert(0, new SelectListItem() { Value = "", Text = "-- Seleccione --" });
-
-            
+            //model.Lista_Anio.Insert(0, new SelectListItem() { Value = "", Text = "-- Seleccione --" });
             return View(model);
         }
 

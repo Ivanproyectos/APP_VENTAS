@@ -16,6 +16,8 @@ DataTable = {
         if (opciones.processing == null) { opciones.processing = false; }
         if (opciones.multiselect == null) { opciones.multiselect = false; }
         if (opciones.enumerable == null) { opciones.enumerable = false; }
+        if (opciones.lengthChange == null) { opciones.lengthChange = true; }
+
         if (opciones.GridLocal == null) 
             opciones.GridLocal = false;
         var language = {
@@ -70,6 +72,7 @@ DataTable = {
                     responsive: opciones.responsive,
                     processing: opciones.processing,
                     serverSide: true,      
+                    lengthChange: opciones.lengthChange,
                     lengthMenu: opciones.rowNumbers,
                     pageLength: opciones.rowNumber,
                     order: [[PositionColumnSort, opciones.sort]],
@@ -139,6 +142,7 @@ DataTable = {
                     responsive: opciones.responsive,
                     processing: opciones.processing,
                     serverSide: false,
+                    lengthChange: opciones.lengthChange,
                     lengthMenu: opciones.rowNumbers,
                     pageLength: opciones.rowNumber,
                     order: [[PositionColumnSort, opciones.sort]],

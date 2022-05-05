@@ -260,7 +260,7 @@ body {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #BDBDC7;
+  color: #6c757d;
   text-align: left;
   background-color: rgba(88, 115, 254, 0.04); }
 
@@ -2284,22 +2284,30 @@ fieldset:disabled a.btn {
       box-shadow: 0 0 0 0.2rem rgba(103, 59, 183, 0.5); }
 
 .btn-outline-success {
-  color: #7ED321;
-  border-color: #7ED321; }
+     color: #0acf97;
+    border-color: #0acf97;
+}
   .btn-outline-success:hover {
-    color: #212529;
-    background-color: #7ED321;
-    border-color: #7ED321; }
+     color: #fff;
+    background-color: #0acf97;
+    border-color: #0acf97;
+
+  }
   .btn-outline-success:focus, .btn-outline-success.focus {
-    box-shadow: 0 0 0 0.2rem rgba(126, 211, 33, 0.5); }
+     -webkit-box-shadow: 0 0 0 0.2rem rgba(10 ,207, 151,0.50);
+    box-shadow: 0 0 0 0.2rem rgba(10 ,207, 151,0.50);
+
+  }
   .btn-outline-success.disabled, .btn-outline-success:disabled {
     color: #7ED321;
     background-color: transparent; }
   .btn-outline-success:not(:disabled):not(.disabled):active, .btn-outline-success:not(:disabled):not(.disabled).active,
   .show > .btn-outline-success.dropdown-toggle {
-    color: #212529;
-    background-color: #7ED321;
-    border-color: #7ED321; }
+      color: #fff;
+    background-color: #0acf97;
+    border-color: #0acf97;
+
+  }
     .btn-outline-success:not(:disabled):not(.disabled):active:focus, .btn-outline-success:not(:disabled):not(.disabled).active:focus,
     .show > .btn-outline-success.dropdown-toggle:focus {
       box-shadow: 0 0 0 0.2rem rgba(126, 211, 33, 0.5); }
@@ -3071,8 +3079,9 @@ input[type="button"].btn-block {
   font-size: 1.09375rem; }
 
 .custom-file {
+  cursor:pointer; 
   position: relative;
-  display: inline-block;
+  display: table;
   width: 100%;
   height: calc(1.5em + 0.75rem + 2px);
   margin-bottom: 0; }
@@ -3089,8 +3098,8 @@ input[type="button"].btn-block {
     box-shadow: 0 0 0 0.2rem rgba(89, 59, 219, 0.25); }
   .custom-file-input:disabled ~ .custom-file-label {
     background-color: #e9ecef; }
-  .custom-file-input:lang(en) ~ .custom-file-label::after {
-    content: "\F603"; }
+  /*.custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: "\F603"; }*/
   .custom-file-input ~ .custom-file-label[data-browse]::after {
     content: attr(data-browse); }
 
@@ -3108,6 +3117,7 @@ input[type="button"].btn-block {
   background-color: #fff;
   border: 1px solid #eaeaea;
   border-radius: 0.25rem; }
+
   .custom-file-label::after {
     position: absolute;
     top: 0;
@@ -3115,15 +3125,32 @@ input[type="button"].btn-block {
     bottom: 0;
     z-index: 3;
     display: block;
-    height: calc(1.5em + 0.75rem);
+     height: calc(1.5em + 0.75rem + 1px);
     padding: 0.375rem 0.75rem;
     line-height: 1.5;
-    color: #495057;
-    content: "\F603";
-    font-family: bootstrap-icons !important;
-    background-color: #e9ecef;
+    content: "CARGAR ARCHIVO";
+      background: #727cf5;
+    border-color: #727cf5;
+    color: #fff;
     border-left: inherit;
-    border-radius: 0 0.25rem 0.25rem 0; }
+    border-radius: 0 0.25rem 0.25rem 0;
+
+  }
+
+ .custom-file-label::after:hover {
+    background-color: #6169d0;
+    border-color: #5b63c4;
+    color: #fff;
+}
+
+.custom-file .action {
+    display: table-cell;
+    cursor: pointer;
+    z-index: 1;
+    /* border-radius: 0; */
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+}
 
 .custom-range {
   width: 100%;
@@ -5077,10 +5104,10 @@ button.bg-dark:focus {
   border-color: #593bdb !important; }
 
 .border-secondary {
-  border-color: #673BB7 !important; }
+  border-color: #2c7be5  !important; }
 
 .border-success {
-  border-color: #7ED321 !important; }
+  border-color: #2ed6a6  !important; }
 
 .border-info {
   border-color: #50E3C2 !important; }
@@ -13617,10 +13644,10 @@ svg text {
     border-color: #593bdb;
     color: #593bdb; }
 
-.custom-file-label:after {
+/*.custom-file-label:after {
   background: #656C73;
   border: 1px solid #eaeaea;
-  color: #fff; }
+  color: #fff; }*/
 
 .custom_file_input .custom-file-label::after {
   height: 100%; }
