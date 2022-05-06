@@ -1,0 +1,7 @@
+DocumentFormat.OpenXml.Packaging.OpenXmlPackageException: The specified package is not valid.
+   en DocumentFormat.OpenXml.Packaging.OpenXmlPackage.Load(Package package)
+   en DocumentFormat.OpenXml.Packaging.OpenXmlPackage..ctor(PackageLoader& loader, OpenSettings settings)
+   en DocumentFormat.OpenXml.Packaging.SpreadsheetDocument..ctor(PackageLoader& loader, OpenSettings settings)
+   en DocumentFormat.OpenXml.Packaging.SpreadsheetDocument.Open(String path, Boolean isEditable, OpenSettings openSettings)
+   en DocumentFormat.OpenXml.Packaging.SpreadsheetDocument.Open(String path, Boolean isEditable)
+   en App_Ventas.Areas.Inventario.Controllers.ImportarController.ProcesarHojaCalculo(String rutaBase, Int64 ID_SUCURSAL, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Areas\Inventario\Controllers\ImportarController.cs:línea 79

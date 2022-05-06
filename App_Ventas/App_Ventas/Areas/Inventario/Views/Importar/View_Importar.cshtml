@@ -16,13 +16,15 @@
                 $(this).val('');
                 return false;
             } else {
-                var validopes = false;
-                if (PesodeArchivo <= Tamanio_Valido)
-                    validopes = true;
-
-                if (!validopes) {
+                var valido = false;
+                if (ext.toLowerCase() == "xls" || ext.toLowerCase() == "xlsx")
+                    valido = true;
+                if (PesodeArchivo > Tamanio_Valido || !valido) {
                     $(this).val('');
-                    jAlert("El peso del archivo no pueden pesar más de " + Tamanio_Valido / 1024 / 1024 + "Mb", 'Alerta');
+                    if (!valido)
+                        jWarning("Solo se permite documentos en formato(.xlsx,.xls)", 'Alerta');
+                    else
+                        jWarning("La cantidad de el archivo que va adjuntar no pueden pesar más de " + Tamanio_Valido / 1024 / 1024 + "Mb", 'Alerta');
                     return false;
                 } else {
                     $("#Lbl_Namefile").html(nombre);

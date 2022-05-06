@@ -75,6 +75,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                 {
                     auditoria.Rechazar("No se encontró ningun archivo, seleccione alguno");
                 }
+                if(!auditoria.RECHAZAR){
                 List<Cls_Ent_Producto> items = new List<Cls_Ent_Producto>();
                 using (SpreadsheetDocument document = SpreadsheetDocument.Open(rutaBase, true))
                 {
@@ -84,7 +85,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                     string hojaId = hojas.First(s => s.LocalName == @"sheet").Id;
                     WorksheetPart hoja = (WorksheetPart)document.WorkbookPart.GetPartById(hojaId);
                     SharedStringTable tabla = document.WorkbookPart.SharedStringTablePart.SharedStringTable;
-                    //items = ProcesarHojaCalculo(hoja.Worksheet, tabla, Tipo);
+                    items = ProcesarHojaCalculo(hoja.Worksheet, tabla, ref auditoria);
                     //if (Tipo == "1")
                     //{
                     //    C_BancoPregunta_DTO ent_banco = new C_BancoPregunta_DTO();
@@ -121,6 +122,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                     //        PreguntasDTO XX = new BancoPreguntaRepositorio().CargaAlternativaTemporal(ent_P);
                     //    }
                     //}
+                  }
                 }
             }
             catch (Exception ex)
@@ -138,13 +140,14 @@ namespace App_Ventas.Areas.Inventario.Controllers
             }
 
         }
-        //public List<PreguntasDTO> ProcesarHojaCalculo(Worksheet hoja, SharedStringTable tabla, string Tipo)
-        //{
-        //    try
-        //    {
-        //        IEnumerable<Row> registros = this.GetRowsGreaterEqualThan(hoja, 2);
-        //        List<PreguntasDTO> items = new List<PreguntasDTO>();
-        //        int reg = 0;
+
+        public List<Cls_Ent_Producto> ProcesarHojaCalculo(Worksheet hoja, SharedStringTable tabla, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                IEnumerable<Row> registros = this.GetRowsGreaterEqualThan(hoja, 2);
+                List<Cls_Ent_Producto> items = new List<Cls_Ent_Producto>();
+                int reg = 0;
         //        //   var listaPersona = _personaService.GetTodos()
         //        string NOM = "";
         //        List<ListaCombosDTO> ListaNivel = new BancoPreguntaRepositorio().ListaNivelPregunta(NOM);
@@ -153,10 +156,10 @@ namespace App_Ventas.Areas.Inventario.Controllers
         //        List<ListaCombosDTO> ListaPuestoTemp = new BancoPreguntaRepositorio().ListaPuesto_Temporal(NOM);
         //        List<PreguntasDTO> ListaAlternativaTemp = new BancoPreguntaRepositorio().ListaAlternativa_Temporal(NOM);
 
-        //        foreach (Row registro in registros)
-        //        {
-        //            reg++;
-        //            String[] valores = GetRowValue(tabla, registro);
+                foreach (Row registro in registros)
+                {
+                    reg++;
+                    String[] valores = GetRowValue(tabla, registro);
         //            if (valores.Length == 0) continue;
         //            if (Tipo == "1")
         //            {
@@ -317,20 +320,21 @@ namespace App_Ventas.Areas.Inventario.Controllers
         //                item.RESPUESTA = respuesta;
         //                items.Add(item);
         //            }
-        //        }
+                }
 
         //        if (items.Count <= 0)
         //        {
         //            throw new Exception("No hay registros válidos para el registro");
         //        }
-        //        return items;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //       // Log.CreateLogger(ex.Message);
-        //        throw new Exception(ex.Message, ex.InnerException);
-        //    }
-        //}
+                return items;
+            }
+            catch (Exception ex)
+            {
+                string mensaje = Recursos.Clases.Css_Log.Guardar(ex.ToString());
+                auditoria.Rechazar(mensaje);
+                throw new Exception(ex.Message, ex.InnerException);
+            }
+        }
 
         protected IEnumerable<Row> GetRowsGreaterEqualThan(Worksheet sheet, int index)
         {
