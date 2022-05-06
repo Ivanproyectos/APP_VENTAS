@@ -34,12 +34,19 @@ namespace App_Ventas.Areas.Inventario.Controllers
             return View();
         }
 
-        public ActionResult CargarArchivo(IEnumerable<HttpPostedFileBase> fileArchivo, FormCollection forms)
+        public ActionResult Importar_CargarExcel(IEnumerable<HttpPostedFileBase> fileArchivo, FormCollection forms)
         {
             Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
             if (fileArchivo != null)
             {
+                if (fileArchivo.ToList()[0] != null)
+                {
+                    long ID_SUCURSAL = long.Parse(forms["ID_SUCURSAL"].ToString());
 
+                }
+                else {
+                    auditoria.Rechazar("No se encontró ningun archivo, seleccione alguno");
+                }
             }
             else
             {
