@@ -1,7 +1,6 @@
 ﻿
 
 function _GuardarTemporal() {
-
     var ErrorUrl = '';
     var url = baseUrl + "Administracion/Archivo/Guardar_Temporal_Archivo";
     var options = {
@@ -25,7 +24,10 @@ function _GuardarTemporal() {
                 jDanger(response.MENSAJE_SALIDA, 'Atención');
             }
         },
-        error: function (jqXHR, textStatus, errorThrown) { window.location = ErrorUrl; jQuery.unblockUI(); }
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(jqXHR); 
+            window.location = ErrorUrl; jQuery.unblockUI();
+        }
     };
     $("#frmMantenimiento_ImagenProducto").ajaxForm(options);
     $("#frmMantenimiento_ImagenProducto").submit();

@@ -211,7 +211,7 @@
     <Compile Include="Areas\Dashboard\Models\DashboardModelView.cs" />
     <Compile Include="Areas\Dashboard\Repositorio\DashboardRepositorio.cs" />
     <Compile Include="Areas\Inventario\Controllers\CategoriaController.cs" />
-    <Compile Include="Areas\Inventario\Controllers\Importar_ProductoController.cs" />
+    <Compile Include="Areas\Inventario\Controllers\ImportarController.cs" />
     <Compile Include="Areas\Inventario\Controllers\ProductoController.cs" />
     <Compile Include="Areas\Inventario\Controllers\Translado_ProductoController.cs" />
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
@@ -4209,8 +4209,8 @@
     <Content Include="Areas\Inventario\Views\Translado_Producto\View_Translados.cshtml" />
     <Content Include="Areas\Inventario\Views\Translado_Producto\View_BuscarProducto.cshtml" />
     <Content Include="assets\jqGrid\Griddo\jquery.jqgrid.min.js.map" />
-    <Content Include="Areas\Inventario\Views\Importar_Producto\View_Importar.cshtml" />
-    <Content Include="Areas\Inventario\Views\Importar_Producto\Importar_DescagarPlantilla.cshtml" />
+    <Content Include="Areas\Inventario\Views\Importar\View_Importar.cshtml" />
+    <Content Include="Areas\Inventario\Views\Importar\Importar_DescagarPlantilla.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <Content Include="Recursos\Plantillas\Plantilla_Producto.xlsx" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />

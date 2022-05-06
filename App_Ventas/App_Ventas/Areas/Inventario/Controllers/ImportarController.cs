@@ -11,7 +11,7 @@ using Capa_Entidad.Inventario;
 
 namespace App_Ventas.Areas.Inventario.Controllers
 {
-    public class Importar_ProductoController : Controller
+    public class ImportarController : Controller
     {
         //
         // GET: /Inventario/Importar_Producto/
@@ -34,9 +34,18 @@ namespace App_Ventas.Areas.Inventario.Controllers
             return View();
         }
 
-        public ActionResult Importar_Producto(IEnumerable<HttpPostedFileBase> fileArchivo, FormCollection forms)
+        public ActionResult CargarArchivo(IEnumerable<HttpPostedFileBase> fileArchivo, FormCollection forms)
         {
-            return null; 
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            if (fileArchivo != null)
+            {
+
+            }
+            else
+            {
+                auditoria.Rechazar("No se encontró ningun archivo, seleccione alguno");
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
     }
 }
