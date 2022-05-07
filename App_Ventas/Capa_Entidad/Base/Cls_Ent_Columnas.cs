@@ -23,4 +23,10 @@ namespace Capa_Entidad.Base
         public string VALOR { get; set; }
         public UInt32 STYLE_INDEX { get; set; }
     }
+
+    public class Cls_Ent_ErroresExcel
+    {
+        public int NRO_FILA { get; set; }
+        public string DESCRIPCION { get; set; }
+    }
 }

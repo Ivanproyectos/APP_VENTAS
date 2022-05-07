@@ -1,0 +1,2 @@
+System.IndexOutOfRangeException: Índice fuera de los límites de la matriz.
+   en App_Ventas.Areas.Inventario.Controllers.ImportarController.ValidarCarga(Worksheet hoja, SharedStringTable tabla, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Areas\Inventario\Controllers\ImportarController.cs:línea 282

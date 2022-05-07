@@ -1,4 +1,19 @@
-﻿
+﻿var Importar_ErroresCarga_Grilla = 'Importar_ErroresCarga_Grilla';
+var Importar_ErroresCarga_Barra = 'Importar_ErroresCarga_Barra';
+function Importar_ErroresCarga_ConfigurarGrilla() {
+    $("#" + Importar_ErroresCarga_Grilla).GridUnload();
+    var colNames = ['codigo', 'Nro Fila', 'Descrición'];
+    var colModels = [
+            { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, key: true },
+            { name: 'NRO_FILA', index: 'NRO_FILA', align: 'left', width: 80, hidden: false },
+            { name: 'DESCRIPCION', index: 'DESCRIPCION', align: 'left', width: 400, hidden: false },
+    ];
+    var opciones = {
+        GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber:50 ,rowNumbers:[ 20, 50, 100, 300],
+    };
+    SICA.Grilla(Importar_ErroresCarga_Grilla, Importar_ErroresCarga_Barra, Importar_ErroresCarga_Grilla, 150, '', "", '', 'CODIGO', colNames, colModels, '', opciones);
+}
+
 function Producto_MostrarImportarProducto() {
     var _ID_SUCURSAL = $('#ID_SUCURSAL').val();
     var _DESC_SUCURSAL = $('select[name="ID_SUCURSAL"] option:selected').text();
@@ -24,7 +39,6 @@ function Producto_DescargarPlantillaProducto() {
     });
     
 }
-
 
 function Producto_ImportarProducto() {
     var _ID_SUCURSAL = $("#ID_SUCURSAL").val();
@@ -58,19 +72,17 @@ function Producto_ImportarProducto() {
 
                                   } else {
                                       jError(auditoria.MENSAJE_SALIDA, 'Atención');
+                                      if (auditoria.OBJETO != null)
+                                          Importar_TablaResutaldos(auditoria.OBJETO);
+                                  
                                   }
                               }
                               else {
                                   jError(auditoria.MENSAJE_SALIDA, 'Atención');
                               }
 
-                              //if (auditoria.OBJETO != null)
-                              //    Tabla_Resultados(auditoria.OBJETO, ID_TABLA);
-                              //else {
-                              //    html = "<i class=\"clip-close\" style='color:#f30203'></i>&nbsp; <span style='color:#f30203'>Carga con errores</span>";
-                              //    $("#lbl_resultado").html(html);
-                              //}
-
+                        
+           
                           },
                           error: function (jqXHR, textStatus, errorThrown) {
                               jQuery.unblockUI();
@@ -85,3 +97,19 @@ function Producto_ImportarProducto() {
               });
 }
 
+function Importar_TablaResutaldos(Listado) {
+    $('#Importar_GirdErrores').show('slow'); 
+    jQuery("#" + Importar_ErroresCarga_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
+    $.each(Listado, function (i, v) {
+        var idgrilla = i + 1;
+        var myData =
+            {
+                CODIGO: idgrilla,
+                NRO_FILA: v.NRO_FILA,
+                DESCRIPCION: v.DESCRIPCION
+            };
+        jQuery("#" + Importar_ErroresCarga_Grilla).jqGrid('addRowData', idgrilla, myData);
+    });
+    jQuery("#" + Importar_ErroresCarga_Grilla).trigger("reloadGrid");
+ 
+}

@@ -4,6 +4,7 @@
     var _ID_SUCURSAL = @Model.ID_SUCURSAL
 
     $(document).ready(function () {
+        Importar_ErroresCarga_ConfigurarGrilla();
         $("#file-upload").change(function () {
             $("#Lbl_Namefile").html("Sin archivo cargado...");
             var input = document.getElementById('file-upload');
@@ -44,9 +45,6 @@
         Producto_ImportarProducto();
     });
 
-
-
-
 </script>
 <style>
     #modal-dialog_this {
@@ -62,50 +60,60 @@
 
 <div class="modal fade" id="myModalDescargar" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
-@using (Html.BeginForm("Importar_CargarExcel", "Importar_Producto", new { @area = "Inventario" }, FormMethod.Post, new { @id = "frmMantenimiento_ImportarExcel", @class = "form-horizontal", @enctype = "multipart/form-data" }))
-{
-    @Html.ValidationSummary(true)
-    <div class="modal-dialog" role="document" id="modal-dialog_this">
-        <div class="modal-content">
-            <div class="modal-header" id="ModalImportar">
-                <h5 class="modal-title"><i class="bi bi-cloud-upload"></i>&nbsp; Carga masiva productos</h5>
-            </div>
-            <div class="modal-body">
-                <div class="form-row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body mb-0">
-                                <h5 class="card-title">Descarga plantilla excel</h5>
-                                <p class="card-text">Para poder importar tus productos en lote debes descargar la plantilla y enviarlo utilizando el mismo formato!.</p>
-                                <button type="button" id="Importar_btn_DPlantilla" class="btn btn-outline-success"><i class="bi bi-file-earmark-excel"></i>&nbsp; Descargar Plantilla</button>
-                            </div>
+
+<div class="modal-dialog" role="document" id="modal-dialog_this">
+    <div class="modal-content">
+        <div class="modal-header" id="ModalImportar">
+            <h5 class="modal-title"><i class="bi bi-cloud-upload"></i>&nbsp; Carga masiva productos</h5>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body mb-0">
+                            <h5 class="card-title">Descarga plantilla excel</h5>
+                            <p class="card-text">Para poder importar tus productos en lote debes descargar la plantilla y enviarlo utilizando el mismo formato!.</p>
+                            <button type="button" id="Importar_btn_DPlantilla" class="btn btn-outline-success"><i class="bi bi-file-earmark-excel"></i>&nbsp; Descargar Plantilla</button>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="card mb-0">
-                            <div class="card-body mb-0">
+                </div>
+                <div class="col-12">
+                    <div class="card mb-0">
+                        <div class="card-body mb-0">
+                            @using (Html.BeginForm("Importar_CargarExcel", "Importar_Producto", new { @area = "Inventario" }, FormMethod.Post, new { @id = "frmMantenimiento_ImportarExcel", @class = "form-horizontal", @enctype = "multipart/form-data" }))
+                            {
+                                @Html.ValidationSummary(true)
                                 <div class="custom-file mb-3">
                                     <input id="file-upload" type="file" name="fileArchivo" class="custom-file-input" accept=".csv, .xls, .xlsx">
                                     <label class="custom-file-label" for="file-upload" id="Lbl_Namefile">Sin archivo cargado..</label>
                                 </div>
+                                @Html.Hidden("ID_SUCURSAL", Model.ID_SUCURSAL);
+                            }
 
-                                <div class="alert alert-info alert-dismissible alert-alt fade show">
-                                    <strong><i class="bi bi-info-circle text-info"></i>&nbsp;</strong>Todos los productos que se ingresen en el excel,
+                            <div class="alert alert-info alert-dismissible alert-alt fade show">
+                                <strong><i class="bi bi-info-circle text-info"></i>&nbsp;</strong>Todos los productos que se ingresen en el excel,
                                          serán registrados en el almacén para la sucursal:<b> @Model.DESC_SUCURSAL</b> (ID: @Model.ID_SUCURSAL)
+                            </div>
+                            <div id="Importar_GirdErrores" style="display:none;">
+                                <h4 class="text-danger"><i class="bi bi-exclamation-triangle"></i>&nbsp;Carga con errores, Listado de errores econtrados.</h4>
+                                <div class="jqGrid">
+                                    <table id="Importar_ErroresCarga_Grilla"></table>
+                                    <div id="Importar_ErroresCarga_Barra"></div>
                                 </div>
 
                             </div>
+
                         </div>
                     </div>
                 </div>
+            </div>
 
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="Producto_Btn_Importar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-cloud-upload"></i>&nbsp; Comenzar carga</button>
-                <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
-            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="Producto_Btn_Importar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-cloud-upload"></i>&nbsp; Comenzar carga</button>
+            <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
         </div>
     </div>
-    @Html.Hidden("ID_SUCURSAL", Model.ID_SUCURSAL);
-}
+</div>
+

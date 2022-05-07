@@ -255,6 +255,7 @@
     <Compile Include="Recursos\Clases\Css_Log.cs" />
     <Compile Include="Recursos\Clases\Css_Mail.cs" />
     <Compile Include="Recursos\Clases\Css_Ruta.cs" />
+    <Compile Include="Recursos\Clases\Css_Validators.cs" />
     <Compile Include="Recursos\Descargas\DescargarPlantillaExcel.aspx.cs">
       <DependentUpon>DescargarPlantillaExcel.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

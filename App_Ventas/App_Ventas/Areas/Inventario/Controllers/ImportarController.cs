@@ -4,8 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Capa_Entidad;
+using Capa_Entidad.Base; 
 using Capa_Entidad.Administracion;
+using Capa_Negocio.Inventario;
+using Capa_Negocio.Listados_Combos; 
 using App_Ventas.Areas.Inventario.Models;
+using App_Ventas.Areas.Inventario.Repositorio;
 using App_Ventas.Areas.Ventas.Models;
 using Capa_Entidad.Inventario;
 using DocumentFormat.OpenXml;
@@ -43,7 +47,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
             Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
             if (fileArchivo != null)
             {
-                long ID_SUCURSAL = long.Parse(forms["ID_SUCURSAL"].ToString());
+                int ID_SUCURSAL = int.Parse(forms["ID_SUCURSAL"].ToString());
                 var content = new byte[fileArchivo.ContentLength];
                 fileArchivo.InputStream.Read(content, 0, fileArchivo.ContentLength);
                 string CODIGO_UNICO = Recursos.Clases.Css_Codigo.Generar_Codigo_Temporal();
@@ -53,10 +57,8 @@ namespace App_Ventas.Areas.Inventario.Controllers
                 var ruta_link = @"/" + MisRutas.RUTA + Nombreencriptado;
                 string ruta = MisRutas.RUTA_COMPLETA + Nombreencriptado;
                 fileArchivo.SaveAs(ruta);
-                //string RutaBase = Recursos.Clases.Css_Ruta.Ruta_Temporal() + Nombreencriptado; 
-                  ProcesarHojaCalculo(ruta, ID_SUCURSAL, ref auditoria); 
-               
-            
+                ProcesarHojaCalculo(ruta, ID_SUCURSAL, ref auditoria); 
+
             }
             else
             {
@@ -64,9 +66,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
             }
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
-
-
-        private void ProcesarHojaCalculo(string rutaBase, long ID_SUCURSAL, ref Cls_Ent_Auditoria auditoria)
+        private void ProcesarHojaCalculo(string rutaBase, int ID_SUCURSAL, ref Cls_Ent_Auditoria auditoria)
         {
 
             try
@@ -85,43 +85,31 @@ namespace App_Ventas.Areas.Inventario.Controllers
                     string hojaId = hojas.First(s => s.LocalName == @"sheet").Id;
                     WorksheetPart hoja = (WorksheetPart)document.WorkbookPart.GetPartById(hojaId);
                     SharedStringTable tabla = document.WorkbookPart.SharedStringTablePart.SharedStringTable;
-                    items = ProcesarHojaCalculo(hoja.Worksheet, tabla, ref auditoria);
-                    //if (Tipo == "1")
-                    //{
-                    //    C_BancoPregunta_DTO ent_banco = new C_BancoPregunta_DTO();
-                    //    int registro = items.Count();
-                    //    ent_banco.NR_REGISTRO = registro;
-                    //    ent_banco.USU_INGRESO = user.Value.ToString();
-                    //    ent_banco.IP_PC = Request.UserHostAddress.ToString().Trim();
-                    //    C_BancoPregunta_DTO ent = new BancoPreguntaRepositorio().GrabarProcesoCarga(ent_banco);
-                    //    foreach (var item in items)
-                    //    {
-                    //        PreguntasDTO ent_P = new PreguntasDTO();
-                    //        ent_P.CODIGO_PUESTO = item.CODIGO_PUESTO;
-                    //        ent_P.CODIGO_PREGUNTA = item.CODIGO_PREGUNTA;
-                    //        ent_P.ID_NIVEL = item.ID_NIVEL;
-                    //        ent_P.ID_TEMA = item.ID_TEMA;
-                    //        ent_P.TIPO_PREGUNTA = item.TIPO_PREGUNTA;
-                    //        ent_P.ENUNCIADO = item.ENUNCIADO;
-                    //        ent_P.USU_INGRESO = user.Value.ToString();
-                    //        ent_P.IP_PC = Request.UserHostAddress.ToString().Trim();
-                    //        PreguntasDTO XX = new BancoPreguntaRepositorio().CargaPreguntaTemporal(ent_P, ent.ID_CONTROL_CARGA);
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    foreach (var item in items)
-                    //    {
-                    //        PreguntasDTO ent_P = new PreguntasDTO();
-                    //        ent_P.CODIGO_PREGUNTA = item.CODIGO_PREGUNTA;
-                    //        ent_P.ID_ID_ALTERNATIVA = item.ID_ID_ALTERNATIVA;
-                    //        ent_P.ENUNCIADO = item.ENUNCIADO;
-                    //        ent_P.RESPUESTA = item.RESPUESTA;
-                    //        ent_P.USU_INGRESO = user.Value.ToString();
-                    //        ent_P.IP_PC = Request.UserHostAddress.ToString().Trim();
-                    //        PreguntasDTO XX = new BancoPreguntaRepositorio().CargaAlternativaTemporal(ent_P);
-                    //    }
-                    //}
+                    ValidarCarga(hoja.Worksheet, tabla, ref auditoria);
+                    if (!auditoria.RECHAZAR) {  //  validar carga correcto
+                        items = ObtenerRegistros(hoja.Worksheet, tabla, ref auditoria);
+                        if (items.Count > 0)
+                        {
+                            foreach (Cls_Ent_Producto entidad in items)
+                            {
+                                using (ProductoRepositorio Productorepositorio = new ProductoRepositorio())
+                                {
+                                    entidad.ID_SUCURSAL = ID_SUCURSAL;
+                                    entidad.USU_CREACION = "iperez"; 
+                                    Productorepositorio.Producto_Insertar(entidad, ref auditoria);
+                                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                                    {
+                                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            auditoria.Rechazar("No se encontre registros para procesar."); 
+                        }
+                    }
                   }
                 }
             }
@@ -140,202 +128,183 @@ namespace App_Ventas.Areas.Inventario.Controllers
             }
 
         }
-
-        public List<Cls_Ent_Producto> ProcesarHojaCalculo(Worksheet hoja, SharedStringTable tabla, ref Cls_Ent_Auditoria auditoria)
+        public List<Cls_Ent_Producto> ObtenerRegistros(Worksheet hoja, SharedStringTable tabla, ref Cls_Ent_Auditoria auditoria)
         {
+                    List<Cls_Ent_Producto> ListaProductos = new List<Cls_Ent_Producto>();
+                Cls_Ent_Producto item = new Cls_Ent_Producto(); 
             try
             {
                 IEnumerable<Row> registros = this.GetRowsGreaterEqualThan(hoja, 2);
-                List<Cls_Ent_Producto> items = new List<Cls_Ent_Producto>();
-                int reg = 0;
-        //        //   var listaPersona = _personaService.GetTodos()
-        //        string NOM = "";
-        //        List<ListaCombosDTO> ListaNivel = new BancoPreguntaRepositorio().ListaNivelPregunta(NOM);
-        //        List<ListaCombosDTO> ListaTema = new BancoPreguntaRepositorio().ListaTemaPregunta(NOM);
-        //        List<ListaCombosDTO> ListaPuesto = new BancoPreguntaRepositorio().ListaPuesto_Mpp(NOM);
-        //        List<ListaCombosDTO> ListaPuestoTemp = new BancoPreguntaRepositorio().ListaPuesto_Temporal(NOM);
-        //        List<PreguntasDTO> ListaAlternativaTemp = new BancoPreguntaRepositorio().ListaAlternativa_Temporal(NOM);
-
                 foreach (Row registro in registros)
-                {
-                    reg++;
+                {                 
                     String[] valores = GetRowValue(tabla, registro);
-        //            if (valores.Length == 0) continue;
-        //            if (Tipo == "1")
-        //            {
-        //                if (valores.Length != 7)
-        //                {
-        //                    throw new Exception("El archivo cargado no tiene el número de columnas requeridas, El formato debe contener siete columnas Código Pregunta,Código Puesto, Tema General, Nivel, Tipo Pregunta, Pregunta y Autor</br>NO acepta campos vacios,la columna Autor puede ser rellenado con (0)");
-        //                }
-        //            }
-        //            else
-        //            {
-        //                if (valores.Length != 4)
-        //                {
-        //                    throw new Exception("El archivo cargado no tiene el número de columnas requeridas, El formato debe contener tres columnas Código Pregunta, Correlativo, Alternativa y Respuesta.");
-        //                }
-        //            }
-        //            if (Tipo == "1")
-        //            {
-        //                string cod_pregunta = Convert.ToString(valores[0]);
-        //                if (!string.IsNullOrEmpty(cod_pregunta))
-        //                {
-        //                    cod_pregunta = cod_pregunta.Trim();
-        //                }
-        //                if (ListaAlternativaTemp != null)
-        //                {
-        //                    var Objeto_alternativas_Temp = ListaAlternativaTemp.Where(p => p.CODIGO_PREGUNTA == cod_pregunta.ToUpper()).FirstOrDefault();
-        //                    if (Objeto_alternativas_Temp != null)
-        //                    {
-        //                        throw new Exception("El Código de Pregunta <b>" + cod_pregunta + "</b> ya se encuentra registrado.");
-        //                    }
-        //                }
-        //                string cod_puesto = Convert.ToString(valores[1]);
-        //                if (!string.IsNullOrEmpty(cod_puesto))
-        //                {
-        //                    cod_puesto = cod_puesto.Trim();
-        //                }
-        //                var Objeto_Puesto = ListaPuesto.Where(p => p.DESCRIPCION == cod_puesto.ToUpper()).FirstOrDefault();
-        //                if (Objeto_Puesto == null)
-        //                {
-        //                    throw new Exception("El Código de Puesto <b>" + cod_puesto + "</b> no se encuentra registrado en el Sistema.");
-        //                }
-        //                else
-        //                {
-        //                    cod_puesto = Objeto_Puesto.DESCRIPCION;
-        //                }
-        //                if (ListaPuestoTemp != null) { 
-        //                var Objeto_Puesto_Temp = ListaPuestoTemp.Where(p => p.DESCRIPCION == cod_puesto.ToUpper()).FirstOrDefault();
-        //                if (Objeto_Puesto_Temp != null)
-        //                {
-        //                    throw new Exception("El Código de Puesto <b>" + cod_puesto + "</b> ya fue registrado.");
-        //                }
-        //                }
-        //                string tema_general = Convert.ToString(valores[2]);
-        //                if (!string.IsNullOrEmpty(tema_general))
-        //                {
-        //                    tema_general = tema_general.Trim();
-        //                }
-        //                var Objeto_Tema = ListaTema.Where(p => p.DESCRIPCION == tema_general.ToUpper()).FirstOrDefault();
-        //                if (Objeto_Tema == null)
-        //                {
-        //                    throw new Exception("El tema <b>" + tema_general + "</b> no se encuentra registrado en el Sistema.");
-        //                }
-        //                else {
-        //                    tema_general = Objeto_Tema.ID;
-        //                }
-
-        //                string nivel = Convert.ToString(valores[3]);
-        //                if (!string.IsNullOrEmpty(nivel))
-        //                {
-        //                    nivel = nivel.Trim();
-        //                }
-        //                var Objeto_Nivel = ListaNivel.Where(p => p.DESCRIPCION == nivel.ToUpper()).FirstOrDefault();
-        //                if (Objeto_Nivel == null)
-        //                {
-        //                    throw new Exception("El nivel <b>" + nivel + "</b> no se encuentra registrado en el Sistema.");
-        //                }
-        //                else
-        //                {
-        //                    nivel = Objeto_Nivel.ID;
-        //                }
-
-        //                string tipo_pregunta = Convert.ToString(valores[4]);
-        //                int resultado = 0;
-        //                bool esNumerico = Int32.TryParse(tipo_pregunta, out resultado);
-        //                if (!esNumerico)
-        //                {
-        //                    throw new Exception("Ingresar correctamente la columna <b>TIPO PREGUNTA</b><br> (1) Opción Múltiple - (2) Verdadero/Falso");
-        //                }
-        //                if (tipo_pregunta !="1" && tipo_pregunta != "2")
-        //                {
-        //                    throw new Exception("Ingresar correctamente la columna <b>TIPO PREGUNTA</b><br> (1) Opción Múltiple - (2) Verdadero/Falso");
-        //                }
-        //                string pregunta = Convert.ToString(valores[5]);
-        //                if (!string.IsNullOrEmpty(pregunta))
-        //                {
-        //                    pregunta = pregunta.Trim();
-        //                }
-        //                string autor = Convert.ToString(valores[6]);
-        //                if (!string.IsNullOrEmpty(autor))
-        //                {
-        //                    autor = autor.Trim();
-        //                }
-        //                var item = new PreguntasDTO();
-        //                item.CODIGO_PUESTO = cod_puesto;
-        //                item.CODIGO_PREGUNTA = cod_pregunta;
-        //                item.ID_NIVEL = int.Parse(nivel);
-        //                item.ID_TEMA = int.Parse(tema_general);
-        //                item.TIPO_PREGUNTA = tipo_pregunta;
-        //                item.ENUNCIADO = pregunta;
-        //                item.AUTOR = autor;
-        //                items.Add(item);
-        //            }
-        //            else
-        //            {
-        //                string cod_pregunta = Convert.ToString(valores[0]);
-        //                if (!string.IsNullOrEmpty(cod_pregunta))
-        //                {
-        //                    cod_pregunta = cod_pregunta.Trim();
-        //                }
-        //                var Objeto_Puesto_Temp = ListaPuestoTemp.Where(p => p.CODIGO_PREGUNTA == cod_pregunta.ToUpper()).FirstOrDefault();
-        //                if (Objeto_Puesto_Temp == null)
-        //                {
-        //                    throw new Exception("El Código de Pregunta <b>" + cod_pregunta + "</b> no se encuentra asignado a una pregunta temporal.");
-        //                }
-        //                if (ListaAlternativaTemp != null) { 
-        //                var Objeto_alternativas_Temp = ListaAlternativaTemp.Where(p => p.CODIGO_PREGUNTA == cod_pregunta.ToUpper()).FirstOrDefault();
-        //                if (Objeto_alternativas_Temp != null)
-        //                {
-        //                    throw new Exception("Las alternativas del Código de Pregunta <b>" + cod_pregunta + "</b> ya fueron registrados.");
-        //                }
-        //                }
-        //                string correlativo = Convert.ToString(valores[1]);
-        //                int resultado_ = 0;
-        //                bool esNumerico_ = Int32.TryParse(correlativo, out resultado_);
-        //                if (!esNumerico_)
-        //                {
-        //                    throw new Exception("Ingresar correctamente la columna <b>CORRELATIVO</b> <br>  solo se permite valores numericos 1,2,3,4,5,6 correlativo de la pregunta.");
-        //                }
-        //                string alternativa = Convert.ToString(valores[2]);
-        //                if (!string.IsNullOrEmpty(alternativa))
-        //                {
-        //                    alternativa = alternativa.Trim();
-        //                }
-        //                string respuesta = Convert.ToString(valores[3]);
-        //                int resultado = 0;
-        //                bool esNumerico = Int32.TryParse(respuesta, out resultado);
-        //                if (!esNumerico)
-        //                {
-        //                    throw new Exception("Ingresar correctamente la columna <b>RESPUESTA</b> <br>  (1) Respuesta Correcta - (0) No es la respuesta");
-        //                }
-        //                if (respuesta != "1" && respuesta != "0")
-        //                {
-        //                    throw new Exception("Ingresar correctamente la columna <b>RESPUESTA</b> <br>  (1) Respuesta Correcta - (0) No es la respuesta");
-        //                }
-        //                var item = new PreguntasDTO();
-        //                item.CODIGO_PREGUNTA = cod_pregunta;
-        //                item.ID_ID_ALTERNATIVA = int.Parse(correlativo);
-        //                item.ENUNCIADO = alternativa.ToUpper();// int.Parse(nivel);
-        //                item.RESPUESTA = respuesta;
-        //                items.Add(item);
-        //            }
+                    if (valores.Length == 0) continue;
+                        if (!auditoria.RECHAZAR)
+                        {
+                             item.COD_PRODUCTO = Convert.ToString(valores[0]);                   
+                             item.DESC_PRODUCTO = Convert.ToString(valores[1]);
+                             item.ID_CATEGORIA =  Convert.ToInt32(valores[2]);
+                             item.ID_UNIDAD_MEDIDA = Convert.ToInt32(valores[3]);
+                             item.PRECIO_COMPRA = Convert.ToDecimal(valores[4]);
+                             item.PRECIO_VENTA = Convert.ToDecimal(valores[5]);
+                             item.STOCK = Convert.ToInt32(valores[6]);
+                             item.STOCK_MINIMO = Convert.ToInt32(valores[7]);
+                             item.FLG_SERVICIO = Convert.ToInt32(valores[8]);
+                         
+                            if (valores.Length != 10)
+                                item.FECHA_VENCIMIENTO = Convert.ToString(valores[9]);
+                            if (valores.Length != 11)
+                                item.MARCA = Convert.ToString(valores[10]);
+                            if (valores.Length != 12)
+                                item.MODELO = Convert.ToString(valores[11]);
+                            if (valores.Length != 13)
+                                item.DETALLE = Convert.ToString(valores[12]);
+                            ListaProductos.Add(item); 
+                        }   
                 }
-
-        //        if (items.Count <= 0)
-        //        {
-        //            throw new Exception("No hay registros válidos para el registro");
-        //        }
-                return items;
+  
             }
             catch (Exception ex)
             {
                 string mensaje = Recursos.Clases.Css_Log.Guardar(ex.ToString());
                 auditoria.Rechazar(mensaje);
-                throw new Exception(ex.Message, ex.InnerException);
+            }
+
+            return ListaProductos; 
+        }
+
+        public void ValidarCarga(Worksheet hoja, SharedStringTable tabla, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                IEnumerable<Row> registros = this.GetRowsGreaterEqualThan(hoja, 2);
+                List<Cls_Ent_ErroresExcel> ListaErrores = new List<Cls_Ent_ErroresExcel>();
+                Cls_Ent_ErroresExcel errores = null; 
+                List<Cls_Ent_Unidad_Medida> ListaUnidadMedida = new Cls_Rule_Listados().Unidad_Medida_Listar(ref auditoria);
+                List<Cls_Ent_Categoria> ListaCategoria = new Cls_Rule_Categoria().Categoria_Listar(new Cls_Ent_Categoria { FLG_ESTADO = 1 }, ref auditoria);
+                int filaExcel = 2; // primara fila de registros
+                bool ColumIncomplete = false; 
+                foreach (Row registro in registros)
+                {             
+                    String[] valores = GetRowValue(tabla, registro);
+                    if (valores.Length == 0) continue;
+                    if (valores.Length != 9 && valores.Length < 9) // numero columnas requeridas
+                        {
+                            ColumIncomplete = true; 
+                            auditoria.Rechazar("El archivo cargado no tiene el número de columnas requeridas.");
+                        }
+                        if (!auditoria.RECHAZAR)
+                        {
+                            string COD_PRODUCTO = Convert.ToString(valores[0]);
+                            if (!string.IsNullOrEmpty(COD_PRODUCTO))
+                            {
+                                COD_PRODUCTO = COD_PRODUCTO.Trim();
+                            }
+                            else {
+                                ListaErrores.Add(this.ErrorEcxel(filaExcel, "[COD_PRODUCTO] es obligatorio")); 
+                            }           
+                            string DESC_PRODUCTO = Convert.ToString(valores[1]);
+                            if (!string.IsNullOrEmpty(DESC_PRODUCTO))
+                            {
+                                DESC_PRODUCTO = DESC_PRODUCTO.Trim();
+                            }
+                            else
+                            {
+                                ListaErrores.Add(this.ErrorEcxel(filaExcel, "[DESC_PRODUCTO] es obligatorio")); 
+                            }
+                            string ID_CATEROGIRA = Convert.ToString(valores[2]);
+                            if (Recursos.Clases.Css_Validators.ValidarNumber(ID_CATEROGIRA))
+                            {
+                                var Objeto_Categoria = ListaCategoria.Where(p => p.ID_CATEGORIA == int.Parse(ID_CATEROGIRA)).FirstOrDefault();
+                                if (Objeto_Categoria == null)
+                                {
+                                    ListaErrores.Add(this.ErrorEcxel(filaExcel, "[ID_CATEGORIA] " + ID_CATEROGIRA + " no se encuentra registrado en el Sistema.")); 
+                                }            
+                            }
+                            else {
+                                ListaErrores.Add(this.ErrorEcxel(filaExcel, "[ID_CATEGORIA] debe ser de tipo numerico")); 
+                            }
+                           
+                            string ID_UNIDAD_MEDIDA = Convert.ToString(valores[3]);
+                            if (Recursos.Clases.Css_Validators.ValidarNumber(ID_UNIDAD_MEDIDA))
+                            {
+                                var Objeto_UnidadMedida = ListaUnidadMedida.Where(p => p.ID_UNIDAD_MEDIDA == int.Parse(ID_UNIDAD_MEDIDA)).FirstOrDefault();
+                                if (Objeto_UnidadMedida == null)
+                                {
+                                    ListaErrores.Add(this.ErrorEcxel(filaExcel, "[ID_UNIDAD_MEDIDA]  " + ID_UNIDAD_MEDIDA + " no se encuentra registrado en el Sistema.")); 
+                                }
+                            }
+                            else
+                            {
+                                ListaErrores.Add(this.ErrorEcxel(filaExcel, "[ID_UNIDAD_MEDIDA] debe ser un número")); 
+                            }
+                            string PRECIO_COMPRA = Convert.ToString(valores[4]);
+                            if (!Recursos.Clases.Css_Validators.ValidarDecimal(PRECIO_COMPRA))
+                            {
+                                ListaErrores.Add(this.ErrorEcxel(filaExcel, "[PRECIO_COMPRA] debe ser de tipo numerico o decimal")); 
+                            }
+
+                            string PRECIO_VENTA = Convert.ToString(valores[5]);
+                            if (!Recursos.Clases.Css_Validators.ValidarDecimal(PRECIO_VENTA))
+                            {
+                                ListaErrores.Add(this.ErrorEcxel(filaExcel, "[PRECIO_VENTA] debe ser de tipo numerico o decimal"));
+                            }
+
+                            string STOCK = Convert.ToString(valores[6]);
+                            if (!Recursos.Clases.Css_Validators.ValidarNumber(STOCK))
+                            {
+                                ListaErrores.Add(this.ErrorEcxel(filaExcel, "[STOCK] debe ser un número.")); 
+                            }
+                            string STOCK_MINIMO= Convert.ToString(valores[7]);
+                            if (!Recursos.Clases.Css_Validators.ValidarNumber(STOCK_MINIMO))
+                            {
+
+                                ListaErrores.Add(this.ErrorEcxel(filaExcel, "[STOCK_MINIMO] debe ser un número.")); 
+                            }
+                            string FLG_SERVICIO = Convert.ToString(valores[8]);
+                            if (!Recursos.Clases.Css_Validators.ValidarNumber(FLG_SERVICIO))
+                            {
+                                ListaErrores.Add(this.ErrorEcxel(filaExcel, "[FLG_SERVICIO] debe ser un número, 0/1.")); 
+                            }
+
+                            if (valores.Length == 10)
+                            {
+                                string FECHA_VENCIMIENTO = Convert.ToString(valores[9]);
+                                if (!Recursos.Clases.Css_Validators.ValidarFecha(FECHA_VENCIMIENTO))
+                                {
+                                    ListaErrores.Add(this.ErrorEcxel(filaExcel, "[FECHA_VENCIMIENTO] no tiene el formato correto dd/mm/yyy.")); 
+                                }
+                            }                       
+                            filaExcel++;
+                        }   
+                }
+
+                if (!ColumIncomplete)
+                {
+                    if (ListaErrores.Count > 0)
+                    {
+                        auditoria.Rechazar("Se encontraron errores en el archivo cargado, por favor revisar los detalles y volver a subir el archivo.");
+                        auditoria.OBJETO = ListaErrores;
+                    }
+                    else
+                    {
+                        auditoria.Limpiar();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string mensaje = Recursos.Clases.Css_Log.Guardar(ex.ToString());
+                auditoria.Rechazar(mensaje);
             }
         }
 
+        private Cls_Ent_ErroresExcel ErrorEcxel(int NRO_FILA, string DESCRIPCION) {
+            Cls_Ent_ErroresExcel errores = new Cls_Ent_ErroresExcel();
+            errores.NRO_FILA = NRO_FILA;
+            errores.DESCRIPCION = DESCRIPCION; 
+            return errores; 
+        }
         protected IEnumerable<Row> GetRowsGreaterEqualThan(Worksheet sheet, int index)
         {
             IEnumerable<Row> rows = from row in sheet.Descendants<Row>()
@@ -356,9 +325,6 @@ namespace App_Ventas.Areas.Inventario.Controllers
 
             return values.ToArray();
         }
-
-
-
 
 
 
