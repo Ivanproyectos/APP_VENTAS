@@ -10,7 +10,7 @@
                 // 20 s espera
                 timeout: 20000,
                 beforeSend: function () {
-                    blockUI_('Buscando persona...'); 
+                    _blockUI('Buscando persona...'); 
                 },
                 response: function (data) {
                 },

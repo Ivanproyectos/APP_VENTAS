@@ -28,7 +28,6 @@ namespace App_Ventas.Areas.Inventario.Controllers
         {
             return View();
         }
-
         public ActionResult View_Importar(int ID_SUCURSAL, string DESC_SUCURSAL)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
@@ -41,13 +40,12 @@ namespace App_Ventas.Areas.Inventario.Controllers
         {
             return View();
         }
-
         public ActionResult Importar_CargarExcel(HttpPostedFileBase fileArchivo, FormCollection forms)
         {
             Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
             if (fileArchivo != null)
             {
-                int ID_SUCURSAL = int.Parse(forms["ID_SUCURSAL"].ToString());
+                int ID_SUCURSAL = int.Parse(forms["IMP_ID_SUCURSAL"].ToString());
                 var content = new byte[fileArchivo.ContentLength];
                 fileArchivo.InputStream.Read(content, 0, fileArchivo.ContentLength);
                 string CODIGO_UNICO = Recursos.Clases.Css_Codigo.Generar_Codigo_Temporal();
@@ -68,7 +66,6 @@ namespace App_Ventas.Areas.Inventario.Controllers
         }
         private void ProcesarHojaCalculo(string rutaBase, int ID_SUCURSAL, ref Cls_Ent_Auditoria auditoria)
         {
-
             try
             {
                 if (string.IsNullOrWhiteSpace(rutaBase) == true)
@@ -85,7 +82,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                     string hojaId = hojas.First(s => s.LocalName == @"sheet").Id;
                     WorksheetPart hoja = (WorksheetPart)document.WorkbookPart.GetPartById(hojaId);
                     SharedStringTable tabla = document.WorkbookPart.SharedStringTablePart.SharedStringTable;
-                    ValidarCarga(hoja.Worksheet, tabla, ref auditoria);
+                    ValidarCarga(hoja.Worksheet, tabla,ID_SUCURSAL, ref auditoria);
                     if (!auditoria.RECHAZAR) {  //  validar carga correcto
                         items = ObtenerRegistros(hoja.Worksheet, tabla, ref auditoria);
                         if (items.Count > 0)
@@ -95,7 +92,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                                 using (ProductoRepositorio Productorepositorio = new ProductoRepositorio())
                                 {
                                     entidad.ID_SUCURSAL = ID_SUCURSAL;
-                                    entidad.USU_CREACION = "iperez"; 
+                                    entidad.USU_CREACION = "iperez";
                                     Productorepositorio.Producto_Insertar(entidad, ref auditoria);
                                     if (!auditoria.EJECUCION_PROCEDIMIENTO)
                                     {
@@ -105,6 +102,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                                     }
                                 }
                             }
+                            auditoria.OBJETO = items.Count(); 
                         }
                         else {
                             auditoria.Rechazar("No se encontre registros para procesar."); 
@@ -150,14 +148,16 @@ namespace App_Ventas.Areas.Inventario.Controllers
                              item.STOCK = Convert.ToInt32(valores[6]);
                              item.STOCK_MINIMO = Convert.ToInt32(valores[7]);
                              item.FLG_SERVICIO = Convert.ToInt32(valores[8]);
-                         
-                            if (valores.Length != 10)
-                                item.FECHA_VENCIMIENTO = Convert.ToString(valores[9]);
-                            if (valores.Length != 11)
+                             if (valores.Length == 10)
+                             {
+                                 item.FLG_VENCE = 1;
+                                 item.FECHA_VENCIMIENTO = Convert.ToString(valores[9]);
+                             }
+                            if (valores.Length == 11)
                                 item.MARCA = Convert.ToString(valores[10]);
-                            if (valores.Length != 12)
+                            if (valores.Length == 12)
                                 item.MODELO = Convert.ToString(valores[11]);
-                            if (valores.Length != 13)
+                            if (valores.Length == 13)
                                 item.DETALLE = Convert.ToString(valores[12]);
                             ListaProductos.Add(item); 
                         }   
@@ -172,8 +172,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
 
             return ListaProductos; 
         }
-
-        public void ValidarCarga(Worksheet hoja, SharedStringTable tabla, ref Cls_Ent_Auditoria auditoria)
+        public void ValidarCarga(Worksheet hoja, SharedStringTable tabla,int ID_SUCURSAL, ref Cls_Ent_Auditoria auditoria)
         {
             try
             {
@@ -188,7 +187,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                 {             
                     String[] valores = GetRowValue(tabla, registro);
                     if (valores.Length == 0) continue;
-                    if (valores.Length != 9 && valores.Length < 9) // numero columnas requeridas
+                    if (!(valores.Length >= 9)) // numero columnas requeridas
                         {
                             ColumIncomplete = true; 
                             auditoria.Rechazar("El archivo cargado no tiene el número de columnas requeridas.");
@@ -199,6 +198,13 @@ namespace App_Ventas.Areas.Inventario.Controllers
                             if (!string.IsNullOrEmpty(COD_PRODUCTO))
                             {
                                 COD_PRODUCTO = COD_PRODUCTO.Trim();
+                                var Objeto_ExitCodigo = new Cls_Rule_Producto().Producto_Buscar_Listar(new Cls_Ent_Producto { 
+                                                                                                      ID_SUCURSAL = ID_SUCURSAL,
+                                                                                                       COD_PRODUCTO = COD_PRODUCTO
+                                                                                                        }, ref auditoria);
+                                if (Objeto_ExitCodigo.Count > 0) {
+                                    ListaErrores.Add(this.ErrorEcxel(filaExcel, "[COD_PRODUCTO] " + COD_PRODUCTO + " ya se encuentra registrado."));
+                                }
                             }
                             else {
                                 ListaErrores.Add(this.ErrorEcxel(filaExcel, "[COD_PRODUCTO] es obligatorio")); 
@@ -298,7 +304,6 @@ namespace App_Ventas.Areas.Inventario.Controllers
                 auditoria.Rechazar(mensaje);
             }
         }
-
         private Cls_Ent_ErroresExcel ErrorEcxel(int NRO_FILA, string DESCRIPCION) {
             Cls_Ent_ErroresExcel errores = new Cls_Ent_ErroresExcel();
             errores.NRO_FILA = NRO_FILA;

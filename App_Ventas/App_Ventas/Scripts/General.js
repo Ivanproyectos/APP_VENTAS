@@ -30,7 +30,7 @@ $('.quixnav .metismenu li .not-before').click(function () {
 });
 
 // block ui
-function blockUI_(message) {
+function _blockUI(message) {
 message == "" ? "Procesando..." : message; 
 jQuery.blockUI({
     message: "<div class=\"css_center_block\">  <div class=\"Loader_block\"> "

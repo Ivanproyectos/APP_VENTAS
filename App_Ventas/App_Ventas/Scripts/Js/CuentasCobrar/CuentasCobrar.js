@@ -243,7 +243,7 @@ function CuentasCobrar_Ingresar() {
 function CuentasCobrar_NotificarCredito(ID_VENTA) {
         jConfirm("¿ Desea enviar correo para notificar este credito. ?", "Atención", function (r) {
             if (r) {
-                blockUI_("Enviando Correo..."); 
+                _blockUI("Enviando Correo..."); 
                 setTimeout(function () {
                             var item =
                        {

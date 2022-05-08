@@ -1,10 +1,10 @@
 ﻿@model App_Ventas.Areas.Ventas.Models.BuscarProductoModelView
 <script>
     var _Valido = false;
-    var _ID_SUCURSAL = @Model.ID_SUCURSAL
+    var _DESC_SUCURSAL = @Html.Raw(Json.Encode(Model.DESC_SUCURSAL)); 
 
     $(document).ready(function () {
-        Importar_ErroresCarga_ConfigurarGrilla();
+        Producto_ErroresCarga_ConfigurarGrilla();
         $("#file-upload").change(function () {
             $("#Lbl_Namefile").html("Sin archivo cargado...");
             var input = document.getElementById('file-upload');
@@ -87,7 +87,7 @@
                                     <input id="file-upload" type="file" name="fileArchivo" class="custom-file-input" accept=".csv, .xls, .xlsx">
                                     <label class="custom-file-label" for="file-upload" id="Lbl_Namefile">Sin archivo cargado..</label>
                                 </div>
-                                @Html.Hidden("ID_SUCURSAL", Model.ID_SUCURSAL);
+                                @Html.Hidden("IMP_ID_SUCURSAL", Model.ID_SUCURSAL);
                             }
 
                             <div class="alert alert-info alert-dismissible alert-alt fade show">

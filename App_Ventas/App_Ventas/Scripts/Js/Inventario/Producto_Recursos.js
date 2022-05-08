@@ -10,7 +10,7 @@ function _GuardarTemporal() {
         url: url,
         resetForm: false,
         beforeSubmit: function (formData, jqForm, options) {
-            blockUI_("Subiendo Archivo...");
+            _blockUI("Subiendo Archivo...");
         },
         success: function (response, textStatus, jqXHR) {
             if (response.EJECUCION_PROCEDIMIENTO) {

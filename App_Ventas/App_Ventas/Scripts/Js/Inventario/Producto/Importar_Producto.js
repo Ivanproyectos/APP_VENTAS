@@ -1,12 +1,13 @@
 ﻿var Importar_ErroresCarga_Grilla = 'Importar_ErroresCarga_Grilla';
 var Importar_ErroresCarga_Barra = 'Importar_ErroresCarga_Barra';
-function Importar_ErroresCarga_ConfigurarGrilla() {
+
+function Producto_ErroresCarga_ConfigurarGrilla() {
     $("#" + Importar_ErroresCarga_Grilla).GridUnload();
     var colNames = ['codigo', 'Nro Fila', 'Descrición'];
     var colModels = [
             { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, key: true },
             { name: 'NRO_FILA', index: 'NRO_FILA', align: 'left', width: 80, hidden: false },
-            { name: 'DESCRIPCION', index: 'DESCRIPCION', align: 'left', width: 400, hidden: false },
+            { name: 'DESCRIPCION', index: 'DESCRIPCION', align: 'left', width: 420, hidden: false },
     ];
     var opciones = {
         GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber:50 ,rowNumbers:[ 20, 50, 100, 300],
@@ -47,57 +48,70 @@ function Producto_ImportarProducto() {
         jAlert("Alamacen no seleccionado, por favor seleccione uno", "Atención");
         return;
     }
-    jConfirm("Antes de continuar favor de asegurarse que el archivo no tenga caracteres especiales [;*_\!,etc] en el nombre y el nombre de la hoja sea Hoja1,"
+    jConfirm("Antes de continuar favor de asegurarse que el archivo no tenga caracteres especiales [;*_\!,etc], "
               + "si ya hizo todo lo mencionado obvie este mensaje presionando el botón Aceptar para seguir con el proceso", "Atención", function (r) {
-                  if (r) {
-                      var url = baseUrl + "Inventario/Importar/Importar_CargarExcel";
-                      var options = {
-                          type: "POST",
-                          dataType: "json",
-                          url: url,
-                          extraData: ({
-                          }),
-                          resetForm: true,
-                          beforeSubmit: function (formData, jqForm, options) {
-                              var queryString = $.param(formData);
-                              blockUI_("Importando productos, espere un momento por favor...");
-                              return true;
-                          },
-                          success: function (auditoria) {
-                              jQuery.unblockUI();
-                              $("#Lbl_Namefile").html("Sin archivo cargado...");
-                              if (auditoria.EJECUCION_PROCEDIMIENTO) {
-                                  if (!auditoria.RECHAZAR) {
-                                      jOkas('El proceso de carga ha culminado', 'Alerta');
+                if (r) {
+                    _blockUI("Importando productos, espere un momento por favor...");
+                    $('#Importar_GirdErrores').hide();
+                    setTimeout(function () {
+                    var url = baseUrl + "Inventario/Importar/Importar_CargarExcel";
+                    var options = {
+                        type: "POST",
+                        dataType: "json",
+                        url: url,
+                        extraData: ({
+                        }),
+                        resetForm: true,
+                        beforeSubmit: function (formData, jqForm, options) {
+                            var queryString = $.param(formData);                        
+                            return true;
+                        },
+                        success: function (auditoria) {
+                            jQuery.unblockUI();
+                            $("#Lbl_Namefile").html("Sin archivo cargado...");
+                            if (auditoria.EJECUCION_PROCEDIMIENTO) {
+                                if (!auditoria.RECHAZAR) {
+                                    Producto_ConfigurarGrilla(); 
+                                    var _html = "El proceso de carga ha culminado correctamente. </br>"
+                                            + "  <div class=\"basic-list-group\">"
+                                            + "  <ul class=\"list-group list-group-flush\" style=\"color: #5a5a5a;text-align: left;\">"
+                                            + "    <li class=\"list-group-item\"><strong><b>Detalle:</b> </strong></li>"
+                                            + "    <li class=\"list-group-item\">"
+                                            + "    <span class=\"\"><b>Sucursal:</b></span> <span>" + _DESC_SUCURSAL + "</span>"
+                                            + "  </li>"
+                                            + "    <li class=\"list-group-item\">"
+                                            + "    <span class=\"\"><b>Nro Registros:</b></span> <span> " + auditoria.OBJETO + "</span>"
+                                            + "  </li> "
+                                            + "  </li> "
+                                            + "  </ul> </div>"
 
-                                  } else {
-                                      jError(auditoria.MENSAJE_SALIDA, 'Atención');
-                                      if (auditoria.OBJETO != null)
-                                          Importar_TablaResutaldos(auditoria.OBJETO);
-                                  
-                                  }
-                              }
-                              else {
-                                  jError(auditoria.MENSAJE_SALIDA, 'Atención');
-                              }
+                                    jOkas(_html, 'Atención');
 
-                        
-           
-                          },
-                          error: function (jqXHR, textStatus, errorThrown) {
-                              jQuery.unblockUI();
-                              alert(jqXHR);
-                              window.location = ErrorUrl;
-                          }
+                                } else {
+                                    jError(auditoria.MENSAJE_SALIDA, 'Atención');
+                                    if (auditoria.OBJETO != null)
+                                        Producto_Importar_TablaResutaldos(auditoria.OBJETO);
+                                }
+                            }
+                            else {
+                                jError(auditoria.MENSAJE_SALIDA, 'Atención');
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            jQuery.unblockUI();
+                            alert(jqXHR);
+                            window.location = ErrorUrl;
+                        }
 
-                      };
-                      $("#frmMantenimiento_ImportarExcel").ajaxForm(options);
-                      $("#frmMantenimiento_ImportarExcel").submit();
-                  }
-              });
+                    };
+                    $("#frmMantenimiento_ImportarExcel").ajaxForm(options);
+                    $("#frmMantenimiento_ImportarExcel").submit();
+                    }, 200);
+                }      
+            });
 }
 
-function Importar_TablaResutaldos(Listado) {
+function Producto_Importar_TablaResutaldos(Listado) {
     $('#Importar_GirdErrores').show('slow'); 
     jQuery("#" + Importar_ErroresCarga_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
     $.each(Listado, function (i, v) {

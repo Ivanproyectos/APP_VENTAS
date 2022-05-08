@@ -235,7 +235,7 @@ tr.ui-search-toolbar select {
 
 .ui-jqgrid tr.ui-row-ltr td {
     text-align: left;
-    border-right-width: 0;
+    border-right-width: 1px;
     border-right-color: #eaeaea; 
     border-right-style:solid; 
     word-wrap: break-word;

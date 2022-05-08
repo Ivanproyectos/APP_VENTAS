@@ -63,20 +63,10 @@ function Producto_ConfigurarGrilla() {
 function GetRules(Ventas_Grilla) {
     var rules = new Array();
     var SearchFields = new Array();
-    //var FLG_ESTADO = jQuery('#Producto_Estado').val() == '' ? null : "'" + jQuery('#Producto_Estado').val() + "'";
-    //var FLG_SERVICIO = jQuery('#Producto_flg_servicio').val() == '' ? null : "'" + jQuery('#Producto_flg_servicio').val() + "'";
-    //var ID_CATEGORIA = jQuery('#ID_CATEGORIA_SEARCH').val() == '' ? null : "'" + jQuery('#ID_CATEGORIA_SEARCH').val() + "'";
-    //var DESC_PRODUCTO = "'" + jQuery('#Producto_Desc').val() + "'";
-    //var CODIGO_PRODUCTO = "'" + jQuery('#Producto_codigo').val() + "'";
     var ID_SUCURSAL = jQuery('#ID_SUCURSAL').val() == '' ? null : "'" + jQuery('#ID_SUCURSAL').val() + "'";
 
     var POR = "'%'";
     rules = []
-    //rules.push({ field: 'UPPER(DESC_PRODUCTO)', data: POR + ' + ' + DESC_PRODUCTO + ' + ' + POR, op: " LIKE " });
-    //rules.push({ field: 'UPPER(COD_PRODUCTO)', data: POR + ' + ' + CODIGO_PRODUCTO + ' + ' + POR, op: " LIKE " });
-    //rules.push({ field: 'ID_CATEGORIA', data: '  ISNULL(' + ID_CATEGORIA + ',ID_CATEGORIA) ', op: " = " });
-    //rules.push({ field: 'FLG_SERIVICIO', data: '  ISNULL(' + FLG_SERVICIO + ',FLG_SERIVICIO) ', op: " = " });
-    //rules.push({ field: 'FLG_ESTADO', data: '  ISNULL(' + FLG_ESTADO + ',FLG_ESTADO) ', op: " = " });
     rules.push({ field: 'ID_SUCURSAL', data: '  ISNULL(' + ID_SUCURSAL + ',ID_SUCURSAL)', op: " = " });
 
     SearchFields.push({ field: 'UPPER(COD_PRODUCTO)' });

@@ -408,7 +408,7 @@
 
         function ListarMenu(ID_PERFIL) {
             debugger;
-            blockUI_('Generando modulos del usuario..');
+            _blockUI('Generando modulos del usuario..');
             var urlListar = baseUrl + 'Modulos/Usuario_Modulos?ID_PERFIL=' + ID_PERFIL;
             $.ajax({
                 url: urlListar,
