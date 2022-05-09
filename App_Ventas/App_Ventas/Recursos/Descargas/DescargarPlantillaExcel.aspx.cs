@@ -77,12 +77,12 @@ namespace App_Ventas.Recursos.Descargas
            
 
                 // PLANTILLA 1
-                 Cls_Ent_MultiSheets<Cls_Ent_Unidad_Medida> Sheet1 = new Cls_Ent_MultiSheets<Cls_Ent_Unidad_Medida>();
+                 Cls_Ent_MultiSheets Sheet1 = new Cls_Ent_MultiSheets();
                 Sheet1.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "COD_PRODUCTO", DESCRIPCION_COLUMNA = "Código" });
                 Sheet1.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "DESC_PRODUCTO", DESCRIPCION_COLUMNA = "Producto" });
                 Sheet1.ONLYCOLUMN = true;
                 Sheet1.NAME_SHEET = "PlantillaProducto";
-                Sheet1.ORDEN_INDEX = 2;
+                Sheet1.ORDEN_INDEX = 1;
                 Sheet1.dt = Handlers.CreateExcelFileMS.ListToDataTableMS<Cls_Ent_Columnas>(new List<Cls_Ent_Columnas>(), Sheet1.ONLYCOLUMN, Sheet1.COLUMNS);
                 ListaHojas.Add(Sheet1);
 
@@ -91,8 +91,9 @@ namespace App_Ventas.Recursos.Descargas
                 Sheet2.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "ID_UNIDAD_MEDIDA", DESCRIPCION_COLUMNA = "Código" });
                 Sheet2.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "DESC_UNIDAD_MEDIDA", DESCRIPCION_COLUMNA = "Descripción" });
                 Sheet2.ONLYCOLUMN = false;
+                //Sheet2.TITLE = new Cls_Ent_Titulo { TITULO = "VENTAS - Unidades de Medidas", TITULO_CELDA = "F", TITULO_INT = 3 }; 
                 Sheet2.NAME_SHEET = "UnidadMedida";
-                Sheet2.ORDEN_INDEX = 1;
+                Sheet2.ORDEN_INDEX = 2;
                 Sheet2.dt = Handlers.CreateExcelFileMS.ListToDataTableMS<Cls_Ent_Unidad_Medida>(List_Unidad, Sheet2.ONLYCOLUMN, Sheet2.COLUMNS);
                 ListaHojas.Add(Sheet2);
 
@@ -102,10 +103,11 @@ namespace App_Ventas.Recursos.Descargas
                 Sheet3.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "DESC_CATEGORIA", DESCRIPCION_COLUMNA = "Categoria" });
                 Sheet3.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "DESCRIPCION", DESCRIPCION_COLUMNA = "Descripción" });
                 Sheet3.ONLYCOLUMN = false;
+                Sheet3.TITLE = new Cls_Ent_Titulo { TITULO = "VENTAS - Categorias", TITULO_CELDA = "F", TITULO_INT = 3 };             
                 Sheet3.NAME_SHEET = "Categorias";
-                Sheet3.ORDEN_INDEX = 1;
-                Sheet3.dt = Handlers.CreateExcelFileMS.ListToDataTableMS<Cls_Ent_Categoria>(List_Categoria, Sheet2.ONLYCOLUMN, Sheet3.COLUMNS);
-                ListaHojas.Add(Sheet2);
+                Sheet3.ORDEN_INDEX = 3;
+                Sheet3.dt = Handlers.CreateExcelFileMS.ListToDataTableMS<Cls_Ent_Categoria>(List_Categoria, Sheet3.ONLYCOLUMN, Sheet3.COLUMNS);
+                ListaHojas.Add(Sheet3);
 
 
                 Handlers.CreateExcelFileMS.CreateExcelDocumentMS(ListaHojas, RUTA_ARCHIVO_TEMPORAL, RUTA_LOGO);

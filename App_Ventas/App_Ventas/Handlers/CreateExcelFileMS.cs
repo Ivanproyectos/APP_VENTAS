@@ -115,29 +115,18 @@ namespace App_Ventas.Handlers
                      WorkbookPart wBookPart = null;
                      wBookPart = spreadsheet.AddWorkbookPart();
                      wBookPart.Workbook = new Workbook();
-
+                     MergeCells mergeCells = new MergeCells();
                      spreadsheet.WorkbookPart.Workbook.Sheets = new Sheets();
                      Sheets sheets = spreadsheet.WorkbookPart.Workbook.GetFirstChild<Sheets>();
-
+                 
                     foreach (Cls_Ent_MultiSheets item in ListaHojas)
                     {
-                        //DataSet ds = new DataSet();
-                        //ds.Tables.Add(ListToDataTableMS(item.LIST, item.ONLYCOLUMN, item.COLUMNS));
 
-                        //spreadsheet.Close();
-                        //Console.WriteLine("Creating workbook");
-                        ////if (Increment == 1)
-                      
-                        ////spreadsheet.AddWorkbookPart();
-                       
-                        //Console.WriteLine("Creating worksheet");
 
                          var wsPart = spreadsheet.WorkbookPart.AddNewPart<WorksheetPart>();
-                   
-
+                  
                          //Add Sheets to the Workbook.
-                        Sheet sheet = new Sheet() { Id = spreadsheet.WorkbookPart.GetIdOfPart(wsPart), SheetId = item.ORDEN_INDEX, Name = item.NAME_SHEET };
-                        sheets.Append(sheet);
+                      
 
                         wsPart.Worksheet = new Worksheet();
 
@@ -155,11 +144,13 @@ namespace App_Ventas.Handlers
                         //Console.WriteLine("Adding rows / cells...");
                         if (item.TITLE != null)
                         {
+                            //Row headerRow = new Row();
                             sheetData.AppendChild(new Row());
                             sheetData.AppendChild(new Row());
                         }
+
                         var row = sheetData.AppendChild(new Row());
-                        MergeCells mergeCells = new MergeCells();
+                       
 
                         if (item.TITLE != null)
                         {
@@ -180,6 +171,7 @@ namespace App_Ventas.Handlers
                             row.Height = 35;
                             row.CustomHeight = true;
                         }
+
                         DataTable dt = item.dt;
                         int numberOfColumns = dt.Columns.Count;
                         bool[] IsNumericColumn = new bool[numberOfColumns];
@@ -209,10 +201,6 @@ namespace App_Ventas.Handlers
                                     }
                                 }
                             }
-                            //, CellReference = new StringValue("")
-                            //AppendTextCell(excelColumnNames[colInx] + "1", col.ColumnName, ref writer);
-                            //IsNumericColumn[colInx] = (col.DataType.FullName == "System.Decimal") || (col.DataType.FullName == "System.Int32") 
-                            //|| (col.DataType.FullName == "System.Double") || (col.DataType.FullName == "System.Single");
                         }
                         celda_fila++;
 
@@ -265,21 +253,14 @@ namespace App_Ventas.Handlers
                                 celda_fila++;
                             }
                         }
-                        //Console.WriteLine("Saving worksheet");
                         wsPart.Worksheet.Save();
-                        // Console.WriteLine("Creating sheet list");
-                       
-
-                        //sheets.AppendChild(new Sheet() { Id = spreadsheet.WorkbookPart.GetIdOfPart(wsPart), SheetId = 2, Name = "Hoja2" });
-
-                        //Console.WriteLine("Saving workbook");
                         string ruta_temporal = "";
                         if (item.TITLE != null)
                         {
                             string imagePath1 = RUTA_LOGO;
 
                             System.Drawing.Bitmap bm = (System.Drawing.Bitmap)System.Drawing.Image.FromFile(imagePath1);
-                            System.Drawing.Bitmap resized = new System.Drawing.Bitmap(bm, new System.Drawing.Size(320, 68));
+                            System.Drawing.Bitmap resized = new System.Drawing.Bitmap(bm, new System.Drawing.Size(100, 68));
 
                             string CODIGO = Recursos.Clases.Css_Codigo.Generar_Codigo_Temporal();
                             string CODIGO_NOMBRE = CODIGO + ".png";
@@ -290,16 +271,14 @@ namespace App_Ventas.Handlers
                         }
                         if (item.TITLE != null)
                         {
-                            wsPart.Worksheet.InsertAfter(mergeCells, wsPart.Worksheet.Elements<SheetData>().First());
+                            wsPart.Worksheet.InsertAfter(mergeCells, wsPart.Worksheet.Elements<SheetData>().LastOrDefault());
                         }
 
-                     
-                       
-                        //var sheets = spreadsheet.WorkbookPart.Workbook.AppendChild(new Sheets());
-                        //sheets.AppendChild(new Sheet() { Id = spreadsheet.WorkbookPart.GetIdOfPart(wsPart), SheetId = item.ORDEN_INDEX, Name = item.NAME_SHEET });
+                        Sheet sheet = new Sheet() { Id = spreadsheet.WorkbookPart.GetIdOfPart(wsPart), SheetId = item.ORDEN_INDEX, Name = item.NAME_SHEET };
+                        sheets.Append(sheet);
 
                         wsPart.Worksheet.Save();
-
+                        spreadsheet.WorkbookPart.Workbook.Save();
                             Console.WriteLine("Done.");
                         if (File.Exists(ruta_temporal))
                         {
@@ -309,7 +288,7 @@ namespace App_Ventas.Handlers
                      
                     }
                       // Close the document.
-                    spreadsheet.WorkbookPart.Workbook.Save();
+                    
                     spreadsheet.Close(); 
                   
 
