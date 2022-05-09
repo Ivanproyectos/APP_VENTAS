@@ -30,7 +30,7 @@ namespace App_Ventas.Handlers
             if (File.Exists(excelFilename))
                 File.Delete(excelFilename);
 
-            CreateExcelFile.CreateExcelDocument(dt, excelFilename, context.Response);
+            CreateExcelFile.CreateExcelDocument(dt, excelFilename, context.Response, null, false, null);
         }
 
         private DataTable ConvertCsvData(string CSVdata)

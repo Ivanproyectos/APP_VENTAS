@@ -71,7 +71,8 @@ function Producto_ImportarProducto() {
                             $("#Lbl_Namefile").html("Sin archivo cargado...");
                             if (auditoria.EJECUCION_PROCEDIMIENTO) {
                                 if (!auditoria.RECHAZAR) {
-                                    Producto_ConfigurarGrilla(); 
+                                    Producto_ConfigurarGrilla();
+                                    $('#myModalNuevo').modal('hide');
                                     var _html = "El proceso de carga ha culminado correctamente. </br>"
                                             + "  <div class=\"basic-list-group\">"
                                             + "  <ul class=\"list-group list-group-flush\" style=\"color: #5a5a5a;text-align: left;\">"

@@ -596,7 +596,7 @@ namespace Capa_Datos.Inventario
                     { cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = entidad.DETALLE; }
 
                     if (entidad.MiArchivo.CODIGO_ARCHIVO == null)
-                    { cmd.Parameters.Add(new SqlParameter("@PI_COD_ARCHIVO", SqlDbType.VarChar, 100)).Value = "0";  }
+                    { cmd.Parameters.Add(new SqlParameter("@PI_COD_ARCHIVO", SqlDbType.VarChar, 100)).Value = "";  }
                     else
                     { cmd.Parameters.Add(new SqlParameter("@PI_COD_ARCHIVO", SqlDbType.VarChar, 100)).Value = entidad.MiArchivo.CODIGO_ARCHIVO; }
 

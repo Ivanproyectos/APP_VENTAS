@@ -57,10 +57,10 @@ namespace App_Ventas.Recursos.Clases
             return ruta;
         }
 
-        public static string Ruta_Plantilla()
+        public static string Ruta_PlantillaExcel()
         {
             string ruta = "";
-            ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"Recursos\Plantillas\");
+            ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"Recursos\Excel\Plantillas\");
             return ruta;
         }
 
