@@ -6,9 +6,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Capa_Entidad.Base;
 using Capa_Entidad.Administracion;
+using Capa_Entidad.Inventario;
 using Capa_Entidad; 
 using System.IO;
 using App_Ventas.Areas.Administracion.Repositorio;
+using App_Ventas.Areas.Inventario.Repositorio;
 
 namespace App_Ventas.Recursos.Descargas
 {
@@ -34,6 +36,19 @@ namespace App_Ventas.Recursos.Descargas
                         auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
                     }
                 }
+
+
+                List<Cls_Ent_Categoria> List_Categoria = new List<Cls_Ent_Categoria>();
+                using (CategoriaRepositorio Repositorio = new CategoriaRepositorio())
+                {
+                    List_Categoria = Repositorio.Categoria_Listar(new Cls_Ent_Categoria{ FLG_ESTADO = 1},ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+
                  Cls_Ent_configurarEmpresa Empresa = new Cls_Ent_configurarEmpresa(); 
                 using (ConfigurarEmpresaRepositorio Repositorio = new ConfigurarEmpresaRepositorio())
                 {
@@ -59,39 +74,51 @@ namespace App_Ventas.Recursos.Descargas
 
                  List<Cls_Ent_MultiSheets> ListaHojas = new List<Cls_Ent_MultiSheets>(); 
 
-                // PLANTILLA 
+           
 
-                 Cls_Ent_MultiSheets EntidadSheets = new Cls_Ent_MultiSheets();
-                 EntidadSheets.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "ID_UNIDAD_MEDIDA", DESCRIPCION_COLUMNA = "Código" });
-                 EntidadSheets.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "DESC_UNIDAD_MEDIDA", DESCRIPCION_COLUMNA = "Descripción" });
-                EntidadSheets.ONLYCOLUMN = false;
-                EntidadSheets.NAME_SHEET = "Hoja1";
-                EntidadSheets.ORDEN_INDEX = 1;
-                EntidadSheets.dt = Handlers.CreateExcelFileMS.ListToDataTableMS<Cls_Ent_Unidad_Medida>(List_Unidad, EntidadSheets.ONLYCOLUMN, EntidadSheets.COLUMNS); 
-                ListaHojas.Add(EntidadSheets);
+                // PLANTILLA 1
+                 Cls_Ent_MultiSheets<Cls_Ent_Unidad_Medida> Sheet1 = new Cls_Ent_MultiSheets<Cls_Ent_Unidad_Medida>();
+                Sheet1.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "COD_PRODUCTO", DESCRIPCION_COLUMNA = "Código" });
+                Sheet1.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "DESC_PRODUCTO", DESCRIPCION_COLUMNA = "Producto" });
+                Sheet1.ONLYCOLUMN = true;
+                Sheet1.NAME_SHEET = "PlantillaProducto";
+                Sheet1.ORDEN_INDEX = 2;
+                Sheet1.dt = Handlers.CreateExcelFileMS.ListToDataTableMS<Cls_Ent_Columnas>(new List<Cls_Ent_Columnas>(), Sheet1.ONLYCOLUMN, Sheet1.COLUMNS);
+                ListaHojas.Add(Sheet1);
 
                 // PLANTILLA 2
-                Cls_Ent_MultiSheets<Cls_Ent_Unidad_Medida> EntidadSheets2 = new Cls_Ent_MultiSheets<Cls_Ent_Unidad_Medida>();
-                EntidadSheets2.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "COD_PRODUCTO", DESCRIPCION_COLUMNA = "Código" });
-                EntidadSheets2.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "DESC_PRODUCTO", DESCRIPCION_COLUMNA = "Producto" });
-                EntidadSheets2.ONLYCOLUMN = true;
-                EntidadSheets2.NAME_SHEET = "Hoja2";
-                EntidadSheets2.ORDEN_INDEX = 2;
-                EntidadSheets2.dt = Handlers.CreateExcelFileMS.ListToDataTableMS<Cls_Ent_Columnas>(new List<Cls_Ent_Columnas>(), EntidadSheets2.ONLYCOLUMN, EntidadSheets2.COLUMNS); 
-                ListaHojas.Add(EntidadSheets2);
+                Cls_Ent_MultiSheets Sheet2 = new Cls_Ent_MultiSheets();
+                Sheet2.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "ID_UNIDAD_MEDIDA", DESCRIPCION_COLUMNA = "Código" });
+                Sheet2.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "DESC_UNIDAD_MEDIDA", DESCRIPCION_COLUMNA = "Descripción" });
+                Sheet2.ONLYCOLUMN = false;
+                Sheet2.NAME_SHEET = "UnidadMedida";
+                Sheet2.ORDEN_INDEX = 1;
+                Sheet2.dt = Handlers.CreateExcelFileMS.ListToDataTableMS<Cls_Ent_Unidad_Medida>(List_Unidad, Sheet2.ONLYCOLUMN, Sheet2.COLUMNS);
+                ListaHojas.Add(Sheet2);
+
+                // PLANTILLA 3
+                Cls_Ent_MultiSheets Sheet3 = new Cls_Ent_MultiSheets();
+                Sheet3.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "ID_CATEGORIA", DESCRIPCION_COLUMNA = "Código" });
+                Sheet3.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "DESC_CATEGORIA", DESCRIPCION_COLUMNA = "Categoria" });
+                Sheet3.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "DESCRIPCION", DESCRIPCION_COLUMNA = "Descripción" });
+                Sheet3.ONLYCOLUMN = false;
+                Sheet3.NAME_SHEET = "Categorias";
+                Sheet3.ORDEN_INDEX = 1;
+                Sheet3.dt = Handlers.CreateExcelFileMS.ListToDataTableMS<Cls_Ent_Categoria>(List_Categoria, Sheet2.ONLYCOLUMN, Sheet3.COLUMNS);
+                ListaHojas.Add(Sheet2);
+
 
                 Handlers.CreateExcelFileMS.CreateExcelDocumentMS(ListaHojas, RUTA_ARCHIVO_TEMPORAL, RUTA_LOGO);
                 byte[] bytes = File.ReadAllBytes(RUTA_ARCHIVO_TEMPORAL);
+                if (System.IO.File.Exists(RUTA_ARCHIVO_TEMPORAL))
+                    System.IO.File.Delete(RUTA_ARCHIVO_TEMPORAL);
                 Response.Clear();
                 Response.AddHeader("content-disposition", string.Format("attachment;filename={0}", NOMBRE_ARCHIVO.Replace(",", "")));
                 Response.ContentType = "application/octet-stream";
                 Response.BinaryWrite(bytes);
                 Response.End();
 
-                if (System.IO.File.Exists(RUTA_ARCHIVO_TEMPORAL))
-                {
-                    System.IO.File.Delete(RUTA_ARCHIVO_TEMPORAL);
-                }
+              
             }
             catch (Exception ex)
             {

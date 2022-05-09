@@ -111,20 +111,34 @@ namespace App_Ventas.Handlers
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Create(excelFilename, SpreadsheetDocumentType.Workbook))
                 {
                     //WriteExcelFileMS(ds, document, titulo, solo_columna, columnas);
-                     int Increment = 1; 
+                     int Increment = 1;
+                     WorkbookPart wBookPart = null;
+                     wBookPart = spreadsheet.AddWorkbookPart();
+                     wBookPart.Workbook = new Workbook();
+
+                     spreadsheet.WorkbookPart.Workbook.Sheets = new Sheets();
+                     Sheets sheets = spreadsheet.WorkbookPart.Workbook.GetFirstChild<Sheets>();
+
                     foreach (Cls_Ent_MultiSheets item in ListaHojas)
                     {
                         //DataSet ds = new DataSet();
                         //ds.Tables.Add(ListToDataTableMS(item.LIST, item.ONLYCOLUMN, item.COLUMNS));
 
                         //spreadsheet.Close();
-                        Console.WriteLine("Creating workbook");
-                        if (Increment == 1)
-                        spreadsheet.AddWorkbookPart();
-                        //spreadsheet.AddWorkbookPart();
-                        spreadsheet.WorkbookPart.Workbook = new Workbook();
-                        Console.WriteLine("Creating worksheet");
-                        var wsPart = spreadsheet.WorkbookPart.AddNewPart<WorksheetPart>();
+                        //Console.WriteLine("Creating workbook");
+                        ////if (Increment == 1)
+                      
+                        ////spreadsheet.AddWorkbookPart();
+                       
+                        //Console.WriteLine("Creating worksheet");
+
+                         var wsPart = spreadsheet.WorkbookPart.AddNewPart<WorksheetPart>();
+                   
+
+                         //Add Sheets to the Workbook.
+                        Sheet sheet = new Sheet() { Id = spreadsheet.WorkbookPart.GetIdOfPart(wsPart), SheetId = item.ORDEN_INDEX, Name = item.NAME_SHEET };
+                        sheets.Append(sheet);
+
                         wsPart.Worksheet = new Worksheet();
 
                         if (Increment == 1)
@@ -260,7 +274,7 @@ namespace App_Ventas.Handlers
 
                         //Console.WriteLine("Saving workbook");
                         string ruta_temporal = "";
-                        if (item.ONLYCOLUMN != null)
+                        if (item.TITLE != null)
                         {
                             string imagePath1 = RUTA_LOGO;
 
@@ -274,25 +288,29 @@ namespace App_Ventas.Handlers
 
                             Handlers.ExcelTools.AddImage(wsPart, ruta_temporal, "My first image", 1, 1); // A1
                         }
-                        if (item.ONLYCOLUMN != null)
+                        if (item.TITLE != null)
                         {
                             wsPart.Worksheet.InsertAfter(mergeCells, wsPart.Worksheet.Elements<SheetData>().First());
                         }
+
+                     
+                       
+                        //var sheets = spreadsheet.WorkbookPart.Workbook.AppendChild(new Sheets());
+                        //sheets.AppendChild(new Sheet() { Id = spreadsheet.WorkbookPart.GetIdOfPart(wsPart), SheetId = item.ORDEN_INDEX, Name = item.NAME_SHEET });
+
                         wsPart.Worksheet.Save();
 
-                        
-                         var sheets = spreadsheet.WorkbookPart.Workbook.AppendChild(new Sheets());
-                        sheets.AppendChild(new Sheet() { Id = spreadsheet.WorkbookPart.GetIdOfPart(wsPart), SheetId = item.ORDEN_INDEX, Name = item.NAME_SHEET });
-
-                        Console.WriteLine("Done.");
+                            Console.WriteLine("Done.");
                         if (File.Exists(ruta_temporal))
                         {
                             File.Delete(ruta_temporal);
                         }
-                        Increment ++; 
+                        Increment ++;
+                     
                     }
-
+                      // Close the document.
                     spreadsheet.WorkbookPart.Workbook.Save();
+                    spreadsheet.Close(); 
                   
 
                 }
@@ -722,6 +740,55 @@ namespace App_Ventas.Handlers
                     (type.IsGenericType &&
                      type.GetGenericTypeDefinition().Equals(typeof(Nullable<>))));
         }
+
+
+        //private void exportDocument(string FilePath, DataTable sourceTable)
+        //{
+        //    WorkbookPart wBookPart = null;
+        //    DataSet tableSet = getDataSet(sourceTable);//getDataSet is my local function which is used to split a datatable into some datatable based on limited row I've declared.
+        //    using (SpreadsheetDocument spreadsheetDoc = SpreadsheetDocument.Create(FilePath, SpreadsheetDocumentType.Workbook))
+        //    {
+        //        wBookPart = spreadsheetDoc.AddWorkbookPart();
+        //        wBookPart.Workbook = new Workbook();
+        //        uint sheetId = 1;
+        //        spreadsheetDoc.WorkbookPart.Workbook.Sheets = new Sheets();
+        //        Sheets sheets = spreadsheetDoc.WorkbookPart.Workbook.GetFirstChild<Sheets>();
+
+        //        foreach (DataTable table in tableSet.Tables)
+        //        {
+        //            WorksheetPart wSheetPart = wBookPart.AddNewPart<WorksheetPart>();
+        //            Sheet sheet = new Sheet() { Id = spreadsheetDoc.WorkbookPart.GetIdOfPart(wSheetPart), SheetId = sheetId, Name = "mySheet" + sheetId };
+        //            sheets.Append(sheet);
+
+        //            SheetData sheetData = new SheetData();
+        //            wSheetPart.Worksheet = new Worksheet(sheetData);
+
+        //            Row headerRow = new Row();
+        //            foreach (DataColumn column in sourceTable.Columns)
+        //            {
+        //                Cell cell = new Cell();
+        //                cell.DataType = CellValues.String;
+        //                cell.CellValue = new CellValue(column.ColumnName);
+        //                headerRow.AppendChild(cell);
+        //            }
+        //            sheetData.AppendChild(headerRow);
+
+        //            foreach (DataRow dr in table.Rows)
+        //            {
+        //                Row row = new Row();
+        //                foreach (DataColumn column in table.Columns)
+        //                {
+        //                    Cell cell = new Cell();
+        //                    cell.DataType = CellValues.String;
+        //                    cell.CellValue = new CellValue(dr[column].ToString());
+        //                    row.AppendChild(cell);
+        //                }
+        //                sheetData.AppendChild(row);
+        //            }
+        //            sheetId++;
+        //        }
+        //    }
+        //}
 
 
     }
