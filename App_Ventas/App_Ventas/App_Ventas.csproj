@@ -241,7 +241,7 @@
     <Compile Include="Areas\Login\Repositorio\ModulosRepositorio.cs" />
     <Compile Include="Areas\Recursiva\Controllers\ServiciosWebController.cs" />
     <Compile Include="Areas\Recursiva\RecursivaAreaRegistration.cs" />
-    <Compile Include="Areas\Recursiva\Repositorio\ProductosRepostiorio.cs" />
+    <Compile Include="Areas\Recursiva\Repositorio\CargaExcelRepostiorio.cs" />
     <Compile Include="Areas\Ventas\Controllers\Consulta_VentasController.cs" />
     <Compile Include="Areas\Ventas\Controllers\VentasController.cs" />
     <Compile Include="Areas\Ventas\Models\BuscarProductoModelView.cs" />

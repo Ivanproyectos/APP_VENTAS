@@ -63,6 +63,7 @@
     <Compile Include="Base\Cls_Ent_MultiSheets.cs" />
     <Compile Include="Base\Cls_Ent_Titulo.cs" />
     <Compile Include="Caja\Cls_Ent_Caja.cs" />
+    <Compile Include="CargaExcel\Cls_Ent_Campo.cs" />
     <Compile Include="Cls_Ent_Auditoria.cs" />
     <Compile Include="Compras\Cls_Ent_Compras.cs" />
     <Compile Include="Compras\Cls_Ent_Compras_Detalle.cs" />

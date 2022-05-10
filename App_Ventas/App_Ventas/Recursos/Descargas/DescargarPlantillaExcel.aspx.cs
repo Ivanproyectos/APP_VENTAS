@@ -7,10 +7,12 @@ using System.Web.UI.WebControls;
 using Capa_Entidad.Base;
 using Capa_Entidad.Administracion;
 using Capa_Entidad.Inventario;
+using Capa_Entidad.CargaExcel;
 using Capa_Entidad; 
 using System.IO;
 using App_Ventas.Areas.Administracion.Repositorio;
 using App_Ventas.Areas.Inventario.Repositorio;
+using App_Ventas.Areas.Recursiva.Repositorio;
 
 namespace App_Ventas.Recursos.Descargas
 {
@@ -60,26 +62,33 @@ namespace App_Ventas.Recursos.Descargas
                     }
                 }
 
+
+                List<Cls_Ent_Campo> ListaCampo = new  List<Cls_Ent_Campo>();
+                using (CargaExcelRepostiorio Repositorio = new CargaExcelRepostiorio())
+                {
+                    ListaCampo = Repositorio.Campo_Listar(ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+
                 string NOMBRE_ARCHIVO = "Plantilla_Producto.xlsx";
-                //string ruta_adjunto = Recursos.Clases.Css_Ruta.Ruta_PlantillaExcel() + NOMBRE_ARCHIVO;
                 string RUTA_LOGO = Recursos.Clases.Css_Ruta.Ruta_Logo() + @"\" + Empresa.CODIGO_ARCHIVO_LOGO + Empresa.EXTENSION_ARCHIVO_LOGO; 
                 string CODIGO_TEMPORAL = Recursos.Clases.Css_Codigo.Generar_Codigo_Temporal();
                 string RUTA_TEMPORAL = Recursos.Clases.Css_Ruta.Ruta_Temporal();
                 string RUTA_ARCHIVO_TEMPORAL = string.Format("{0}/{1}", RUTA_TEMPORAL, CODIGO_TEMPORAL + ".xlsx");
 
-                //List<Cls_Ent_Columnas> columnas = new List<Cls_Ent_Columnas>();
-                //columnas.Add(new Cls_Ent_Columnas { ID_COLUMNA = "COD_PRODUCTO", DESCRIPCION_COLUMNA = "COD_PRODUCTO" });
-                //Handlers.CreateExcelFile.CreateExcelDocument(new List<Cls_Ent_Columnas>(), RUTA_ARCHIVO_TEMPORAL, null, false, columnas);
-
-
                  List<Cls_Ent_MultiSheets> ListaHojas = new List<Cls_Ent_MultiSheets>(); 
 
-           
-
-                // PLANTILLA 1
+                // PLANTILLA 1 productos 
                  Cls_Ent_MultiSheets Sheet1 = new Cls_Ent_MultiSheets();
-                Sheet1.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "COD_PRODUCTO", DESCRIPCION_COLUMNA = "Código" });
-                Sheet1.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = "DESC_PRODUCTO", DESCRIPCION_COLUMNA = "Producto" });
+                 foreach (Cls_Ent_Campo campo in ListaCampo)
+                 {
+                         Sheet1.COLUMNS.Add(new Cls_Ent_Columnas { ID_COLUMNA = campo.COD_CAMPO, DESCRIPCION_COLUMNA = campo.DESCRIPCION_CAMPO });
+                 }
+
                 Sheet1.ONLYCOLUMN = true;
                 Sheet1.NAME_SHEET = "PlantillaProducto";
                 Sheet1.ORDEN_INDEX = 1;

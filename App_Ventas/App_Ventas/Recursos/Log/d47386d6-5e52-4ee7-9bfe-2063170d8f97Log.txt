@@ -1,0 +1,4 @@
+System.InvalidCastException: No se puede convertir un objeto DBNull en otros tipos.
+   en System.DBNull.System.IConvertible.ToInt32(IFormatProvider provider)
+   en System.Convert.ToInt32(Object value)
+   en App_Ventas.Areas.Inventario.Controllers.ImportarController.ObtenerRegistros(DataTable Dt, Int32 ID_SUCURSAL, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Areas\Inventario\Controllers\ImportarController.cs:línea 144
