@@ -179,6 +179,8 @@ function Producto_MostrarNuevo() {
     if (_ID_SUCURSAL != "") {
         _DESC_SUCURSAL = _DESC_SUCURSAL.replace(/ /g, "+");
         jQuery("#myModalNuevo").html('');
+
+
         jQuery("#myModalNuevo").load(baseUrl + "Inventario/Producto/Mantenimiento?id=0&Accion=N&ID_SUCURSAL=" + _ID_SUCURSAL + "&DESC_SUCURSAL=" + _DESC_SUCURSAL, function (responseText, textStatus, request) {
             $('#myModalNuevo').modal({ show: true , backdrop: 'static', keyboard: false  });
             $.validator.unobtrusive.parse('#myModalNuevo');

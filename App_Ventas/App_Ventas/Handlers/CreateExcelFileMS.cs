@@ -115,26 +115,22 @@ namespace App_Ventas.Handlers
                      WorkbookPart wBookPart = null;
                      wBookPart = spreadsheet.AddWorkbookPart();
                      wBookPart.Workbook = new Workbook();
-                     MergeCells mergeCells = new MergeCells();
+                  
                      spreadsheet.WorkbookPart.Workbook.Sheets = new Sheets();
                      Sheets sheets = spreadsheet.WorkbookPart.Workbook.GetFirstChild<Sheets>();
                  
                     foreach (Cls_Ent_MultiSheets item in ListaHojas)
                     {
-
-
-                         var wsPart = spreadsheet.WorkbookPart.AddNewPart<WorksheetPart>();
-                  
+                         var wsPart = spreadsheet.WorkbookPart.AddNewPart<WorksheetPart>();         
                          //Add Sheets to the Workbook.
-                      
+                         Sheet sheet = new Sheet() { Id = spreadsheet.WorkbookPart.GetIdOfPart(wsPart), SheetId = item.ORDEN_INDEX, Name = item.NAME_SHEET };
+                         sheets.Append(sheet);
 
                         wsPart.Worksheet = new Worksheet();
-
                         if (Increment == 1)
                         AddStyle(spreadsheet);
 
                         Columns columns = new Columns();
-
                         columns.Append(new Column() { Min = 1, Max = 1, Width = 20, CustomWidth = true });
                         columns.Append(new Column() { Min = 2, Max = 2, Width = 26, CustomWidth = true });
                         columns.Append(new Column() { Min = 3, Max = 100, Width = 20, CustomWidth = true });
@@ -148,10 +144,8 @@ namespace App_Ventas.Handlers
                             sheetData.AppendChild(new Row());
                             sheetData.AppendChild(new Row());
                         }
-
                         var row = sheetData.AppendChild(new Row());
-                       
-
+                        MergeCells mergeCells = new MergeCells();
                         if (item.TITLE != null)
                         {
                             mergeCells.Append(new MergeCell() { Reference = new StringValue("A1:B3") });
@@ -271,12 +265,10 @@ namespace App_Ventas.Handlers
                         }
                         if (item.TITLE != null)
                         {
-                            wsPart.Worksheet.InsertAfter(mergeCells, wsPart.Worksheet.Elements<SheetData>().LastOrDefault());
+                             wsPart.Worksheet.InsertAfter(mergeCells, wsPart.Worksheet.Elements<SheetData>().First());
                         }
 
-                        Sheet sheet = new Sheet() { Id = spreadsheet.WorkbookPart.GetIdOfPart(wsPart), SheetId = item.ORDEN_INDEX, Name = item.NAME_SHEET };
-                        sheets.Append(sheet);
-
+              
                         wsPart.Worksheet.Save();
                         spreadsheet.WorkbookPart.Workbook.Save();
                             Console.WriteLine("Done.");

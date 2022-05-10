@@ -21,29 +21,4 @@ namespace Capa_Entidad.Base
 
     }
 
-    [Serializable]
-    public class Cls_Ent_MultiSheets<T> : Cls_Ent_MultiSheets
-    {
-        private List<T> _LIST;
-        public List<T> LIST
-        {
-            get
-            {
-                return _LIST;
-            }
-            set
-            {
-                _LIST = value;
-            }
-        }
-        public Type Type
-        {
-            get
-            {
-                return typeof(T);
-            }
-        }
-
- 
-    }
 }
