@@ -147,7 +147,6 @@ namespace App_Ventas.Areas.Inventario.Controllers
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
-
         public ActionResult Mantenimiento(int id, string Accion, int ID_SUCURSAL, string DESC_SUCURSAL)
         {
             
@@ -413,6 +412,15 @@ namespace App_Ventas.Areas.Inventario.Controllers
                 }
             }
             return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult View_ExportarProductoExcel(int ID_SUCURSAL)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            ProductoModelView model = new ProductoModelView();
+            model.ID_SUCURSAL = ID_SUCURSAL;
+            return View(model);
         }
 
         

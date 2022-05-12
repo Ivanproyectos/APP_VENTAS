@@ -26,11 +26,12 @@ namespace App_Ventas.Handlers
             }
 
             string excelFilename = context.Request["filename"];
+            string nombrehoja = "Hoja1"; 
 
             if (File.Exists(excelFilename))
                 File.Delete(excelFilename);
 
-            CreateExcelFile.CreateExcelDocument(dt, excelFilename, context.Response, null, false, null);
+            CreateExcelFile.CreateExcelDocument(dt, excelFilename, context.Response, null, false, null,nombrehoja);
         }
 
         private DataTable ConvertCsvData(string CSVdata)

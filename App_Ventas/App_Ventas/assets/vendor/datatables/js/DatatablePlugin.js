@@ -162,8 +162,6 @@ DataTable = {
         }
         //return DataTable;
     },
-    
- 
 
     clearGridData: function (table) {
         $('#'+table).DataTable().clear().draw();

@@ -1,0 +1,22 @@
+﻿@model App_Ventas.Areas.Inventario.Models.ProductoModelView
+<script type="text/javascript">
+    $(document).ready(function () {
+        Generar();
+    });
+    function Generar() {
+        debugger; 
+        var ID_SUCURSAL = $('#Hdd_ID_SUCURSAL').val();
+        $("#iframeReporte").attr("src", '@Url.Content("~/Recursos/Descargas/DescargarProductoExcel.aspx")?ID_SUCURSAL=' + ID_SUCURSAL);
+    }
+</script>
+<style>
+    .modal-dialog2 {
+        width: 60%;
+        margin: 30px auto
+    }
+</style>
+<div class="modal-dialog2">
+    <iframe id="iframeReporte" style="background-color:white;width:99%;height:570px;" src=""></iframe> 
+</div>
+@Html.Hidden("Hdd_ID_SUCURSAL",Model.ID_SUCURSAL)
+

@@ -21,12 +21,12 @@ namespace App_Ventas.Handlers
 {
     public class CreateExcelFile
     {
-        public static bool CreateExcelDocument<T>(List<T> list, string xlsxFilePath, Cls_Ent_Titulo titulo, bool solo_columna, List<Cls_Ent_Columnas> columnas = null)
+        public static bool CreateExcelDocument<T>(List<T> list, string xlsxFilePath, Cls_Ent_Titulo titulo, bool solo_columna, string NombreHoja, List<Cls_Ent_Columnas> columnas = null )
         {
             DataSet ds = new DataSet();
             ds.Tables.Add(ListToDataTable(list, solo_columna, columnas));
 
-            return CreateExcelDocument(ds, xlsxFilePath, titulo, solo_columna, columnas);
+            return CreateExcelDocument(ds, xlsxFilePath, titulo, solo_columna, columnas, NombreHoja);
         }
 
 
@@ -126,11 +126,11 @@ namespace App_Ventas.Handlers
                      type.GetGenericTypeDefinition().Equals(typeof(Nullable<>))));
         }
 
-        public static bool CreateExcelDocument(DataTable dt, string xlsxFilePath, Cls_Ent_Titulo titulo, bool solo_columna, List<Cls_Ent_Columnas> columnas)
+        public static bool CreateExcelDocument(DataTable dt, string xlsxFilePath, Cls_Ent_Titulo titulo, bool solo_columna, List<Cls_Ent_Columnas> columnas, string NombreHoja)
         {
             DataSet ds = new DataSet();
             ds.Tables.Add(dt);
-            bool result = CreateExcelDocument(ds, xlsxFilePath, titulo, solo_columna, columnas);
+            bool result = CreateExcelDocument(ds, xlsxFilePath, titulo, solo_columna, columnas, NombreHoja);
             ds.Tables.Remove(dt);
             return result;
         }
@@ -144,13 +144,13 @@ namespace App_Ventas.Handlers
         /// <param name="filename">The filename (without a path) to call the new Excel file.</param>
         /// <param name="Response">HttpResponse of the current page.</param>
         /// <returns>True if it was created succesfully, otherwise false.</returns>
-        public static bool CreateExcelDocument(DataTable dt, string filename, System.Web.HttpResponse Response, Cls_Ent_Titulo titulo, bool solo_columna, List<Cls_Ent_Columnas> columnas)
+        public static bool CreateExcelDocument(DataTable dt, string filename, System.Web.HttpResponse Response, Cls_Ent_Titulo titulo, bool solo_columna, List<Cls_Ent_Columnas> columnas, string nombrehoja)
         {
             try
             {
                 DataSet ds = new DataSet();
                 ds.Tables.Add(dt);
-                CreateExcelDocumentAsStream(ds, filename, Response, titulo, solo_columna, columnas);
+                CreateExcelDocumentAsStream(ds, filename, Response, titulo, solo_columna, columnas, nombrehoja);
                 ds.Tables.Remove(dt);
                 return true;
             }
@@ -161,13 +161,13 @@ namespace App_Ventas.Handlers
             }
         }
 
-        public static bool CreateExcelDocument<T>(List<T> list, string filename, System.Web.HttpResponse Response, Cls_Ent_Titulo titulo, bool solo_columna, List<Cls_Ent_Columnas> columnas)
+        public static bool CreateExcelDocument<T>(List<T> list, string filename, System.Web.HttpResponse Response, Cls_Ent_Titulo titulo, bool solo_columna, List<Cls_Ent_Columnas> columnas, string nombrehoja)
         {
             try
             {
                 DataSet ds = new DataSet();
                 ds.Tables.Add(ListToDataTable(list, solo_columna));
-                CreateExcelDocumentAsStream(ds, filename, Response, titulo, solo_columna, columnas);
+                CreateExcelDocumentAsStream(ds, filename, Response, titulo, solo_columna, columnas, nombrehoja);
                 return true;
             }
             catch (Exception ex)
@@ -184,14 +184,14 @@ namespace App_Ventas.Handlers
         /// <param name="filename">The filename (without a path) to call the new Excel file.</param>
         /// <param name="Response">HttpResponse of the current page.</param>
         /// <returns>Either a MemoryStream, or NULL if something goes wrong.</returns>
-        public static bool CreateExcelDocumentAsStream(DataSet ds, string filename, System.Web.HttpResponse Response, Cls_Ent_Titulo titulo, bool solo_columna, List<Cls_Ent_Columnas> columnas)
+        public static bool CreateExcelDocumentAsStream(DataSet ds, string filename, System.Web.HttpResponse Response, Cls_Ent_Titulo titulo, bool solo_columna, List<Cls_Ent_Columnas> columnas, string nombrehoja)
         {
             try
             {
                 System.IO.MemoryStream stream = new System.IO.MemoryStream();
                 using (SpreadsheetDocument document = SpreadsheetDocument.Create(stream, SpreadsheetDocumentType.Workbook, true))
                 {
-                    WriteExcelFile(ds, document, titulo, solo_columna, columnas);
+                    WriteExcelFile(ds, document, titulo, solo_columna, columnas, nombrehoja);
                 }
                 stream.Flush();
                 stream.Position = 0;
@@ -230,13 +230,13 @@ namespace App_Ventas.Handlers
         /// <param name="ds">DataSet containing the data to be written to the Excel.</param>
         /// <param name="excelFilename">Name of file to be written.</param>
         /// <returns>True if successful, false if something went wrong.</returns>
-        public static bool CreateExcelDocument(DataSet ds, string excelFilename, Cls_Ent_Titulo titulo, bool solo_columna, List<Cls_Ent_Columnas> columnas)
+        public static bool CreateExcelDocument(DataSet ds, string excelFilename, Cls_Ent_Titulo titulo, bool solo_columna, List<Cls_Ent_Columnas> columnas, string NombreHoja)
         {
             try
             {
                 using (SpreadsheetDocument document = SpreadsheetDocument.Create(excelFilename, SpreadsheetDocumentType.Workbook))
                 {
-                    WriteExcelFile(ds, document, titulo, solo_columna, columnas);
+                    WriteExcelFile(ds, document, titulo, solo_columna, columnas, NombreHoja);
                 }
                 Trace.WriteLine("Successfully created: " + excelFilename);
                 return true;
@@ -248,7 +248,7 @@ namespace App_Ventas.Handlers
             }
         }
 
-        private static void WriteExcelFile(DataSet ds, SpreadsheetDocument spreadsheet, Cls_Ent_Titulo titulo, bool solo_columna, List<Cls_Ent_Columnas> columnas)
+        private static void WriteExcelFile(DataSet ds, SpreadsheetDocument spreadsheet, Cls_Ent_Titulo titulo, bool solo_columna, List<Cls_Ent_Columnas> columnas, string NombreHoja)
         {
             {
 
@@ -390,7 +390,7 @@ namespace App_Ventas.Handlers
 
                 // Console.WriteLine("Creating sheet list");
                 var sheets = spreadsheet.WorkbookPart.Workbook.AppendChild(new Sheets());
-                sheets.AppendChild(new Sheet() { Id = spreadsheet.WorkbookPart.GetIdOfPart(wsPart), SheetId = 1, Name = "Hoja1" });
+                sheets.AppendChild(new Sheet() { Id = spreadsheet.WorkbookPart.GetIdOfPart(wsPart), SheetId = 1, Name = NombreHoja });
 
      
                 //sheets.AppendChild(new Sheet() { Id = spreadsheet.WorkbookPart.GetIdOfPart(wsPart), SheetId = 2, Name = "Hoja2" });

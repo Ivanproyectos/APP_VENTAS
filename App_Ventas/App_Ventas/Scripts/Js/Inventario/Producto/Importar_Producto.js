@@ -45,7 +45,7 @@ function Producto_ImportarProducto() {
     var _ID_SUCURSAL = $("#ID_SUCURSAL").val();
     var pregunta = "";
     if (_ID_SUCURSAL == "") {
-        jAlert("Alamacen no seleccionado, por favor seleccione uno", "Atención");
+        jAlert("Almacen no seleccionado, por favor seleccione uno", "Atención");
         return;
     }
     jConfirm("Antes de continuar favor de asegurarse que el archivo no tenga caracteres especiales [;*_\!,etc], "
@@ -127,4 +127,16 @@ function Producto_Importar_TablaResutaldos(Listado) {
     });
     jQuery("#" + Importar_ErroresCarga_Grilla).trigger("reloadGrid");
  
+}
+
+function Producto_ExportarProductoExcel() {
+    var _ID_SUCURSAL = $("#ID_SUCURSAL").val();
+    if (_ID_SUCURSAL == "")
+        _ID_SUCURSAL = 0;
+    jQuery("#myModalDescargar").html('');
+    jQuery("#myModalDescargar").load(baseUrl + "Inventario/Producto/View_ExportarProductoExcel?ID_SUCURSAL="+ _ID_SUCURSAL, function (responseText, textStatus, request) {
+        $.validator.unobtrusive.parse('#myModalDescargar');
+        if (request.status != 200) return;
+    });
+
 }

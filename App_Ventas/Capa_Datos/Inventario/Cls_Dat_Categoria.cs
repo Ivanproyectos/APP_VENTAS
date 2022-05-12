@@ -56,11 +56,8 @@ namespace Capa_Datos.Inventario
                             else obj.ID_CATEGORIA = int.Parse(dr[pos_ID_CATEGORIA].ToString());
                             if (dr.IsDBNull(pos_DESC_CATEGORIA)) obj.DESC_CATEGORIA = "";
                             else obj.DESC_CATEGORIA = dr.GetString(pos_DESC_CATEGORIA);
-
                             if (dr.IsDBNull(pos_DESCRIPCION)) obj.DESCRIPCION = "";
                             else obj.DESCRIPCION = dr.GetString(pos_DESCRIPCION);
-
-                
 
                             if (dr.IsDBNull(pos_FLG_ESTADO)) obj.FLG_ESTADO = 0;
                             else obj.FLG_ESTADO = int.Parse(dr[pos_FLG_ESTADO].ToString());

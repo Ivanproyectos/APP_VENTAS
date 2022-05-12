@@ -198,6 +198,12 @@ namespace Capa_Datos.Inventario
                     { cmd.Parameters.Add(new SqlParameter("@PI_FLG_ESTADO", SqlDbType.Int)).Value = DBNull.Value; }
                     else
                     { cmd.Parameters.Add(new SqlParameter("@PI_FLG_ESTADO", SqlDbType.Int)).Value = entidad_param.FLG_ESTADO; }
+
+                    if (entidad_param.ID_SUCURSAL == 0)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = entidad_param.ID_SUCURSAL; }
+
                     dr = cmd.ExecuteReader();
                     int pos_ID_PRODUCTO = dr.GetOrdinal("ID_PRODUCTO");
                     int pos_DESC_PRODUCTO = dr.GetOrdinal("DESC_PRODUCTO");

@@ -19567,6 +19567,9 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     float: left;
     margin-left: -1.612em;
 }
+.me-1 {
+    margin-right: 0.375rem!important;
+}
 
 .form-check-input {
     width: 1.112em;

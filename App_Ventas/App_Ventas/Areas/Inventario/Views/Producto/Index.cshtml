@@ -14,26 +14,19 @@
         $(".badge").tooltip({ placement: "bottom", delay: { show: 100, hide: 400 } });
         $('#ID_SUCURSAL').select2();
     });
-
     $("#Producto_btnBuscar").click(function (e) {
         Producto_ConfigurarGrilla();
     });
-
     $("#Producto_btnLimpiar").click(function (e) {
         Producto_Limpiar();
     });
-
-
     $("#Producto_btnNuevo").click(function (e) {
         Producto_MostrarNuevo();
     });
-
     $('#ID_SUCURSAL').change(function () {
         //$("#" + Producto_Grilla).dataTable().fnDestroy();
         Producto_ConfigurarGrilla();
     });
-
-
     $("#Producto_Ingreso").click(function (e) {
         Producto_MostrarIngresoProducto();
     });
@@ -44,12 +37,15 @@
         Producto_MostrarTranslado();
     });
 
+
     $("#Producto_Btn_Importar").click(function (e) {
         Producto_MostrarImportarProducto();
     });
 
+    $("#Producto_Btn_ExportarExcel").click(function (e) {
+        Producto_ExportarProductoExcel();
+    });
     
-
 </script>
 
 <style>
@@ -64,6 +60,7 @@
     }
 </style>
 <div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<div class="modal fade" id="myModalDescargar" tabindex="" role="dialog" aria-labelledby="myModalDescargar" aria-hidden="true"></div>
 
 <div class="row mb-3">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
@@ -75,33 +72,50 @@
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-body">
-                <div class="form-row mb-3">
-                    <button type="button" id="Producto_btnNuevo" class="btn btn-rounded btn-primary btn-hover-shine" style="margin-bottom: 5px;">
-                        <span class="btn-icon-left  text-primary "><i class="fa fa-plus color-primary"></i></span>Nuevo Producto</button>
-
-                    <button type="button" class="btn btn-rounded btn-success btn-hover-shine" id="Producto_Ingreso" style="margin-left: 20px; margin-bottom: 5px;">
-                        <span class="btn-icon-left text-success"><i class="bi bi-arrow-bar-up color-success"></i>
-                        </span>Ingresos</button>
-
-                    <button type="button" class="btn btn-rounded btn-danger btn-hover-shine" id="Producto_Salidas" style="margin-left: 20px; margin-bottom: 5px;">
-                        <span class="btn-icon-left text-danger"><i class="bi bi-arrow-bar-down color-danger"></i>
-                        </span>Salidas</button>
-
-                    <button type="button" class="btn btn-rounded btn-info btn-hover-shine" id="Producto_Btn_Translados" style="margin-left: 20px; margin-bottom: 5px;">
-                        <span class="btn-icon-left text-info"><i class="bi bi-truck color-info"></i>
-                        </span>Translados</button>
-
-                    <button type="button" class="btn btn-rounded btn-secondary btn-hover-shine" id="Producto_Btn_Importar" style="margin-left: 20px; margin-bottom: 5px;">
-                        <span class="btn-icon-left text-secondary"><i class="bi bi-file-earmark-excel color-secondary"></i>
-                        </span>Importar</button>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-12">
+                     <div class="form-row ">
+                    <div class="form-group col-md-8">
                         <label>Almacen:<span class="text-danger">(*)</span></label>
                         @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                     </div>
+
+                      <div class="form-group col-md-4">
+                        <label>Tipo:<span class="text-danger"></span></label>
+                       <select class = "form-control" id="Producto_FLG_SERVICIO">
+                           <option value="2">Productos y servicios</option>
+                           <option value="0">Producto</option>
+                           <option value="1">Servicios</option>
+                       </select>
+                    </div>
                 </div>
+
+                <div class="form-row mb-2">
+                    <div class="col-xl-8 col-xxl-8 col-lg-12 col-md-12">
+                        <button type="button" id="Producto_btnNuevo" class="btn btn-rounded btn-primary btn-hover-shine" style="margin-bottom: 5px;">
+                            <span class="btn-icon-left  text-primary "><i class="fa fa-plus color-primary"></i></span>Nuevo Producto</button>
+
+                        <button type="button" class="btn btn-rounded btn-success btn-hover-shine" id="Producto_Ingreso" style="margin-left: 20px; margin-bottom: 5px;">
+                            <span class="btn-icon-left text-success"><i class="bi bi-arrow-bar-up color-success"></i>
+                            </span>Ingresos</button>
+
+                        <button type="button" class="btn btn-rounded btn-danger btn-hover-shine" id="Producto_Salidas" style="margin-left: 20px; margin-bottom: 5px;">
+                            <span class="btn-icon-left text-danger"><i class="bi bi-arrow-bar-down color-danger"></i>
+                            </span>Salidas</button>
+
+                        <button type="button" class="btn btn-rounded btn-info btn-hover-shine" id="Producto_Btn_Translados" style="margin-left: 20px; margin-bottom: 5px;">
+                            <span class="btn-icon-left text-info"><i class="bi bi-truck color-info"></i>
+                            </span>Translados</button>
+
+                        <button type="button" class="btn btn-rounded btn-secondary btn-hover-shine" id="Producto_Btn_Importar" style="margin-left: 20px; margin-bottom: 5px;">
+                            <span class="btn-icon-left text-secondary"><i class="bi bi-file-earmark-excel color-secondary"></i>
+                            </span>Importar</button>
+                    </div>
+
+                    <div class="col-xl-4 col-xxl-4 col-lg-12 col-md-12 text-right">
+                        <button type="button" id="Producto_Btn_ExportarExcel" class="btn btn-light">Exportar Excel</button>
+                    </div>
+                </div>
+
+           
                 <div class="table-responsive">
                     <table class="table" id="Producto_Grilla" style="width: 100%">
                     </table>

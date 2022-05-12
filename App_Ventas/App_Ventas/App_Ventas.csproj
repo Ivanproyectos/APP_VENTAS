@@ -279,6 +279,13 @@
     <Compile Include="Recursos\Descargas\DescargarPlantillaExcel.aspx.designer.cs">
       <DependentUpon>DescargarPlantillaExcel.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\Descargas\DescargarProductoExcel.aspx.cs">
+      <DependentUpon>DescargarProductoExcel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Recursos\Descargas\DescargarProductoExcel.aspx.designer.cs">
+      <DependentUpon>DescargarProductoExcel.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\Excel\Css_Excel.cs" />
     <Compile Include="Recursos\Forms\GenerarComprobante.aspx.cs">
       <DependentUpon>GenerarComprobante.aspx</DependentUpon>
@@ -4229,7 +4236,9 @@
     <Content Include="assets\jqGrid\Griddo\jquery.jqgrid.min.js.map" />
     <Content Include="Areas\Inventario\Views\Importar\View_Importar.cshtml" />
     <Content Include="Areas\Inventario\Views\Importar\Importar_DescagarPlantilla.cshtml" />
+    <Content Include="Areas\Inventario\Views\Producto\View_ExportarProductoExcel.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
+    <Content Include="Recursos\Descargas\DescargarProductoExcel.aspx" />
     <Content Include="Recursos\Excel\Plantillas\Plantilla_Producto.xlsx" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Recursos\Descargas\DescargarPlantillaExcel.aspx" />
