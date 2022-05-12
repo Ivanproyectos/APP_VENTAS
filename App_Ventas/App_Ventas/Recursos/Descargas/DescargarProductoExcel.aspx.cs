@@ -23,11 +23,12 @@ namespace App_Ventas.Recursos.Descargas
             if (!IsPostBack)
             {
                 int ID_SUCURSAL = int.Parse(Request.QueryString["ID_SUCURSAL"].ToString());
-                DescargarProductosExcel(ID_SUCURSAL);
+                int FLG_SERVICIO = int.Parse(Request.QueryString["FLG_SERVICIO"].ToString());
+                DescargarProductosExcel(ID_SUCURSAL, FLG_SERVICIO);
             }
         }
 
-        private void DescargarProductosExcel(int ID_SUCURSAL)
+        private void DescargarProductosExcel(int ID_SUCURSAL, int FLG_SERVICIO)
         {
             Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
             try
@@ -35,7 +36,7 @@ namespace App_Ventas.Recursos.Descargas
                 List<Cls_Ent_Producto> lista = new List<Cls_Ent_Producto>();
                 using (ProductoRepositorio repositorio = new ProductoRepositorio())
                 {
-                    lista = repositorio.Producto_Listar(new Cls_Ent_Producto { ID_SUCURSAL = ID_SUCURSAL, FLG_ESTADO = 2 }, ref auditoria);
+                    lista = repositorio.Producto_Listar(new Cls_Ent_Producto { ID_SUCURSAL = ID_SUCURSAL, FLG_ESTADO = 2, FLG_SERVICIO = FLG_SERVICIO }, ref auditoria);
                     if (!auditoria.EJECUCION_PROCEDIMIENTO)
                     {
                         string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);

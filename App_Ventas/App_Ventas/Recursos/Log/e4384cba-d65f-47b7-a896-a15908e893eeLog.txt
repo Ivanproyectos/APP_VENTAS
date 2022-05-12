@@ -1,0 +1,5 @@
+System.IndexOutOfRangeException: FLG_SERVICIO
+   en System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   en System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   en Capa_Datos.Inventario.Cls_Dat_Producto.Productos_Paginado(String ORDEN_COLUMNA, String ORDEN, Int32 FILAS, Int32 START, String WHERE, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Inventario\Cls_Dat_Producto.cs:línea 49
+   en Capa_Negocio.Inventario.Cls_Rule_Producto.Productos_Paginado(String ORDEN_COLUMNA, String ORDEN, Int32 FILAS, Int32 START, String WHERE, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\Inventario\Cls_Rule_Producto.cs:línea 21

@@ -1,0 +1,1 @@
+El proceso no puede obtener acceso al archivo 'C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Recursos\Temporales\a63a855d-32cd-4af9-9b41-838a1623eca4.pdf' porque está siendo utilizado en otro proceso.

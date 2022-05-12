@@ -4,9 +4,11 @@
         Generar();
     });
     function Generar() {
-        debugger; 
-        var ID_SUCURSAL = $('#Hdd_ID_SUCURSAL').val();
-        $("#iframeReporte").attr("src", '@Url.Content("~/Recursos/Descargas/DescargarProductoExcel.aspx")?ID_SUCURSAL=' + ID_SUCURSAL);
+        var Params = {
+            ID_SUCURSAL : $('#Hdd_ID_SUCURSAL').val(),
+            FLG_SERVICIO: $('#Hdd_FLG_SERVICIO').val(),
+        }
+        $("#iframeReporte").attr("src", '@Url.Content("~/Recursos/Descargas/DescargarProductoExcel.aspx")?' + $.param(Params));
     }
 </script>
 <style>
@@ -19,4 +21,4 @@
     <iframe id="iframeReporte" style="background-color:white;width:99%;height:570px;" src=""></iframe> 
 </div>
 @Html.Hidden("Hdd_ID_SUCURSAL",Model.ID_SUCURSAL)
-
+@Html.Hidden("Hdd_FLG_SERVICIO",Model.FLG_SERVICIO_INT)

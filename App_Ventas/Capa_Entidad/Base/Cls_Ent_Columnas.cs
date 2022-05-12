@@ -12,6 +12,7 @@ namespace Capa_Entidad.Base
         public string DESCRIPCION_COLUMNA { get; set; }
         public string CELDA_INICIO { get; set; }
         public int INT_CELDAS { get; set; }
+        public float TAMANIO { get; set; }
         public bool AUTO_INCREMENTAR { get; set; }
         public string CELDA_FIN { get; set; }
         public List<Cls_Ent_Columnas_Condicion> CONDICIONES { get; set; }
@@ -29,4 +30,7 @@ namespace Capa_Entidad.Base
         public int NRO_FILA { get; set; }
         public string DESCRIPCION { get; set; }
     }
+
+
+
 }

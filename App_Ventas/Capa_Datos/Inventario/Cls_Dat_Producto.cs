@@ -46,7 +46,7 @@ namespace Capa_Datos.Inventario
                 int pos_PRECIO_VENTA = dr.GetOrdinal("PRECIO_VENTA");
                 int pos_STOCK = dr.GetOrdinal("STOCK");
                 int pos_STOCK_MINIMO = dr.GetOrdinal("STOCK_MINIMO");
-                int pos_FLG_SERIVICIO = dr.GetOrdinal("FLG_SERIVICIO");
+                int pos_FLG_SERVICIO = dr.GetOrdinal("FLG_SERVICIO");
                 int pos_FLG_VENCE = dr.GetOrdinal("FLG_VENCE");
                 int pos_FECHA_VENCIMIENTO = dr.GetOrdinal("FECHA_VENCIMIENTO");
                 int pos_MARCA = dr.GetOrdinal("MARCA");
@@ -101,8 +101,8 @@ namespace Capa_Datos.Inventario
                         if (dr.IsDBNull(pos_STOCK_MINIMO)) obj.STOCK_MINIMO = 0;
                         else obj.STOCK_MINIMO = int.Parse(dr[pos_STOCK_MINIMO].ToString());
 
-                        if (dr.IsDBNull(pos_FLG_SERIVICIO)) obj.FLG_SERVICIO = 0;
-                        else obj.FLG_SERVICIO = int.Parse(dr[pos_FLG_SERIVICIO].ToString());
+                        if (dr.IsDBNull(pos_FLG_SERVICIO)) obj.FLG_SERVICIO = 0;
+                        else obj.FLG_SERVICIO = int.Parse(dr[pos_FLG_SERVICIO].ToString());
 
 
                         if (dr.IsDBNull(pos_FLG_VENCE)) obj.FLG_VENCE = 0;
@@ -208,14 +208,15 @@ namespace Capa_Datos.Inventario
                     int pos_ID_PRODUCTO = dr.GetOrdinal("ID_PRODUCTO");
                     int pos_DESC_PRODUCTO = dr.GetOrdinal("DESC_PRODUCTO");
                     int pos_COD_PRODUCTO = dr.GetOrdinal("COD_PRODUCTO");
-                    int pos_DESC_UNIDAD_MEDIDA = dr.GetOrdinal("DESC_UNIDAD_MEDIDA");
-                    int pos_ID_UNIDAD_MEDIDA = dr.GetOrdinal("ID_UNIDAD_MEDIDA");                  
+                    int pos_DESC_UNIDAD_MEDIDA = dr.GetOrdinal("DESC_UNIDAD_MEDIDA"); 
+                    int pos_ID_UNIDAD_MEDIDA = dr.GetOrdinal("ID_UNIDAD_MEDIDA");
+                    int pos_COD_UNIDAD_MEDIDA = dr.GetOrdinal("COD_UNIDAD_MEDIDA");  
                     int pos_DESC_CATEGORIA = dr.GetOrdinal("DESC_CATEGORIA");
                     int pos_PRECIO_COMPRA = dr.GetOrdinal("PRECIO_COMPRA");
                     int pos_PRECIO_VENTA = dr.GetOrdinal("PRECIO_VENTA");
                     int pos_STOCK = dr.GetOrdinal("STOCK");
                     int pos_STOCK_MINIMO = dr.GetOrdinal("STOCK_MINIMO");
-                    int pos_FLG_SERIVICIO = dr.GetOrdinal("FLG_SERIVICIO");
+                    int pos_FLG_SERVICIO = dr.GetOrdinal("FLG_SERVICIO");
                     int pos_FLG_VENCE = dr.GetOrdinal("FLG_VENCE");
                     int pos_FECHA_VENCIMIENTO = dr.GetOrdinal("FECHA_VENCIMIENTO");
                     int pos_MARCA = dr.GetOrdinal("MARCA");
@@ -259,14 +260,17 @@ namespace Capa_Datos.Inventario
                             if (dr.IsDBNull(pos_PRECIO_VENTA)) obj.PRECIO_VENTA = 0;
                             else obj.PRECIO_VENTA = decimal.Parse(dr[pos_PRECIO_VENTA].ToString());
 
+                            if (dr.IsDBNull(pos_COD_UNIDAD_MEDIDA)) obj.COD_UNIDAD_MEDIDA = "";
+                            else obj.COD_UNIDAD_MEDIDA = dr.GetString(pos_COD_UNIDAD_MEDIDA);
+
                             if (dr.IsDBNull(pos_STOCK)) obj.STOCK = 0;
                             else obj.STOCK = int.Parse(dr[pos_STOCK].ToString());
 
                             if (dr.IsDBNull(pos_STOCK_MINIMO)) obj.STOCK_MINIMO = 0;
                             else obj.STOCK_MINIMO = int.Parse(dr[pos_STOCK_MINIMO].ToString());
 
-                            if (dr.IsDBNull(pos_FLG_SERIVICIO)) obj.FLG_SERVICIO = 0;
-                            else obj.FLG_SERVICIO = int.Parse(dr[pos_FLG_SERIVICIO].ToString());
+                            if (dr.IsDBNull(pos_FLG_SERVICIO)) obj.FLG_SERVICIO = 0;
+                            else obj.FLG_SERVICIO = int.Parse(dr[pos_FLG_SERVICIO].ToString());
 
                             if (dr.IsDBNull(pos_FECHA_VENCIMIENTO)) obj.FECHA_VENCIMIENTO = "";
                             else obj.FECHA_VENCIMIENTO = dr.GetString(pos_FECHA_VENCIMIENTO);
@@ -346,7 +350,7 @@ namespace Capa_Datos.Inventario
                     int pos_PRECIO_VENTA = dr.GetOrdinal("PRECIO_VENTA");
                     int pos_STOCK = dr.GetOrdinal("STOCK");
                     int pos_STOCK_MINIMO = dr.GetOrdinal("STOCK_MINIMO");
-                    int pos_FLG_SERIVICIO = dr.GetOrdinal("FLG_SERIVICIO");
+                    int pos_FLG_SERVICIO = dr.GetOrdinal("FLG_SERVICIO");
                     int pos_FLG_VENCE = dr.GetOrdinal("FLG_VENCE");
                     int pos_FECHA_VENCIMIENTO = dr.GetOrdinal("FECHA_VENCIMIENTO");
                     int pos_MARCA = dr.GetOrdinal("MARCA");
@@ -388,8 +392,8 @@ namespace Capa_Datos.Inventario
                             if (dr.IsDBNull(pos_STOCK_MINIMO)) obj.STOCK_MINIMO = 0;
                             else obj.STOCK_MINIMO = int.Parse(dr[pos_STOCK_MINIMO].ToString());
 
-                            if (dr.IsDBNull(pos_FLG_SERIVICIO)) obj.FLG_SERVICIO = 0;
-                            else obj.FLG_SERVICIO = int.Parse(dr[pos_FLG_SERIVICIO].ToString());
+                            if (dr.IsDBNull(pos_FLG_SERVICIO)) obj.FLG_SERVICIO = 0;
+                            else obj.FLG_SERVICIO = int.Parse(dr[pos_FLG_SERVICIO].ToString());
 
                             if (dr.IsDBNull(pos_ID_UNIDAD_MEDIDA)) obj.ID_UNIDAD_MEDIDA = 0;
                             else obj.ID_UNIDAD_MEDIDA = int.Parse(dr[pos_ID_UNIDAD_MEDIDA].ToString());
@@ -461,7 +465,7 @@ namespace Capa_Datos.Inventario
                     int pos_PRECIO_VENTA = dr.GetOrdinal("PRECIO_VENTA");
                     int pos_STOCK = dr.GetOrdinal("STOCK");
                     int pos_STOCK_MINIMO = dr.GetOrdinal("STOCK_MINIMO");
-                    int pos_FLG_SERIVICIO = dr.GetOrdinal("FLG_SERIVICIO");
+                    int pos_FLG_SERVICIO = dr.GetOrdinal("FLG_SERVICIO");
                     int pos_FLG_VENCE = dr.GetOrdinal("FLG_VENCE");
                     int pos_FECHA_VENCIMIENTO = dr.GetOrdinal("FECHA_VENCIMIENTO");
                     int pos_MARCA = dr.GetOrdinal("MARCA");
@@ -508,8 +512,8 @@ namespace Capa_Datos.Inventario
                             if (dr.IsDBNull(pos_STOCK_MINIMO)) obj.STOCK_MINIMO = 0;
                             else obj.STOCK_MINIMO = int.Parse(dr[pos_STOCK_MINIMO].ToString());
 
-                            if (dr.IsDBNull(pos_FLG_SERIVICIO)) obj.FLG_SERVICIO = 0;
-                            else obj.FLG_SERVICIO = int.Parse(dr[pos_FLG_SERIVICIO].ToString());
+                            if (dr.IsDBNull(pos_FLG_SERVICIO)) obj.FLG_SERVICIO = 0;
+                            else obj.FLG_SERVICIO = int.Parse(dr[pos_FLG_SERVICIO].ToString());
 
                             if (dr.IsDBNull(pos_FLG_VENCE)) obj.FLG_VENCE = 0;
                             else obj.FLG_VENCE = int.Parse(dr[pos_FLG_VENCE].ToString());

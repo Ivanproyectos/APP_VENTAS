@@ -168,7 +168,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
                             model.STOCK = Convert.ToString(lista.STOCK);
                             model.CANTIDAD = Convert.ToUInt16(_CANTIDAD);
                             model.TOTAL = IMPORTE;
-                            model.FLG_SERIVICIO = lista.FLG_SERVICIO;
+                            model.FLG_SERVICIO = lista.FLG_SERVICIO;
                             model.COD_UNIDAD_MEDIDA = lista.COD_UNIDAD_MEDIDA == "Kg" ? "Gr." : lista.COD_UNIDAD_MEDIDA;
                         }
                     }

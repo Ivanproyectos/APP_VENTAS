@@ -179,7 +179,7 @@ namespace App_Ventas.Areas.Compras.Controllers
                             model.STOCK = _Stock;
                             model.CANTIDAD = Convert.ToUInt16(_CANTIDAD);
                             model.TOTAL = IMPORTE;
-                            model.FLG_SERIVICIO = lista.FLG_SERVICIO;
+                            model.FLG_SERVICIO = lista.FLG_SERVICIO;
                             model.COD_UNIDAD_MEDIDA = lista.COD_UNIDAD_MEDIDA ;
                         }
                     }

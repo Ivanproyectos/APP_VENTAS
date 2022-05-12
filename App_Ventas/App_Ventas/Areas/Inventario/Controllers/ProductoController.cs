@@ -210,7 +210,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                             model.MARCA = lista.MARCA;
                             model.MODELO = lista.MODELO;
                             model.FLG_VENCE = lista.FLG_VENCE ==1 ? true : false;
-                            model.FLG_SERIVICIO = lista.FLG_SERVICIO == 1 ? true : false;
+                            model.FLG_SERVICIO = lista.FLG_SERVICIO == 1 ? true : false;
                             model.FECHA_VENCIMIENTO = lista.FECHA_VENCIMIENTO;
                             if(lista.MiArchivo != null)
                                 model.MiArchivo = lista.MiArchivo; 
@@ -223,7 +223,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                             model.DESC_SERVICIO = lista.DESC_PRODUCTO;
                             model.ID_UNIDAD_MEDIDA_SERVICIO = lista.ID_UNIDAD_MEDIDA;
                             model.PRECIO_VENTA_SERVICIO = Convert.ToString(lista.PRECIO_VENTA);
-                            model.FLG_SERIVICIO = lista.FLG_SERVICIO == 1 ? true : false;
+                            model.FLG_SERVICIO = lista.FLG_SERVICIO == 1 ? true : false;
                             model.DETALLE = lista.DETALLE;
                         }
 
@@ -415,13 +415,25 @@ namespace App_Ventas.Areas.Inventario.Controllers
         }
 
 
-        public ActionResult View_ExportarProductoExcel(int ID_SUCURSAL)
+        public ActionResult View_ExportarProductoExcel(int ID_SUCURSAL, int FLG_SERVICIO)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             ProductoModelView model = new ProductoModelView();
             model.ID_SUCURSAL = ID_SUCURSAL;
+            model.FLG_SERVICIO_INT = FLG_SERVICIO ;
             return View(model);
         }
+
+        public ActionResult View_ExportarProductoPDF(int ID_SUCURSAL, int FLG_SERVICIO)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            ProductoModelView model = new ProductoModelView();
+            model.ID_SUCURSAL = ID_SUCURSAL;
+            model.FLG_SERVICIO_INT = FLG_SERVICIO;
+            return View(model);
+        }
+
+        
 
         
 

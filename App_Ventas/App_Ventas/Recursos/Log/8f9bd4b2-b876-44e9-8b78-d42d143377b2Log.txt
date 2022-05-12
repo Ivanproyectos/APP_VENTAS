@@ -1,0 +1,30 @@
+System.IO.FileNotFoundException: No se puede cargar el archivo o ensamblado 'BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942' ni una de sus dependencias. El sistema no puede encontrar el archivo especificado.
+Nombre de archivo: 'BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942'
+   en iTextSharp.text.pdf.security.DigestAlgorithms.Digest(String algo, Byte[] b)
+   en iTextSharp.text.pdf.PdfEncryption.CreateDocumentId()
+   en iTextSharp.text.pdf.PdfWriter.Close()
+   en iTextSharp.text.pdf.PdfDocument.Close()
+   en iTextSharp.text.Document.Close()
+   en App_Ventas.Handlers.CreatePdfFile.WritePdfFile(DataSet ds, String PDFFilePath, Cls_Ent_Titulo Titulo, String RUTA_LOGO, List`1 columnas) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Handlers\CreatePdfFile.cs:línea 228
+
+=== Información de estado anterior al enlace ===
+LOG: DisplayName = BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942
+ (Fully-specified)
+LOG: Appbase = file:///C:/Users/ivans/OneDrive/Documentos/GitHub/APP_VENTAS/App_Ventas/App_Ventas/
+LOG: PrivatePath inicial = C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\bin
+Ensamblado de llamada : itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca.
+===
+LOG: Este enlace empieza en el contexto de carga default.
+LOG: Utilización del archivo de configuración de la aplicación: C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\web.config
+LOG: Utilizando el archivo de configuración de host: C:\Users\ivans\OneDrive\Documentos\IISExpress\config\aspnet.config
+LOG: Utilizando el archivo de configuración del equipo en C:\Windows\Microsoft.NET\Framework\v4.0.30319\config\machine.config.
+LOG: Referencia posterior a la directiva: BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942
+LOG: Intento de descarga de la nueva dirección URL file:///C:/Users/ivans/AppData/Local/Temp/Temporary ASP.NET Files/vs/a57e0910/1ce0cd57/BouncyCastle.Crypto.DLL.
+LOG: Intento de descarga de la nueva dirección URL file:///C:/Users/ivans/AppData/Local/Temp/Temporary ASP.NET Files/vs/a57e0910/1ce0cd57/BouncyCastle.Crypto/BouncyCastle.Crypto.DLL.
+LOG: Intento de descarga de la nueva dirección URL file:///C:/Users/ivans/OneDrive/Documentos/GitHub/APP_VENTAS/App_Ventas/App_Ventas/bin/BouncyCastle.Crypto.DLL.
+LOG: Intento de descarga de la nueva dirección URL file:///C:/Users/ivans/OneDrive/Documentos/GitHub/APP_VENTAS/App_Ventas/App_Ventas/bin/BouncyCastle.Crypto/BouncyCastle.Crypto.DLL.
+LOG: Intento de descarga de la nueva dirección URL file:///C:/Users/ivans/AppData/Local/Temp/Temporary ASP.NET Files/vs/a57e0910/1ce0cd57/BouncyCastle.Crypto.EXE.
+LOG: Intento de descarga de la nueva dirección URL file:///C:/Users/ivans/AppData/Local/Temp/Temporary ASP.NET Files/vs/a57e0910/1ce0cd57/BouncyCastle.Crypto/BouncyCastle.Crypto.EXE.
+LOG: Intento de descarga de la nueva dirección URL file:///C:/Users/ivans/OneDrive/Documentos/GitHub/APP_VENTAS/App_Ventas/App_Ventas/bin/BouncyCastle.Crypto.EXE.
+LOG: Intento de descarga de la nueva dirección URL file:///C:/Users/ivans/OneDrive/Documentos/GitHub/APP_VENTAS/App_Ventas/App_Ventas/bin/BouncyCastle.Crypto/BouncyCastle.Crypto.EXE.
+

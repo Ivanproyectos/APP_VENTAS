@@ -87,7 +87,7 @@ namespace App_Ventas.Areas.Inventario.Controllers
                             model.COD_PRODUCTO = lista.COD_PRODUCTO;
                             model.STOCK = _Stock;
                             model.CANTIDAD = Convert.ToUInt16(_CANTIDAD);
-                            model.FLG_SERIVICIO = lista.FLG_SERVICIO;
+                            model.FLG_SERVICIO = lista.FLG_SERVICIO;
                             model.COD_UNIDAD_MEDIDA = lista.COD_UNIDAD_MEDIDA;
                         }
                     }

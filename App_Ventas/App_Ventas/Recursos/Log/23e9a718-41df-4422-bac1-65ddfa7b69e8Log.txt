@@ -1,0 +1,16 @@
+System.Net.WebException: No se admite el formato proporcionado de la ruta de acceso. ---> System.Net.WebException: No se admite el formato proporcionado de la ruta de acceso. ---> System.NotSupportedException: No se admite el formato proporcionado de la ruta de acceso.
+   en System.Security.Permissions.FileIOPermission.EmulateFileIOPermissionChecks(String fullPath)
+   en System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   en System.Net.FileWebStream..ctor(FileWebRequest request, String path, FileMode mode, FileAccess access, FileShare sharing, Int32 length, Boolean async)
+   en System.Net.FileWebResponse..ctor(FileWebRequest request, Uri uri, FileAccess access, Boolean asyncHint)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Net.FileWebResponse..ctor(FileWebRequest request, Uri uri, FileAccess access, Boolean asyncHint)
+   en System.Net.FileWebRequest.GetResponseCallback(Object state)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Net.FileWebRequest.EndGetResponse(IAsyncResult asyncResult)
+   en System.Net.FileWebRequest.GetResponse()
+   en iTextSharp.text.Image.GetInstance(Uri url, Boolean recoverFromImageError)
+   en iTextSharp.text.Image.GetInstance(Uri url)
+   en iTextSharp.text.Image.GetInstance(String filename)
+   en App_Ventas.Handlers.CreatePdfFile.WritePdfFile(DataSet ds, String PDFFilePath, Cls_Ent_Titulo Titulo, String RUTA_LOGO, List`1 columnas) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Handlers\CreatePdfFile.cs:línea 122

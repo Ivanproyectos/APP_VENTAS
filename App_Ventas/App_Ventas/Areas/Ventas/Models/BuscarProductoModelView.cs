@@ -71,7 +71,7 @@ namespace App_Ventas.Areas.Ventas.Models
         [DataType(DataType.Text)]
         public bool FLG_VENCE { get; set; }
 
-        public int FLG_SERIVICIO { get; set; }
+        public int FLG_SERVICIO { get; set; }
 
 
         [Display(Name = "Fecha Vencimiento: ")]

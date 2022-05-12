@@ -1,0 +1,1 @@
+La columna 'Código' no pertenece a la tabla .

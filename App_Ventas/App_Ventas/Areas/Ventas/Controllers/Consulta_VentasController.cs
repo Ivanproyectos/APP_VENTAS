@@ -35,8 +35,6 @@ namespace App_Ventas.Areas.Ventas.Controllers
                 model.Lista_Tipo_Comprobante.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
 
             }
-
-
             using (UsuarioRepositorio Repositorio = new UsuarioRepositorio())
             {
                 Cls_Ent_Usuario ent_usuario = new Cls_Ent_Usuario
@@ -51,7 +49,6 @@ namespace App_Ventas.Areas.Ventas.Controllers
                 }).ToList();
                 model.Lista_Usuarios.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
             }
-
 
             using (SucursalRepositorio Repositorio = new SucursalRepositorio())
             {
@@ -77,8 +74,6 @@ namespace App_Ventas.Areas.Ventas.Controllers
                 }).ToList();
                 model.Lista_Tipo_Pago.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
             }
-
-
             return View(model);
         }
 

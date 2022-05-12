@@ -133,10 +133,36 @@ function Producto_ExportarProductoExcel() {
     var _ID_SUCURSAL = $("#ID_SUCURSAL").val();
     if (_ID_SUCURSAL == "")
         _ID_SUCURSAL = 0;
+    var Params = {
+        ID_SUCURSAL: _ID_SUCURSAL,
+        FLG_SERVICIO: $('#Producto_FLG_SERVICIO').val(),
+    }
+    _blockUI("Descargando archivo...");
     jQuery("#myModalDescargar").html('');
-    jQuery("#myModalDescargar").load(baseUrl + "Inventario/Producto/View_ExportarProductoExcel?ID_SUCURSAL="+ _ID_SUCURSAL, function (responseText, textStatus, request) {
+    jQuery("#myModalDescargar").load(baseUrl + "Inventario/Producto/View_ExportarProductoExcel?" + $.param(Params), function (responseText, textStatus, request) {
         $.validator.unobtrusive.parse('#myModalDescargar');
-        if (request.status != 200) return;
+        if (request.status == 200)
+            $.unblockUI();
+    });
+
+}
+
+
+function Producto_ExportarProductoPDF() {
+    var _ID_SUCURSAL = $("#ID_SUCURSAL").val();
+    var _FLG_SERVICIO = $("#Producto_FLG_SERVICIO").val();
+    if (_ID_SUCURSAL == "")
+        _ID_SUCURSAL = 0;
+    var Params = {
+        ID_SUCURSAL: _ID_SUCURSAL,
+        FLG_SERVICIO: $('#Producto_FLG_SERVICIO').val(),
+    }
+    _blockUI("Descargando archivo...");
+    jQuery("#myModalDescargar").html('');
+    jQuery("#myModalDescargar").load(baseUrl + "Inventario/Producto/View_ExportarProductoPDF?" + $.param(Params), function (responseText, textStatus, request) {
+        $.validator.unobtrusive.parse('#myModalDescargar');
+        if (request.status == 200)
+        $.unblockUI();
     });
 
 }

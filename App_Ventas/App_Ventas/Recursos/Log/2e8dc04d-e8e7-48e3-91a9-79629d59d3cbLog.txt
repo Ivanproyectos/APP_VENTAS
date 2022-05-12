@@ -1,0 +1,5 @@
+System.ArgumentOutOfRangeException: El índice debe estar dentro de los límites de la lista.
+Nombre del parámetro: index
+   en System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   en System.Collections.Generic.List`1.Insert(Int32 index, T item)
+   en App_Ventas.Handlers.CreatePdfFile.WritePdfFile(DataSet ds, String PDFFilePath, Cls_Ent_Titulo Titulo, String RUTA_LOGO, Boolean AutoWidth, List`1 columnas) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Handlers\CreatePdfFile.cs:línea 272

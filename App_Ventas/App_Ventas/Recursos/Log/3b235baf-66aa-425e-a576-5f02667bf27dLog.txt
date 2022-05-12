@@ -1,0 +1,7 @@
+System.IO.IOException: The document has no pages.
+   en iTextSharp.text.pdf.PdfPages.WritePageTree()
+   en iTextSharp.text.pdf.PdfWriter.Close()
+   en iTextSharp.text.pdf.PdfDocument.Close()
+   en iTextSharp.text.Document.Close()
+   en iTextSharp.text.Document.Dispose()
+   en App_Ventas.Handlers.CreatePdfFile.WritePdfFile(DataSet ds, String PDFFilePath, Cls_Ent_Titulo Titulo, String RUTA_LOGO, List`1 columnas) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Handlers\CreatePdfFile.cs:línea 266
