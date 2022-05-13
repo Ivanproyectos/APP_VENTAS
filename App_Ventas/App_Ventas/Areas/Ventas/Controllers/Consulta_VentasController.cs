@@ -78,8 +78,23 @@ namespace App_Ventas.Areas.Ventas.Controllers
         }
 
 
+        public ActionResult View_ExportarVentasExcel(VentasModelView Params)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            VentasModelView model = new VentasModelView();
+            //model.ID_SUCURSAL = ID_SUCURSAL;
+            //model.FLG_SERVICIO_INT = FLG_SERVICIO;
+            return View(Params);
+        }
 
-
+        public ActionResult View_ExportarVentasPDF(VentasModelView Params)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            VentasModelView model = new VentasModelView();
+            //model.ID_SUCURSAL = ID_SUCURSAL;
+            //model.FLG_SERVICIO_INT = FLG_SERVICIO;
+            return View(Params);
+        }
 
 
 

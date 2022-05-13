@@ -1,0 +1,30 @@
+﻿@model App_Ventas.Areas.Ventas.Models.VentasModelView
+<script type="text/javascript">
+    $(document).ready(function () {
+        Generar();
+    });
+    function Generar() {
+        var Params = {
+            ID_SUCURSAL: $('#Hdd_ID_SUCURSAL').val(),
+            ID_USUARIO: $('#Hdd_ID_USUARIO').val(),
+            FECHA_INICIO: $('#Hdd_FECHA_INICIO').val(),
+            FECHA_FIN: $('#Hdd_FECHA_FIN').val(),
+            FLG_ANULADO: $('#Hdd_FLG_ANULADO').val(),
+        }
+        $("#iframeReporte").attr("src", '@Url.Content("~/Recursos/Descargas/DescargarVentasPDF.aspx")?' + $.param(Params));
+    }
+</script>
+<style>
+    .modal-dialog2 {
+        width: 60%;
+        margin: 30px auto
+    }
+</style>
+<div class="modal-dialog2">
+    <iframe id="iframeReporte" style="background-color:white;width:99%;height:570px;" src=""></iframe> 
+</div>
+@Html.Hidden("Hdd_ID_SUCURSAL",Model.ID_SUCURSAL)
+@Html.Hidden("Hdd_FLG_SERVICIO",Model.ID_USUARIO)
+@Html.Hidden("Hdd_FLG_SERVICIO",Model.FECHA_INICIO)
+@Html.Hidden("Hdd_FLG_SERVICIO",Model.FECHA_FIN)
+

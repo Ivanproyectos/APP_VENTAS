@@ -1,5 +1,6 @@
 ﻿@model App_Ventas.Areas.Ventas.Models.VentasModelView
 <script src="@Url.Content("~/Scripts/Js/Ventas/Ventas.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Ventas/Consulta_Ventas.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Ventas/Ventas_Recursiva.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Ventas/Ventas_Detalle.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Recursiva/Configuracion.js")" type="text/javascript"></script>
@@ -43,15 +44,15 @@
     });
 
     $("#Ventas_Btn_ExportarExcel").click(function (e) {
-        Ventas_ExportarProductoExcel();
+        Ventas_ExportarVentasExcel();
     });
     $("#Ventas_Btn_ExportarPDF").click(function (e) {
-       Ventas_ExportarProductoPDF();
+        Ventas_ExportarVentasPDF();
     });
 
 
 </script>
-<div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<div class="modal fade" id="myModalDescargar" tabindex="" role="dialog" aria-labelledby="myModalDescargar" aria-hidden="true"></div>
 <div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <div class="row ">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
@@ -130,8 +131,8 @@
             <div class="card-body">
                      <div class="form-row mb-2">    
                     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12 text-right">
-                        <button type="button" id="Producto_Btn_ExportarExcel" class="btn btn-light me-1">Exportar Excel</button>
-                        <button type="button" id="Producto_Btn_ExportarPDF" class="btn btn-light">Exportar PDF</button>
+                        <button type="button" id="Ventas_Btn_ExportarExcel" class="btn btn-light me-1">Exportar Excel</button>
+                        <button type="button" id="Ventas_Btn_ExportarPDF" class="btn btn-light">Exportar PDF</button>
                     </div>
                 </div>
 

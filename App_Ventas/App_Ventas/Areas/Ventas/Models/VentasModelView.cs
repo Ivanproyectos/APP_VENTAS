@@ -94,7 +94,7 @@ namespace App_Ventas.Areas.Ventas.Models
         public int ID_TIPO_PAGO_SEARCH { get; set; }
         
         /*CONSULTAS*/
-         [Display(Name = "Usuario: ")]
+        [Display(Name = "Usuario: ")]
         [DataType(DataType.Text)]
         public int ID_USUARIO { get; set; }
         public List<SelectListItem> Lista_Usuarios{ get; set; }
@@ -105,9 +105,12 @@ namespace App_Ventas.Areas.Ventas.Models
         public decimal DEBE { get; set; }
         public string TIPO_GRILLA { get; set; }
 
+        public string FECHA_INICIO { get; set; }
+        public string FECHA_FIN{ get; set; }
+
         public Cls_Ent_Cliente Cliente { get; set; }
-
-
+        public int FLG_ANULADO { get; set; }
+        
     
 
     }
