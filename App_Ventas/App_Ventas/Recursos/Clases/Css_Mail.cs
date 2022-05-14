@@ -62,7 +62,7 @@ namespace App_Ventas.Recursos.Clases
                     if ((sfrom != null) & sfrom != string.Empty)
                     {
                         if (!string.IsNullOrWhiteSpace(sfrom))
-                            mMailMessage.From = new MailAddress(sfrom);
+                            mMailMessage.From = new MailAddress(sfrom, "Ventas", System.Text.Encoding.UTF8);
                     }
 
                     foreach (string unmail in recepient)
