@@ -25,6 +25,18 @@ namespace App_Ventas.Areas.Ventas.Repositorio
             }
         }
 
+        public List<Cls_Ent_Ventas> Ventas_Listar(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                return _rule.Ventas_Listar(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                return new List<Cls_Ent_Ventas>();
+            }
+        }
 
         public void Ventas_Insertar(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
         {

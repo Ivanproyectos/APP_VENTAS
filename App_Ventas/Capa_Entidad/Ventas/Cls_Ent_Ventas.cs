@@ -38,6 +38,9 @@ namespace Capa_Entidad.Ventas
         public int ID_VENTA_CREDITO { get; set; }
         public string STR_FECHA_CREDITO_CANCELADO { get; set; }
 
+        public string FECHA_INICIO { get; set; }
+        public string FECHA_FIN { get; set; }
+        public string CLIENTE { get; set; }
         
     }
 }

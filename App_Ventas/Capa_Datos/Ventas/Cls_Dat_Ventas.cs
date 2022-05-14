@@ -161,7 +161,145 @@ namespace Capa_Datos.Ventas
                 auditoria.OBJETO = CUENTA;
             }
 
+            return lista;
+        }
 
+        ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** listar venta uno  *************************************************/
+        public List<Cls_Ent_Ventas> Ventas_Listar(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            List<Cls_Ent_Ventas> lista = new List<Cls_Ent_Ventas>();
+            try
+            {
+                using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlDataReader dr = null;
+                    SqlCommand cmd = new SqlCommand("USP_VENTA_VENTA_LISTAR", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    if (entidad.ID_SUCURSAL == 0)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = entidad.ID_SUCURSAL; }
+                    if (entidad.USU_CREACION == null || entidad.USU_CREACION =="")
+                    { cmd.Parameters.Add(new SqlParameter("@PI_USU_CREACION", SqlDbType.VarChar, 100)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_USU_CREACION", SqlDbType.VarChar, 100)).Value = entidad.USU_CREACION; }
+
+                    if (entidad.FECHA_INICIO == null || entidad.FECHA_INICIO == "")
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_INICIO", SqlDbType.VarChar, 100)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_INICIO", SqlDbType.VarChar, 100)).Value = entidad.FECHA_INICIO; }
+
+                    if (entidad.FECHA_FIN == null || entidad.FECHA_FIN == "")
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar, 100)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar, 100)).Value = entidad.FECHA_FIN; }
+
+                    if (entidad.FLG_ANULADO == 2)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FLG_ANULADO", SqlDbType.Int)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FLG_ANULADO", SqlDbType.Int)).Value = entidad.FLG_ANULADO; }
+
+                    dr = cmd.ExecuteReader();
+                    int pos_ID_VENTA = dr.GetOrdinal("ID_VENTA");
+                    int pos_COD_COMPROBANTE = dr.GetOrdinal("COD_COMPROBANTE");
+                    int pos_FLG_ANULADO = dr.GetOrdinal("FLG_ANULADO");
+                    int pos_FLG_ESTADO_CREDITO = dr.GetOrdinal("FLG_ESTADO_CREDITO");
+                    int pos_ID_TIPO_PAGO = dr.GetOrdinal("ID_TIPO_PAGO");
+                    //int pos_FECHA_VENTA = dr.GetOrdinal("STR_FECHA_VENTA");
+                    int pos_ID_CLIENTE = dr.GetOrdinal("ID_CLIENTE");
+                    int pos_ID_SUCURSAL = dr.GetOrdinal("ID_SUCURSAL");
+                    int pos_ID_TIPO_COMPROBANTE = dr.GetOrdinal("ID_TIPO_COMPROBANTE");
+                    int pos_CLIENTE = dr.GetOrdinal("CLIENTE");
+                    int pos_DESC_TIPO_COMPROBANTE = dr.GetOrdinal("DESC_TIPO_COMPROBANTE");
+                    int pos_SUB_TOTAL = dr.GetOrdinal("SUB_TOTAL");
+                    int pos_IGV = dr.GetOrdinal("IGV");
+                    int pos_DESCUENTO = dr.GetOrdinal("DESCUENTO");
+                    int pos_TOTAL = dr.GetOrdinal("TOTAL");
+                    int pos_DETALLE = dr.GetOrdinal("DETALLE");
+                    int pos_DESC_TIPO_PAGO = dr.GetOrdinal("DESC_TIPO_PAGO");
+                    int pos_DESC_ESTADO_CREDITO = dr.GetOrdinal("DESC_ESTADO_CREDITO");
+                    int pos_DESC_ESTADO_VENTA = dr.GetOrdinal("DESC_ESTADO_VENTA");
+                    int pos_USU_CREACION = dr.GetOrdinal("USU_CREACION");
+                    int pos_FEC_CREACION = dr.GetOrdinal("STR_FECHA_VENTA");
+                    int pos_NRO_OPERACION = dr.GetOrdinal("NRO_OPERACION");
+
+                    if (dr.HasRows)
+                    {
+                        Cls_Ent_Ventas obj = null;
+                        while (dr.Read())
+                        {
+                            obj = new Cls_Ent_Ventas();
+
+                            if (dr.IsDBNull(pos_ID_VENTA)) obj.ID_VENTA = 0;
+                            else obj.ID_VENTA = int.Parse(dr[pos_ID_VENTA].ToString());
+
+                            if (dr.IsDBNull(pos_COD_COMPROBANTE)) obj.COD_COMPROBANTE = "";
+                            else obj.COD_COMPROBANTE = dr.GetString(pos_COD_COMPROBANTE);
+
+                            if (dr.IsDBNull(pos_FLG_ANULADO)) obj.FLG_ANULADO = 0;
+                            else obj.FLG_ANULADO = int.Parse(dr[pos_FLG_ANULADO].ToString());
+
+                            if (dr.IsDBNull(pos_ID_TIPO_PAGO)) obj.ID_TIPO_PAGO = 0;
+                            else obj.ID_TIPO_PAGO = int.Parse(dr[pos_ID_TIPO_PAGO].ToString());
+
+                            if (dr.IsDBNull(pos_FLG_ESTADO_CREDITO)) obj.FLG_ESTADO_CREDITO = 0;
+                            else obj.FLG_ESTADO_CREDITO = int.Parse(dr[pos_FLG_ESTADO_CREDITO].ToString());
+
+                            if (dr.IsDBNull(pos_DESC_TIPO_COMPROBANTE)) obj.DESC_TIPO_COMPROBANTE = "";
+                            else obj.DESC_TIPO_COMPROBANTE = dr.GetString(pos_DESC_TIPO_COMPROBANTE);
+
+                            if (dr.IsDBNull(pos_SUB_TOTAL)) obj.SUB_TOTAL = 0;
+                            else obj.SUB_TOTAL = decimal.Parse(dr[pos_SUB_TOTAL].ToString());
+
+                            if (dr.IsDBNull(pos_IGV)) obj.IGV = 0;
+                            else obj.IGV = decimal.Parse(dr[pos_IGV].ToString());
+
+                            if (dr.IsDBNull(pos_DESCUENTO)) obj.DESCUENTO = 0;
+                            else obj.DESCUENTO = decimal.Parse(dr[pos_DESCUENTO].ToString());
+
+                            if (dr.IsDBNull(pos_TOTAL)) obj.TOTAL = 0;
+                            else obj.TOTAL = decimal.Parse(dr[pos_TOTAL].ToString());
+
+                            if (dr.IsDBNull(pos_DETALLE)) obj.DETALLE = "";
+                            else obj.DETALLE = dr.GetString(pos_DETALLE);
+
+                            if (dr.IsDBNull(pos_NRO_OPERACION)) obj.NRO_OPERACION = "";
+                            else obj.NRO_OPERACION = dr.GetString(pos_NRO_OPERACION);
+
+
+                            if (dr.IsDBNull(pos_DESC_TIPO_PAGO)) obj.DESC_TIPO_PAGO = "";
+                            else obj.DESC_TIPO_PAGO = dr.GetString(pos_DESC_TIPO_PAGO);
+
+                            if (dr.IsDBNull(pos_DESC_ESTADO_CREDITO)) obj.DESC_ESTADO_CREDITO = "";
+                            else obj.DESC_ESTADO_CREDITO = dr.GetString(pos_DESC_ESTADO_CREDITO);
+
+                            if (dr.IsDBNull(pos_DESC_ESTADO_VENTA)) obj.DESC_ESTADO_VENTA = "";
+                            else obj.DESC_ESTADO_VENTA = dr.GetString(pos_DESC_ESTADO_VENTA);
+
+                            if (dr.IsDBNull(pos_USU_CREACION)) obj.USU_CREACION = "";
+                            else obj.USU_CREACION = dr.GetString(pos_USU_CREACION);
+                            if (dr.IsDBNull(pos_FEC_CREACION)) obj.FEC_CREACION = "";
+                            else obj.FEC_CREACION = dr.GetString(pos_FEC_CREACION);
+
+
+                            if (dr.IsDBNull(pos_CLIENTE)) obj.CLIENTE = "";
+                            else obj.CLIENTE = dr.GetString(pos_CLIENTE);
+
+                          
+                            lista.Add(obj); 
+
+                        }
+                    }
+                    dr.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
             return lista;
         }
 

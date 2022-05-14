@@ -39,32 +39,52 @@ namespace App_Ventas.Handlers
             DataTable dt = new DataTable();
             if (!solo_columna)
             {
-                foreach (PropertyInfo info in typeof(T).GetProperties())
+                //foreach (PropertyInfo info in typeof(T).GetProperties())
+                //{
+                //    bool valido = false;
+                //    string nombre_columna = info.Name;
+                //    if (columnas != null)
+                //    {
+                //        foreach (Cls_Ent_Columnas columna in columnas)
+                //        {
+                //            if (columna.ID_COLUMNA == info.Name)
+                //            {
+                //                nombre_columna = columna.DESCRIPCION_COLUMNA;
+                //                valido = true;
+                //                break;
+                //            }
+                //        }
+                //    }
+                //    else
+                //    {
+                //        valido = true;
+                //    }
+
+                //    if (valido)
+                //    {
+                //        dt.Columns.Add(new DataColumn(nombre_columna, GetNullableType(info.PropertyType)));
+                //    }
+                //}
+
+                foreach (Cls_Ent_Columnas columna in columnas)
                 {
                     bool valido = false;
-                    string nombre_columna = info.Name;
-                    if (columnas != null)
+                    foreach (PropertyInfo info in typeof(T).GetProperties())
                     {
-                        foreach (Cls_Ent_Columnas columna in columnas)
+                        string nombre_columna = info.Name;
+                        if (columna.ID_COLUMNA == info.Name)
                         {
-                            if (columna.ID_COLUMNA == info.Name)
-                            {
-                                nombre_columna = columna.DESCRIPCION_COLUMNA;
-                                valido = true;
-                                break;
-                            }
+                            nombre_columna = columna.DESCRIPCION_COLUMNA;
+                            valido = true;
+                        }
+                        if (valido)
+                        {
+                            dt.Columns.Add(new DataColumn(nombre_columna, GetNullableType(info.PropertyType)));
+                            break;
                         }
                     }
-                    else
-                    {
-                        valido = true;
-                    }
-
-                    if (valido)
-                    {
-                        dt.Columns.Add(new DataColumn(nombre_columna, GetNullableType(info.PropertyType)));
-                    }
                 }
+
                 foreach (T t in list)
                 {
                     DataRow row = dt.NewRow();
@@ -399,7 +419,7 @@ namespace App_Ventas.Handlers
                 string ruta_temporal = "";
                 if (titulo != null)
                 {
-                    string imagePath1 = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"Recursos\Imagenes\logo_mef.jpg");
+                    string imagePath1 = titulo.RUTA_LOGO; 
 
                     System.Drawing.Bitmap bm = (System.Drawing.Bitmap)System.Drawing.Image.FromFile(imagePath1);
                     System.Drawing.Bitmap resized = new System.Drawing.Bitmap(bm, new System.Drawing.Size(320, 68));

@@ -96,7 +96,7 @@ namespace App_Ventas.Areas.Ventas.Models
         /*CONSULTAS*/
         [Display(Name = "Usuario: ")]
         [DataType(DataType.Text)]
-        public int ID_USUARIO { get; set; }
+        public string ID_USUARIO { get; set; }
         public List<SelectListItem> Lista_Usuarios{ get; set; }
 
         public int ID_SUCURSAL { get; set; }
@@ -110,7 +110,7 @@ namespace App_Ventas.Areas.Ventas.Models
 
         public Cls_Ent_Cliente Cliente { get; set; }
         public int FLG_ANULADO { get; set; }
-        
+        public int TIPO_EXPORT { get; set; }
     
 
     }

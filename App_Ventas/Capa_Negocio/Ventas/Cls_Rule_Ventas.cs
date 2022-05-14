@@ -13,12 +13,24 @@ namespace Capa_Negocio.Ventas
        private Cls_Dat_Ventas OData = new Cls_Dat_Ventas();
 
 
-
        public List<Cls_Ent_Ventas> Ventas_Paginado(string ORDEN_COLUMNA, string ORDEN, int FILAS, int START, string @WHERE, ref Cls_Ent_Auditoria auditoria)
        {
            try
            {
                return OData.Ventas_Paginado(ORDEN_COLUMNA, ORDEN, FILAS, START, @WHERE, ref auditoria);
+           }
+           catch (Exception ex)
+           {
+               auditoria.Error(ex);
+               return new List<Cls_Ent_Ventas>();
+           }
+       }
+
+       public List<Cls_Ent_Ventas> Ventas_Listar(Cls_Ent_Ventas entidad, ref Cls_Ent_Auditoria auditoria)
+       {
+           try
+           {
+               return OData.Ventas_Listar(entidad, ref auditoria);
            }
            catch (Exception ex)
            {

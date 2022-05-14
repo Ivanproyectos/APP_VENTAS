@@ -10,6 +10,7 @@ namespace Capa_Entidad.Base
     {
         public string TITULO { get; set; }
         public string TITULO_CELDA { get; set; }
-        public int TITULO_INT { get; set; } 
+        public int TITULO_INT { get; set; }
+        public string RUTA_LOGO { get; set; } 
     }
 }
