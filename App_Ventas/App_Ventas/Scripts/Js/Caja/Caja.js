@@ -9,9 +9,8 @@ function Caja_Cerrar() {
 
 function Caja_Limpiar() {
     $("#Caja_FechaRange").val(Fecha_Actual);
-    //$('#Caja_FechaFin').val(Fecha_Actual);
-    $('#ID_USUARIO').val("");
-    $('#ID_SUCURSAL_SEARCH').val("");
+    $('#ID_USUARIO').val("").trigger('change');
+    $('#ID_SUCURSAL_SEARCH').val("").trigger('change');
 
     Caja_CargarGrilla();
     Caja_Movimiento_CargarGrilla();

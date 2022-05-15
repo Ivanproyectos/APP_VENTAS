@@ -22,7 +22,7 @@ namespace App_Ventas.Recursos.Descargas
             if (!IsPostBack)
             {
                 int ID_SUCURSAL = int.Parse(Request.QueryString["ID_SUCURSAL"].ToString());
-                string USU_CREACION = Request.QueryString["USU_CREACION"].ToString();
+                string USU_CREACION = Request.QueryString["ID_USUARIO"].ToString();
                 string FECHA_INICIO = Request.QueryString["FECHA_INICIO"].ToString();
                 string FECHA_FIN = Request.QueryString["FECHA_FIN"].ToString();
                 int FLG_ANULADO = int.Parse(Request.QueryString["FLG_ANULADO"].ToString());
@@ -87,13 +87,13 @@ namespace App_Ventas.Recursos.Descargas
                     NOMBRE_ARCHIVO = "Ventas.xlsx";
                     NombreHoja = "Ventas";
                     RUTA_ARCHIVO_TEMPORAL=  string.Format("{0}/{1}", RUTA_TEMPORAL, CODIGO_TEMPORAL + ".xlsx");
-                    Handlers.CreateExcelFile.CreateExcelDocument(lista.ToList(), RUTA_ARCHIVO_TEMPORAL, new Cls_Ent_Titulo { TITULO = "Listado Productos", RUTA_LOGO = RUTA_LOGO }, false, NombreHoja, columnas);
+                    Handlers.CreateExcelFile.CreateExcelDocument(lista.ToList(), RUTA_ARCHIVO_TEMPORAL, null, false, NombreHoja, columnas);
                 } 
                 else if (TIPO == 2) // PDF
                 {
                     NOMBRE_ARCHIVO = "Ventas.pdf";
                     RUTA_ARCHIVO_TEMPORAL = string.Format("{0}/{1}", RUTA_TEMPORAL, CODIGO_TEMPORAL + ".pdf");
-                    Handlers.CreatePdfFile.CreatePdfDocument(lista.ToList(), RUTA_ARCHIVO_TEMPORAL, new Cls_Ent_Titulo { TITULO = "Listado Productos" }, RUTA_LOGO, true, columnas);
+                    Handlers.CreatePdfFile.CreatePdfDocument(lista.ToList(), RUTA_ARCHIVO_TEMPORAL, new Cls_Ent_Titulo { TITULO = "Listado Ventas" }, RUTA_LOGO, true, columnas);
                 }
                 if (RUTA_ARCHIVO_TEMPORAL != "")
                 {
