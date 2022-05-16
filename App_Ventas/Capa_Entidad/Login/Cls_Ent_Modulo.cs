@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Capa_Entidad.Login
 {
-    public class Cls_Ent_Modulo
+    public class Cls_Ent_Modulo : Base.Cls_Ent_Base
     {
 
         public long ID_MODULO { get; set; }
@@ -20,7 +20,8 @@ namespace Capa_Entidad.Login
         public int FLG_DEFAULT { get; set; }
         public int FLG_LINK { get; set; }
         public int FLG_SINGRUPO { get; set; }
-        
+        public int ORDEN { get; set; }
+       
         public List<Cls_Ent_Modulo> Modulos_Hijos { get; set; } 
     }
 }

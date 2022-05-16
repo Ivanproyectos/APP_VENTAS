@@ -55,7 +55,6 @@ namespace Capa_Datos.Login
                            while (dr.Read())
                            {
                                obj = new Cls_Ent_Modulo();
-
                                if (dr.IsDBNull(pos_ID_MODULO)) obj.ID_MODULO = 0;
                                else obj.ID_MODULO = long.Parse(dr[pos_ID_MODULO].ToString());
 
@@ -79,11 +78,8 @@ namespace Capa_Datos.Login
 
                                if (dr.IsDBNull(pos_URL_MODULO)) obj.URL_MODULO = "";
                                else obj.URL_MODULO = dr.GetString(pos_URL_MODULO);
-
                                if (dr.IsDBNull(pos_NIVEL)) obj.NIVEL = 0;
                                else obj.NIVEL = int.Parse(dr[pos_NIVEL].ToString());
-
-                     
 
                                if (dr.IsDBNull(pos_FLG_LINK)) obj.FLG_LINK = 0;
                                else obj.FLG_LINK = int.Parse(dr[pos_FLG_LINK].ToString());

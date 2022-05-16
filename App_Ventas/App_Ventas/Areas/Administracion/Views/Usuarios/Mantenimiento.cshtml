@@ -15,8 +15,6 @@
         }
 
     });
-
-
     $('#FEC_ACTIVACION, #FEC_DESACTIVACION ').datepicker({
         changeMonth: true,
         changeYear: true,
@@ -30,8 +28,6 @@
     $('#Usuarios_btn_Guardar').click(function () {
         Usuarios_Ingresar();
     });
-
-
 
     $('#ID_TIPO_DOCUMENTO').change(function () {
         ChangeTipoDocumento($(this).val());
@@ -127,8 +123,6 @@
                 </li>
             </ul>
             <div class="tab-content">
-
-
                 <div class="tab-pane fade active show" id="Usuariospanel" role="tabpanel">
                     @using (Html.BeginForm("Usuarios", "Usuarios", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmMantenimiento_Usuarios" }))
                     {

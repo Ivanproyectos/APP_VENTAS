@@ -59,6 +59,7 @@
     <Compile Include="Inventario\Cls_Dat_Translado_Producto.cs" />
     <Compile Include="Listados_Combos\Cls_Dat_Listados.cs" />
     <Compile Include="Login\Cls_Dat_Login.cs" />
+    <Compile Include="Login\Cls_Dat_ModulosPerfil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protected\DataBaseHelper.cs" />
     <Compile Include="Ventas\Cls_Dat_Ventas.cs" />

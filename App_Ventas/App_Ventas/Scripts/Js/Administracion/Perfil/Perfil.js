@@ -62,6 +62,15 @@ function Perfil_actionActivo(FLG_ESTADO, ID_PERFIL) {
 }
 
 
+function Perfil_MostrarNuevo() {
+    jQuery("#myModalNuevo").html('');
+    jQuery("#myModalNuevo").load(baseUrl + "Administracion/Perfil/View_Mantenimiento?id=0&Accion=N", function (responseText, textStatus, request) {
+        $('#myModalNuevo').modal({ show: true });
+        $.validator.unobtrusive.parse('#myModalNuevo');
+        if (request.status != 200) return;
+    });
+}
+
 
 function Perfil_MostrarEditar(CODIGO) {
     $('#AccionPerfil').val('M');

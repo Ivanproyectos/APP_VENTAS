@@ -1,6 +1,8 @@
 ﻿@model App_Ventas.Areas.Administracion.Models.PerfilModelView
 
-<script src="@Url.Content("~/Scripts/Js/Administracion/Perfil.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Administracion/Perfil/Perfil.js")" type="text/javascript"></script>
+
+
 
 <script type="text/javascript">
 
@@ -17,15 +19,13 @@
     //$("#Perfil_btnLimpiar").click(function (e) {
     //    Perfil_Limpiar();
     //});
-
-
-    //$("#Perfil_btnNuevo").click(function (e) {
-    //    Perfil_MostrarNuevo();
-    //});
+    $("#Perfil_btnNuevo").click(function (e) {
+        Perfil_MostrarNuevo();
+    });
 
 </script>
 
-<div class="row" id="Contet_Perfil">
+@*<div class="row" id="Contet_Perfil">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-header border-bottom-head">
@@ -37,13 +37,11 @@
                     @Html.ValidationSummary(true)
                     <div class="basic-form">
                         <div class="form-row">
-
                             <div class="form-group col-md-3">
                                 @Html.LabelFor(model => model.DESC_PERFIL)
                                 @Html.TextBoxFor(model => model.DESC_PERFIL, new { @class = "form-control", @maxlength = "200", @placeholder = "Ejm: Adminitrador", @autocomplete = "off" })
                                 @Html.ValidationMessageFor(model => model.DESC_PERFIL, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
-
                             <div class="form-group col-xl-4 col-xxl-4 col-lg-4 col-md-6 " style="margin-top: 25px;">
                                 <button type="button" id="Perfil_btnGuardar" class="btn btn-rounded btn-secondary btn-hover-shine" style="margin-left: 12px;">
                                     <span id="_btnGuardar_text"><span class="btn-icon-left text-secondary"><i class="fa fa-plus color-secondary"></i>
@@ -63,12 +61,21 @@
     </div>
 </div>
 @Html.Hidden("hfd_ID_PERFIL", "0")
-@Html.Hidden("AccionPerfil", "N")
+@Html.Hidden("AccionPerfil", "N")*@
 
+<div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<div class="row mb-3">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+        <h4 class="card-title">Listado Perfiles</h4>
+    </div>
+</div>
 
 <div class="row ">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
+            <div class="card-header">
+                <button id="Perfil_btnNuevo" type="button" class="btn btn-hover-shine btn-square btn-primary "><i class="bi bi-plus-square"></i>&nbsp Nuevo Perfil</button>
+            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="Perfil_Grilla" style="width: 100%" class="table"></table>

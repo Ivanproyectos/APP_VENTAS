@@ -107,19 +107,6 @@ namespace App_Ventas.Areas.Login.Repositorio
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         public void Dispose()
         {
             GC.SuppressFinalize(this);

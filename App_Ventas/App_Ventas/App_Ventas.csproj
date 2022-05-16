@@ -246,6 +246,7 @@
     <Compile Include="Areas\Login\LoginAreaRegistration.cs" />
     <Compile Include="Areas\Login\Repositorio\LoginRepositorio.cs" />
     <Compile Include="Areas\Login\Repositorio\ModulosRepositorio.cs" />
+    <Compile Include="Areas\Login\Repositorio\RepositorioModulosPerfil.cs" />
     <Compile Include="Areas\Recursiva\Controllers\ServiciosWebController.cs" />
     <Compile Include="Areas\Recursiva\RecursivaAreaRegistration.cs" />
     <Compile Include="Areas\Recursiva\Repositorio\CargaExcelRepostiorio.cs" />
@@ -4261,6 +4262,7 @@
     <Content Include="Areas\Inventario\Views\Producto\View_ExportarProductoExcel.cshtml" />
     <Content Include="Areas\Inventario\Views\Producto\View_ExportarProductoPDF.cshtml" />
     <Content Include="Areas\Ventas\Views\Consulta_Ventas\View_Exportar.cshtml" />
+    <Content Include="Areas\Administracion\Views\Perfil\View_Mantenimiento.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <Content Include="Recursos\Descargas\DescargarProductoExcel.aspx" />
     <Content Include="Recursos\Descargas\DescargarProductoPDF.aspx" />
@@ -4300,6 +4302,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Js\Administracion\ListadoCombo.js" />
+    <Content Include="Scripts\Js\Administracion\Perfil\NestableInit.js" />
     <Content Include="Scripts\Js\Caja\Caja.js" />
     <Content Include="Scripts\Js\Administracion\configurarEmpresa\configurarEmpresa.js" />
     <Content Include="Scripts\Js\Administracion\configurarEmpresa\Recursos.js" />
@@ -4307,7 +4310,7 @@
     <Content Include="Scripts\Js\Administracion\Proveedor.js" />
     <Content Include="Scripts\Js\Administracion\Sucursal.js" />
     <Content Include="Scripts\Js\Administracion\Usuario_Perfil.js" />
-    <Content Include="Scripts\Js\Administracion\Perfil.js" />
+    <Content Include="Scripts\Js\Administracion\Perfil\Perfil.js" />
     <Content Include="Scripts\Js\Administracion\Usuarios.js" />
     <Content Include="Scripts\Js\Administracion\Personal.js" />
     <Content Include="Scripts\Js\Compras\Compras.js" />
