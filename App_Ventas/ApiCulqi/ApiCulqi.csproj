@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp">
       <HintPath>bin\RestSharp.dll</HintPath>
     </Reference>
@@ -42,20 +45,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Card.cs" />
-    <Compile Include="Charge.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="Event.cs" />
-    <Compile Include="Iin.cs" />
+    <Compile Include="Culqi\Card.cs" />
+    <Compile Include="Culqi\Charge.cs" />
+    <Compile Include="Culqi\Customer.cs" />
+    <Compile Include="Culqi\Event.cs" />
+    <Compile Include="Culqi\Iin.cs" />
     <Compile Include="model\Config.cs" />
     <Compile Include="model\Security.cs" />
-    <Compile Include="Plan.cs" />
+    <Compile Include="Culqi\Plan.cs" />
+    <Compile Include="Payments\Css_OnlinePay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Refund.cs" />
-    <Compile Include="Subscription.cs" />
-    <Compile Include="Token.cs" />
-    <Compile Include="Transfer.cs" />
+    <Compile Include="Culqi\Refund.cs" />
+    <Compile Include="Culqi\Subscription.cs" />
+    <Compile Include="Culqi\Token.cs" />
+    <Compile Include="Culqi\Transfer.cs" />
     <Compile Include="util\Util.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
