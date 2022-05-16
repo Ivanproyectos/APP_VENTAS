@@ -59,6 +59,8 @@ function BuscarPersonalJuridica(_NumerDocumento) {
         var item = {
             NUMERO_DOCUMENTO: _NumerDocumento
         };
+        _blockUI('Buscando persona...');
+        setTimeout(function () {
         var url = baseUrl + 'Recursiva/ServiciosWeb/ConsultaRuc';
         var auditoria = SICA.Ajax(url, item, false);
         if (auditoria != null && auditoria != "") {
@@ -91,6 +93,7 @@ function BuscarPersonalJuridica(_NumerDocumento) {
                 jWarning(auditoria.MENSAJE_SALIDA, "Atención");
             }
         }
+        }, 200);
         } else {
             jWarning("Numero ruc debe tener 11 digitos", "Atención");
             return null;

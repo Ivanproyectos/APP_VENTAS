@@ -14,7 +14,6 @@ function Perfil_Limpiar() {
 }
 
 function Perfil_ConfigurarGrilla() {
-
     DataTable.GridUnload(Perfil_Grilla);
     var colModels = [
           { data: "ID_PERFIL", name: "ID_PERFIL", title: "Código", autoWidth: false, visible: true, },
@@ -36,34 +35,6 @@ function Perfil_ConfigurarGrilla() {
         eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: false, responsive: true, processing: true
     };
     DataTable.Grilla(Perfil_Grilla, '', 'ID_PERFIL', colModels, opciones, "ID_PERFIL");
-
-    //$("#" + Perfil_Grilla).GridUnload();
-    //var colNames = ['Editar', 'Eliminar', 'Estado', 'codigo', 'ID', 'perfil', 
-    //    'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación'];
-    //var colModels = [
-    //        { name: 'EDITAR', index: 'EDITAR', align: 'center', width: 60, hidden: false, formatter: Perfil_actionEditar, sortable: false },
-    //        { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: false, formatter: Perfil_actionEliminar, sortable: false },
-    //        { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Perfil_actionActivo, sortable: false },
-    //        { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
-    //        { name: 'ID_PERFIL', index: 'ID_PERFIL', width: 100, hidden: true, key: true },
-    //        { name: 'DESC_PERFIL', index: 'DESC_PERFIL', width: 300, hidden: false, align: "left"   ,search: true },
-    //        { name: 'FLG_ESTADO', index: 'FLG_ESTADO', width: 300, hidden: true, align: "left" },
-    //        { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },
-    //        { name: 'USU_CREACION', index: 'USU_CREACION', width: 150, hidden: false, align: "left" },
-    //        { name: 'FEC_MODIFICACION', index: 'FEC_MODIFICACION', width: 150, hidden: false, align: "left" },
-    //        { name: 'USU_MODIFICACION', index: 'USU_MODIFICACION', width: 150, hidden: false, align: "left" },
-    //];
-    //var opciones = {
-    //    GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
-    //    gridCompleteFunc: function () {
-     
-    //        var allJQGridData = $("#" + _grilla).jqGrid('getRowData');
-    //        if (allJQGridData.length == 0) {
-    //            $(".ui-jqgrid-hdiv").css("overflow-x", "auto");
-    //        }
-    //    }
-    //};
-    //SICA.Grilla(Perfil_Grilla, Perfil_Barra, Perfil_Grilla, 400, '', "Lista de Perfil", '', 'ID_PERFIL', colNames, colModels, '', opciones);
 }
 
 function Perfil_actionAcciones(ID_PERFIL) {

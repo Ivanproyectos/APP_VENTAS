@@ -11,7 +11,6 @@ function Caja_Limpiar() {
     $("#Caja_FechaRange").val(Fecha_Actual);
     $('#ID_USUARIO').val("").trigger('change');
     $('#ID_SUCURSAL_SEARCH').val("").trigger('change');
-
     Caja_CargarGrilla();
     Caja_Movimiento_CargarGrilla();
 }

@@ -19,6 +19,8 @@ function Categoria_ConfigurarGrilla() {
           { data: "ID_CATEGORIA", name: "ID_CATEGORIA", title: "Código", autoWidth: false, visible: true, },
           { data: "DESC_CATEGORIA", name: "DESC_CATEGORIA", title: "Categoria", autoWidth: true },
           { data: "DESCRIPCION", name: "DESCRIPCION", title: "Descripción", autoWidth: false, },
+          { data: "USU_CREACION", name: "USU_CREACION", title: "Usuario Creación", autoWidth: false, },
+          { data: "FEC_CREACION", name: "FEC_CREACION", title: "Fecha Creación", autoWidth: false, },
           {
               data: null, name: "FLG_ESTADO", title: "Activo", width: "80px", sortable: false,
               render: function (data, type, row, meta) { return Categoria_actionActivo(data.FLG_ESTADO, data.ID_CATEGORIA); }

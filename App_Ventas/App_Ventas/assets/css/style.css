@@ -10754,9 +10754,9 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
       padding: 0.8125rem 0.9375rem; }
     [data-sidebar-style="full"][data-layout="vertical"] .menu-toggle .quixnav .metismenu li > ul {
       position: absolute;
-      left: 3.75rem;
-      top: 2.9375rem;
-      width: 11.875rem;
+    left: 1rem;
+    top: 3.3rem;
+    width: 12.1rem;
       z-index: 1001;
       display: none;
       padding-left: 1px;
