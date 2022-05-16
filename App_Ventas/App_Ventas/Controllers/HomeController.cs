@@ -12,8 +12,7 @@ namespace App_Ventas.Controllers
         {
             ViewBag.SimboloMoneda = "S/.";
             ViewBag.IMPUESTO = "18";
-            ViewBag.NOMBRE_IMPUESTO = "IGV"; 
-
+            ViewBag.NOMBRE_IMPUESTO = "IGV";
             return View();
         }
 

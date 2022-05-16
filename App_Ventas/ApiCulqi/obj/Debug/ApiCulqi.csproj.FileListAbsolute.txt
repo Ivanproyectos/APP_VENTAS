@@ -1,0 +1,6 @@
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Debug\ApiCulqi.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Debug\ApiCulqi.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Debug\RestSharp.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\obj\Debug\ApiCulqi.csprojResolveAssemblyReference.cache
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\obj\Debug\ApiCulqi.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\obj\Debug\ApiCulqi.pdb
