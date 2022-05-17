@@ -10,6 +10,7 @@ using Capa_Entidad.Administracion;
 using System.Text;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using ApiCulqi; 
 
 
 namespace App_Ventas.Areas.Recursiva.Controllers
@@ -23,8 +24,6 @@ namespace App_Ventas.Areas.Recursiva.Controllers
         {
             return View();
         }
-
-
         public ActionResult ConsultaRuc(Cls_Ent_Cliente entidad)
         {
             Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
@@ -61,6 +60,24 @@ namespace App_Ventas.Areas.Recursiva.Controllers
         }
 
 
+        public ActionResult CreateCharge()
+        {
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            auditoria.Limpiar();
+            try
+            {
+
+                var resp = new ApiCulqi.Payments.Css_OnlinePay().OnlinePay_CreateCharge();
+                auditoria.OBJETO = resp; 
+            }
+            catch (Exception e)
+            {
+                auditoria.Rechazar("Servicio fuera de linea, ingrese datos manualmente.");
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+
+        }
+        
 
 
     }

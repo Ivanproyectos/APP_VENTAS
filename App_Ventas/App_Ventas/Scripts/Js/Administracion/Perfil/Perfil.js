@@ -99,7 +99,6 @@ function Perfil_CancelarEditar() {
 function Perfil_CargarGrilla() {
     var item =
        {
-
            //DESC_PERFIL: $('#DESC_PERFIL').val(),
            FLG_ESTADO: 2 // todos
        };
@@ -256,3 +255,21 @@ function Perfil_Estado(ID_PERFIL, CHECK) {
 }
 
 ///*********************************************** ----------------- *************************************************/
+
+
+
+function test_culqi() {
+    var item = {
+    };
+    var url = baseUrl + 'Recursiva/ServiciosWeb/CreateCharge';
+    var auditoria = SICA.Ajax(url, item, false);
+    if (auditoria != null && auditoria != "") {
+        if (auditoria.EJECUCION_PROCEDIMIENTO) {
+            if (auditoria.RECHAZAR) {
+                jError(auditoria.MENSAJE_SALIDA, "Atención");
+            }
+        } else {
+            jError(auditoria.MENSAJE_SALIDA, "Atención");
+        }
+    }
+}

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.IO; 
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ApiCulqi; 
+using ApiCulqi;
+using NUnit.Framework;
 using Newtonsoft.Json.Linq;
 
 namespace ApiCulqi.Payments
@@ -15,8 +17,8 @@ namespace ApiCulqi.Payments
         public Css_OnlinePay()
 		{
 			security = new Security();
-			security.public_key = "pk_test_vzMuTHoueOMlgUPj";
-			security.secret_key = "sk_test_UTCQSGcXW8bCyU59";
+            security.public_key = "pk_test_2216672afb8d0dfa";
+            security.secret_key = "sk_test_993557e62d91d733";
 		}
 
 		protected static string GetRandomString()
@@ -33,8 +35,8 @@ namespace ApiCulqi.Payments
 				{"card_number", "4111111111111111"},
 				{"cvv", "123"},
 				{"expiration_month", 9},
-				{"expiration_year", 2020},
-				{"email", "wmuro@me.com"}
+				{"expiration_year", 2025},
+				{"email", "ivansperezt@gmail.com"}
 			};
 			return new Token(security).Create(map);
 		}
@@ -48,7 +50,7 @@ namespace ApiCulqi.Payments
 			Assert.AreEqual("token",(string)json_object["object"]);
 		}
 
-		protected string CreateCharge()
+        public string OnlinePay_CreateCharge()
 		{	
 
 			string data = CreateToken();
