@@ -127,24 +127,24 @@ namespace App_Ventas.Areas.Administracion.Controllers
       
             if (Accion == "M")
             {
-                //using (ClienteRepositorio repositorioCliente = new ClienteRepositorio())
-                //{
-                //    Cls_Ent_Perfil entidad = new Cls_Ent_Perfil();
-                //    auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+                using (PerfilRepositorio repositorioPerfil = new PerfilRepositorio())
+                {
+                    Cls_Ent_Perfil entidad = new Cls_Ent_Perfil();
+                    auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
 
-                //    entidad.ID_PERFIL = id;
-                //    lista = repositorioCliente.Cliente_Listar_Uno(entidad, ref auditoria);
-                //    if (!auditoria.EJECUCION_PROCEDIMIENTO)
-                //    {
-                //        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
-                //        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
-                //    }
-                //    else
-                //    {
-                //        model.ID_PERFIL = lista.ID_PERFIL;
-                //        model.DESC_PERFIL = lista.DESC_PERFIL;
-                //    }
-                //}
+                    entidad.ID_PERFIL = id;
+                    lista = repositorioPerfil.Perfil_Listar_Uno(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                    else
+                    {
+                        model.ID_PERFIL = lista.ID_PERFIL;
+                        model.DESC_PERFIL = lista.DESC_PERFIL;
+                    }
+                }
 
             }
 

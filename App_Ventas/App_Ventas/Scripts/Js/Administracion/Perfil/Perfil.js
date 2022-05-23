@@ -26,7 +26,7 @@ function Perfil_ConfigurarGrilla() {
           },
           {
               data: null, sortable: false, title: "Acciones", width: "80px",
-              render: function (data, type, row, meta) { return Perfil_actionAcciones(data.PERFIL); }
+              render: function (data, type, row, meta) { return Perfil_actionAcciones(data.ID_PERFIL); }
           },
 
     ];
@@ -50,7 +50,6 @@ function Perfil_actionAcciones(ID_PERFIL) {
     return _btn;
 }
 
-
 function Perfil_actionActivo(FLG_ESTADO, ID_PERFIL) {
     var check_ = 'check';
     if (FLG_ESTADO == 1)
@@ -61,7 +60,6 @@ function Perfil_actionActivo(FLG_ESTADO, ID_PERFIL) {
     return _btn;
 }
 
-
 function Perfil_MostrarNuevo() {
     jQuery("#myModalNuevo").html('');
     jQuery("#myModalNuevo").load(baseUrl + "Administracion/Perfil/View_Mantenimiento?id=0&Accion=N", function (responseText, textStatus, request) {
@@ -71,18 +69,14 @@ function Perfil_MostrarNuevo() {
     });
 }
 
-
-function Perfil_MostrarEditar(CODIGO) {
-    $('#AccionPerfil').val('M');
-    $('#hfd_ID_PERFIL').val(CODIGO);
-    var _DataPerfil = jQuery('#' + Perfil_Grilla).jqGrid('getRowData', CODIGO);
-    $('#DESC_PERFIL').val(_DataPerfil.DESC_PERFIL);
-    $('#hfd_ID_PERFIL').val(_DataPerfil.ID_PERFIL);
-    $('#_btnGuardar_text').html('<span class="btn-icon-left text-secondary"><i class="bi bi-pencil-fill"></i> </span>Editar');
-    $('#Perfil_btnCancelar').show('slow');
-
+function Perfil_MostrarEditar(ID_PERFIL) {
+    jQuery("#myModalNuevo").html('');
+    jQuery("#myModalNuevo").load(baseUrl + "Administracion/Perfil/View_Mantenimiento?id=" + ID_PERFIL + "&Accion=M", function (responseText, textStatus, request) {
+        $('#myModalNuevo').modal({ show: true });
+        $.validator.unobtrusive.parse('#myModalNuevo');
+        if (request.status != 200) return;
+    });
 }
-
 
 function Perfil_CancelarEditar() {
     $('#DESC_PERFIL').val('');
@@ -177,7 +171,6 @@ function Perfil_Ingresar() {
                 if (r) {
                     var item =
                         {
-                            ID_ENTIDAD: $("#input_hdid_entidad").val() != 1 ? $("#input_hdid_entidad").val() : $("#ID_ENTIDAD").val(),
                             DESC_PERFIL: $("#DESC_PERFIL").val(),
                             USU_CREACION: $('#input_hdcodusuario').val(),
                             ACCION: $("#AccionPerfil").val()
@@ -188,7 +181,18 @@ function Perfil_Ingresar() {
                         if (auditoria.EJECUCION_PROCEDIMIENTO) {
                             if (!auditoria.RECHAZAR) {
                                 Perfil_CargarGrilla();
-                                jOkas("Perfil registrado satisfactoriamente", "Proceso");
+                                jOkas("Perfil registrado satisfactoriamente, a continuación configuré acceso a los modulos para este perfil.", "Proceso");
+                                $('#hfd_ID_PERFIL').val(auditoria.OBJETO);
+                                $('#PerfilTab, #PerfilPanel').removeClass('active');
+                                $('#PerfilPanel').removeClass('show ');
+
+                                Perfiles_CargarModulos();
+                                $('#PerfilModulosTab').removeClass('DisabledContent');
+                                $('#PerfilModulosTab, #PerfilModulosPanel').addClass('active');
+                                $('#PerfilModulosPanel').addClass('show');
+                                $('#PerfilTab').addClass('DisabledContent');
+                                $('#Perfil_Btn_Guardar').hide();
+
                             } else {
                                 jError(auditoria.MENSAJE_SALIDA, "Atención");
                             }

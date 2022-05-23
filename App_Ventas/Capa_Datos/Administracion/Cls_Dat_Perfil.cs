@@ -81,6 +81,47 @@ namespace Capa_Datos.Administracion
             return lista;
         }
 
+                ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** Lista perfil por id *************************************************/
+
+        public Cls_Ent_Perfil Perfil_Listar_Uno(Cls_Ent_Perfil entidad_param, ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            Cls_Ent_Perfil obj = new Cls_Ent_Perfil();
+            try
+            {
+                using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlDataReader dr = null;
+                    SqlCommand cmd = new SqlCommand("USP_ADMIN_PERFIL_LISTAR_UNO", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_PERFIL", SqlDbType.BigInt)).Value = entidad_param.ID_PERFIL;
+                    dr = cmd.ExecuteReader();
+                    int pos_ID_PERFIL = dr.GetOrdinal("ID_PERFIL");
+                    int pos_DESC_PERFIL = dr.GetOrdinal("DESC_PERFIL");  
+                    if (dr.HasRows)
+                    {
+                        //Cls_Ent_Cliente obj = null;
+                        while (dr.Read())
+                        {
+                            obj = new Cls_Ent_Perfil();
+                            if (dr.IsDBNull(pos_ID_PERFIL)) obj.ID_PERFIL = 0;
+                            else obj.ID_PERFIL = int.Parse(dr[pos_ID_PERFIL].ToString());
+                            if (dr.IsDBNull(pos_DESC_PERFIL)) obj.DESC_PERFIL = "";
+                            else obj.DESC_PERFIL = dr.GetString(pos_DESC_PERFIL);
+                        }
+                    }
+                    dr.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+            return obj;
+        }
+        
 
         ///*********************************************** ----------------- **************************************************/
 
@@ -97,6 +138,7 @@ namespace Capa_Datos.Administracion
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter("@PI_DESC_PERFIL", SqlDbType.VarChar, 200)).Value = entidad.DESC_PERFIL;
                     cmd.Parameters.Add(new SqlParameter("@PI_USUARIO_CREACION", SqlDbType.VarChar, 200)).Value = entidad.USU_CREACION;
+                    cmd.Parameters.Add(new SqlParameter("PO_ID_PERFIL", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("PO_MENSAJE", SqlDbType.VarChar, 200)).Direction = System.Data.ParameterDirection.Output;
                     if (cn.State != System.Data.ConnectionState.Open)
@@ -104,11 +146,15 @@ namespace Capa_Datos.Administracion
                         cn.Open();
                     }
                     cmd.ExecuteReader();
+                    string PO_ID_PERFIL = cmd.Parameters["PO_ID_PERFIL"].Value.ToString();
                     string PO_VALIDO = cmd.Parameters["PO_VALIDO"].Value.ToString();
                     string PO_MENSAJE = cmd.Parameters["PO_MENSAJE"].Value.ToString();
                     if (PO_VALIDO == "0")
                     {
                         auditoria.Rechazar(PO_MENSAJE);
+                    }
+                    else {
+                        auditoria.OBJETO = Convert.ToInt32(PO_ID_PERFIL); 
                     }
                     cn.Close();
                 }

@@ -1,12 +1,23 @@
 ﻿@model App_Ventas.Areas.Administracion.Models.PerfilModelView
 <script>
     $(document).ready(function () {
-        Perfiles_CargarModulos(); 
+        ListarModulos();
+        if ($('#AccionPerfil').val() == "M") {
+            $('#PerfilModulosTab').removeClass('DisabledContent')
+        }
     });
     $('#Perfil_Btn_Guardar').click(function () {
         Perfil_Ingresar();
     });
 
+    function Tab_Click(_this) {
+        if (_this.id == "PerfilTab") {
+            $('#Perfil_Btn_Guardar').show('slow');
+        } else if (_this.id == "PerfilModulosTab") {
+            $('#Perfil_Btn_Guardar').hide();
+            Perfiles_CargarModulos();
+        }
+    }
 
 </script>
 <style>
@@ -42,7 +53,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#PerfilModulos" id="PerfilModulosTab" onclick="Tab_Click(this);" data-toggle="tab" class="nav-link ">
+                        <a href="#PerfilModulosPanel" id="PerfilModulosTab" onclick="Tab_Click(this);" data-toggle="tab" class="nav-link DisabledContent">
                             <i class="bi bi-person-check"></i>&nbsp; Modulos del perfil
                         </a>
                     </li>
@@ -57,9 +68,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="PerfilModulos" role="tabpanel">
+                    <div class="tab-pane fade" id="PerfilModulosPanel" role="tabpanel">
                         <ul class="list-group col-md-12">
-                            <li class="list-group-item disabled">Acceso a modulos para este perfil</li>
+                            <li class="list-group-item disabled">Acceso a modulos para el perfil</li>
                             <li class="list-group-item" id="Perfiles_Div_Modulos"></li>
 
                         </ul>
@@ -67,8 +78,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="Perfil_Btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>
-                <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="Perfil_Btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>&nbsp;Guardar</button>
+                <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

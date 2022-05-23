@@ -46,7 +46,6 @@ namespace App_Ventas.Areas.Login.Controllers
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
-
         public ActionResult Modulos_ModulosPerfil_Listar(Cls_Ent_Sistemas_Perfiles entidad)
         {
             Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
@@ -67,6 +66,36 @@ namespace App_Ventas.Areas.Login.Controllers
                 auditoria.Error(ex);
                 string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
                 auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Modulos_ModulosPerfil_Eliminar(Cls_Ent_Sistemas_Perfiles entidad)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            using (RepositorioModulosPerfil repositorio = new RepositorioModulosPerfil())
+            {
+                repositorio.Perfiles_Modulos_Eliminar(entidad, ref auditoria);
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                }
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Modulos_ModulosPerfil_Registrar(Cls_Ent_Sistemas_Perfiles entidad)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            using (RepositorioModulosPerfil repositorio = new RepositorioModulosPerfil())
+            {
+                repositorio.Perfiles_Modulos_Registrar(entidad, ref auditoria);
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                }
             }
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }

@@ -28,6 +28,20 @@ namespace Capa_Negocio.Administracion
             }
         }
 
+
+        public Cls_Ent_Perfil Perfil_Listar_Uno(Cls_Ent_Perfil entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                return OData.Perfil_Listar_Uno(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                return new Cls_Ent_Perfil();
+            }
+        }
+        
      
 
         public void Perfil_Insertar(Cls_Ent_Perfil entidad, ref Cls_Ent_Auditoria auditoria)
