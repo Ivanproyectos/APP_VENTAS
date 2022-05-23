@@ -67,7 +67,7 @@ namespace App_Ventas.Areas.Recursiva.Controllers
             try
             {
 
-                var resp = new ApiCulqi.Payments.Css_OnlinePay().OnlinePay_CreateCharge();
+                var resp = new ApiCulqi.Payments.Css_Subscription().OnlinePay_CreateSubscription();
                 auditoria.OBJETO = resp; 
             }
             catch (Exception e)

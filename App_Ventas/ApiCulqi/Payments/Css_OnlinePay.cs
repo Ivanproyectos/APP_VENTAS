@@ -12,14 +12,7 @@ namespace ApiCulqi.Payments
 {
     public class Css_OnlinePay
     {
-        Security security = null;
-
-        public Css_OnlinePay()
-		{
-			security = new Security();
-            security.public_key = "pk_test_2216672afb8d0dfa";
-            security.secret_key = "sk_test_993557e62d91d733";
-		}
+        Security security  = new Security();
 
 		protected static string GetRandomString()
 		{
@@ -27,7 +20,6 @@ namespace ApiCulqi.Payments
 			path = path.Replace(".", "");
 			return path;
 		}
-
 		protected string CreateToken()
 		{	
 			Dictionary<string, object> map = new Dictionary<string, object>
@@ -40,7 +32,6 @@ namespace ApiCulqi.Payments
 			};
 			return new Token(security).Create(map);
 		}
-
 		public void ValidCreateToken()
 		{
 			string data = CreateToken();
@@ -49,31 +40,25 @@ namespace ApiCulqi.Payments
 
 			Assert.AreEqual("token",(string)json_object["object"]);
 		}
-
         public string OnlinePay_CreateCharge()
 		{	
-
 			string data = CreateToken();
-
 			var json_object = JObject.Parse(data);
-
 			Dictionary<string, object> metadata = new Dictionary<string, object>
 			{
 				{"order_id", "777"}
 			};
-
 			Dictionary<string, object> map = new Dictionary<string, object>
 			{	
 				{"amount", 1000},
 				{"capture", true},
 				{"currency_code", "PEN"},
 				{"description", "Venta de prueba"},
-				{"email", "wmuro@me.com"},
+				{"email", "ivansperezt@gmail.com"},
 				{"installments", 0},
 				{"metadata", metadata},
 				{"source_id", (string)json_object["id"]}
 			};
-
 			return new Charge(security).Create(map);
 
 		}

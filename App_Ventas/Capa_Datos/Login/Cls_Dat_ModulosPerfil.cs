@@ -33,6 +33,7 @@ namespace Capa_Datos.Login
                     int pos_IMAGEN = dr.GetOrdinal("IMAGEN");
                     int pos_DESC_MODULO = dr.GetOrdinal("DESC_MODULO");
                     int pos_ORDEN = dr.GetOrdinal("ORDEN");
+                    int pos_NIVEL = dr.GetOrdinal("NIVEL");
                     int pos_FLG_ESTADO = dr.GetOrdinal("FLG_ESTADO");
 
                     if (dr != null)
@@ -59,6 +60,9 @@ namespace Capa_Datos.Login
                                 else entidad_2.DESC_MODULO = Convert.ToString(dr[pos_DESC_MODULO]);
                                 if (dr.IsDBNull(pos_ORDEN)) entidad_2.ORDEN = 0;
                                 else entidad_2.ORDEN = Convert.ToInt32(dr[pos_ORDEN]);
+
+                                if (dr.IsDBNull(pos_NIVEL)) entidad_2.NIVEL = 0;
+                                else entidad_2.NIVEL = Convert.ToInt32(dr[pos_NIVEL]);
 
                                 if (dr.IsDBNull(pos_FLG_ESTADO)) entidad_2.FLG_ESTADO = 0;
                                 else entidad_2.FLG_ESTADO = Convert.ToInt32(dr[pos_FLG_ESTADO]);
@@ -98,6 +102,7 @@ namespace Capa_Datos.Login
                     int pos_IMAGEN = dr.GetOrdinal("IMAGEN");
                     int pos_DESC_MODULO = dr.GetOrdinal("DESC_MODULO");
                     int pos_ORDEN = dr.GetOrdinal("ORDEN");
+                    int pos_NIVEL = dr.GetOrdinal("NIVEL");
                     int pos_FLG_ESTADO = dr.GetOrdinal("FLG_ESTADO");
 
                     if (dr != null)
@@ -124,6 +129,9 @@ namespace Capa_Datos.Login
                                 else entidad_2.DESC_MODULO = Convert.ToString(dr[pos_DESC_MODULO]);
                                 if (dr.IsDBNull(pos_ORDEN)) entidad_2.ORDEN = 0;
                                 else entidad_2.ORDEN = Convert.ToInt32(dr[pos_ORDEN]);
+
+                                if (dr.IsDBNull(pos_NIVEL)) entidad_2.NIVEL = 0;
+                                else entidad_2.NIVEL = Convert.ToInt32(dr[pos_NIVEL]);
 
                                 if (dr.IsDBNull(pos_FLG_ESTADO)) entidad_2.FLG_ESTADO = 0;
                                 else entidad_2.FLG_ESTADO = Convert.ToInt32(dr[pos_FLG_ESTADO]);

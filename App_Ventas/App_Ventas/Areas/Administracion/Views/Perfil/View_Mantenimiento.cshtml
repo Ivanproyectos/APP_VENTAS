@@ -1,8 +1,7 @@
 ﻿@model App_Ventas.Areas.Administracion.Models.PerfilModelView
-
-<script src="@Url.Content("~/Scripts/Js/Administracion/Perfil/NestableInit.js")" type="text/javascript"></script>
 <script>
     $(document).ready(function () {
+        Perfiles_CargarModulos(); 
     });
     $('#Perfil_Btn_Guardar').click(function () {
         Perfil_Ingresar();
@@ -59,7 +58,11 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="PerfilModulos" role="tabpanel">
+                        <ul class="list-group col-md-12">
+                            <li class="list-group-item disabled">Acceso a modulos para este perfil</li>
+                            <li class="list-group-item" id="Perfiles_Div_Modulos"></li>
 
+                        </ul>
                     </div>
                 </div>
             </div>

@@ -243,6 +243,7 @@
     <Compile Include="Areas\Inventario\Repositorio\CategoriaRepositorio.cs" />
     <Compile Include="Areas\Inventario\Repositorio\ProductoRepositorio.cs" />
     <Compile Include="Areas\Inventario\Repositorio\Translado_ProductoRepositorio.cs" />
+    <Compile Include="Areas\Login\Controllers\ModulosController.cs" />
     <Compile Include="Areas\Login\LoginAreaRegistration.cs" />
     <Compile Include="Areas\Login\Repositorio\LoginRepositorio.cs" />
     <Compile Include="Areas\Login\Repositorio\ModulosRepositorio.cs" />
@@ -4302,7 +4303,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Js\Administracion\ListadoCombo.js" />
-    <Content Include="Scripts\Js\Administracion\Perfil\NestableInit.js" />
+    <Content Include="Scripts\Js\Administracion\Perfil\PerfilModulo.js" />
     <Content Include="Scripts\Js\Caja\Caja.js" />
     <Content Include="Scripts\Js\Administracion\configurarEmpresa\configurarEmpresa.js" />
     <Content Include="Scripts\Js\Administracion\configurarEmpresa\Recursos.js" />
@@ -4389,7 +4390,6 @@
     <Folder Include="Areas\CuentasCobrar\Views\Shared\" />
     <Folder Include="Areas\Dashboard\Views\Shared\" />
     <Folder Include="Areas\Inventario\Views\Shared\" />
-    <Folder Include="Areas\Login\Controllers\" />
     <Folder Include="Areas\Login\Models\" />
     <Folder Include="Areas\Login\Views\Shared\" />
     <Folder Include="Areas\Recursiva\Models\" />
