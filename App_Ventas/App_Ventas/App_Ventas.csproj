@@ -259,6 +259,7 @@
     <Compile Include="Areas\Ventas\VentasAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ModulosController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -328,7 +329,7 @@
   <ItemGroup>
     <Content Include="assets\css\animate.min.css" />
     <Content Include="assets\css\Changes_estilos\theme_dark.css" />
-    <Content Include="assets\css\Copia de General.css" />
+    <Content Include="assets\css\Login.css" />
     <Content Include="assets\css\Grid_theme_bootstrap.css" />
     <Content Include="assets\css\File_image.css" />
     <Content Include="assets\css\RadioButton.css" />
@@ -368,6 +369,15 @@
     <Content Include="assets\images\error2.png" />
     <Content Include="assets\images\favicon.png" />
     <Content Include="assets\images\invalid.png" />
+    <Content Include="assets\images\login\bg_login.png" />
+    <Content Include="assets\images\login\img-sistema.png" />
+    <Content Include="assets\images\login\login.jpg" />
+    <Content Include="assets\images\login\Login2.png" />
+    <Content Include="assets\images\login\productos_1.PNG" />
+    <Content Include="assets\images\login\reportgrafics_1.PNG" />
+    <Content Include="assets\images\login\reportgrafics_2.PNG" />
+    <Content Include="assets\images\login\reportgrafics_3.PNG" />
+    <Content Include="assets\images\login\ventas_1.PNG" />
     <Content Include="assets\images\logo-text.png" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\logo.svg" />
@@ -4325,6 +4335,7 @@
     <Content Include="Scripts\Js\Inventario\Producto\Translados_Detalle.js" />
     <Content Include="Scripts\Js\Inventario\Producto\Producto.js" />
     <Content Include="Scripts\Js\Inventario\Producto_Recursos.js" />
+    <Content Include="Scripts\Js\Login\LoginHelpers.js" />
     <Content Include="Scripts\Js\Prueba.js" />
     <Content Include="Scripts\Js\Recursiva\Configuracion.js" />
     <Content Include="Scripts\Js\Servicio\ServicioPersona.js" />
@@ -4381,6 +4392,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

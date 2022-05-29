@@ -10,6 +10,9 @@
     margin-top: 0.25rem;
     font-size: 80%;
     color: #d92550;
+
+    animation: fadeInDown; 
+   animation-duration: 2s
 }
 
 .input-validation-error {
@@ -19,6 +22,7 @@
     background-position: center right calc(2.25rem / 4);
     background-size: calc(1.5rem / 2) calc(1.5rem / 2);
     background-image: url('../images/error.png');
+
 }
 
 

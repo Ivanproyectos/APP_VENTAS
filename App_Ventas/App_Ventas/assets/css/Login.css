@@ -1,0 +1,44 @@
+﻿.Login_content {
+    padding: 0px;
+    display:flex; 
+    flex-direction:row; 
+    height: 100vh; 
+    width: 100%; 
+
+}
+
+.Login__carousel {
+    padding: 50px 0px;
+    /*right: 500px;*/
+    /*position: fixed;*/
+    top: 0;
+    width:calc(100% - 500px); 
+    /*background-image: url('../images/login/bg_login.png'); 
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center center;*/ 
+    background:rgb(245,245,245)
+}
+
+.Login__boxLogin {
+    padding: 70px 80px;
+    background-color: #fff;
+    z-index: 1;
+    height: 100%;
+    width:500px; 
+}
+
+#Login_BoxSession {
+  animation: pulse; 
+  animation-duration: 1s
+}
+
+.carousel__image {
+    width:100%; 
+    height:calc(100vh - 135px); 
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-position:center center; 
+}
+
+
