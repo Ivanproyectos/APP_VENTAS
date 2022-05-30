@@ -367,7 +367,7 @@ SICA = {
                 //_blockUI("");
             },
             success: function (response) {
-                jQuery.unblockUI();
+                //jQuery.unblockUI();
                 rsp = response;
                 if (typeof (funcionSuccess) == 'function') {
                     funcionSuccess(response);
@@ -378,7 +378,7 @@ SICA = {
                 rsp = msg;
             },
             error: function (xhr, status, error) {
-                jQuery.unblockUI();
+                //jQuery.unblockUI();
                 alert(error);
                 rsp = error;
             },

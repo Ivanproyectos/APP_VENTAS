@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Capa_Entidad;
 using Capa_Entidad.Login;
+using Capa_Entidad.Administracion; 
 using Capa_Datos.Login;
 
 namespace Capa_Negocio.Login
@@ -28,6 +29,31 @@ namespace Capa_Negocio.Login
             return lista;
         }
 
+        public Cls_Ent_Usuario Login_Usuario(Cls_Ent_Usuario entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                return OData.Login_Usuario(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                return new Cls_Ent_Usuario();
+            }
+        }
 
+        public Cls_Ent_Usuario Usuario(Cls_Ent_Usuario entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                return OData.Usuario(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                return new Cls_Ent_Usuario();
+            }
+        }
+        
     }
 }

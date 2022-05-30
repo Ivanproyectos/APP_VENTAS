@@ -97,6 +97,7 @@
             <div class="Login__boxLogin authincation-content">
                 <div class="row no-gutters" id="Login_BoxSession" style="display: none;">
                     <div class="col-xl-12">
+                        @*<img class="d-block w-100" src="@Url.Content("~/assets/images/login/Login2.png")" alt="Third slide">*@
                         <h4 class="text-center mb-4 text-primary">Inicia Sesión</h4>
                         @using (Html.BeginForm("", "", new { @area = "" }, FormMethod.Post, new { @id = "frm_Login", @class = "form-horizontal" }))
                         {
@@ -108,28 +109,32 @@
                             </div>
                             <div class="form-group">
                                 <label><strong>Contraseña</strong></label>
-                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @maxlength = "100", @autocomplete = "off" })
+                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @maxlength = "100", @autocomplete = "off" ,@type="password" })
                                 @Html.ValidationMessageFor(model => model.Password, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
                             <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                 <div class="form-group">
                                     <div class="form-check ml-2">
-                                        <input class="form-check-input" type="checkbox" id="basic_checkbox_1">
-                                        <label class="form-check-label" for="basic_checkbox_1">Remember me</label>
+                                         @Html.CheckBoxFor(model => model.RememberMe, new { @class = "", })
+                                        <label class="form-check-label" for="RememberMe">Recuerdame</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <a href="page-forgot-password.html">Olvidaste tu contraseña?</a>
                                 </div>
                             </div>
-                            <div class="text-center">
+                            <div class="text-center mb-3">
                                 <button type="button" id="Login_Ingresar" class="btn btn-primary btn-block btn-hover-shine">Ingresar</button>
+                            </div>                     
+                            <div class="text-center">
+                                <div class="alert alert-danger alert-dismissible" style="display:none;" id="Alert_Error">
+                                    <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
+                                        <span><i class="bi bi-x-lg"></i></span>
+                                    </button>
+                                    <strong>Error - </strong> <span id="Msg_error"></span>.                      
+                                </div>
                             </div>
                         }
-                        <div class="new-account mt-3">
-                            <p>Don't have an account? <a class="text-primary" href="./page-register.html">Sign up</a></p>
-                        </div>
-                        <img class="d-block w-100" src="@Url.Content("~/assets/images/login/Login2.png")" alt="Third slide">
                     </div>
                 </div>
             </div>

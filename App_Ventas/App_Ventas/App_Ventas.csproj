@@ -243,6 +243,7 @@
     <Compile Include="Areas\Inventario\Repositorio\CategoriaRepositorio.cs" />
     <Compile Include="Areas\Inventario\Repositorio\ProductoRepositorio.cs" />
     <Compile Include="Areas\Inventario\Repositorio\Translado_ProductoRepositorio.cs" />
+    <Compile Include="Areas\Login\Controllers\LoginController.cs" />
     <Compile Include="Areas\Login\Controllers\ModulosController.cs" />
     <Compile Include="Areas\Login\LoginAreaRegistration.cs" />
     <Compile Include="Areas\Login\Repositorio\LoginRepositorio.cs" />
@@ -259,7 +260,6 @@
     <Compile Include="Areas\Ventas\VentasAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ModulosController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -4274,6 +4274,7 @@
     <Content Include="Areas\Inventario\Views\Producto\View_ExportarProductoPDF.cshtml" />
     <Content Include="Areas\Ventas\Views\Consulta_Ventas\View_Exportar.cshtml" />
     <Content Include="Areas\Administracion\Views\Perfil\View_Mantenimiento.cshtml" />
+    <Content Include="Areas\Login\Views\Login\View_UsuarioLogeado.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <Content Include="Recursos\Descargas\DescargarProductoExcel.aspx" />
     <Content Include="Recursos\Descargas\DescargarProductoPDF.aspx" />
@@ -4423,6 +4424,10 @@
     <ProjectReference Include="..\Capa_Negocio\Capa_Negocio.csproj">
       <Project>{0b627b60-26a9-4b68-ab1e-cee89b4e72fa}</Project>
       <Name>Capa_Negocio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Capa_Token\Capa_Token.csproj">
+      <Project>{7acb2f82-a513-4a71-b2d1-497376867dd9}</Project>
+      <Name>Capa_Token</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

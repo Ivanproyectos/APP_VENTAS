@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capa_Negocio", "Capa_Negoci
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiCulqi", "ApiCulqi\ApiCulqi.csproj", "{A3A73208-C19C-411D-9B44-49E17B182194}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capa_Token", "Capa_Token\Capa_Token.csproj", "{7ACB2F82-A513-4A71-B2D1-497376867DD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{A3A73208-C19C-411D-9B44-49E17B182194}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3A73208-C19C-411D-9B44-49E17B182194}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3A73208-C19C-411D-9B44-49E17B182194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ACB2F82-A513-4A71-B2D1-497376867DD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ACB2F82-A513-4A71-B2D1-497376867DD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ACB2F82-A513-4A71-B2D1-497376867DD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ACB2F82-A513-4A71-B2D1-497376867DD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

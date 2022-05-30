@@ -24,5 +24,7 @@ namespace Capa_Entidad.Administracion
         public string DESC_TIPO_DOCUMENTO { get; set; }
 
         public List<Cls_Ent_Usuario> ListaDetalle { get; set; }
+        public List<Cls_Ent_Usuario_Perfil> Lista_Sucursales { get; set; }
+        
     }
 }

@@ -1,0 +1,47 @@
+C:\Users\ivans\OneDrive\Documentos\GitHub\App_MEF_Seguridad\2. Fuentes\Capa_Token\bin\Debug\Capa_Token.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\App_MEF_Seguridad\2. Fuentes\Capa_Token\bin\Debug\Capa_Token.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\App_MEF_Seguridad\2. Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\App_MEF_Seguridad\2. Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\App_MEF_Seguridad\2. Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\App_MEF_Seguridad\2. Fuentes\Capa_Token\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\App_MEF_Seguridad\2. Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\App_MEF_Seguridad\2. Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.Logging.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\App_MEF_Seguridad\2. Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\App_MEF_Seguridad\2. Fuentes\Capa_Token\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\App_MEF_Seguridad\2. Fuentes\Capa_Token\obj\Debug\Capa_Token.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\App_MEF_Seguridad\2. Fuentes\Capa_Token\obj\Debug\Capa_Token.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\App_MEF_Seguridad\2. Fuentes\Capa_Token\obj\Debug\Capa_Token.csprojResolveAssemblyReference.cache
+C:\Users\ivans\OneDrive\Documentos\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Capa_Token.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Capa_Token.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.Logging.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\obj\Debug\Capa_Token.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\obj\Debug\Capa_Token.pdb
+C:\Users\Inmortal\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Capa_Token.dll
+C:\Users\Inmortal\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Capa_Token.pdb
+C:\Users\Inmortal\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Inmortal\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\Inmortal\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Inmortal\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Inmortal\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\Inmortal\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.Logging.xml
+C:\Users\Inmortal\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\Inmortal\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\Inmortal\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\obj\Debug\Capa_Token.csprojResolveAssemblyReference.cache
+C:\Users\Inmortal\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\obj\Debug\Capa_Token.dll
+C:\Users\Inmortal\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\obj\Debug\Capa_Token.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\bin\Debug\Capa_Token.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\bin\Debug\Capa_Token.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\bin\Debug\Microsoft.IdentityModel.Logging.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\obj\Debug\Capa_Token.csprojResolveAssemblyReference.cache
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\obj\Debug\Capa_Token.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\obj\Debug\Capa_Token.pdb

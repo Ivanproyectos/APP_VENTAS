@@ -1,0 +1,6 @@
+System.ArgumentNullException: El valor no puede ser nulo.
+Nombre del parámetro: value
+   en System.Security.Claims.Claim..ctor(String type, String value, String valueType, String issuer, String originalIssuer, ClaimsIdentity subject, String propertyKey, String propertyValue)
+   en System.Security.Claims.Claim..ctor(String type, String value)
+   en Capa_Token.Cls_Api_Token.Generar(String ID_USUARIO, String COD_USUARIO) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\Cls_Api_Token.cs:línea 22
+   en App_Ventas.Areas.Login.Controllers.LoginController.Login_Validar(Cls_Ent_Usuario entidad) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Areas\Login\Controllers\LoginController.cs:línea 40
