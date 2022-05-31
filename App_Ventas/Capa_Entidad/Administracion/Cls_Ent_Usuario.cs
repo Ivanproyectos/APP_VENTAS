@@ -8,6 +8,9 @@ namespace Capa_Entidad.Administracion
 {
     public class Cls_Ent_Usuario : Base.Cls_Ent_Base
     {
+        public Cls_Ent_Usuario() {
+            Perfil_Sucursal = new Cls_Ent_Usuario_Perfil(); 
+        }
         public int ID_USUARIO { get; set; }
         public string NOMBRE { get; set; }
         public string APE_PATERNO { get; set; }
@@ -25,6 +28,7 @@ namespace Capa_Entidad.Administracion
 
         public List<Cls_Ent_Usuario> ListaDetalle { get; set; }
         public List<Cls_Ent_Usuario_Perfil> Lista_Sucursales { get; set; }
+        public Cls_Ent_Usuario_Perfil Perfil_Sucursal { get; set; }
         
     }
 }

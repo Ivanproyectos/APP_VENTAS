@@ -254,8 +254,6 @@ namespace App_Ventas.Areas.Ventas.Controllers
 
         public ActionResult Ventas_Insertar(Cls_Ent_Ventas entidad)
         {
-       
-
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             var ip_local = Recursos.Clases.Css_IP.ObtenerIp();
             entidad.IP_CREACION = ip_local;

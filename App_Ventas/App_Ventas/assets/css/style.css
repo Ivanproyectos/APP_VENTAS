@@ -3908,7 +3908,9 @@ input[type="button"].btn-block {
 .badge-pill {
   padding-right: 0.6em;
   padding-left: 0.6em;
-  border-radius: 10rem; }
+  border-radius: 10rem; 
+  padding: 5px 10px !important;
+}
 
 .badge-primary {
   color: #fff;
@@ -15137,7 +15139,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   background-color: #50E3C2; }
 
 .badge-primary {
-  background-color: #593bdb; }
+  background-color: #727cf5; }
 
 .badge-warning {
   background-color: rgb(255,188,0);
@@ -19592,3 +19594,22 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     transition: background-color .15s ease-in-out,background-position .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
 }
 
+
+.password-eye:before {
+    font-family: "bootstrap-icons";
+    content: "\F341";
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    vertical-align: middle;
+    line-height: 1.2;
+    font-size: 16px;
+}
+
+.show-password .password-eye:before {
+    content: "\F340";
+}
+
+div[data-password] {
+    cursor:pointer; 
+}

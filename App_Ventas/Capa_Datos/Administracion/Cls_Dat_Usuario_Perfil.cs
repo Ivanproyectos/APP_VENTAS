@@ -53,8 +53,8 @@ namespace Capa_Datos.Administracion
                             if (dr.IsDBNull(pos_DESC_SUCURSAL)) obj.DESC_SUCURSAL = "";
                             else obj.DESC_SUCURSAL = dr.GetString(pos_DESC_SUCURSAL);
 
-                            if (dr.IsDBNull(pos_DESC_SUCURSAL)) obj.DESC_PERFIL = "";
-                            else obj.DESC_PERFIL = dr.GetString(pos_DESC_SUCURSAL);
+                            if (dr.IsDBNull(pos_DESC_PERFIL)) obj.DESC_PERFIL = "";
+                            else obj.DESC_PERFIL = dr.GetString(pos_DESC_PERFIL);
 
                             if (dr.IsDBNull(pos_FEC_ACTIVACION)) obj.FEC_ACTIVACION = "";
                             else obj.FEC_ACTIVACION = dr.GetString(pos_FEC_ACTIVACION);

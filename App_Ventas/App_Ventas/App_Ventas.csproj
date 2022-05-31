@@ -249,7 +249,10 @@
     <Compile Include="Areas\Login\Repositorio\LoginRepositorio.cs" />
     <Compile Include="Areas\Login\Repositorio\ModulosRepositorio.cs" />
     <Compile Include="Areas\Login\Repositorio\RepositorioModulosPerfil.cs" />
+    <Compile Include="Areas\Recursiva\Clases\ConsultaSunat.cs" />
+    <Compile Include="Areas\Recursiva\Clases\CuTexto.cs" />
     <Compile Include="Areas\Recursiva\Controllers\ServiciosWebController.cs" />
+    <Compile Include="Areas\Recursiva\Models\Cls_Ent_SunatRuc.cs" />
     <Compile Include="Areas\Recursiva\RecursivaAreaRegistration.cs" />
     <Compile Include="Areas\Recursiva\Repositorio\CargaExcelRepostiorio.cs" />
     <Compile Include="Areas\Ventas\Controllers\Consulta_VentasController.cs" />
@@ -357,6 +360,7 @@
     <Content Include="assets\icons\themify-icons\css\themify-icons.css" />
     <Content Include="assets\icons\themify-icons\fonts\themify9f24.svg" />
     <Content Include="assets\images\1.jpg" />
+    <Content Include="assets\images\401-Error-Unauthorized.gif" />
     <Content Include="assets\images\awesome.png" />
     <Content Include="assets\images\avatar\1.png" />
     <Content Include="assets\images\avatar\2.png" />
@@ -374,6 +378,7 @@
     <Content Include="assets\images\login\login.jpg" />
     <Content Include="assets\images\login\Login2.png" />
     <Content Include="assets\images\login\productos_1.PNG" />
+    <Content Include="assets\images\login\questions.png" />
     <Content Include="assets\images\login\reportgrafics_1.PNG" />
     <Content Include="assets\images\login\reportgrafics_2.PNG" />
     <Content Include="assets\images\login\reportgrafics_3.PNG" />
@@ -381,6 +386,7 @@
     <Content Include="assets\images\logo-text.png" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\logo.svg" />
+    <Content Include="assets\images\logo_aw.png" />
     <Content Include="assets\images\product\1.jpg" />
     <Content Include="assets\images\product\2.jpg" />
     <Content Include="assets\images\product\3.jpg" />
@@ -4291,6 +4297,7 @@
     <Content Include="Recursos\PlantillaCorreo\NotificarCredito.html" />
     <Content Include="Recursos\PlantillaCorreo\NotificarCredito1.html" />
     <Content Include="Recursos\Temporales\NoBorrar.js" />
+    <Content Include="Scripts\crypto-js.min.js" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\inicializacion.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -4394,6 +4401,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Home\page401.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -4405,7 +4413,6 @@
     <Folder Include="Areas\Inventario\Views\Shared\" />
     <Folder Include="Areas\Login\Models\" />
     <Folder Include="Areas\Login\Views\Shared\" />
-    <Folder Include="Areas\Recursiva\Models\" />
     <Folder Include="Areas\Recursiva\Views\Shared\" />
     <Folder Include="Areas\Ventas\Views\Shared\" />
   </ItemGroup>

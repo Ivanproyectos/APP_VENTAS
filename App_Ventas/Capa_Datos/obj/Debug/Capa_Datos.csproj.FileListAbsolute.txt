@@ -5,3 +5,9 @@ C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\obj\D
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\obj\Debug\Capa_Datos.pdb
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\bin\Debug\Capa_Entidad.dll
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\bin\Debug\Capa_Entidad.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\bin\Debug\Capa_Token.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\bin\Debug\Capa_Token.pdb

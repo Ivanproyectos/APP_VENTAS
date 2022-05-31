@@ -66,7 +66,7 @@ function CuentasCobrar_ConfigurarGrilla() {
 
 
 function GetRules(CuentasCobrar_Grilla) {
-    debugger; 
+     
     var rules = new Array();
     var SearchFields = new Array();
     var CODIGO_COMPROBANTE = jQuery('#CuentasCobrar_CodigoVenta').val();

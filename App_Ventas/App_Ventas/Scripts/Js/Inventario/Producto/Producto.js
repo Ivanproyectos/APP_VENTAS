@@ -120,7 +120,7 @@ function Producto_FormatterFechaVecimiento(FECHA_VENCIMIENTO, FLG_VENCE) {
             _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Producto vencido\">" + FECHA_VENCIMIENTO + " <i class=\"bi bi-exclamation-circle\"></i></span>";
         } else {
             var Dias = DifferenceDaysFechas(_FechaActual, _FechaVencimiento);
-            debugger;
+            
             if (Dias == 0) {
                 _text = FECHA_VENCIMIENTO
             } else if (Dias <= 5) {

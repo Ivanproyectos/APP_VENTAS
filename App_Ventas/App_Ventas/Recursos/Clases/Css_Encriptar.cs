@@ -12,70 +12,56 @@ namespace App_Ventas.Recursos.Clases
     public class Css_Encriptar
     {
         
-        public static string Encriptar(string dato)
-        {
-            MD5 md5 = MD5.Create();
-            byte[] data = System.Text.Encoding.ASCII.GetBytes(dato);
-            byte[] result = md5.ComputeHash(data);
-            dato = BitConverter.ToString(result).Replace("-", ""); 
+         public static string key = "ABCDEFGHIJKLMÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz";
 
-            return dato;
-        }
-
-        static string keyx = "A!9HHhi%XjjYY4YP2@Nob009X";
-        private static string EncryptionKey = "$d#THDRARC";
-        private static byte[] key = { };
-        private static byte[] IV = { 0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF };
-
-        public static string Encrypt(string texto)
-        {
-            texto = (DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year) + texto;
-                          
-            string returnstring = "";
-            try
+            public static string Encriptar(string texto)
             {
-                key = System.Text.Encoding.UTF8.GetBytes(EncryptionKey.Substring(0, 8));
-                DESCryptoServiceProvider des = new DESCryptoServiceProvider();
-                Byte[] inputByteArray = Encoding.UTF8.GetBytes(texto);
-                MemoryStream ms = new MemoryStream();
-                CryptoStream cs = new CryptoStream(ms, des.CreateEncryptor(key, IV), CryptoStreamMode.Write);
-                cs.Write(inputByteArray, 0, inputByteArray.Length);
-                cs.FlushFinalBlock();
-                returnstring = Convert.ToBase64String(ms.ToArray());
+                //arreglo de bytes donde guardaremos la llave 
+                byte[] keyArray;
+                //arreglo de bytes donde guardaremos el texto 
+                //que vamos a encriptar 
+                byte[] Arreglo_a_Cifrar = UTF8Encoding.UTF8.GetBytes(texto);
+                //se utilizan las clases de encriptación 
+                //provistas por el Framework 
+                //Algoritmo MD5 
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+                //se guarda la llave para que se le realice 
+                //hashing 
+                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                hashmd5.Clear();
+                //Algoritmo 3DAS 
+                TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
+                tdes.Key = keyArray;
+                tdes.Mode = CipherMode.ECB; tdes.Padding = PaddingMode.PKCS7;
+                //se empieza con la transformación de la cadena 
+                ICryptoTransform cTransform = tdes.CreateEncryptor();
+                //arreglo de bytes donde se guarda la //cadena cifrada 
+                byte[] ArrayResultado = cTransform.TransformFinalBlock(Arreglo_a_Cifrar, 0, Arreglo_a_Cifrar.Length); tdes.Clear();
+                //se regresa el resultado en forma de una cadena 
+                return Convert.ToBase64String(ArrayResultado, 0, ArrayResultado.Length);
 
-
-                return returnstring;
-            }
-            catch (Exception ex)
-            {
-                return "";
-            }
-        }
-
-        public static string Decrypt(string stringToDecrypt)
-        {
-
-            Byte[] inputByteArray = new Byte[stringToDecrypt.Length];
-            try
-            {
-                key = System.Text.Encoding.UTF8.GetBytes(EncryptionKey.Substring(0, 8));
-                DESCryptoServiceProvider des = new DESCryptoServiceProvider();
-                inputByteArray = Convert.FromBase64String(stringToDecrypt);
-                MemoryStream ms = new MemoryStream();
-                CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(key, IV), CryptoStreamMode.Write);
-                cs.Write(inputByteArray, 0, inputByteArray.Length);
-                cs.FlushFinalBlock();
-                Encoding encoding = Encoding.UTF8;
-
-
-                return encoding.GetString(ms.ToArray()).Replace((DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year).ToString(),"");
-            }
-            catch (Exception ex)
-            {
-                return ex.ToString();
             }
 
-        }
+            public static string Desencriptar(string textoEncriptado)
+            {
+                byte[] keyArray;
+                //convierte el texto en una secuencia de bytes 
+                byte[] Array_a_Descifrar = Convert.FromBase64String(textoEncriptado);
+                //se llama a las clases que tienen los algoritmos 
+                //de encriptación se le aplica hashing 
+                //algoritmo MD5 
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                hashmd5.Clear();
+                TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
+                tdes.Key = keyArray; tdes.Mode = CipherMode.ECB;
+                tdes.Padding = PaddingMode.PKCS7;
+                ICryptoTransform cTransform = tdes.CreateDecryptor();
+                byte[] resultArray = cTransform.TransformFinalBlock(Array_a_Descifrar, 0, Array_a_Descifrar.Length);
+                tdes.Clear();
+                //se regresa en forma de cadena 
+                return UTF8Encoding.UTF8.GetString(resultArray);
+            }
          
     }
 }

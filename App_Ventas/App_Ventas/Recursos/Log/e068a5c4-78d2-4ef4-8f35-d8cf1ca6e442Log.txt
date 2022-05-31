@@ -1,0 +1,5 @@
+System.ArgumentNullException: Referencia a cadena no establecida como una instancia de cadena.
+Nombre del parámetro: s
+   en System.Text.Encoding.GetBytes(String s)
+   en Capa_Token.Cls_Api_Encriptar.Encriptar(String texto) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\Cls_Api_Encriptar.cs:línea 33
+   en Capa_Datos.Login.Cls_Dat_Login.Usuario_Perfil_Listar(Cls_Ent_Usuario_Perfil entidad_param, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Login\Cls_Dat_Login.cs:línea 301

@@ -199,7 +199,7 @@ border: 1px solid #f1f3fa;
 }
 
 .modal-header {
-    background: var(--color-dark);
+    /*background: var(--color-dark);*/
     align-items: center !important;
     cursor:move; 
 }
@@ -208,10 +208,10 @@ border: 1px solid #f1f3fa;
     margin:60px auto;
 }
 .modal-title {
-      color: white;
+      color: #000;
 }
 .modal-header .close{
-    color: white;
+    color: #000;
 }
 .modal-content {
 -webkit-box-shadow: 0 5px 15px rgba(0 ,0, 0, 0.50);

@@ -182,7 +182,7 @@ namespace Capa_Datos.Ventas
                     { cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = DBNull.Value; }
                     else
                     { cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = entidad.ID_SUCURSAL; }
-                    if (entidad.USU_CREACION == null || entidad.USU_CREACION =="")
+                    if (entidad.USU_CREACION == null || entidad.USU_CREACION == "")
                     { cmd.Parameters.Add(new SqlParameter("@PI_USU_CREACION", SqlDbType.VarChar, 100)).Value = DBNull.Value; }
                     else
                     { cmd.Parameters.Add(new SqlParameter("@PI_USU_CREACION", SqlDbType.VarChar, 100)).Value = entidad.USU_CREACION; }
@@ -285,11 +285,11 @@ namespace Capa_Datos.Ventas
                             else obj.FEC_CREACION = dr.GetString(pos_FEC_CREACION);
 
 
-                            if (dr.IsDBNull(pos_CLIENTE)) obj.CLIENTE = "";
-                            else obj.CLIENTE = dr.GetString(pos_CLIENTE);
+                            if (dr.IsDBNull(pos_CLIENTE)) obj.NOMBRES_APE_CLIENTE = "";
+                            else obj.NOMBRES_APE_CLIENTE = dr.GetString(pos_CLIENTE);
 
-                          
-                            lista.Add(obj); 
+
+                            lista.Add(obj);
 
                         }
                     }

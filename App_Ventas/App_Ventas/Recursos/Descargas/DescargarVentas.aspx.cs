@@ -73,7 +73,7 @@ namespace App_Ventas.Recursos.Descargas
                 List<Cls_Ent_Columnas> columnas = new List<Cls_Ent_Columnas>();
                 columnas.Add(new Cls_Ent_Columnas { ID_COLUMNA = "DESC_TIPO_COMPROBANTE", DESCRIPCION_COLUMNA = "Tipo Comprobante" });
                 columnas.Add(new Cls_Ent_Columnas { ID_COLUMNA = "COD_COMPROBANTE", DESCRIPCION_COLUMNA = "Nro. Comprobante" });
-                columnas.Add(new Cls_Ent_Columnas { ID_COLUMNA = "CLIENTE", DESCRIPCION_COLUMNA = "Cliente" });
+                columnas.Add(new Cls_Ent_Columnas { ID_COLUMNA = "NOMBRES_APE_CLIENTE", DESCRIPCION_COLUMNA = "Cliente" });
                 columnas.Add(new Cls_Ent_Columnas { ID_COLUMNA = "DESCUENTO", DESCRIPCION_COLUMNA = "Descuento" });
                 columnas.Add(new Cls_Ent_Columnas { ID_COLUMNA = "SUB_TOTAL", DESCRIPCION_COLUMNA = "Sub Total" });
                 columnas.Add(new Cls_Ent_Columnas { ID_COLUMNA = "IGV", DESCRIPCION_COLUMNA = "Igv" });

@@ -218,7 +218,11 @@ namespace Capa_Datos.Administracion
                     cmd.Parameters.Add(new SqlParameter("@PI_TELEFONO", SqlDbType.VarChar, 7)).Value = entidad.TELEFONO;
                     cmd.Parameters.Add(new SqlParameter("@PI_CELULAR", SqlDbType.VarChar, 9)).Value = entidad.CELULAR;
                     cmd.Parameters.Add(new SqlParameter("@PI_COD_UBIGEO", SqlDbType.VarChar, 200)).Value = entidad.COD_UBIGEO;
-                    cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = entidad.DETALLE;
+                    //cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = entidad.DETALLE;
+                    if (entidad.DETALLE == null)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = entidad.DETALLE; }
                     cmd.Parameters.Add(new SqlParameter("@PI_USUARIO_CREACION", SqlDbType.VarChar, 200)).Value = entidad.USU_CREACION;
                     cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("PO_MENSAJE", SqlDbType.VarChar, 200)).Direction = System.Data.ParameterDirection.Output;
@@ -264,7 +268,11 @@ namespace Capa_Datos.Administracion
                     cmd.Parameters.Add(new SqlParameter("@PI_TELEFONO", SqlDbType.VarChar, 7)).Value = entidad.TELEFONO;
                     cmd.Parameters.Add(new SqlParameter("@PI_CELULAR", SqlDbType.VarChar, 9)).Value = entidad.CELULAR;
                     cmd.Parameters.Add(new SqlParameter("@PI_COD_UBIGEO", SqlDbType.VarChar, 200)).Value = entidad.COD_UBIGEO;
-                    cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = entidad.DETALLE;
+                    //cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = entidad.DETALLE;
+                    if (entidad.DETALLE == null)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_DETALLE", SqlDbType.VarChar, 1000)).Value = entidad.DETALLE; }
                     cmd.Parameters.Add(new SqlParameter("@PI_USUARIO_MODIFICACION", SqlDbType.VarChar, 200)).Value = entidad.USU_MODIFICACION;
                     cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("PO_MENSAJE", SqlDbType.VarChar, 200)).Direction = System.Data.ParameterDirection.Output;

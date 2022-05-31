@@ -10,8 +10,11 @@ using Capa_Entidad.Administracion;
 using System.Text;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
-using ApiCulqi; 
-
+using ApiCulqi;
+using System.Threading.Tasks;
+using App_Ventas.Areas.Recursiva.Models;
+using App_Ventas.Areas.Recursiva.Clases;
+using System.Configuration; 
 
 namespace App_Ventas.Areas.Recursiva.Controllers
 {
@@ -24,41 +27,54 @@ namespace App_Ventas.Areas.Recursiva.Controllers
         {
             return View();
         }
-        public ActionResult ConsultaRuc(Cls_Ent_Cliente entidad)
+
+        public async Task<ActionResult> Service_ConsultaRuc(string Ruc)
         {
             Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
-            auditoria.Limpiar();
-            string DATA = "{pRucConsulta:" + entidad.NUMERO_DOCUMENTO + "}";
-            string URL = "https://snirh.ana.gob.pe/consultaspide/wsgetSunat.asmx/consultaSunat";
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
-            request.Method = "POST";
-            request.ContentType = "application/json; charset=utf-";
-            request.ContentLength = DATA.Length;
-            StreamWriter requestWriter = new StreamWriter(request.GetRequestStream(), System.Text.Encoding.ASCII);
-            requestWriter.Write(DATA);
-            requestWriter.Close();
-
             try
             {
-                WebResponse webResponse = request.GetResponse();
-                Stream webStream = webResponse.GetResponseStream();
-                StreamReader responseReader = new StreamReader(webStream);
-                string response = responseReader.ReadToEnd();
-                //var jsonStringResult = JsonConvert.SerializeObject(response);
-                auditoria.OBJETO = response;
-                responseReader.Close();
+                auditoria.Limpiar();
+                ConsultaSunat Consulta = new ConsultaSunat();
+                Cls_Ent_SunatRuc Sunat = await Consulta.ConsultarRuc(Ruc);
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                }
+                else {
+                    auditoria.OBJETO = Sunat; 
+                }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                auditoria.Rechazar("Servicio fuera de linea, ingrese datos manualmente.");
+                string CodigoLog = Recursos.Clases.Css_Log.Guardar(ex.ToString());
+                auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
             }
-            return Json(auditoria, JsonRequestBehavior.AllowGet);
 
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Service_ConsultaDni(string DNI)
+        {
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            try
+            {
+                auditoria.Limpiar();
+                string URL = "";
+                string tokenApiDni = ConfigurationManager.AppSettings["TokenConsultaDni"];
+                URL = String.Format("https://dniruc.apisperu.com/api/v1/dni/{0}?token={1}", DNI, tokenApiDni);
+                var client = new WebClient();
+                var content = client.DownloadString(URL);
+                var JsonConvert = new JavaScriptSerializer();
+                auditoria.OBJETO = JsonConvert.Serialize(content);
+            }
+            catch (Exception ex)
+            {
+                string CodigoLog = Recursos.Clases.Css_Log.Guardar(ex.ToString());
+                auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult CreateCharge()
         {

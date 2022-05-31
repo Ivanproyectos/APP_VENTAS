@@ -167,6 +167,13 @@ namespace Capa_Token
             return RECUERDAME;
         }
 
+        //public static string My_Token(string Nombre_Cookie) {
+        //    string Token = "";
+        //    HttpCookie MyCookie = new HttpCookie();
+        //    //Token = cook.Value;
+        //    return Token; 
+        //}
+
 
 
 

@@ -84,7 +84,7 @@
                             color: '#fff',
                             display: true, 
                             formatter: function (value, ctx) {
-                                debugger;
+                                
                                 return ((value * 100) / total(ctx)).toFixed(2) + '%'; 
                             },
                         },

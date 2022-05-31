@@ -12,12 +12,14 @@
             if (token != null)
                 Login_UsuarioLogeado(token);
             else
-               $('#Login_BoxSession').show();
+                $('#Login_BoxSession').show();
+
+            $('#Login_Ingresar').click(function () { Login_Validar() });
+            $('#Login_SignOff').click(function () { SignOff() });
+            
         }
 
-        $('#Login_Ingresar').click(function () { Login_Ingresar() });
-
-        function Login_Ingresar() {
+        function Login_Validar() {
             $('#Alert_Error').hide(); 
             if ($("#frm_Login").valid()) {
                 Login_DisableLogin(); 
@@ -34,7 +36,7 @@
                 var url = baseUrl + 'Login/Login/Login_Validar?RememberMe=' + RememberMe;
                 var auditoria = SICA.Ajax(url, item, false);
                 if (auditoria != null && auditoria != "") {
-                    debugger;
+                    
                     if (auditoria.EJECUCION_PROCEDIMIENTO) {
                         if (!auditoria.RECHAZAR) {
                             Login_EnabledLogin();
@@ -56,30 +58,43 @@
         }
         
         function Login_UsuarioLogeado(token) {
-            $('#Login_BoxSession').hide();
             var item =
                  {
                      TOKEN: token,
                  };
             var url = baseUrl + 'Login/Login/Usuario';
             var auditoria = SICA.Ajax(url, item, false);
-            if (auditoria != null && auditoria != "") {
-                debugger;
+            if (auditoria != null && auditoria != "") {        
                 if (auditoria.EJECUCION_PROCEDIMIENTO) {
                     if (!auditoria.RECHAZAR) {
+                        $('#Login_BoxSession').hide();
+                        $('#Login_nameUser').text(auditoria.OBJETO.NOMBRES_APE)
+                        var count_permisos = auditoria.OBJETO.Lista_Sucursales.length;           
+                        if (count_permisos > 0) {
+                            if (count_permisos == 1) {
 
+                            } else if (count_permisos > 1) {
+                                var Html = Login_RowsPermisos(auditoria.OBJETO.Lista_Sucursales);
+                                var tabla = $('#Login_TablePermisos tbody');
+                                tabla[0].innerHTML = "";
+                                tabla[0].innerHTML = Html;
+                                $('#Login_ListPermisos').show();
+                                $('[data-bs-toggle="tooltip"]').tooltip();
+                            }
+                        } else {
+                            $('#Login_MsgSinPermisos').show();
+                        }
+                        $('#Login_BoxUsuLogeo').show();
                     } else {
-                        Login_EnabledLogin();
                         Login_AlertMessageError(auditoria.MENSAJE_SALIDA);
                     }
                 } else {
-                    Login_EnabledLogin();
                     Login_AlertMessageError(auditoria.MENSAJE_SALIDA);
                 }
             }
             
         }
-
+   
         function Login_DisableLogin() {
             $('#Login_Ingresar').html('<span class="spinner-grow spinner-grow-sm me-1" role="status" aria-hidden="true"></span> Procesando...');
             $('#frm_Login').addClass('disabled_content');        
@@ -95,6 +110,20 @@
             $('#Msg_error').text(mensaje);
         }
 
+        function Login_RowsPermisos(Lista) {
+            var html = "";
+            $.each(Lista, function (i, v) {
+                var idgrilla = i + 1;
+                var ID_USUARIO_PERFIL_HASH = "'" + v.ID_USUARIO_PERFIL_HASH + "'"
+                html += "<tr onclick=\"Login_Ingresar(" + ID_USUARIO_PERFIL_HASH + ")\" title=\"Vamos para alla!\" data-bs-toggle=\"tooltip\" style=\"cursor:pointer\">"
+                      + "  <th>" + idgrilla + "</th>"
+                       + " <td><i class=\"bi bi-geo-alt-fill\"></i> " + v.DESC_SUCURSAL + "<br />"
+                        + " <span class=\"text-secondary\">Perfil: </span>" + v.DESC_PERFIL + "</td>"
+                 +  "</tr>"; 
+            });
+            return html; 
+        }
+
         function getCookie(name) {
             var dc = document.cookie; 
             var prefix = name + "="; 
@@ -108,20 +137,37 @@
             return decodeURI(dc.substring(begin + prefix.length, end));
         }
 
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function SignOff() {
+            setCookie("IP-CyberToken", "", -1);
+            window.location.reload()
+            //$('#Login_BoxUsuLogeo').hide();
+            //$('#Login_ListPermisos').hide();
+            //$('#Login_BoxUsuLogeo').hide();
+            //$('#Login_BoxSession').show();
+        }
+
+        function Login_Ingresar(ID_PERMISO) {
+            window.location.href = baseUrl + "Home/index?Pf=" + ID_PERMISO;
+        }
+
 
         return {
             init: function () {
                 run();
             },
-            //firmar: function () {
-            //    FirmarDocumento();
-            //},
-            //setupInit: function (container, url) {
-            //    setup(container, url);
-            //},
-            //firmarfin: function () {
-            //    FirmaFinishProcesoFirma();
-            //}
+            LogIn: function (id) {
+                Login_Ingresar(id);
+            },
         }
     });
 

@@ -36,9 +36,20 @@ namespace App_Ventas.Areas.Login.Repositorio
                 return new Cls_Ent_Usuario();
             }
         }
+
+        public Cls_Ent_Usuario Usuario_Sistema(Cls_Ent_Usuario entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                return _rule.Usuario_Sistema(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                return new Cls_Ent_Usuario();
+            }
+        }
         
-
-
         public void Dispose()
         {
             GC.SuppressFinalize(this);

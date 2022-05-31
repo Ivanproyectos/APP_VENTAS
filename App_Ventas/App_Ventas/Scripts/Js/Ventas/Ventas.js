@@ -236,16 +236,15 @@ function Ventas_Ingresar() {
             }
             if (ListaDetalle.length > 0) {
                     jConfirm("¿ Desea realizar este venta ?", "Atención", function (r) {
-                        if (r) {
-                            debugger;
+                        if (r) {                   
                             var item =
                                 {
                                     ID_TIPO_COMPROBANTE: $("#ID_TIPO_COMPROBANTE").val(),
                                     FECHA_VENTA: $("#FECHA_VENTA").val(),
-                                    ID_CLIENTE: $("#ID_CLIENTE").val(),
-                                    ID_SUCURSAL: $("#inputL_Id_Sucursal").val(),
+                                    ID_CLIENTE: parseInt($("#ID_CLIENTE").val()),
+                                    ID_SUCURSAL: parseInt($("#inputL_Id_Sucursal").val()),
                                     NRO_OPERACION: $("#NRO_OPERACION").val(),
-                                    ID_TIPO_PAGO: $("#ID_TIPO_PAGO").val(),
+                                    ID_TIPO_PAGO: parseInt($("#ID_TIPO_PAGO").val()),
                                     FLG_CREDITO_PENDIENTE: _FLG_CREDITO_PENDIENTE,
                                     ID_VENTA_CREDITO: _ID_VENTA_CREDITO,
                                     DESCUENTO: parseFloat($("#Venta_Descuento").text()),
@@ -255,15 +254,15 @@ function Ventas_Ingresar() {
                                     ADELANTO: parseFloat($("#ADELANTO").val()),
                                     DETALLE: $("#DETALLE_VENTA").val(),
                                     ListaDetalle: ListaDetalle,
-                                    USU_CREACION: $('#input_hdcodusuario').val(),
-                                    ACCION: $("#AccionVentas").val()
+                                    USU_CREACION: $('#input_hdcodusuario').val()
                                 };
+                            debugger; 
                             var url = baseUrl + 'Ventas/Ventas/Ventas_Insertar';
                             var auditoria = SICA.Ajax(url, item, false);
                             if (auditoria != null && auditoria != "") {
                                 if (auditoria.EJECUCION_PROCEDIMIENTO) {
                                     if (!auditoria.RECHAZAR) {
-                                        Ventas_ConfigurarGrilla();
+                                        Ventas_ConfigurarGrilla("Ventas");
                                         Ventas_Cerrar();
                                         //jOkas("Ventas registrado satisfactoriamente", "Proceso"); 
                                         Ventas_GenerarVistaComprobante(auditoria.OBJETO)

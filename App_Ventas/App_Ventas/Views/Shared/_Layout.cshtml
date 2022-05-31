@@ -171,27 +171,24 @@
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                      <img class="logo-abbr" src="~/assets/images/avatar/4.png" alt="">
                                     @*<i class="icon icon-single-04" style="font-size: 18px; color: #2c7be5;"></i>*@
-                                    <span>Ivan Perez Tintaya</span>
-                                    <i class="bi bi-chevron-down"></i>
+                                    <span>@ViewBag.NameUser</span> <i class="bi bi-chevron-down"></i>
+                                    <br />
+                                    <span class="text-secondary">Sucursal: @ViewBag.Desc_Sucursal</span>
 
-                                    <input type="hidden" id="input_hdcodusuario" value="iperez" />
+                                    <input type="hidden" id="input_hdcodusuario" value="@ViewBag.CodUsuario" />
                                     <input type="hidden" id="inputL_SimboloMoneda" value="@ViewBag.SimboloMoneda" />
                                     <input type="hidden" id="inputL_Impuesto" value="@ViewBag.IMPUESTO" />
                                     <input type="hidden" id="inputL_NombreImpuesto" value="@ViewBag.NOMBRE_IMPUESTO" />
-                                    <input type="hidden" id="inputL_Id_Sucursal" value="2" />
+                                    <input type="hidden" id="inputL_Id_Sucursal" value="@ViewBag.IdSucursal" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right animate__bounceIn">
                                     <a href="./app-profile.html" class="dropdown-item">
                                         <i class="icon-user"></i>
-                                        <span class="ml-2">Profile </span>
+                                        <span class="ml-2">Mi cuenta </span>
                                     </a>
-                                    <a href="./email-inbox.html" class="dropdown-item">
-                                        <i class="icon-envelope-open"></i>
-                                        <span class="ml-2">Inbox </span>
-                                    </a>
-                                    <a href="./page-login.html" class="dropdown-item">
+                                    <a href="@Url.Content("~/Home/Logout")" class="dropdown-item">
                                         <i class="icon-key"></i>
-                                        <span class="ml-2">Logout </span>
+                                        <span class="ml-2">Salir </span>
                                     </a>
                                 </div>
                             </li>
@@ -365,8 +362,8 @@
     <script src="@Url.Content("~/Scripts/jquery-ui-1.8.24.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery-migrate-1.0.0.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/assets/jqGrid/js/i18n/grid.locale-es.js")" type="text/javascript"></script> 
-    <script src="@Url.Content("assets/vendor/datatables/js/jquery.dataTables.min.js")" type="text/javascript"></script> 
-    <script src="@Url.Content("assets/vendor/datatables/js/DatatablePlugin.js")"></script>
+    <script src="@Url.Content("~/assets/vendor/datatables/js/jquery.dataTables.min.js")" type="text/javascript"></script> 
+    <script src="@Url.Content("~/assets/vendor/datatables/js/DatatablePlugin.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.jqGrid.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/SICA.js")"></script>
 
@@ -405,7 +402,7 @@
 
 
         function ListarMenu(ID_PERFIL) {
-            debugger;
+            
             _blockUI('Generando modulos del usuario..');
             var urlListar = baseUrl + 'Modulos/Usuario_Modulos?ID_PERFIL=' + ID_PERFIL;
             $.ajax({

@@ -1,5 +1,5 @@
 ﻿using System;
-using System;
+using System.IO; 
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +10,7 @@ using Capa_Entidad.Login;
 using Capa_Entidad.Base;
 using App_Ventas.Areas.Login.Repositorio;
 using Capa_Token; 
+
 namespace App_Ventas.Areas.Login.Controllers
 {
     public class LoginController : Controller
@@ -73,7 +74,7 @@ namespace App_Ventas.Areas.Login.Controllers
                         else {
                             if (!auditoria.RECHAZAR)
                             {
-                                var vie = View_UsuarioLogeado();
+                                auditoria.OBJETO = Usuario; 
                             }
                         }
                     }
@@ -88,10 +89,13 @@ namespace App_Ventas.Areas.Login.Controllers
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult View_UsuarioLogeado() {
+        public PartialViewResult View_UsuarioLogeado() {
 
-            return View(); 
+            return PartialView();
         }
+
+
+
 
     }
 }

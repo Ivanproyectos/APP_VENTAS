@@ -86,7 +86,7 @@
                                 </div>
                             </div>
                         </div>
-                     @*   <div class="form-group col-md-3">
+                        @*   <div class="form-group col-md-3">
                             <label>Fecha Fin:</label>
                             <div class="input-group mb-3">
                                 <input type="text" id="Caja_FechaFin" class="form-control" placeholder="">
@@ -126,7 +126,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="profile-tab">
-                    <ul class="nav nav-tabs mb-4" >
+                    <ul class="nav nav-tabs mb-4">
                         <li class="nav-item"><a href="#Cadre_Caja" data-toggle="tab" class="nav-link active"><i class="bi bi-cash-stack"></i>&nbsp; Cuadre Caja</a>
                         </li>
                         <li class="nav-item"><a href="#Movimiento_Caja" data-toggle="tab" class="nav-link"><i class="bi bi-files"></i>&nbsp; Egresos/Ingresos</a>
@@ -144,47 +144,57 @@
                                             <thead>
                                                 <tr>
                                                     <th>Tipo Movimiento</th>
-                                                    <th>NRO OPERACIONES</th>
-                                                    <th>Monto</th>
+                                                    @*<th>NRO OPERACIONES</th>*@
+                                                    <th style="width:60px">Monto</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><i class="bi bi-cart3"></i>&nbsp; Ventas</td>
-                                                    <th><a href="javascript:void()" id="Caja_countVenta" class="badge badge-circle badge-outline-light">0</a></th>
+                                                    <td class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="bi bi-cart3"></i>&nbsp; Ventas</span>
+                                                        <span id="Caja_countVenta" class="badge badge-primary badge-pill">0</span>
+                                                    </td>
                                                     <td class="color-primary"><span class="simboloMoneda"></span><span id="Caja_TotalVenta">0.00</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><i class="bi bi-bag"></i>&nbsp;Adelantos</td>
-                                                    <th><a href="javascript:void()" id="Caja_countAdelanto" class="badge badge-circle badge-outline-light">0</a></th>
+                                                    <td class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="bi bi-bag"></i>&nbsp;Adelantos</span>
+                                                        <span id="Caja_countAdelanto" class="badge badge-primary badge-pill">0</span>
+                                                    </td>
                                                     <td class="color-success"><span class="simboloMoneda"></span><span id="Caja_TotalAdelanto">0.00</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><i class="bi bi-collection"></i>&nbsp;Cuentas Cobradas</td>
-                                                    <th><a href="javascript:void()" id="Caja_countCobrar" class="badge badge-circle badge-outline-light">0</a></th>
+                                                    <td class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="bi bi-collection"></i>&nbsp;Cuentas Cobradas</span>
+                                                        <span id="Caja_countCobrar" class="badge badge-primary badge-pill">0</span>
+                                                    </td>
                                                     <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_TotalCobrar">0.00</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><i class="bi bi-box-arrow-left text-danger"></i>&nbsp;Egresos</td>
-                                                    <th><a href="javascript:void()" id="Caja_countEgresos" class="badge badge-circle badge-outline-light">0</a></th>
+                                                    <td class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="bi bi-box-arrow-left text-danger"></i>&nbsp;Egresos</span>
+                                                        <span id="Caja_countEgresos" class="badge badge-primary badge-pill">0</span>
+                                                    </td>
                                                     <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_TotalEgresos">0.00</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><i class="bi bi-box-arrow-right text-success"></i>&nbsp;Ingresos</td>
-                                                    <th><a href="javascript:void()" id="Caja_countIngresos" class="badge badge-circle badge-outline-light">0</a></th>
+                                                    <td class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="bi bi-box-arrow-right text-success"></i>&nbsp;Ingresos</span>
+                                                        <span id="Caja_countIngresos" class="badge badge-primary badge-pill">0</span>
+                                                    </td>
                                                     <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_TotalIgresos">0.00</span></td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td colspan="2" style="text-align: right"><span class="text-danger">(-) </span>Total Egresos:</td>
+                                                    <td colspan="1" style="text-align: right"><span class="text-danger">(-) </span>Total Egresos:</td>
                                                     <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_Egresos">0.00</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2" style="text-align: right"><span class="text-success">(+) </span>Total Ingresos:</td>
+                                                    <td colspan="1" style="text-align: right"><span class="text-success">(+) </span>Total Ingresos:</td>
                                                     <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_Ingresos">0.00</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2" style="text-align: right">Total:</td>
+                                                    <td colspan="1" style="text-align: right">Total:</td>
                                                     <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_Total">0.00</span></td>
                                                 </tr>
 

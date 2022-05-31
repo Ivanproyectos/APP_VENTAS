@@ -16,5 +16,8 @@ namespace Capa_Entidad.Administracion
         public string FEC_DESACTIVACION { get; set; }
         public string DESC_SUCURSAL { get; set; }
         public string DESC_PERFIL { get; set; }
+
+        public string ID_USUARIO_PERFIL_HASH { get; set; }
+
     }
 }

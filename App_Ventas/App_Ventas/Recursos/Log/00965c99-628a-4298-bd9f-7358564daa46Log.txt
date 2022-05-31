@@ -1,0 +1,5 @@
+System.InvalidOperationException: Intento no válido de llamar a CheckDataIsReady cuando el lector está cerrado.
+   en System.Data.SqlClient.SqlDataReader.CheckDataIsReady(Int32 columnIndex, Boolean allowPartiallyReadColumn, Boolean permitAsync, String methodName)
+   en System.Data.SqlClient.SqlDataReader.TryReadColumn(Int32 i, Boolean setTimeout, Boolean allowPartiallyReadColumn)
+   en System.Data.SqlClient.SqlDataReader.GetString(Int32 i)
+   en Capa_Datos.Login.Cls_Dat_Login.Usuario_Perfil_Listar(Cls_Ent_Usuario_Perfil entidad_param, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Login\Cls_Dat_Login.cs:línea 299

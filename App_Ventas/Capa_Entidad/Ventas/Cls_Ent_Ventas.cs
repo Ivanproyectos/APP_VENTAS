@@ -9,6 +9,9 @@ namespace Capa_Entidad.Ventas
 {
     public class Cls_Ent_Ventas : Base.Cls_Ent_Base
     {
+        public Cls_Ent_Ventas() {
+            Cliente = new Cls_Ent_Cliente(); 
+        }
         public int ID_VENTA { get; set; }
         public int ID_SUCURSAL { get; set; }
         public string COD_COMPROBANTE { get; set; }
@@ -40,7 +43,9 @@ namespace Capa_Entidad.Ventas
 
         public string FECHA_INICIO { get; set; }
         public string FECHA_FIN { get; set; }
-        public string CLIENTE { get; set; }
+        public string NOMBRES_APE_CLIENTE { get; set; }
+
+ 
         
     }
 }

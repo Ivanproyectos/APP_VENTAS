@@ -153,7 +153,3 @@ C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\bin\S
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\bin\Microsoft.IdentityModel.Logging.dll
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\bin\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\bin\Capa_Token.pdb
-C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\bin\Microsoft.IdentityModel.Tokens.xml
-C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\bin\System.IdentityModel.Tokens.Jwt.xml
-C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\bin\Microsoft.IdentityModel.Logging.xml
-C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\bin\Microsoft.IdentityModel.JsonWebTokens.xml

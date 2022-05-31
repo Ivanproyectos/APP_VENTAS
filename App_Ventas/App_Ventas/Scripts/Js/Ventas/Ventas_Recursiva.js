@@ -62,10 +62,10 @@ function Ventas_DevolverProducto(CODIGO) {
                 + "  <ul class=\"list-group list-group-flush\" style=\"color: #5a5a5a;text-align: left;\">"
                 + "    <li class=\"list-group-item\"><strong><b>Resumen:</b> </strong></li>"
                 + "    <li class=\"list-group-item\">"
-                + "    <span class=\"\">Producto:</span> <span>" + data.PRODUCTO + "</span>"
+                + "    <span class=\"\"><b>Producto:</b></span> <span>" + data.PRODUCTO + "</span>"
                 + "  </li>    "
                 + "    <li class=\"list-group-item\">"
-                + "    <span class=\"\">Cantidad Vendida:</span> <span> " + data.CANTIDAD + " " + _COD_UNIDAD_MEDIDA + "</span>"
+                + "    <span class=\"\"><b>Cantidad Vendida:</b></span> <span> " + data.CANTIDAD + " " + _COD_UNIDAD_MEDIDA + "</span>"
                 + "  </li>    "
                 + "  </li>    "
                 + "  </ul>"
@@ -151,20 +151,20 @@ function Ventas_DevolverProducto(CODIGO) {
                     }
 
                 } else {
-                    debugger;
+                    
                     swal.showValidationMessage("Error al validar");
                 }
             })
         },
         onOpen: function (e) {
-            debugger;
+            
             setTimeout(function () {
                 $('#swal-input1').focus();
                 $('#swal-input1').val(_CANTIDAD_GRID);
             }, 500)
         }
     }).then(function (result) {
-        debugger;
+        
         //If validation fails, the value is undefined. Break out here.
         if (typeof (result.value) == 'undefined') {
             return false;

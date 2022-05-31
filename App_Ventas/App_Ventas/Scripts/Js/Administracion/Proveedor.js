@@ -189,7 +189,7 @@ function Proveedor_Actualizar() {
 ///************************************************ Inserta Proveedors  **************************************************/
 
 function Proveedor_Ingresar() {
-    debugger; 
+     
     if ($('#AccionProveedor').val() != 'N') {
         Proveedor_Actualizar();
     } else {

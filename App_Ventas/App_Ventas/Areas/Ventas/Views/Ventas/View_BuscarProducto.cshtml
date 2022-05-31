@@ -132,7 +132,7 @@
         }
     })
     .data("autocomplete")._renderItem = function (ul, item) {
-        debugger;
+        
         var _html_FotoProducto = "";
         var _Tipodesc = item.FLG_SERVICIO == 1 ? 'servicio' : 'producto';
         if (item.FLG_SERVICIO == 0 && item.MiArchivo.CODIGO_ARCHIVO !="0") {

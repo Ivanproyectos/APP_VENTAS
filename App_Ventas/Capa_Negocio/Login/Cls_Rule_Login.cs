@@ -54,6 +54,21 @@ namespace Capa_Negocio.Login
                 return new Cls_Ent_Usuario();
             }
         }
+
+        public Cls_Ent_Usuario Usuario_Sistema(Cls_Ent_Usuario entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                return OData.Usuario_Sistema(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                return new Cls_Ent_Usuario();
+            }
+        }
+        
+
         
     }
 }

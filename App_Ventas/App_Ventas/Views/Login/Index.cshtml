@@ -97,8 +97,10 @@
             <div class="Login__boxLogin authincation-content">
                 <div class="row no-gutters" id="Login_BoxSession" style="display: none;">
                     <div class="col-xl-12">
-                        @*<img class="d-block w-100" src="@Url.Content("~/assets/images/login/Login2.png")" alt="Third slide">*@
-                        <h4 class="text-center mb-4 text-primary">Inicia Sesión</h4>
+                        <div class="text-center">
+                            <img width="100" height="100"  src="@Url.Content("~/assets/images/awesome.png")" alt="logo">
+                        </div>
+                        <h3 class="text-center mb-4 text-primary">Inicia Sesión</h3>
                         @using (Html.BeginForm("", "", new { @area = "" }, FormMethod.Post, new { @id = "frm_Login", @class = "form-horizontal" }))
                         {
                             @Html.ValidationSummary(true)
@@ -109,13 +111,19 @@
                             </div>
                             <div class="form-group">
                                 <label><strong>Contraseña</strong></label>
-                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @maxlength = "100", @autocomplete = "off" ,@type="password" })
+                                <div class="input-group mb-3">
+                                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @maxlength = "100", @autocomplete = "off", @type = "password" })
+                                    <div class="input-group-append" data-password="true">
+                                        <span class="input-group-text password-eye"></span>
+                                    </div>
+                                </div>
+
                                 @Html.ValidationMessageFor(model => model.Password, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>
                             <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                 <div class="form-group">
                                     <div class="form-check ml-2">
-                                         @Html.CheckBoxFor(model => model.RememberMe, new { @class = "", })
+                                        @Html.CheckBoxFor(model => model.RememberMe, new { @class = "", })
                                         <label class="form-check-label" for="RememberMe">Recuerdame</label>
                                     </div>
                                 </div>
@@ -125,16 +133,51 @@
                             </div>
                             <div class="text-center mb-3">
                                 <button type="button" id="Login_Ingresar" class="btn btn-primary btn-block btn-hover-shine">Ingresar</button>
-                            </div>                     
-                            <div class="text-center">
-                                <div class="alert alert-danger alert-dismissible" style="display:none;" id="Alert_Error">
-                                    <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
-                                        <span><i class="bi bi-x-lg"></i></span>
-                                    </button>
-                                    <strong>Error - </strong> <span id="Msg_error"></span>.                      
-                                </div>
-                            </div>
+                            </div>                               
                         }
+                    </div>
+                </div>
+                <div class="row no-gutters" id="Login_BoxUsuLogeo" style="display: none;">
+                    <div class="col-xl-12 mb-3">
+                        <h2 class="text-success text-center">Bienvenido</h2>
+                        <h3 class="text-center text-primary" id="Login_nameUser"></h3>
+                    </div>
+                    <div class="col-xl-12">
+                        <div id="Login_MsgSinPermisos" style="display: none;">
+                            <p class="text-center">Su usuario no tiene acceso a ninguna de las sucursales o la fecha de prescripción expiro, comuníquese con el administrador del sistema.</p>
+                            <div class="text-center">
+                                <img height="200" width="200" src="@Url.Content("~/assets/images/login/questions.png")" />
+                            </div>
+                        </div>
+                        <div id="Login_ListPermisos" style="display: none;">
+                            <p>A continuación seleccione la sucursal donde realiza el registro de las transacciones generadas por la venta de bienes o servicios.</p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover" id="Login_TablePermisos">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Sucursal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12">
+                        <button type="button" id="Login_SignOff" class="btn btn-danger btn-block btn-hover-shine"><i class="bi bi-box-arrow-left"></i>&nbsp;Cerrar Sesión</button>
+                    </div>
+                </div>
+
+                <div class="row" id="Alert_Error" style="display: none;">
+                    <div class="text-center col-sm-12">
+                        <div class="alert alert-danger alert-dismissible show">
+                            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
+                                <span><i class="bi bi-x-lg"></i></span>
+                            </button>
+                            <strong>Error - </strong><span id="Msg_error"></span>.                      
+                        </div>
                     </div>
                 </div>
             </div>
@@ -155,8 +198,10 @@
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
 
     <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
-
+    <script src="@Url.Content("~/Scripts/crypto-js.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/General.js")"></script>
     <script src="@Url.Content("~/Scripts/Js/Login/LoginHelpers.js")"></script>
+
     <script src="@Url.Content("~/Scripts/SICA.js")"></script>
 
 
@@ -166,12 +211,18 @@
     ***********************************-->
     <script type="text/javascript">
         var baseUrl = '@Url.Content("~")';
-
+        var sign = null;
 
         $(document).ready(function () {
-            var sign = new Login();
+            $('[data-bs-toggle="tooltip"]').tooltip();
+            sign = new Login();
             sign.init();
         });
+
+        function Login_Ingresar(id) {
+            sign.LogIn(id);
+        }
+
     </script>
 </body>
 

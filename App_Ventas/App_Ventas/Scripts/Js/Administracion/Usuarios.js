@@ -197,7 +197,7 @@ function Usuarios_Actualizar() {
 ///************************************************ Inserta cargos  **************************************************/
 
 function Usuarios_Ingresar() {
-    debugger; 
+     
     if ($('#AccionUsuarios').val() != 'N') {
         Usuarios_Actualizar();
     } else {
@@ -326,7 +326,7 @@ function BuscarPersonalNatural(_NumeroDocumento) {
                 success: function (jdata) {
                     jQuery.unblockUI();
                     var json = JSON.parse(jdata.d);
-                    debugger;
+                    
                     if (json.length > 0) {
                         if (json[0]['codRes'] != 1003) {
 

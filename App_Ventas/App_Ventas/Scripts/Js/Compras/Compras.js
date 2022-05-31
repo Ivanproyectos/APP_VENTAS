@@ -225,7 +225,7 @@ function Compras_Ingresar() {
         if (ListaDetalle.length > 0) {
             jConfirm("¿ Desea registrar esta compra ?", "Atención", function (r) {
                 if (r) {
-                    debugger;
+                    
                     var item =
                         {
                             ID_TIPO_COMPROBANTE: $("#ID_TIPO_COMPROBANTE").val(),

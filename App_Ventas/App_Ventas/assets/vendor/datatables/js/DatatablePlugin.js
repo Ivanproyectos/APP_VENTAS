@@ -1,7 +1,7 @@
 ﻿
 DataTable = {
     Grilla: function (grilla, urlListar, id, colModels, opciones, SortColunm) {
-        debugger; 
+         
         var DataTable = null; 
         var grid = jQuery('#' + grilla);
         var estadoSubGrid = false;
@@ -137,7 +137,7 @@ DataTable = {
   
             } // fin de NO GridLocal
             else if (opciones.GridLocal) {
-                debugger; 
+                 
                 DataTable = grid.DataTable({
                     responsive: opciones.responsive,
                     processing: opciones.processing,

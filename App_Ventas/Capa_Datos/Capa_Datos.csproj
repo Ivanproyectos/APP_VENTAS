@@ -69,6 +69,10 @@
       <Project>{80e11cab-e660-4248-8cd9-69201e1a261f}</Project>
       <Name>Capa_Entidad</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Capa_Token\Capa_Token.csproj">
+      <Project>{7acb2f82-a513-4a71-b2d1-497376867dd9}</Project>
+      <Name>Capa_Token</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

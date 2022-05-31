@@ -1,0 +1,2 @@
+System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en App_Ventas.Controllers.HomeController.Index(String idperfil) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Controllers\HomeController.cs:línea 22
