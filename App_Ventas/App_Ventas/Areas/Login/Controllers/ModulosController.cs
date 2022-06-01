@@ -101,5 +101,40 @@ namespace App_Ventas.Areas.Login.Controllers
         }
 
 
+        public ActionResult Usuario_Modulos(string ID_PERFIL)
+        {
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            try
+            {
+                using (ModulosRepositorio repositorio = new ModulosRepositorio())
+                {
+                    var lista = repositorio.Usuario_Sistema_Modulo(int.Parse(ID_PERFIL), ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                    else
+                    {
+                        if (!auditoria.RECHAZAR)
+                        {
+                            string html = "";
+                            repositorio.Generar_Vista(lista, ref html, 1);
+                            auditoria.OBJETO = html;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+
+
     }
 }

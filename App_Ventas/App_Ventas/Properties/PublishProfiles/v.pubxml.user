@@ -17,7 +17,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>05/15/2022 18:42:34</publishTime>
     </File>
     <File Include="Areas/Administracion/Views/ConfigurarEmpresa/Index.cshtml">
-      <publishTime>04/24/2022 16:19:32</publishTime>
+      <publishTime>06/01/2022 10:13:09</publishTime>
     </File>
     <File Include="Areas/Administracion/Views/Perfil/Index.cshtml">
       <publishTime>05/28/2022 18:11:44</publishTime>
@@ -11708,19 +11708,19 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>05/31/2022 22:11:41</publishTime>
     </File>
     <File Include="bin/App_Ventas.dll">
-      <publishTime>05/31/2022 22:11:45</publishTime>
+      <publishTime>06/01/2022 12:00:06</publishTime>
     </File>
     <File Include="bin/BouncyCastle.Crypto.dll">
       <publishTime>02/24/2020 15:29:24</publishTime>
     </File>
     <File Include="bin/Capa_Datos.dll">
-      <publishTime>05/31/2022 22:11:42</publishTime>
+      <publishTime>06/01/2022 12:00:04</publishTime>
     </File>
     <File Include="bin/Capa_Entidad.dll">
       <publishTime>05/31/2022 22:11:41</publishTime>
     </File>
     <File Include="bin/Capa_Negocio.dll">
-      <publishTime>05/31/2022 22:11:42</publishTime>
+      <publishTime>06/01/2022 12:00:04</publishTime>
     </File>
     <File Include="bin/Capa_Token.dll">
       <publishTime>05/31/2022 22:11:41</publishTime>
@@ -12266,7 +12266,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>05/05/2022 12:08:22</publishTime>
     </File>
     <File Include="Scripts/Js/Inventario/Producto/Producto.js">
-      <publishTime>05/30/2022 22:53:02</publishTime>
+      <publishTime>06/01/2022 10:35:21</publishTime>
     </File>
     <File Include="Scripts/Js/Inventario/Producto/Translados_Detalle.js">
       <publishTime>04/30/2022 12:09:20</publishTime>
@@ -12275,7 +12275,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>05/07/2022 16:21:31</publishTime>
     </File>
     <File Include="Scripts/Js/Login/LoginHelpers.js">
-      <publishTime>05/31/2022 18:32:46</publishTime>
+      <publishTime>06/01/2022 11:07:41</publishTime>
     </File>
     <File Include="Scripts/Js/Prueba.js">
       <publishTime>05/30/2022 22:53:02</publishTime>
@@ -12365,16 +12365,16 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>03/12/2022 13:11:39</publishTime>
     </File>
     <File Include="Views/Home/page401.cshtml">
-      <publishTime>05/31/2022 11:38:20</publishTime>
+      <publishTime>05/31/2022 23:04:47</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
-      <publishTime>05/31/2022 12:15:25</publishTime>
+      <publishTime>06/01/2022 11:26:08</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>02/19/2022 18:39:40</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>05/31/2022 18:30:29</publishTime>
+      <publishTime>06/01/2022 11:53:44</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>02/19/2022 18:39:40</publishTime>
@@ -12386,7 +12386,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>02/19/2022 18:45:33</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/31/2022 22:11:49</publishTime>
+      <publishTime>06/01/2022 12:00:08</publishTime>
     </File>
   </ItemGroup>
 </Project>

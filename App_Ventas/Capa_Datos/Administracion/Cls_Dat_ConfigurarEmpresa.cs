@@ -198,7 +198,7 @@ namespace Capa_Datos.Administracion
                     { cmd.Parameters.Add(new SqlParameter("@PI_EXTENSION_ARCHIVO_LOGO", SqlDbType.VarChar, 100)).Value =  DBNull.Value; }
                     else
                     { cmd.Parameters.Add(new SqlParameter("@PI_EXTENSION_ARCHIVO_LOGO", SqlDbType.VarChar, 100)).Value = entidad.Archivo_Logo.EXTENSION; }
-                    cmd.Parameters.Add(new SqlParameter("@PI_USUARIO_CREACION", SqlDbType.VarChar, 200)).Value = entidad.USU_MODIFICACION;
+                    cmd.Parameters.Add(new SqlParameter("@PI_USUARIO_CREACION", SqlDbType.VarChar, 200)).Value = entidad.USU_CREACION;
                     cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
                     if (cn.State != System.Data.ConnectionState.Open)
                     {

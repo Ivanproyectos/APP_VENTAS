@@ -53,6 +53,7 @@ namespace App_Ventas.Controllers
                                     ViewBag.Desc_Sucursal = Usuario.Perfil_Sucursal.DESC_SUCURSAL;
                                     ViewBag.IdSucursal = Usuario.Perfil_Sucursal.ID_SUCURSAL;
                                     ViewBag.CodUsuario = Usuario.COD_USUARIO;
+                                    ViewBag.IdPf = Usuario.Perfil_Sucursal.ID_PERFIL;
 
                                     Cls_Ent_configurarEmpresa Empresa = new Cls_Ent_configurarEmpresa();
                                     using (ConfigurarEmpresaRepositorio Repositorio = new ConfigurarEmpresaRepositorio())
@@ -120,8 +121,10 @@ namespace App_Ventas.Controllers
             {
                 HttpCookie myCookie = new HttpCookie("IP-CyberToken");
                 myCookie.Expires = DateTime.Now.AddDays(-1d);
+                myCookie.Value = string.Empty;
                 Response.Cookies.Add(myCookie);
             }
+            Session.Abandon();
             return RedirectToAction("Index", "Login", new { area = "" });
         }
 

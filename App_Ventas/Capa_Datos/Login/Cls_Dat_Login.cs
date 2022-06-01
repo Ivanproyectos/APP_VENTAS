@@ -393,7 +393,7 @@ namespace Capa_Datos.Login
                            else obj.FLG_ADMIN = int.Parse(dr[pos_FLG_ADMIN].ToString());
 
                            if (dr.IsDBNull(pos_ID_PERFIL)) obj.Perfil_Sucursal.ID_PERFIL = 0;
-                           else obj.Perfil_Sucursal.ID_PERFIL = int.Parse(dr[pos_FLG_ADMIN].ToString());
+                           else obj.Perfil_Sucursal.ID_PERFIL = int.Parse(dr[pos_ID_PERFIL].ToString());
 
                            if (dr.IsDBNull(pos_ID_SUCURSAL)) obj.Perfil_Sucursal.ID_SUCURSAL = 0;
                            else obj.Perfil_Sucursal.ID_SUCURSAL = int.Parse(dr[pos_ID_SUCURSAL].ToString());

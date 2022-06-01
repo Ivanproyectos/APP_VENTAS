@@ -16,6 +16,12 @@
 
             $('#Login_Ingresar').click(function () { Login_Validar() });
             $('#Login_SignOff').click(function () { SignOff() });
+            $(window).keypress(function (e) {
+                var code = (e.keyCode ? e.keyCode : e.which);
+                if (code == 13) {
+                    Login_Validar();
+                }
+            });
             
         }
 
@@ -116,9 +122,10 @@
                 var idgrilla = i + 1;
                 var ID_USUARIO_PERFIL_HASH = "'" + v.ID_USUARIO_PERFIL_HASH + "'"
                 html += "<a href=\"javascript:void()\" onclick=\"Login_Ingresar(" + ID_USUARIO_PERFIL_HASH + ")\" data-placement=\"left\" "
-                         + "class=\"list-group-item list-group-item-action \" title=\"Vamos para alla!\" data-bs-toggle=\"tooltip\" style=\"cursor:pointer\"><i class=\"bi bi-geo-alt-fill\"></i> " + v.DESC_SUCURSAL +" </a>";
+                         + "class=\"list-group-item justify-content-between d-flex  list-group-item-action \" "
+                          + " style=\"cursor:pointer\"><span><i class=\"bi bi-geo-alt-fill\"></i> " + v.DESC_SUCURSAL + " "
+                           + "</span><button type=\"button\" data-bs-toggle=\"tooltip\" onclick=\"Login_Ingresar(" + ID_USUARIO_PERFIL_HASH + ")\"  title=\"Vamos para alla!\"  class=\"btn btn-outline-primary\">Go!</button> </a>";
             });
-            debugger;
             return html; 
         }
 
@@ -145,8 +152,12 @@
             document.cookie = name + "=" + (value || "") + expires + "; path=/";
         }
 
+        var eliminarCookie = function (key) {
+            return document.cookie = key + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+
         function SignOff() {
-            setCookie("IP-CyberToken", "", -1);
+            eliminarCookie("IP-CyberToken"); 
             window.location.reload()
         }
 

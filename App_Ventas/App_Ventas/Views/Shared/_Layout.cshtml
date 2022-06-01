@@ -55,7 +55,8 @@
         ***********************************-->
         <div class="nav-header">
             <a href="index.html" class="brand-logo">
-                @if (ViewBag.Isotipo != null){
+                @if (ViewBag.Isotipo != null && ViewBag.Isotipo != "")
+                {
                 <img class="logo-abbr" src="~/Recursos/Logo_Empresa/@ViewBag.Isotipo" alt="">
                 }
                 else
@@ -186,6 +187,8 @@
                                     <input type="hidden" id="inputL_Impuesto" value="@ViewBag.IMPUESTO" />
                                     <input type="hidden" id="inputL_NombreImpuesto" value="@ViewBag.NOMBRE_IMPUESTO" />
                                     <input type="hidden" id="inputL_Id_Sucursal" value="@ViewBag.IdSucursal" />
+                                     <input type="hidden" id="inputL_IdPerfil" value="@ViewBag.IdPf" />
+                                    
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right animate__bounceIn">
                                     <a href="./app-profile.html" class="dropdown-item">
@@ -215,7 +218,7 @@
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
         
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+               @*     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                         <i class="bi bi-gear-wide-connected"></i><span class="nav-text">Administración</span></a>
                         <ul aria-expanded="false">
                             <li><a name="Administracion/ConfigurarEmpresa/Index" onclick="_LayoutInvocar(this)">Configuracion Empresa </a></li>
@@ -227,9 +230,6 @@
 
                         </ul>
                     </li>
-
-                    @*<li class="nav-label">Apps</li>*@
-
                     <li><a class="has-arrow not-before" name="Caja/Caja/Index" onclick="_LayoutInvocar(this)" id="aCaja" aria-expanded="false">
                         <i class="bi bi-wallet"></i><span class="nav-text">Caja </span></a>
                         <ul aria-expanded="false">
@@ -241,8 +241,6 @@
                         <ul aria-expanded="false">
                             <li><a name="Ventas/Ventas/Index" onclick="_LayoutInvocar(this)" id="aVentas">Ventas</a></li>
                             <li><a name="Ventas/Consulta_Ventas/Index" onclick="_LayoutInvocar(this)" id="aConsultaventas">Consulta Ventas </a></li>
-                            @*        <li><a href="./index2.html">Ventas Anuladas</a></li>
-                            <li><a href="./index2.html">Devoluciones</a></li>*@
                         </ul>
                     </li>
 
@@ -265,8 +263,6 @@
                         <ul aria-expanded="false">
                             <li><a name="Inventario/Categoria/Index" onclick="_LayoutInvocar(this)" id="aCategoria">Categorias</a></li>
                             <li><a name="Inventario/Producto/Index" onclick="_LayoutInvocar(this)" id="aProducto">Producto / Servicio</a></li>
-                            @*<li><a href="./index2.html">Kardex</a></li>*@
-
                         </ul>
                     </li>
 
@@ -274,17 +270,7 @@
                         <i class="bi bi-bar-chart-line"></i><span class="nav-text">Reportes </span></a>
                         <ul aria-expanded="false">
                         </ul>
-                    </li>
-
-                 @*   <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                        class="bi bi-bar-chart-line"></i><span class="nav-text">Reportes</span></a>
-                        <ul aria-expanded="false">
-                            <li><a name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aReporte">Prueba</a></li>
-                            <li><a href="./index2.html">Dashboard 2</a></li>
-                        </ul>
                     </li>*@
-
-
 
                 </ul>
             </div>
@@ -406,10 +392,8 @@
         };
 
 
-        function ListarMenu(ID_PERFIL) {
-            
-            _blockUI('Generando modulos del usuario..');
-            var urlListar = baseUrl + 'Modulos/Usuario_Modulos?ID_PERFIL=' + ID_PERFIL;
+        function ListarMenu(ID_PERFIL) {     
+            var urlListar = baseUrl + 'Login/Modulos/Usuario_Modulos?ID_PERFIL=' + ID_PERFIL;
             $.ajax({
                 url: urlListar,
                 type: 'post',
@@ -428,14 +412,12 @@
             });
         }
 
-
-
-
         $(document).ready(function () {
             $('[data-bs-toggle="tooltip"]').tooltip();
-
-            //setTimeout("ListarMenu(1)", 500);
-            $("#menu").metisMenu(); // inicia menu 
+            var id_perfil = $('#inputL_IdPerfil').val();
+            _blockUI('Generando modulos del usuario..');
+           setTimeout("ListarMenu(" + id_perfil + ")", 200);
+           // $("#menu").metisMenu(); // inicia menu 
         });
     </script>
 </body>

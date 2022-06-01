@@ -2,4 +2,3 @@ C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Entidad\bin
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Entidad\bin\Debug\Capa_Entidad.pdb
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Entidad\obj\Debug\Capa_Entidad.dll
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Entidad\obj\Debug\Capa_Entidad.pdb
-C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Entidad\obj\Debug\Capa_Entidad.csprojResolveAssemblyReference.cache
