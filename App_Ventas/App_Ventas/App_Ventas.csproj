@@ -361,6 +361,7 @@
     <Content Include="assets\icons\themify-icons\fonts\themify9f24.svg" />
     <Content Include="assets\images\1.jpg" />
     <Content Include="assets\images\401-Error-Unauthorized.gif" />
+    <Content Include="assets\images\401-Error-Unauthorized.png" />
     <Content Include="assets\images\awesome.png" />
     <Content Include="assets\images\avatar\1.png" />
     <Content Include="assets\images\avatar\2.png" />

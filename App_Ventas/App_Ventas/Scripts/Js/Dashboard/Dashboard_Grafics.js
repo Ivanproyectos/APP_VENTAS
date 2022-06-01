@@ -83,9 +83,9 @@
                         datalabels: {
                             color: '#fff',
                             display: true, 
-                            formatter: function (value, ctx) {
-                                
-                                return ((value * 100) / total(ctx)).toFixed(2) + '%'; 
+                            formatter: function (value, ctx) {                      
+                                //return ((value * 100) / total(ctx)).toFixed(2) + '%'; 
+                                return ((value * 100) / total(ctx)) + '%'; 
                             },
                         },
                     },

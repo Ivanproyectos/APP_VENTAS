@@ -1,0 +1,4 @@
+System.IndexOutOfRangeException: MONTO_CREDITO_VENTAS
+   en System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   en System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   en Capa_Datos.Dashboard.Cls_Dat_Dashboard.Dashboard_Listar_Uno(Cls_Ent_Dashboard entidad_param, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Dashboard\Cls_Dat_Dashboard.cs:línea 35

@@ -1,9 +1,9 @@
 ﻿@model App_Ventas.Areas.Caja.Models.CajaModelView
-
 <script>
     $(document).ready(function () {
         ConfiguracionEmpresa();
         $('#ID_SUCURSAL').select2();
+
     });
     $('#Caja_btn_Guardar').click(function () {
         Caja_Movimiento_Insertar();
@@ -31,24 +31,14 @@
             <div class="modal-body">
                 <div class="form-row">
                     <div class="col-sm-12">
-                        <div class="form-row border-bottom-head" id="_Content_TipoRadioBtn">
-                            <div class="col-sm-6">
-                                <div class="_Content_Radio">
-                                    <input type="radio" id="f-option" checked name="Movimiento_Tipo" value="1">
-                                    <label for="f-option">Ingresos</label>
-                                    <div class="check"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="_Content_Radio">
-                                    <input type="radio" id="s-option" name="Movimiento_Tipo" value="2">
-                                    <div class="check">
-                                        <div class="inside"></div>
-                                    </div>
-                                    <label for="s-option">Egresos</label>
-                                </div>
-                            </div>
-                        </div>
+                        <label class="swichttoggle_ip" for="Movimiento_TipoCheck">
+                            <input type='checkbox' id="Movimiento_TipoCheck" />
+                            <span class='base-color'>
+                                <span class='toggle-slider'></span>
+                                <span class='swichttoggle_ip_c1'>Ingresos</span>
+                                <span class='swichttoggle_ip_c2'>Egresos</span>
+                            </span>
+                        </label>
                     </div>
                 </div>
                 <br />

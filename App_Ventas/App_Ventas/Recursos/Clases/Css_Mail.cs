@@ -21,38 +21,38 @@ namespace App_Ventas.Recursos.Clases
         {
      
 
-             public static void SendMailMessage(ref Cls_Ent_Auditoria auditoria, string recepient, string bcc, string cc, string subject, string body,
-                                                            string strNomArchivo, string strRutaAdjunto = "", byte[] ArchivoByte=null,string RutaLogo ="", string sfrom = "")
-            {
-                string[] arrRecepient = null;
+        public static void SendMailMessage(ref Cls_Ent_Auditoria auditoria, string recepient, string bcc, string cc, string subject, string body,
+                                                        string strNomArchivo, string strRutaAdjunto = "", byte[] ArchivoByte = null, string RutaLogo = "", string sfrom = "", string Alias = "")
+        {
+            string[] arrRecepient = null;
 
-                if (recepient.IndexOf(",") > -1)
-                {
-                    arrRecepient = recepient.Split(',');
-                }
-                else if (recepient.IndexOf(";") > -1)
-                {
-                    arrRecepient = recepient.Split(';');
-                }
-                else
-                {
-                    arrRecepient = new string[1];
-                    arrRecepient[0] = recepient;
-                }
-                System.IO.Stream streamArchivo = null;
-                SendMailMessage_Private(ref auditoria, arrRecepient, bcc, cc, subject, body, ref streamArchivo, strNomArchivo, strRutaAdjunto, ArchivoByte,RutaLogo, sfrom);
-            }
-
-             public static void SendMailMessage(ref Cls_Ent_Auditoria auditoria, string[] recepient, string bcc, string cc, string subject, string body,string strNomArchivo, string strRutaAdjunto = "", byte[] ArchivoByte = null,string RutaLogo ="", string sfrom = "")
+            if (recepient.IndexOf(",") > -1)
             {
-                System.IO.Stream streamArchivo = null;
-                SendMailMessage_Private(ref auditoria, recepient, bcc, cc, subject, body, ref streamArchivo, strNomArchivo, strRutaAdjunto, ArchivoByte,RutaLogo, sfrom);
+                arrRecepient = recepient.Split(',');
             }
+            else if (recepient.IndexOf(";") > -1)
+            {
+                arrRecepient = recepient.Split(';');
+            }
+            else
+            {
+                arrRecepient = new string[1];
+                arrRecepient[0] = recepient;
+            }
+            System.IO.Stream streamArchivo = null;
+            SendMailMessage_Private(ref auditoria, arrRecepient, bcc, cc, subject, body, ref streamArchivo, strNomArchivo, strRutaAdjunto, ArchivoByte, RutaLogo, sfrom, Alias);
+        }
+
+       public static void SendMailMessage(ref Cls_Ent_Auditoria auditoria, string[] recepient, string bcc, string cc, string subject, string body, string strNomArchivo, string strRutaAdjunto = "", byte[] ArchivoByte = null, string RutaLogo = "", string sfrom = "", string Alias ="")
+        {
+            System.IO.Stream streamArchivo = null;
+            SendMailMessage_Private(ref auditoria, recepient, bcc, cc, subject, body, ref streamArchivo, strNomArchivo, strRutaAdjunto, ArchivoByte, RutaLogo, sfrom, Alias);
+        }
 
 
         private static void SendMailMessage_Private(ref Cls_Ent_Auditoria auditoria, string[] recepient, string bcc, string cc, string subject,
                                                         string body, ref System.IO.Stream streamArchivo, string strNomArchivo, string strRutaAdjunto,byte[] ArchivoByte,string RutaLogo,
-                                                        string sfrom)
+                                                        string sfrom , string Alias)
             {
                 try
                 {
@@ -62,7 +62,7 @@ namespace App_Ventas.Recursos.Clases
                     if ((sfrom != null) & sfrom != string.Empty)
                     {
                         if (!string.IsNullOrWhiteSpace(sfrom))
-                            mMailMessage.From = new MailAddress(sfrom, "Ventas", System.Text.Encoding.UTF8);
+                            mMailMessage.From = new MailAddress(sfrom, Alias, System.Text.Encoding.UTF8);
                     }
 
                     foreach (string unmail in recepient)

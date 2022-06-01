@@ -69,6 +69,8 @@ namespace App_Ventas.Controllers
                                                 ViewBag.SimboloMoneda = Empresa.SIMBOLO_MONEDA;
                                                 ViewBag.Impuesto = Empresa.IMPUESTO;
                                                 ViewBag.NombreImpuesto = Empresa.NOMBRE_IMPUESTO;
+                                                ViewBag.RazonSocial = Empresa.RAZON_SOCIAL;
+                                                ViewBag.Isotipo = Empresa.CODIGO_ARCHIVO_ISOTIPO + Empresa.EXTENSION_ARCHIVO_ISOTIPO;
                                             }
                                         }
                                     }

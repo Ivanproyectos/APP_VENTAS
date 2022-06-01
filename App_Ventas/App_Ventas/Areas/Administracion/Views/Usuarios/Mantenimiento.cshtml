@@ -10,7 +10,7 @@
         $('#CELULAR').numeric();
         $('#TELEFONO').numeric();
         Usuarios_Perfil_ConfigurarGrilla();
-        if ($('#AccionUsuarios').val() == "M") {            
+        if ($('#AccionUsuarios').val() == "M") {
             $('#UsuariosAccesoTab').removeClass('DisabledContent')
         }
 
@@ -138,9 +138,9 @@
                                 @Html.LabelFor(model => model.DNI)
                                 <div class="input-group mb-12 ">
                                     @Html.TextBoxFor(model => model.DNI, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
-                                    <div class="input-group-append  btn-hover-shine waves-effect waves-light" onclick="Cliente_SearchPersona()">
-                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
-                                    </div>
+                                    <button class="input-group-append btn btn-info btn-hover-shine waves-effect waves-light" type="button" onclick="Cliente_SearchPersona()">
+                                        <i class="bi bi-search"></i>&nbsp; Buscar
+                                    </button>
                                 </div>
                                 @Html.ValidationMessageFor(model => model.DNI, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>

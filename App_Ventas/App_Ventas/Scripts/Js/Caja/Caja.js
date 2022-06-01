@@ -174,11 +174,15 @@ function Caja_Movimiento_CargarGrilla() {
 
 function Caja_Movimiento_Actualizar() {
     if ($("#frmMantenimiento_Caja").valid()) {
+        var TipoMoviento = 1;  // ingreso 
+        if (!$('#Movimiento_TipoCheck').is(':checked')) {
+            TipoMoviento = 2;  // egreso
+        }
         var item =
                 {
                     ID_SUCURSAL: $("#ID_SUCURSAL").val(),
                     ID_TIPO_MOVIMIENTO: $("#hfd_ID_TIPO_MOVIMIENTO").val(),
-                    FLG_TIPO: _valor = $('input:radio[name=Movimiento_Tipo]:checked').val(),
+                    FLG_TIPO: TipoMoviento,
                     DESC_MOVIMIENTO: $("#DESC_MOVIMIENTO").val(),
                     MONTO: $("#MONTO").val(),
                     USU_CREACION: $('#input_hdcodusuario').val(),
@@ -218,10 +222,14 @@ function Caja_Movimiento_Insertar() {
         if ($("#frmMantenimiento_Caja").valid()) {
             jConfirm("¿ Desea registrar este movimiento ?", "Atención", function (r) {
                 if (r) {
+                    var TipoMoviento = 1;  // ingreso 
+                    if (!$('#Movimiento_TipoCheck').is(':checked')) {
+                        TipoMoviento = 2;  // egreso
+                    }
                     var item =
                         {
                             ID_SUCURSAL: $("#ID_SUCURSAL").val(),
-                            FLG_TIPO: _valor = $('input:radio[name=Movimiento_Tipo]:checked').val(),
+                            FLG_TIPO: TipoMoviento,
                             DESC_MOVIMIENTO: $("#DESC_MOVIMIENTO").val(),
                             MONTO: $("#MONTO").val(),
                             USU_CREACION: $('#input_hdcodusuario').val(),

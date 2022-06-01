@@ -13005,7 +13005,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     border: 0;
     background: transparent;
     background: transparent;
-    border-bottom: 0.2px solid #593bdb;
+    border-bottom: 0.2rem solid #727cf5;
     color: #464a53; }
 
 .post-input {
@@ -19613,3 +19613,89 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 div[data-password] {
     cursor:pointer; 
 }
+
+/*swich*/
+
+.swichttoggle_ip {
+    position: relative;
+    display: block;
+    width: 300px;
+    height: 44px;
+    margin: auto;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.swichttoggle_ip input[type=checkbox] {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.swichttoggle_ip * {
+    transition: all 200ms linear;
+}
+
+.swichttoggle_ip input[type=checkbox] + .base-color .swichttoggle_ip_c1 {
+    color: #f7fafb;
+}
+
+.swichttoggle_ip input[type=checkbox] + .base-color {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: all 150ms linear;
+    background: #eef2f7;
+    border-radius: 32px;
+}
+
+.swichttoggle_ip input[type=checkbox]:checked + .base-color .toggle-slider {
+    margin-left: 43.5%;
+}
+
+.swichttoggle_ip input[type=checkbox]:checked + .base-color .swichttoggle_ip_c2 {
+    color: #f7fafb;
+}
+
+.swichttoggle_ip input[type=checkbox] + .base-color .toggle-slider {
+    display: block;
+    position: absolute;
+    content: " ";
+    background: #1c1e1f;
+    width: 55%;
+    height: 100%;
+    transition: margin 300ms linear;
+    border-radius: 32px;
+    height: 40px;
+    top: 2px;
+    left: 2px;
+    background: #2c7be5; 
+}
+
+.swichttoggle_ip input[type=checkbox] + .base-color .swichttoggle_ip_c1 {
+    color: #f7fafb;
+}
+
+.swichttoggle_ip .swichttoggle_ip_c1 {
+    left: 0px;
+}
+
+.swichttoggle_ip .swichttoggle_ip_c2 {
+    right: 0px;
+}
+
+.swichttoggle_ip input[type=checkbox]:checked + .base-color .swichttoggle_ip_c1 {
+    color: #1c1e1f;
+}
+.swichttoggle_ip .swichttoggle_ip_c1, .swichttoggle_ip .swichttoggle_ip_c2 {
+    display: block;
+    position: absolute;
+    width: 50%;
+    color: #1c1e1f;
+    line-height: 40px;
+    text-align: center;
+    height: 40px;
+    top: 2px;
+}
+

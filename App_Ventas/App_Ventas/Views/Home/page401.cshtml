@@ -27,20 +27,32 @@
         Preloader start
     ********************-->
 
-    <!--*******************
-        Preloader end
-    ********************-->
     <style>
-        .img-401{
-            background-image: url("../assets/images/401-Error-Unauthorized.gif"); 
-            background-position: center 25%; 
-             background-repeat: no-repeat; 
-            background-size: cover; 
+        .img-401 {
+            background-image: url("../assets/images/401-Error-Unauthorized.gif");
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 500px;
+            width: 500px;
+            margin: auto;
+        }
+
+        .account-pages {
+            min-height: 100vh;
+            background:#fff;
         }
     </style>
-    <div id="main-wrapper">
-        <div class="container">
+    <div id="main-wrapper" class="show account-pages d-flex justify-content-between align-items-center">
+        <div class="container align-items-center justify-content-center">
             <div class="img-401"></div>
+            <h1 class="text-center text-primary">¿Quién anda ahí?, No se encontró autorización.</h1>
+            <h3 class="text-center">Esta página no está disponible públicamente.</h3>
+            <h3 class="text-center mb-4">Para acceder por favor inicie sesión primero.</h3>
+
+            <div class="text-center justify-content-center">
+                <button type="button" style="width: 200px" id="ReturnHome" class="btn btn-danger btn-block btn-hover-shine"><i class="bi bi-house"></i>&nbsp;Iniciar Sessión</button>
+            </div>
         </div>
     </div>
 
@@ -48,12 +60,15 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    
+
     <script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
     <script type="text/javascript">
         var baseUrl = '@Url.Content("~")';
 
         $(document).ready(function () {
+            $('#ReturnHome').click(function () {
+                window.location = "/";
+            });
 
         });
 

@@ -265,8 +265,8 @@ namespace App_Ventas.Areas.CuentasCobrar.Controllers
                     Total_items = ListaDetalle.Count(); 
                    //Cls_Ent_Ventas VentaUno = Ventasrepositorio.Ventas_Listar_Uno(entidad, ref auditoria);
                     string BodyCorreo = Recursos.Clases.Css_GenerarPlantilla.PlantillaCorreo_NotificarCredito(ListaCabecera[0], Empresa, Total_items);
-                   Recursos.Clases.Css_Mail.MailHelper.SendMailMessage(ref auditoria, ListaCliente[0].CORREO, "", "", "Noticación credito",
-                                                                        BodyCorreo, "Comprobante.pdf", "", PdfByte, RutaLogo, ConfigurationManager.AppSettings["CorreoEnvio"]);
+                   Recursos.Clases.Css_Mail.MailHelper.SendMailMessage(ref auditoria, ListaCliente[0].CORREO, "", "", "Noticación credito pendiente",
+                                                                        BodyCorreo, "Comprobante.pdf", "", PdfByte, RutaLogo, ConfigurationManager.AppSettings["CorreoEnvio"], Empresa.RAZON_SOCIAL);
                 }
             } catch(Exception ex){
                 string CODIGOLOG = Recursos.Clases.Css_Log.Guardar(ex.Message);

@@ -18,9 +18,9 @@ function Dashboard_Cargar() {
                 VentaTotal.start();
                 var Devolucion = new countUp.CountUp('LblDevolucion', auditoria.OBJETO.TOTAL_DEVOLUCIONES, null);
                 Devolucion.start();
-                var Ventas = new countUp.CountUp('LblVentas', auditoria.OBJETO.TOTAL_VENTAS, null);
+                var Ventas = new countUp.CountUp('LblVentas_Credito', auditoria.OBJETO.MONTO_CREDITO_VENTAS, options);
                 Ventas.start();
-                var Compras = new countUp.CountUp('LblCompras', auditoria.OBJETO.TOTAL_COMPRAS, null);
+                var Compras = new countUp.CountUp('LblCompras', auditoria.OBJETO.TOTAL_COMPRAS, options);
                 Compras.start();
                 Dashboard_Configurar_GraficoVentaMeses(auditoria.OBJETO.Lista_VentaMes);
                 Dashboard_Configurar_GraficoComparativa(auditoria.OBJETO.Lista_Comparativa);

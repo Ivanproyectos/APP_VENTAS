@@ -10,8 +10,8 @@ namespace Capa_Entidad.Dashboard
     {
         public int ID_SUCURSAL { get; set; }
         public decimal MONTO_TOTAL_VENTAS { get; set; }
-        public int TOTAL_VENTAS { get; set; }
-        public int TOTAL_COMPRAS { get; set; }
+        public decimal MONTO_CREDITO_VENTAS { get; set; }
+        public decimal TOTAL_COMPRAS { get; set; }
         public int TOTAL_DEVOLUCIONES { get; set; }
         public string MES { get; set; }
         public int NUMERO_MES { get; set; }

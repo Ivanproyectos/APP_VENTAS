@@ -310,49 +310,29 @@ function Usuarios_Estado(ID_USUARIO, CHECK) {
 function BuscarPersonalNatural(_NumeroDocumento) {
     if (_NumeroDocumento != "") {
         if (_NumeroDocumento.length == 8) {
-            $.ajax({
-                type: "POST",
-                url: "https://snirh.ana.gob.pe/consultaspide/wsGetReniec.asmx/consultaDirectaReniec",
-                contentType: "application/json; charset=utf-8",
-                data: "{ pDniConsulta: " + _NumeroDocumento.toString() + " }",
-                dataType: "json",
-                // 20 s espera
-                timeout: 20000,
-                beforeSend: function () {
-                    _blockUI('Buscando persona...');
-                },
-                response: function (data) {
-                },
-                success: function (jdata) {
-                    jQuery.unblockUI();
-                    var json = JSON.parse(jdata.d);
-                    
-                    if (json.length > 0) {
-                        if (json[0]['codRes'] != 1003) {
-
-                            $('#NOMBRE').val(json[0]['nombres']);  
-                            $('#APE_PATERNO').val( json[0]['apePat']);
-                            $('#APE_MATERNO').val( json[0]['apeMat']);
-                            //$('#DIRECCION').val(json[0]['dir'])
-                            GenerarCredencialesUsuario();
+            _blockUI('Buscando persona...');
+            setTimeout(function () {
+                var item = {
+                    DNI: _NumeroDocumento
+                };
+                var url = baseUrl + 'Recursiva/ServiciosWeb/Service_ConsultaDni';
+                var auditoria = SICA.Ajax(url, item, false);
+                if (auditoria != null && auditoria != "") {
+                    if (auditoria.EJECUCION_PROCEDIMIENTO) {
+                        if (!auditoria.RECHAZAR) {
+                            var Objson = JSON.parse(auditoria.OBJETO);
+                            Objson = JSON.parse(Objson);
+                            $('#NOMBRE').val(Objson.nombres); 
+                            $('#APE_PATERNO').val(Objson.apellidoPaterno); 
+                            $('#APE_MATERNO').val(Objson.apellidoMaterno); 
                         } else {
-                            jWarning(json[0]['desResul'], "Atención");
-
+                            jWarning(auditoria.MENSAJE_SALIDA, "Atención");
                         }
                     } else {
-                        jWarning("Persona no econtrada", "Atención");
-
+                        jWarning(auditoria.MENSAJE_SALIDA, "Atención");
                     }
-                },
-                error: function (xmlHttpRequest, textStatus, errorThrown) {
-                    jQuery.unblockUI();
-                    console.log(xmlHttpRequest.responseText);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                    return null;
                 }
-
-            });
+            }, 200);
         } else {
             jWarning("Numero dni debe tener 8 digitos", "Atención");
             return null;

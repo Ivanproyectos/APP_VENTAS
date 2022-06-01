@@ -44,22 +44,22 @@
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
+                        @*<li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2" class=""></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="3" class=""></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="3" class=""></li>*@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="row">
                                 <div class="col-sm-12 text-center">
                                     <h2 class="text-primary">SISTEMA GESTIÓN DE VENTAS</h2>
-                                    <p>Bienvenido a nuestro sistema gestion de ventas y compras</p>
+                                    <p>Comencemos a gestiona tus ventas!</p>
                                 </div>
                             </div>
                             <div class="carousel__image" style="background-image:url(@Url.Content("~/assets/images/login/img-sistema.png")"></div>
                         </div>
 
-                        <div class="carousel-item">
+                        @*                        <div class="carousel-item">
                             <div class="row">
                                 <div class="col-sm-12 text-center">
                                     <h2 class="text-primary">Reporte en graficos</h2>
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                             <div class="carousel__image" style="background-image:url(@Url.Content("~/assets/images/login/ventas_1.png")"></div>
-                        </div>
+                        </div>*@
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" data-slide="prev"><span class="carousel-control-prev-icon"></span><span
                         class="sr-only">Previous</span> </a><a class="carousel-control-next" href="#carouselExampleIndicators" data-slide="next"><span
@@ -142,7 +142,7 @@
                         <h2 class="text-success text-center">Bienvenido</h2>
                         <h3 class="text-center text-primary" id="Login_nameUser"></h3>
                     </div>
-                    <div class="col-xl-12">
+                    <div class="col-xl-12 mb-4">
                         <div id="Login_MsgSinPermisos" style="display: none;">
                             <p class="text-center">Su usuario no tiene acceso a ninguna de las sucursales o la fecha de prescripción expiro, comuníquese con el administrador del sistema.</p>
                             <div class="text-center">
@@ -152,21 +152,15 @@
                         <div id="Login_ListPermisos" style="display: none;">
                             <p>A continuación seleccione la sucursal donde realiza el registro de las transacciones generadas por la venta de bienes o servicios.</p>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover" id="Login_TablePermisos">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Sucursal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+                                <div class="tab-pane show active" id="disabled-items-preview">
+                                    <div class="list-group" id="Login_TablePermisos">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-12">
-                        <button type="button" id="Login_SignOff" class="btn btn-danger btn-block btn-hover-shine"><i class="bi bi-box-arrow-left"></i>&nbsp;Cerrar Sesión</button>
+                        <button type="button" id="Login_SignOff" class="btn btn-danger btn-block btn-hover-shine"><i class="bi bi-house"></i>&nbsp;Cerrar Sesión</button>
                     </div>
                 </div>
 

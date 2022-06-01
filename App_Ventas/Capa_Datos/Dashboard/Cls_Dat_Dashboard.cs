@@ -30,8 +30,9 @@ namespace Capa_Datos.Dashboard
                     SqlCommand cmd = new SqlCommand("USP_DASH_COUNT_LISTAR", cn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.BigInt)).Value = entidad_param.ID_SUCURSAL;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ANIO", SqlDbType.BigInt)).Value = entidad_param.ANIO;
                     dr = cmd.ExecuteReader();
-                    int pos_TOTAL_VENTAS = dr.GetOrdinal("TOTAL_VENTAS");
+                    int pos_MONTO_CREDITO_VENTAS = dr.GetOrdinal("MONTO_CREDITO_VENTAS");
                     int pos_MONTO_TOTAL_VENTAS = dr.GetOrdinal("MONTO_TOTAL_VENTAS");
                     int pos_TOTAL_COMPRAS = dr.GetOrdinal("TOTAL_COMPRAS");
                     int pos_TOTAL_DEVOLUCIONES = dr.GetOrdinal("TOTAL_DEVOLUCIONES");
@@ -41,14 +42,14 @@ namespace Capa_Datos.Dashboard
                         while (dr.Read())
                         {
                             obj = new Cls_Ent_Dashboard();
-                            if (dr.IsDBNull(pos_TOTAL_VENTAS)) obj.TOTAL_VENTAS = 0;
-                            else obj.TOTAL_VENTAS = int.Parse(dr[pos_TOTAL_VENTAS].ToString());
+                            if (dr.IsDBNull(pos_MONTO_CREDITO_VENTAS)) obj.MONTO_CREDITO_VENTAS = 0;
+                            else obj.MONTO_CREDITO_VENTAS = decimal.Parse(dr[pos_MONTO_CREDITO_VENTAS].ToString());
 
                             if (dr.IsDBNull(pos_MONTO_TOTAL_VENTAS)) obj.MONTO_TOTAL_VENTAS =0;
                             else obj.MONTO_TOTAL_VENTAS = decimal.Parse(dr[pos_MONTO_TOTAL_VENTAS].ToString());
 
                             if (dr.IsDBNull(pos_TOTAL_COMPRAS)) obj.TOTAL_COMPRAS = 0;
-                            else obj.TOTAL_COMPRAS = int.Parse(dr[pos_TOTAL_COMPRAS].ToString());
+                            else obj.TOTAL_COMPRAS = decimal.Parse(dr[pos_TOTAL_COMPRAS].ToString());
 
                             if (dr.IsDBNull(pos_TOTAL_DEVOLUCIONES)) obj.TOTAL_DEVOLUCIONES = 0;
                             else obj.TOTAL_DEVOLUCIONES = int.Parse(dr[pos_TOTAL_DEVOLUCIONES].ToString());

@@ -31,6 +31,7 @@ namespace App_Ventas.Recursos.Clases
             emailHtml.Replace("$[DIRECCION]", Empresa.DIRECCION_FISCAL);
             emailHtml.Replace("$[UBIGEO]", Empresa.DESC_UBIGEO);
             emailHtml.Replace("$[EMPRESA]", Empresa.RAZON_SOCIAL);
+            emailHtml.Replace("$[CORREO]", Empresa.CORREO);
             //emailHtml.Replace("$[TOTAL_ITEMS]", Total_items.ToString()); 
 
             return emailHtml.ToString();

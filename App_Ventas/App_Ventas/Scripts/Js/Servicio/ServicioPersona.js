@@ -10,8 +10,7 @@
                 var auditoria = SICA.Ajax(url, item, false);
                 if (auditoria != null && auditoria != "") {
                     if (auditoria.EJECUCION_PROCEDIMIENTO) {
-                        if (!auditoria.RECHAZAR) {
-                            
+                        if (!auditoria.RECHAZAR) {                    
                                 var Objson = JSON.parse(auditoria.OBJETO);
                                 Objson = JSON.parse(Objson);
                                 $('#NOMBRES_APE').val(Objson.nombres + " "

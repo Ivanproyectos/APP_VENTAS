@@ -71,16 +71,16 @@
                         $('#Login_nameUser').text(auditoria.OBJETO.NOMBRES_APE)
                         var count_permisos = auditoria.OBJETO.Lista_Sucursales.length;           
                         if (count_permisos > 0) {
-                            if (count_permisos == 1) {
-
-                            } else if (count_permisos > 1) {
+                            //if (count_permisos == 1) {
+                            //    Login_Ingresar(auditoria.OBJETO.Lista_Sucursales[0].ID_USUARIO_PERFIL_HASH); 
+                            //} else if (count_permisos > 1) {
                                 var Html = Login_RowsPermisos(auditoria.OBJETO.Lista_Sucursales);
-                                var tabla = $('#Login_TablePermisos tbody');
+                                var tabla = $('#Login_TablePermisos');
                                 tabla[0].innerHTML = "";
                                 tabla[0].innerHTML = Html;
                                 $('#Login_ListPermisos').show();
                                 $('[data-bs-toggle="tooltip"]').tooltip();
-                            }
+                            //}
                         } else {
                             $('#Login_MsgSinPermisos').show();
                         }
@@ -111,16 +111,14 @@
         }
 
         function Login_RowsPermisos(Lista) {
-            var html = "";
+            var html = "<a href=\"javascript:void()\" class=\"list-group-item list-group-item-action disabled\">Sucursales Asignados </a>";
             $.each(Lista, function (i, v) {
                 var idgrilla = i + 1;
                 var ID_USUARIO_PERFIL_HASH = "'" + v.ID_USUARIO_PERFIL_HASH + "'"
-                html += "<tr onclick=\"Login_Ingresar(" + ID_USUARIO_PERFIL_HASH + ")\" title=\"Vamos para alla!\" data-bs-toggle=\"tooltip\" style=\"cursor:pointer\">"
-                      + "  <th>" + idgrilla + "</th>"
-                       + " <td><i class=\"bi bi-geo-alt-fill\"></i> " + v.DESC_SUCURSAL + "<br />"
-                        + " <span class=\"text-secondary\">Perfil: </span>" + v.DESC_PERFIL + "</td>"
-                 +  "</tr>"; 
+                html += "<a href=\"javascript:void()\" onclick=\"Login_Ingresar(" + ID_USUARIO_PERFIL_HASH + ")\" data-placement=\"left\" "
+                         + "class=\"list-group-item list-group-item-action \" title=\"Vamos para alla!\" data-bs-toggle=\"tooltip\" style=\"cursor:pointer\"><i class=\"bi bi-geo-alt-fill\"></i> " + v.DESC_SUCURSAL +" </a>";
             });
+            debugger;
             return html; 
         }
 
@@ -150,10 +148,6 @@
         function SignOff() {
             setCookie("IP-CyberToken", "", -1);
             window.location.reload()
-            //$('#Login_BoxUsuLogeo').hide();
-            //$('#Login_ListPermisos').hide();
-            //$('#Login_BoxUsuLogeo').hide();
-            //$('#Login_BoxSession').show();
         }
 
         function Login_Ingresar(ID_PERMISO) {
