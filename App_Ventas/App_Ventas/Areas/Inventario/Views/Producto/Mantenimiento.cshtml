@@ -35,17 +35,6 @@
     });
 
 
-    //$('#FECHA_VENCIMIENTO').daterangepicker({
-    //    singleDatePicker: true,
-    //    showDropdowns: true,
-    //    minYear: 2000,
-    //    maxYear: parseInt(moment().format('YYYY'), 10),
-    //    locale: {
-    //        "format": "DD/MM/YYYY",
-    //    }
-    //});
-
-
     $('#FECHA_VENCIMIENTO').datepicker({
         changeMonth: true,
         changeYear: true,
@@ -59,8 +48,8 @@
     $('#Usuarios_btn_Guardar').click(function () {
         Producto_Ingresar();
     });
-    $('input:radio[name=Producto_FlgServicio]').change(function () {
-        var _valor = $('input:radio[name=Producto_FlgServicio]:checked').val();
+    $('#Producto_TipoCheck').change(function () {
+        var _valor = $(this).is(':checked') ? 1 : 0;
         ShowTipoForumarioRegistro(_valor);
     });
 
@@ -159,8 +148,8 @@
             {
                 <div class="alert alert-info alert-dismissible alert-alt fade show">
                     <strong><i class="bi bi-info-circle text-info"></i>&nbsp;</strong>Este producto sera registrado para el sucursal:<b> @Model.DESC_SUCURSAL.</b>
-                </div>
-                <br />
+                </div>@*
+
                 <div class="form-row border-bottom-head" id="_Content_TipoRadioBtn">
                     <div class="col-sm-6">
                         <div class="_Content_Radio">
@@ -180,8 +169,22 @@
 
                         </div>
                     </div>
+                </div>*@
+                
+                  <div class="form-row">
+                    <div class="col-sm-12">
+                        <label class="swichttoggle_ip" for="Producto_TipoCheck">
+                            <input type='checkbox' id="Producto_TipoCheck" />
+                            <span class='base-color'>
+                                <span class='toggle-slider'></span>
+                                <span class='swichttoggle_ip_c1'>Producto</span>
+                                <span class='swichttoggle_ip_c2'>Servicios</span>
+                            </span>
+                        </label>
+                    </div>
                 </div>
 
+                <br />
             }
 
             @using (Html.BeginForm("Producto", "Producto", new { @area = "Inventario" }, FormMethod.Post, new { @id = "frmMantenimiento_Productos" }))

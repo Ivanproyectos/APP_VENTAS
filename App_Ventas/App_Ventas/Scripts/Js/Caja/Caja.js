@@ -175,7 +175,7 @@ function Caja_Movimiento_CargarGrilla() {
 function Caja_Movimiento_Actualizar() {
     if ($("#frmMantenimiento_Caja").valid()) {
         var TipoMoviento = 1;  // ingreso 
-        if (!$('#Movimiento_TipoCheck').is(':checked')) {
+        if ($('#Movimiento_TipoCheck').is(':checked')) {
             TipoMoviento = 2;  // egreso
         }
         var item =
@@ -223,7 +223,7 @@ function Caja_Movimiento_Insertar() {
             jConfirm("¿ Desea registrar este movimiento ?", "Atención", function (r) {
                 if (r) {
                     var TipoMoviento = 1;  // ingreso 
-                    if (!$('#Movimiento_TipoCheck').is(':checked')) {
+                    if ($('#Movimiento_TipoCheck').is(':checked')) {
                         TipoMoviento = 2;  // egreso
                     }
                     var item =
@@ -273,7 +273,7 @@ function Caja_Movimiento_Eliminar(ID_TIPO_MOVIMIENTO) {
                 if (auditoria.EJECUCION_PROCEDIMIENTO) {
                     if (!auditoria.RECHAZAR) {
                         Caja_Movimiento_CargarGrilla();
-                        Categoria_Cerrar();
+                        Caja_Cerrar();
                         jOkas("Movimiento eliminado satisfactoriamente", "Proceso");
                     } else {
                         jError(auditoria.MENSAJE_SALIDA, "Atención");
