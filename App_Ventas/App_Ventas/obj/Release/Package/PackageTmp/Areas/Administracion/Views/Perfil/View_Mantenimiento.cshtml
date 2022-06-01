@@ -1,0 +1,88 @@
+﻿@model App_Ventas.Areas.Administracion.Models.PerfilModelView
+<script>
+    $(document).ready(function () {
+        ListarModulos();
+        if ($('#AccionPerfil').val() == "M") {
+            $('#PerfilModulosTab').removeClass('DisabledContent')
+        }
+    });
+    $('#Perfil_Btn_Guardar').click(function () {
+        Perfil_Ingresar();
+    });
+
+    function Tab_Click(_this) {
+        if (_this.id == "PerfilTab") {
+            $('#Perfil_Btn_Guardar').show('slow');
+        } else if (_this.id == "PerfilModulosTab") {
+            $('#Perfil_Btn_Guardar').hide();
+            Perfiles_CargarModulos();
+        }
+    }
+
+</script>
+<style>
+    .DisabledContent {
+        pointer-events: none;
+        opacity: 0.4;
+    }
+</style>
+
+@using (Html.BeginForm("Perfil", "Perfil", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmMantenimiento_Perfil", @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (Model.ID_PERFIL == 0)
+                {
+                    <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Nuevo Perfil</h5>
+                }
+                else
+                {
+                    <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Actualizar Perfil</h5>
+                }
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs" style="margin-bottom: 10px;">
+                    <li class="nav-item">
+                        <a href="#PerfilPanel" id="PerfilTab" onclick="Tab_Click(this);" data-toggle="tab" class="nav-link active">
+                            <i class="bi bi-person-lines-fill"></i>&nbsp; Perfil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#PerfilModulosPanel" id="PerfilModulosTab" onclick="Tab_Click(this);" data-toggle="tab" class="nav-link DisabledContent">
+                            <i class="bi bi-person-check"></i>&nbsp; Modulos del perfil
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="PerfilPanel" role="tabpanel">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.DESC_PERFIL)
+                                @Html.TextBoxFor(model => model.DESC_PERFIL, new { @class = "form-control", @maxlength = "200", @aucomplete = "off", @placeholder = "Ejm: Administrador" })
+                                @Html.ValidationMessageFor(model => model.DESC_PERFIL, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="PerfilModulosPanel" role="tabpanel">
+                        <ul class="list-group col-md-12">
+                            <li class="list-group-item disabled">Acceso a modulos para el perfil</li>
+                            <li class="list-group-item" id="Perfiles_Div_Modulos"></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="Perfil_Btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>&nbsp;Guardar</button>
+                <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+}
+@Html.Hidden("hfd_ID_PERFIL", Model.ID_PERFIL)
+@Html.Hidden("AccionPerfil", Model.Accion)

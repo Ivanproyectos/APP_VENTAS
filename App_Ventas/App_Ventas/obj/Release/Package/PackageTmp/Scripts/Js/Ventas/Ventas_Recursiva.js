@@ -1,6 +1,20 @@
 ﻿
 ///*********************************************** ----------------- *************************************************/
 
+///*********************************************** ver detalle  ***************************************************/
+
+function Ventas_ViewDetalleVenta(ID_VENTA) {
+    var _TIPO_DETALLE = "DETALLE";
+    jQuery("#myModalNuevo").html('');
+    jQuery("#myModalNuevo").load(baseUrl + "Ventas/Ventas/Mantenimiento_ViewDetalleProducto?ID_VENTA=" + ID_VENTA + "&TIPO=" + _TIPO_DETALLE, function (responseText, textStatus, request) {
+        $('#myModalNuevo').modal({ show: true, backdrop: 'static', keyboard: false });
+        $.validator.unobtrusive.parse('#myModalNuevo');
+        if (request.status != 200) return;
+    });
+}
+
+///*********************************************** ----------------- *************************************************/
+
 ///*********************************************** anular ventas  ***************************************************/
 
 function Ventas_AnularVenta(ID_VENTA) {
@@ -43,16 +57,15 @@ function Ventas_DevolverProducto(CODIGO) {
         _disabled_cantidad = "disabled"
     Ventas_Llenar_ComboMotivo();
     var url = baseUrl + 'Ventas/Ventas/Ventas_Detalle_DevolverProducto';
-
     var _html = "¿ Desea devolver este producto ?, al devolver el producto la cantidad ingresada retornara al almacen. </br>"
                 + "  <div class=\"basic-list-group\">"
                 + "  <ul class=\"list-group list-group-flush\" style=\"color: #5a5a5a;text-align: left;\">"
                 + "    <li class=\"list-group-item\"><strong><b>Resumen:</b> </strong></li>"
                 + "    <li class=\"list-group-item\">"
-                + "    <span class=\"\">Producto:</span> <span>" + data.PRODUCTO + "</span>"
+                + "    <span class=\"\"><b>Producto:</b></span> <span>" + data.PRODUCTO + "</span>"
                 + "  </li>    "
                 + "    <li class=\"list-group-item\">"
-                + "    <span class=\"\">Cantidad Vendida:</span> <span> " + data.CANTIDAD + " " + _COD_UNIDAD_MEDIDA + "</span>"
+                + "    <span class=\"\"><b>Cantidad Vendida:</b></span> <span> " + data.CANTIDAD + " " + _COD_UNIDAD_MEDIDA + "</span>"
                 + "  </li>    "
                 + "  </li>    "
                 + "  </ul>"
@@ -83,7 +96,7 @@ function Ventas_DevolverProducto(CODIGO) {
                 var _Mensaje = "";
                 var _valido = false;
 
-                debugger;
+               
 
                 if (_CANTIDAD == "") {
                     _Mensaje += "Cantidad es oblitario. </br>"
@@ -138,28 +151,31 @@ function Ventas_DevolverProducto(CODIGO) {
                     }
 
                 } else {
-                    debugger;
+                    
                     swal.showValidationMessage("Error al validar");
                 }
             })
         },
         onOpen: function (e) {
-            debugger;
+            
             setTimeout(function () {
                 $('#swal-input1').focus();
                 $('#swal-input1').val(_CANTIDAD_GRID);
             }, 500)
         }
     }).then(function (result) {
-        debugger;
+        
         //If validation fails, the value is undefined. Break out here.
         if (typeof (result.value) == 'undefined') {
             return false;
         }
         jOkas("Producto devuelto con exito!", "Proceso");
-        Ventas_ConfigurarGrilla();
+        if (_Modulo == "VENTAS")
+            Ventas_ConfigurarGrilla();
+        else if (_Modulo == "COBRAR")
+            CuentasCobrar_ConfigurarGrilla();
         Ventas_Detalle_CargarGrilla($('#hfd_ID_VENTA').val());
-        //swal(JSON.stringify(result))
+
     }).catch(swal.noop)
 }
 
@@ -185,7 +201,7 @@ function Ventas_Llenar_ComboMotivo() {
 }
 
 function Ventas_GenerarVistaComprobante(ID_VENTA) {
-    blockUI_('Generando vista previa...');
+    _blockUI('Generando vista previa...');
     setTimeout(function () { jQuery.unblockUI() }, 1000);
     //Ventas_Cerrar();
     var _Html = "<div class=\"row\" style=\"width: 454px;\" >"
@@ -215,7 +231,7 @@ function Ventas_VisualizarComprobante(ID_VENTA, TIPO_COMPROBANTE) {
 
 
 function Ventas_ImprimirComprobante(ID_VENTA, _COD_COMPROBANTE) {
-    blockUI_('Generando vista previa...');
+    _blockUI('Generando vista previa...');
     setTimeout(function () { jQuery.unblockUI() }, 1000);
     var _Html = "<b style=\"color:#2c7be5;\">Nro. Comprobante: " + _COD_COMPROBANTE + "</b> </br> </br>"
            + "<div class=\"row\" style=\"width: 454px;\" >"
@@ -230,7 +246,6 @@ function Ventas_ImprimirComprobante(ID_VENTA, _COD_COMPROBANTE) {
     jSweetModal(_Html, "Imprimir Comprobante");
 
 }
-
 
 
 ///*********************************************** ----------------- *************************************************/

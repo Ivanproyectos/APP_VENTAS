@@ -1,4 +1,5 @@
 ﻿@model App_Ventas.Areas.Ventas.Models.VentasModelView
+<script src="@Url.Content("~/Scripts/Js/Ventas/Ventas.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Ventas/Consulta_Ventas.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Ventas/Ventas_Recursiva.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Ventas/Ventas_Detalle.js")" type="text/javascript"></script>
@@ -9,59 +10,50 @@
 <script type="text/javascript">
     var _Id_Sucursal = $('#inputL_Id_Sucursal').val();
     $(document).ready(function () {
-      
-        Ventas_ConfigurarGrilla();
+        //$('#Ventas_FechaRange').val(moment().format('DD/MM/YYYY') + " - " + moment().format('DD/MM/YYYY'));
+        $('#Ventas_FechaRange').val('');
+        Ventas_ConfigurarGrilla("Consulta_Venta");
         $('#ID_USUARIO').select2();
+        $('#ID_SUCURSAL').select2();
         $(".badge").tooltip({ placement: "bottom", delay: { show: 100, hide: 400 } });
-        //Ventas_CargarGrilla();
     });
 
-    $('#Ventas_FechaInicio, #Ventas_FechaFin').datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: "dd/mm/yy",
-        firstDay: 1,
-        changeFirstDay: false,
-        showAnim: 'slideDown'
-    });
 
+    $('#Ventas_FechaRange').daterangepicker({
+        opens: 'right',
+        locale: {
+            format: "DD/MM/YYYY",
+            applyLabel: "Aplicar",
+            cancelLabel: "Cancelar",
+        }
+    });
 
     $("#Ventas_btnBuscar").click(function (e) {
-        Ventas_ConfigurarGrilla();
+        Ventas_ConfigurarGrilla("Consulta_Venta");
     });
 
     $("#Ventas_btnLimpiar").click(function (e) {
-        Ventas_Limpiar();
+        $("#Ventas_CodigoVenta").val('');
+        $('#ID_TIPO_COMPROBANTE_SEARCH').val('');
+        $('#Ventas_ID_TIPO_PAGO').val('');
+        $('#Ventas_FLG_ANULADO').val('');
+        $('#ID_USUARIO').val('').trigger('change');
+        $('#ID_SUCURSAL').val('').trigger('change');
+        $('#Ventas_FechaRange').val('');
+        Ventas_ConfigurarGrilla("Consulta_Venta");
     });
 
-    $("#Ventas_btnNuevo").click(function (e) {
-        Ventas_MostrarNuevo();
+    $("#Ventas_Btn_ExportarExcel").click(function (e) {
+        Ventas_Exportar(1);
     });
-
-    $('#Ventas_FechaInicio').change(function (e) {
-        var _fechafin = $('#Ventas_FechaFin').val();
-        if (_fechafin == "") {
-            $('#Ventas_FechaFin').tooltip('enable')
-            $('#Ventas_FechaFin').tooltip('show');
-        }
-        else
-            $('#Ventas_FechaFin').tooltip('disable');
-
-    });
-
-    $('#Ventas_FechaInicio').change(function (e) {
-        var _valor = $(this).val();
-        if (_valor != "")
-            $('#Ventas_FechaFin').tooltip('disable')
+    $("#Ventas_Btn_ExportarPDF").click(function (e) {
+        Ventas_Exportar(2);
     });
 
 
 </script>
-
+<div class="modal fade" id="myModalDescargar" tabindex="" role="dialog" aria-labelledby="myModalDescargar" aria-hidden="true"></div>
 <div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
-
-
-
 <div class="row ">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="alert alert-info alert-dismissible alert-alt fade show">
@@ -70,77 +62,62 @@
     </div>
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
-            <div class="card-header border-bottom-head card-collapse " onclick="CollapsearchCard(this);">
-                <h4 class="card-title">Criterios de Busqueda</h4>
-            </div>
             <div class="card-body">
-
-                <div class="basic-form">
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <label>Código Venta:</label>
-                            <input id="Ventas_CodigoVenta" type="text" class="form-control" placeholder="Ejm: F55402">
+                <div id="accordion-one" class="accordion">
+                    <div class="accordion__item" style="margin-bottom:0px;">
+                        <div class="accordion__header collapsed" data-toggle="collapse" data-target="#default_collapseOne" aria-expanded="false" style="cursor: pointer;">
+                            <span class="accordion__header--text"><i class="bi bi-search"></i>&nbsp; Busqueda avanzada</span>
+                            <span class="accordion__header--indicator"></span>
                         </div>
-
-                        <div class="form-group col-md-3">
-                            <label>Tipo Comprobante:</label>
-                            @Html.DropDownListFor(model => model.ID_TIPO_COMPROBANTE_SEARCH, Model.Lista_Tipo_Comprobante, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            <label>Tipo Pago:</label>
-                                @Html.DropDownListFor(model => model.ID_TIPO_PAGO_SEARCH, Model.Lista_Tipo_Pago, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            <label>Estado Venta:</label>
-                            <select class="form-control" id="Ventas_FLG_ANULADO">
-                                <option value="">-- Seleccione --</option>
-                                <option value="0">Realizado</option>
-                                <option value="1">Anulado</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            <label>Usuario:</label>
-                            @Html.DropDownListFor(model => model.ID_USUARIO, Model.Lista_Usuarios, new { @class = "form-control", @maxlength = "150", @style = "width:100%" , @autocomplete="off" })
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            <label>Sucursal:</label>
-                            @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" , @autocomplete="off" })
-                        </div>
+                        <div id="default_collapseOne" class="accordion__body collapse" data-parent="#accordion-one" style="">
+                            <div class="accordion__body--text">
+                                <div class="basic-form">
+                                    <div class="form-row">
 
 
-                        <div class="form-group col-md-3">
-                            <label>Fecha Inicio:</label>
-                            <div class="input-group mb-3">
-                                <input type="text" id="Ventas_FechaInicio" class="form-control" placeholder="dd/mm/yyyy", autocomplete="off">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                        <div class="form-group col-md-3">
+                                            <label>Fecha:</label>
+                                            <div class="input-group mb-3">
+                                                <input class="form-control input-daterange-datepicker" id="Ventas_FechaRange" type="text" name="daterange" placeholder="dd/mm/yyyy" autocomplete="off">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label>Usuario:</label>
+                                            @Html.DropDownListFor(model => model.ID_USUARIO, Model.Lista_Usuarios, new { @class = "form-control", @maxlength = "150", @style = "width:100%", @autocomplete = "off" })
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label>Sucursal:</label>
+                                            @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%", @autocomplete = "off" })
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label>Estado Venta:</label>
+                                            <select class="form-control" id="Ventas_FLG_ANULADO">
+                                                <option value="">-- Seleccione --</option>
+                                                <option value="0">Realizado</option>
+                                                <option value="1">Anulado</option>
+                                            </select>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <button type="button" id="Ventas_btnBuscar" class="btn btn-hover-shine  btn-square btn-primary "><i class="fa fa-search"></i>&nbsp Buscar</button>
+                                            <button type="button" id="Ventas_btnLimpiar" class="btn  btn-square btn-light"><i class="bi bi-arrow-clockwise"></i>&nbsp Limpiar</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label>Fecha Fin:</label>
-                            <div class="input-group mb-3">
-                                <input type="text" id="Ventas_FechaFin" class="form-control" placeholder="dd/mm/yyyy" data-toggle="tooltip" data-placement="bottom" title="Ingrese fecha fin" , autocomplete="off">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
-                                </div>
-                            </div>
-                        </div>
 
-
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <button type="button" id="Ventas_btnBuscar" class="btn btn-hover-shine  btn-square btn-primary "><i class="fa fa-search"></i>&nbsp Buscar</button>
-                            <button type="button" id="Ventas_btnLimpiar" class="btn  btn-square btn-light"><i class="bi bi-arrow-clockwise"></i>&nbsp Limpiar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -152,9 +129,15 @@
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-body">
-                <div class="jqGrid">
-                    <table id="Ventas_Grilla"></table>
-                    <div id="Ventas_Barra"></div>
+                     <div class="form-row mb-2">    
+                    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12 text-right">
+                        <button type="button" id="Ventas_Btn_ExportarExcel" class="btn btn-light me-1">Exportar Excel</button>
+                        <button type="button" id="Ventas_Btn_ExportarPDF" class="btn btn-light">Exportar PDF</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="Ventas_Grilla" style="width: 100%" class="table"></table>
                 </div>
             </div>
         </div>

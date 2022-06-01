@@ -24,3 +24,12 @@ C:\Users\ivans\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\bin\Release\Sy
 C:\Users\ivans\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\obj\Release\Capa_Token.csprojResolveAssemblyReference.cache
 C:\Users\ivans\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\obj\Release\Capa_Token.dll
 C:\Users\ivans\Documents\GitHub\Seguridad_LS\1.Fuentes\Capa_Token\obj\Release\Capa_Token.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\bin\Release\Capa_Token.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\bin\Release\Capa_Token.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\bin\Release\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\bin\Release\Microsoft.IdentityModel.Logging.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\bin\Release\Microsoft.IdentityModel.Tokens.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\obj\Release\Capa_Token.csprojResolveAssemblyReference.cache
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\obj\Release\Capa_Token.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Token\obj\Release\Capa_Token.pdb

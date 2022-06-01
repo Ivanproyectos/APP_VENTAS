@@ -364,10 +364,10 @@ SICA = {
             async: async,
             data: JSON.stringify(parameters),
             beforeSend: function () {
-                //blockUI_("");
+                //_blockUI("");
             },
             success: function (response) {
-                jQuery.unblockUI();
+                //jQuery.unblockUI();
                 rsp = response;
                 if (typeof (funcionSuccess) == 'function') {
                     funcionSuccess(response);
@@ -378,7 +378,7 @@ SICA = {
                 rsp = msg;
             },
             error: function (xhr, status, error) {
-                jQuery.unblockUI();
+                //jQuery.unblockUI();
                 alert(error);
                 rsp = error;
             },
@@ -748,6 +748,7 @@ SICA = {
                 caption: caption,
                 subGrid: estadoSubGrid,
                 editurl: opciones.editurl,
+                viewsortcols: [true, "vertical", true],
                 subGridRowColapsed: function (subgrid_id, row_id) {
                     //if (opciones.subGrid != null)
                     //SubGrid.subGridRowColapsed(subgrid_id, row_id,0);
@@ -836,7 +837,7 @@ SICA = {
                     }
                 },
                 onSelectRow: function (id, isSelected) {
-                    debugger; 
+                     
                     rowKey = grid.getGridParam('selrow');
 
                     if (rowKey != null) {
@@ -1012,7 +1013,7 @@ SICA = {
                 },
                 subGridRowExpanded: function (subgrid_id, row_id) {
                     var subGrid = opciones.subGrid;
-                    //debugger;
+                    //
                     var subgrid_table_id, pager_id;
                     subgrid_table_id = subgrid_id + "_t";
                     pager_id = "p_" + subgrid_table_id;
@@ -1035,7 +1036,7 @@ SICA = {
                         dataType: "json",
                         data: JSON.stringify(parameters),
                         success: function (rsp) {
-                            debugger;
+                            
                             var data = rsp.OBJETO; // (typeof rsp.d) == 'string' ? eval('(' + rsp.d + ')') : rsp.d;
                             $("#" + subgrid_table_id).jqGrid({
                                 datatype: "local",
@@ -1143,7 +1144,7 @@ SICA = {
                         opciones.AfterSaveCellHandler(rowid, cellname, value, iRow, iCol);
                 },
                 onSelectRow: function () {
-                    debugger;
+                    
                     rowKey = grid.getGridParam('selrow');
 
                     if (rowKey != null) {
@@ -1601,7 +1602,7 @@ SICA = {
                 },
                 subGridRowExpanded: function (subgrid_id, row_id) {
                     var subGrid = opciones.subGrid;
-                    debugger;
+                    
                     var subgrid_table_id, pager_id;
                     subgrid_table_id = subgrid_id + "_t";
                     pager_id = "p_" + subgrid_table_id;

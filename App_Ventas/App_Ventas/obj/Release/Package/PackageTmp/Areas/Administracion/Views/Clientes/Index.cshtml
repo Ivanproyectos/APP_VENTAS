@@ -1,5 +1,6 @@
 ﻿<script src="@Url.Content("~/Scripts/Js/Administracion/Clientes.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Servicio/ServicioPersona.js")" type="text/javascript"></script>
+
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -20,13 +21,10 @@
         Clientes_MostrarNuevo();
     });
 
-
-
 </script>
-
 <div class="modal fade" id="myModalNuevo" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
-<div class="row ">
+@*<div class="row ">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-header border-bottom-head">
@@ -66,21 +64,24 @@
             </div>
         </div>
     </div>
+</div>*@
+
+<div class="row  mb-3">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+          <h4 class="card-title">Listado Clientes</h4>
+    </div>
 </div>
 
-
-
-<div class="row ">
+<div class="row">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-header">
-
                 <button id="Clientes_btnNuevo" type="button" class="btn btn-hover-shine btn-square btn-primary "><i class="bi bi-plus-square"></i>&nbsp Nuevo Cliente</button>
             </div>
             <div class="card-body">
-                <div class="jqGrid">
-                    <table id="Clientes_Grilla"></table>
-                    <div id="Clientes_Barra"></div>
+                     <div class="table-responsive">
+                    <table id="Clientes_Grilla" style="width: 100%" class="table" ></table>
+                    @*<div id="Clientes_Barra"></div>*@
                 </div>
             </div>
         </div>

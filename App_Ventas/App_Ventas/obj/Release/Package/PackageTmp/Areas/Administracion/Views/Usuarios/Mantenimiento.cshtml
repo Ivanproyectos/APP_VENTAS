@@ -10,13 +10,11 @@
         $('#CELULAR').numeric();
         $('#TELEFONO').numeric();
         Usuarios_Perfil_ConfigurarGrilla();
-        if ($('#AccionUsuarios').val() == "M") {            
+        if ($('#AccionUsuarios').val() == "M") {
             $('#UsuariosAccesoTab').removeClass('DisabledContent')
         }
 
     });
-
-
     $('#FEC_ACTIVACION, #FEC_DESACTIVACION ').datepicker({
         changeMonth: true,
         changeYear: true,
@@ -30,8 +28,6 @@
     $('#Usuarios_btn_Guardar').click(function () {
         Usuarios_Ingresar();
     });
-
-
 
     $('#ID_TIPO_DOCUMENTO').change(function () {
         ChangeTipoDocumento($(this).val());
@@ -79,7 +75,6 @@
             $('#Usuarios_btn_Guardar').hide();
             UsuariosPerfil_CargarGrilla();
         }
-
     }
 
     $('#Usuarios_AgregarPerfil').click(function () {
@@ -127,8 +122,6 @@
                 </li>
             </ul>
             <div class="tab-content">
-
-
                 <div class="tab-pane fade active show" id="Usuariospanel" role="tabpanel">
                     @using (Html.BeginForm("Usuarios", "Usuarios", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmMantenimiento_Usuarios" }))
                     {
@@ -145,9 +138,9 @@
                                 @Html.LabelFor(model => model.DNI)
                                 <div class="input-group mb-12 ">
                                     @Html.TextBoxFor(model => model.DNI, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
-                                    <div class="input-group-append  btn-hover-shine waves-effect waves-light" onclick="Cliente_SearchPersona()">
-                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
-                                    </div>
+                                    <button class="input-group-append btn btn-info btn-hover-shine waves-effect waves-light" type="button" onclick="Cliente_SearchPersona()">
+                                        <i class="bi bi-search"></i>&nbsp; Buscar
+                                    </button>
                                 </div>
                                 @Html.ValidationMessageFor(model => model.DNI, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                             </div>

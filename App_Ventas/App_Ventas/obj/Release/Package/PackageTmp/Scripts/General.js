@@ -4,7 +4,7 @@ var MiSistema =  $("#inputHddNombre_Sistema").val() == "" ? "":  "/" +$("#inputH
 
 /////////// para los menus active open; 
 $('.quixnav .metismenu ul a ').click(function () {
-    debugger; 
+     
     var _this = $(this).parent().children(); 
     $('.quixnav .metismenu ul a ').removeClass('quixnav_a_active quixnav_a_active_before');
     $(this).addClass('quixnav_a_active quixnav_a_active_before');
@@ -30,7 +30,7 @@ $('.quixnav .metismenu li .not-before').click(function () {
 });
 
 // block ui
-function blockUI_(message) {
+function _blockUI(message) {
 message == "" ? "Procesando..." : message; 
 jQuery.blockUI({
     message: "<div class=\"css_center_block\">  <div class=\"Loader_block\"> "
@@ -56,7 +56,8 @@ function CountCharactersControlTxt(obj, lblObject, max) {
             document.getElementById(obj).value = aux.substring(0, max);
             return;
         }
-        $("#" + lblObject).html("Nº Caracteres: " + cant + " restan " + total);
+            $("#" + lblObject).html("<span class=\"text-success\">Nº Caracteres: " + cant + " restan " + total + "</span>");
+
     } catch (e) {
         alert(e.Message);
     }
@@ -164,7 +165,7 @@ function ValidarFechasInicioFin(fechaini, fechafin, tipo) {
 
 
 function SoloDecimal(e, field) {
-    debugger; 
+     
     key = e.keyCode ? e.keyCode : e.which
     // backspace
     if (key == 8) return true
@@ -201,170 +202,32 @@ function CollapsearchCard (_this) {
 }
   
 
-/*export grilla a excel*/
+/*ocultar password*/
 
-function ExportJQGridPaginacionDataToExcel(tableCtrl, excelFilename, urlListar, _ORDEN, _SORT_ORDEN) {
-    debugger; 
-    var migrilla = new Object();
-    migrilla.page = 1;
-    migrilla.rows = 999999;
-    migrilla.sidx = _ORDEN;
-    migrilla.sord = _SORT_ORDEN;
-    migrilla._search = false;
-    migrilla.filters = "";
-    //if (opciones.rules != false) {
-    migrilla.Rules = GetRules(tableCtrl);
-    //}
+//$('div[data-password="false"]').click(function () {
+//     
+//    var _Elements = $(this).parent().children();
+//    var _Input = _Elements[0].type = "password";
+//    var _div = _Elements[1]; 
+//    _div.dataset.password = "true";
+//    $(_div).removeClass('show-password');
+//}); 
 
-    //if (migrilla._search == true) {
-    //    migrilla.searchField = postdata.searchField;
-    //    migrilla.searchOper = postdata.searchOper;
-    //    migrilla.searchString = postdata.searchString;
-    //}
-    migrilla.usu = $("#input_hdidusuario").val();
-    migrilla.ofi = $("#input_hdidoficina").val();
-    migrilla.perfil = $("#input_hdidperfil").val();
-    var params = { grid: migrilla };
-    var allJQGridData;
-    $.ajax({
-        url: urlListar,
-        type: 'post',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(params),
-        async: false,
-        success: function (data, st) {
-            if (st == 'success') {
 
-                allJQGridData = data;
-                //var jq = $('#' + grilla)[0];
-                //jq.addJSONData(data);
-            }
-        },
-        error: function (a, b, c) {
-            alert('Error with AJAX callback');
-        }
-    });
-    debugger;
-    //var allJQGridData = $(tableCtrl).jqGrid('getRowData'); 
-    var jqgridRowIDs = $(tableCtrl).getDataIDs();                // Fetch the RowIDs for this grid
-    var headerData = $(tableCtrl).getRowData(jqgridRowIDs[0]);   // Fetch the list of "name" values in our colModel
-
-    //  For each visible column in our jqGrid, fetch it's Name, and it's Header-Text value
-    var columnNames = new Array();       //  The "name" values from our jqGrid colModel
-    var columnHeaders = new Array();     //  The Header-Text, from the jqGrid "colNames" section
-    var inx = 1;
-    var allColumnNames = $(tableCtrl).jqGrid('getGridParam', 'colNames');
-
-    //  If our jqGrid has "MultiSelect" set to true, remove the first (checkbox) column, otherwise we'll
-    //  create an exception of: "A potentially dangerous Request.Form value was detected from the client."
-    var bIsMultiSelect = $(tableCtrl).jqGrid('getGridParam', 'multiselect');
-    if (bIsMultiSelect) {
-        inx++;
-    }
-    var ihd = 0;
-    for (var headerValue in headerData) {
-        //  If this column ISN'T hidden, and DOES have a column-name, then we'll export its data to Excel.
-
-        var column_ = $(tableCtrl).jqGrid("getColProp", headerValue);
-        var isColumnHidden = $(tableCtrl).jqGrid("getColProp", headerValue).hidden;
-        //debugger;
-        if (!isColumnHidden && headerValue != null && column_.index != '') {
-
-            columnNames.push(headerValue);
-            columnHeaders.push(allColumnNames[inx]);
-        } else
-            ihd++;
-        inx++;
+$('div[data-password]').click(function () {
+    var _Elements = $(this).parent().children();
+    var _div = _Elements[1];
+    var _Input = _Elements[0]
+    if (_div.dataset.password == "true") {
+        _Input.type = "text";
+        _div.dataset.password = "false";
+        $(_div).addClass('show-password');
+    } else if (_div.dataset.password == "false") {
+        _Input.type = "password";
+        _div.dataset.password = "true";
+        $(_div).removeClass('show-password');
     }
 
-    //  We now need to build up a (potentially very long) tab-separated string containing all of the data (and a header row)
-    //  which we'll want to export to Excel.
-
-    //  First, let's append the header row...
-    var excelData = '';
-    for (var k = 0; k < columnNames.length; k++) {
-        excelData += columnHeaders[k] + "\t";
-    }
-    excelData = removeLastChar(excelData) + "\r\n";
-
-    //  ..then each row of data to be exported.
-    var cellValue = ''; 
-    for (i = 0; i < allJQGridData.rows.length; i++) {
-        //for (i = 0; i < 2; i++) {
-
-        var data = allJQGridData.rows[i];
-
-        for (var j = 0; j < columnNames.length; j++) {
-
-            // Fetch one jqGrid cell's data, but make sure it's a string
-            cellValue = '' + data.cell[j + ihd];
-            cellValue = cellValue.replace(/(\r\n|\n|\r|\t|\nb)/gm, "");
-            //cellValue = '-';
-            //if (cellValue == 'INFORME 0075-2021-ANA-OA-UATD') {
-            //    debugger;
-            //    var sadas  = 1;
-            //}
-            //if (j = 0) cellValue = 'Hacemos todo';
-            //if (j == 1) cellValue = 'Hacemos todo';
-            //if (j == 2) cellValue = 'Hacemos todo';
-            //if (j == 3) cellValue = 'Hacemos todo';
-            //if (j == 4) cellValue = 'Hacemos todo';
-            //if (j == 4) {
-            //    debugger;
-            //    cellValue = 'Hacemos todo';
-            //}
-            //if (j == 5) cellValue = 'Hacemos todo';
-            //if (j == 6) cellValue = 'Hacemos todo';
-            //if (j == 7) cellValue = 'Hacemos todo';
-
-            //if (cellValue == '' || cellValue == '-') cellValue = 'Hacemos todo';
-            //excelData += "\t";
-            if (cellValue == null)
-                excelData += "\t";
-            else {
-                if (cellValue.indexOf("a href") > -1) {
-                    //  Some of my cells have a jqGrid cell with a formatter in them, making them hyperlinks.
-                    //  We don't want to export the "<a href..> </a>" tags to our Excel file, just the cell's text.
-                    cellValue = $(cellValue).text();
-                }
-                //  Make sure we are able to POST data containing apostrophes in it
-                cellValue = cellValue.replace(/'/g, "&apos;");
-                cellValue = cellValue.replace(/r'/g, "&apos;");
-                excelData += cellValue + "\t";
-            }
-        }
-        excelData = removeLastChar(excelData) + "\r\n";
-    }
-
-    //  Now, we need to POST our Excel Data to our .ashx file *and* redirect to the .ashx file.
-    //postAndRedirect("/Fermin/Handlers/Exportar_Grilla_Excel.ashx?filename=" + excelFilename, { excelData: excelData });
-    postAndRedirect(MiSistema+"/Handlers/Exportar_Grilla_Excel.ashx?filename=" + excelFilename, { excelData: excelData });
-}
-
-function removeLastChar(str) {
-    //  Remove the last character from a string
-    return str.substring(0, str.length - 1);
-}
+});
 
 
-function postAndRedirect(url, postData) {
-    debugger;
-    //  Redirect to a URL, and POST some data to it.
-    //  Taken from:
-    //  http://stackoverflow.com/questions/8389646/send-post-data-on-redirect-with-javascript-jquery
-    //
-    var postFormStr = "<form method='POST' action='" + url + "'>\n";
-
-    for (var key in postData) {
-        if (postData.hasOwnProperty(key)) {
-            postFormStr += "<input type='hidden' name='" + key + "' value='" + postData[key] + "'></input>";
-        }
-    }
-
-    postFormStr += "</form>";
-
-    var formElement = $(postFormStr);
-
-    $('body').append(formElement);
-    $(formElement).submit();
-}

@@ -8,7 +8,7 @@
     jConfirm = function (message, title, callback) {
         swal.fire({
             title: title,
-            text: message,
+            html: message,
             icon: "warning",
             showCancelButton: !0,
             confirmButtonColor: "#DD6B55",
@@ -141,7 +141,7 @@ jDanger = function (message, title){
 //        USU_MODIFICACION: $('#input_hdcodusuario').val(),
 //        CANTIDAD : value
 //    };
-//debugger; 
+// 
 //var auditoria = SICA.Ajax(url, item, false); 
 //if (auditoria != null && auditoria != "") {
 //    if (auditoria.EJECUCION_PROCEDIMIENTO) {
@@ -157,7 +157,7 @@ jDanger = function (message, title){
 //},
 //allowOutsideClick: () => !Swal.isLoading()
 //}).then((result) => {
-//    debugger;
+//    
 //if (result.isConfirmed) {
 //    jOkas("Producto devuelto con exito!", "Proceso");
 //    Ventas_ConfigurarGrilla();

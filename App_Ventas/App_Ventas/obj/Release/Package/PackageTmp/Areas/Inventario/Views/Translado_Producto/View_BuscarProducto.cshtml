@@ -1,0 +1,235 @@
+﻿@model App_Ventas.Areas.Ventas.Models.BuscarProductoModelView
+<script>
+    var _Valido = false;
+    var _TOTAL = 0;
+    var _Accion = $('#AccionBuscarProducto').val()
+    $(document).ready(function () {
+        ConfiguracionEmpresa();
+        $('#CANTIDAD').numeric();
+        setTimeout(function () { $('#SEARCH_PRODUCTO').focus(); }, 500);
+        if (_Accion != "N") {
+            $('#_DetallePorductos').show('slow');
+            _Valido = true;
+        }
+    });
+
+    $('#Translados_Btn_IngresarProducto').click(function () {
+        if ($('#CANTIDAD').val() != 0) {
+            Translados_Detalle_Insertar();
+        } else {
+            jError('La cantidad no puede ser 0.', 'Anteción'); 
+        }
+    });
+
+
+    // al cerrar el modal hijo el padre sigue con la clase modal open. 
+    $(document).on('hidden.bs.modal', '.modal', function () {
+        $('.modal:visible').length && $(document.body).addClass('modal-open');
+    });
+
+    $(function () {
+        $(".modal-content").draggable();
+    });
+
+    $('#Btn_CerrarModal').click(function () {
+        $('#myModalBuscarProduc').modal('hide');
+    });
+
+    $('#CANTIDAD').keyup(function () {
+        var _CANTIDAD = parseInt($(this).val());
+        var _Stock = $('#STOCK').val();
+        if (!isNaN(_CANTIDAD) && _CANTIDAD != 0) {
+            if (_Stock < _CANTIDAD) {
+                jError('La cantidad no puede ser mayor al stock.', 'Atención');
+                $('#CANTIDAD').val(0);
+            }
+        }
+    });
+    function LimpiarFormulario() {
+        $('#Alert_Error').hide();
+        $('#Alert_Warning').hide();
+        $('#mensaje_Error').text('');
+        $('#hfd_ID_PRODUCTO').val('');
+        $('#AccionBuscarProducto').val('N');
+        _CODIGO_GRILLA = 0; 
+        _Valido = false;
+    }
+
+    $('#SEARCH_PRODUCTO').keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            if (!_Valido) {
+                Producto_BuscarProducto($('#SEARCH_PRODUCTO').val(), $('#ID_SUCURSAL_ORIGEN').val());
+            }
+        }
+    });
+
+    $('#CANTIDAD').keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            if (_Valido) {
+                Translados_Detalle_Insertar();
+            }
+        }
+    });
+
+    /*autocomplete*/
+    $('#SEARCH_PRODUCTO').autocomplete(
+    {
+        source: function (request, response) {
+            $.getJSON('@Url.Action("Producto_Buscar_Listar", "Ventas", new { area = "Ventas" })', { DESC_PRODUCTO: request.term.toUpperCase().trim(), ID_SUCURSAL: $('#ID_SUCURSAL_ORIGEN').val() },
+        response);
+        },
+        minLength: 4,
+        select: function (event, ui) {
+            LimpiarFormulario();
+            if (ui.item.FLG_SERVICIO == 0) { // productos          
+                $('#_DetallePorductos').show('slow');
+                var _STOCK = ui.item.STOCK;
+                var _Cantidad = 1;
+                $("#SEARCH_PRODUCTO").val(ui.item.DESC_PRODUCTO);
+                $("#ID_UNIDAD_MEDIDA").val(ui.item.ID_UNIDAD_MEDIDA);
+                $("#COD_PRODUCTO").val(ui.item.COD_PRODUCTO);
+                $('#_Info_codigoUnidad').text(ui.item.COD_UNIDAD_MEDIDA);
+                if (ui.item.ID_UNIDAD_MEDIDA == 1) {
+                    _STOCK = ConvertGramos_Kilos(_STOCK);
+                }
+                $("#STOCK").val(_STOCK);
+                $("#PRECIO_COMPRA").val(Number(ui.item.PRECIO_COMPRA).toFixed(2));
+                $('#hfd_ID_PRODUCTO').val(ui.item.ID_PRODUCTO);
+                $('#CANTIDAD').val(0);
+                $('#CANTIDAD').focus();
+                _Valido = true;
+            } else if (ui.item.FLG_SERVICIO == 1) { // servicios
+                $('#_DetallePorductos').hide();
+                $('#mensaje_Alerta').text('Servicios no es apto para este proceso.');
+                $('#Alert_Warning').show('slow');
+                _Valido = false;
+            }
+            return false;
+        },
+        response: function (event, ui) {
+            $("#SEARCH_PRODUCTO").val('');
+            return false;
+        }
+    })
+    .data("autocomplete")._renderItem = function (ul, item) {
+        
+        var _html_FotoProducto = "";
+        var _Tipodesc = item.FLG_SERVICIO == 1 ? 'servicio' : 'producto';
+        if (item.FLG_SERVICIO == 0 && item.MiArchivo.CODIGO_ARCHIVO != "0") {
+            _html_FotoProducto = "<div class='_FotoPro' style=\" background-image: url(@Url.Content("~/Recursos/ImagenProducto/")" + item.MiArchivo.CODIGO_ARCHIVO + item.MiArchivo.EXTENSION + ") \">  </div>";
+        }
+        var _Stock = item.STOCK;
+        if (item.ID_UNIDAD_MEDIDA == 1) {
+            _Stock = ConvertGramos_Kilos(_Stock);
+        }
+        return $("<li id='autocom'></li>")
+        .data("item.autocomplete", item)
+        .append($("<a></a>").html("<div class='_cListProductos   border-bottom-head'>"
+            + "<div class='_text_producto'>" + item.DESC_PRODUCTO + "</div>"
+            + "<div class='_InfoProd'> "
+            + "<div class='_Stock'> <span> <i class='bi bi-box-seam'></i> stock: </span>" + _Stock + "</div>"
+            + "<div class='_Precio'> <span> <i class='bi bi-cash-stack'></i> precio: </span>" + Number(item.PRECIO_VENTA).toFixed(2) + "</div>"
+            + "<div class='_Tipo'> <span> <i class='bi bi-back'></i> tipo: </span>" + _Tipodesc + "</div>"
+            + _html_FotoProducto
+            + " </div></div>"
+            )).appendTo(ul);
+    }
+
+</script>
+<style>
+    #modal-dialog_this {
+      margin: 80px auto;
+        float: right;
+        margin-right: 5%;
+    }
+
+    #ModalMovimiento {
+        padding: 8px;
+        background: #2569c3 !important;
+    }
+</style>
+
+
+<div class="modal-dialog" role="document" id="modal-dialog_this">
+    <div class="modal-content">
+        <div class="modal-header" id="modal-header_this">
+            <h5 class="modal-title"><i class="bi bi-search"></i>&nbsp; Buscar producto</h5>
+        </div>
+        <div class="modal-body">
+            @using (Html.BeginForm("", "", new { @area = "" }, FormMethod.Post, new { @id = "frmMantenimiento_BuscarProducto" }))
+            {
+                @Html.ValidationSummary(true)
+                <div class="form-row">
+                     <h5><i class="bi bi-info-circle text-info "></i>&nbsp;<span class="text-info">Productos del sucursal: @Model.DESC_SUCURSAL </span></h5>
+                    <p style="font-weight: bold; color: black;"><i class="bi bi-cart-plus"></i>&nbsp; Busca productos para agregar a la lista de productos. </p>
+                    <div class="form-group col-md-12 border-bottom-head">
+                        <div class="input-group mb-3 ">
+                            @Html.TextBoxFor(model => model.SEARCH_PRODUCTO, new { @class = "form-control", @maxlength = "200", @aucomplete = "off", @placeholder = "Ingrese descripción o código de producto..." })
+                            <div class="input-group-append  btn-hover-shine waves-effect waves-light ">
+                                <span class="input-group-text input-group-text_white"><i class="bi bi-search" style="color: #404040;"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row" id="_DetallePorductos" style="display: none;">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.COD_PRODUCTO)
+                        @Html.TextBoxFor(model => model.COD_PRODUCTO, new { @class = "form-control", @maxlength = "200", @aucomplete = "off", @disabled = "true" })
+                        @Html.ValidationMessageFor(model => model.COD_PRODUCTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.ID_UNIDAD_MEDIDA)
+                        @Html.DropDownListFor(model => model.ID_UNIDAD_MEDIDA, Model.Lista_Unidad_Medida, new { @class = "form-control", @maxlength = "150", @style = "width:100%", @disabled = "true" })
+                        @Html.ValidationMessageFor(model => model.ID_UNIDAD_MEDIDA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.STOCK)
+                        <div class="input-group ">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text input-group-text_white"><i class="bi bi-files"></i></span>
+                            </div>
+                            @Html.TextBoxFor(model => model.STOCK, new { @class = "form-control", @maxlength = "100", @aucomplete = "off", @disabled = "true" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.STOCK, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.CANTIDAD) 
+                        <div class="input-group  ">
+                            @Html.TextBoxFor(model => model.CANTIDAD, new { @class = "form-control", @maxlength = "10", @autocomplete = "off" })
+                            <div class="input-group-append  btn-hover-shine waves-effect waves-light">
+                                <span class="input-group-text input-group-text_white" id="_Info_codigoUnidad">
+                                    @if(Model.COD_UNIDAD_MEDIDA !=null){
+                                        @Model.COD_UNIDAD_MEDIDA; 
+                                    } else{
+                                    <i class="bi bi-files" style="color: #404040;"></i>
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CANTIDAD, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+
+                </div>
+
+                <div id="Alert_Error" class="alert alert-danger alert-dismissible alert-alt fade show col-md-12" style="display: none;">
+                    <strong><i class="bi bi-exclamation-circle"></i>&nbsp;</strong><span id="mensaje_Error"></span>
+                </div>
+
+                <div id="Alert_Warning " class="alert alert-warning alert-dismissible alert-alt fade show col-md-12" style="display: none;">
+                    <strong><i class="bi bi-exclamation-triangle"></i>&nbsp;</strong><span id="mensaje_Alerta"></span>
+                </div>    
+            }
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="Translados_Btn_IngresarProducto" class="btn btn-hover-shine btn-square btn-secondary"><i class="bi bi-basket"></i>&nbsp; Agregar Producto</button>
+            <button type="button" class="btn  btn-square btn-dark" id="Btn_CerrarModal">Cancelar</button>
+        </div>
+    </div>
+</div>
+@Html.Hidden("hfd_ID_PRODUCTO", Model.ID_PRODUCTO)
+@Html.Hidden("AccionBuscarProducto", Model.Accion)

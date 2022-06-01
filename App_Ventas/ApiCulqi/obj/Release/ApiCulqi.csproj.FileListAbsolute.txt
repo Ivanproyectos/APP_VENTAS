@@ -1,0 +1,10 @@
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Release\ApiCulqi.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Release\ApiCulqi.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Release\Newtonsoft.Json.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Release\nunit.framework.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Release\RestSharp.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Release\Newtonsoft.Json.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Release\nunit.framework.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\obj\Release\ApiCulqi.csprojResolveAssemblyReference.cache
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\obj\Release\ApiCulqi.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\obj\Release\ApiCulqi.pdb

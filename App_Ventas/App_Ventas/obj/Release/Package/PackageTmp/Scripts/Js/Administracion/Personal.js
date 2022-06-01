@@ -108,7 +108,7 @@ function Cargo_MostrarNuevo() {
 
 
 function Preguntar() {
-    debugger; 
+     
     if ($('#frmMantenimientoCargo').valid()) {
         jConfirm("¿ Desea actualizar este cargo ?", "Atención", function (r) {
             if (r) {

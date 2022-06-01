@@ -4,7 +4,7 @@
     var _FlgServicio = false;
     var CambioImg = false;
     var Img_Array = new Array();
-    var _FLG_SERVICIO_UPDATE = '@Model.FLG_SERIVICIO';
+    var _FLG_SERVICIO_UPDATE = '@Model.FLG_SERVICIO';
     var Frm_Archivo_Img = @Html.Raw(Json.Encode(Model.MiArchivo))
 
     $(document).ready(function () {
@@ -20,18 +20,10 @@
             width: "50",
             onstyle: "danger"
         });
-        $('#FLG_SERIVICIO').bootstrapToggle({
-            on: 'Servicio',
-            off: 'Producto',
-            onstyle: "info",
-            size: "normal",
-            width: "90",
-        });
         $('#STOCK').numeric();
         $('#STOCK_MINIMO').numeric();
         $('#ID_UNIDAD_MEDIDA').select2();
         $('#ID_UNIDAD_MEDIDA_SERVICIO').select2();
-
         if ($('#AccionProducto').val() == "N") {
             $('#ID_UNIDAD_MEDIDA').val(7).trigger('change');
             $('#ID_UNIDAD_MEDIDA_SERVICIO').val(7).trigger('change');
@@ -41,6 +33,8 @@
                 $('#FECHA_VENCIMIENTO').prop('disabled', false);
         }
     });
+
+
     $('#FECHA_VENCIMIENTO').datepicker({
         changeMonth: true,
         changeYear: true,
@@ -49,11 +43,13 @@
         changeFirstDay: false,
         showAnim: 'slideDown'
     });
+
+
     $('#Usuarios_btn_Guardar').click(function () {
         Producto_Ingresar();
     });
-    $('input:radio[name=Producto_FlgServicio]').change(function () {
-        var _valor = $('input:radio[name=Producto_FlgServicio]:checked').val();
+    $('#Producto_TipoCheck').change(function () {
+        var _valor = $(this).is(':checked') ? 1 : 0;
         ShowTipoForumarioRegistro(_valor);
     });
 
@@ -88,7 +84,7 @@
         }
     });
     $("#fileField_imgen").change(function () {
-        debugger;
+        
         var input = document.getElementById('fileField_imgen');
         var file = input.files[0];
         if (file != undefined) {
@@ -134,11 +130,11 @@
             @if (Model.ID_PRODUCTO == 0)
             {
                     
-                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Registrar producto </h5> 
+                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Registrar producto/servicio </h5> 
             }
             else
             {
-                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Actualiza producto</h5> 
+                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Actualiza producto/servicio</h5> 
             }
 
             <button type="button" class="close" data-dismiss="modal">
@@ -150,9 +146,12 @@
 
             @if (Model.Accion == "N")
             {
+                <div class="alert alert-info alert-dismissible alert-alt fade show">
+                    <strong><i class="bi bi-info-circle text-info"></i>&nbsp;</strong>Este producto sera registrado para el sucursal:<b> @Model.DESC_SUCURSAL.</b>
+                </div>@*
+
                 <div class="form-row border-bottom-head" id="_Content_TipoRadioBtn">
                     <div class="col-sm-6">
-
                         <div class="_Content_Radio">
                             <input type="radio" id="f-option" checked name="Producto_FlgServicio" value="0">
                             <label for="f-option">Producto</label>
@@ -160,7 +159,6 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-
                         <div class="_Content_Radio">
                             <input type="radio" id="s-option" name="Producto_FlgServicio" value="1">
                             <div class="check">
@@ -171,13 +169,22 @@
 
                         </div>
                     </div>
+                </div>*@
+                
+                  <div class="form-row">
+                    <div class="col-sm-12">
+                        <label class="swichttoggle_ip" for="Producto_TipoCheck">
+                            <input type='checkbox' id="Producto_TipoCheck" />
+                            <span class='base-color'>
+                                <span class='toggle-slider'></span>
+                                <span class='swichttoggle_ip_c1'>Producto</span>
+                                <span class='swichttoggle_ip_c2'>Servicios</span>
+                            </span>
+                        </label>
+                    </div>
                 </div>
 
                 <br />
-         
-                <div class="alert alert-info alert-dismissible alert-alt fade show">
-                    <strong><i class="bi bi-exclamation-lg"></i></strong>Este producto sera registrado para el sucursal:<b> @Model.DESC_SUCURSAL.</b>
-                </div>
             }
 
             @using (Html.BeginForm("Producto", "Producto", new { @area = "Inventario" }, FormMethod.Post, new { @id = "frmMantenimiento_Productos" }))
@@ -186,12 +193,9 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.COD_PRODUCTO)
-
-                        <div class="input-group mb-3">
+                        <div class="input-group ">
                             @Html.TextBoxFor(model => model.COD_PRODUCTO, new { @class = "form-control", @maxlength = "100" })
-                            <div class="input-group-append btn-hover-shine waves-effect waves-light" title="generar código" onclick="GenerarCodigoProucto();">
-                                <span class="input-group-text"><i class="bi bi-arrow-clockwise"></i>&nbsp; Generar Código</span>
-                            </div>
+                            <button class="input-group-append btn btn-info btn-hover-shine waves-effect waves-light" type="button" onclick="GenerarCodigoProucto();"><i class="bi bi-arrow-clockwise"></i>&nbsp; Generar Código</button>
                         </div>
                         @Html.ValidationMessageFor(model => model.COD_PRODUCTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
@@ -208,12 +212,14 @@
                         @Html.DropDownListFor(model => model.ID_UNIDAD_MEDIDA, Model.Lista_Unidad_Medida, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         @Html.ValidationMessageFor(model => model.ID_UNIDAD_MEDIDA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
-
-                    <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.STOCK)
-                        @Html.TextBoxFor(model => model.STOCK, new { @class = "form-control", @maxlength = "200" })
-                        @Html.ValidationMessageFor(model => model.STOCK, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
-                    </div>
+                    @if (Model.Accion == "N")
+                    {
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.STOCK)
+                            @Html.TextBoxFor(model => model.STOCK, new { @class = "form-control", @maxlength = "200" })
+                            @Html.ValidationMessageFor(model => model.STOCK, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                        </div>
+                    }
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.PRECIO_COMPRA)
@@ -226,13 +232,21 @@
                         @Html.TextBoxFor(model => model.PRECIO_VENTA, new { @class = "form-control", @maxlength = "200" })
                         @Html.ValidationMessageFor(model => model.PRECIO_VENTA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
-
-
-
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.STOCK_MINIMO)
                         @Html.TextBoxFor(model => model.STOCK_MINIMO, new { @class = "form-control", @maxlength = "9" })
                         @Html.ValidationMessageFor(model => model.STOCK_MINIMO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.FLG_VENCE)  @Html.CheckBoxFor(model => model.FLG_VENCE, new { @class = "form-control", @maxlength = "200" })
+                        @Html.TextBoxFor(model => model.FECHA_VENCIMIENTO, new { @class = "form-control", @maxlength = "10", @placeholder = "dd/mm/yyyy", @disabled = "true" })
+                        @Html.ValidationMessageFor(model => model.FECHA_VENCIMIENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.ID_CATEGORIA)
+                        @Html.DropDownListFor(model => model.ID_CATEGORIA, Model.Lista_Categoria, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.ID_CATEGORIA, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
                     <div class="form-group col-md-6">
@@ -246,11 +260,7 @@
 
                     </div>
 
-                    <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.FLG_VENCE)  @Html.CheckBoxFor(model => model.FLG_VENCE, new { @class = "form-control", @maxlength = "200" })
-                        @Html.TextBoxFor(model => model.FECHA_VENCIMIENTO, new { @class = "form-control", @maxlength = "10", @placeholder = "dd/mm/yyyy", @disabled = "true" })
-                        @Html.ValidationMessageFor(model => model.FECHA_VENCIMIENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
-                    </div>
+
                 </div>
                    
                 <br />
@@ -265,7 +275,7 @@
                 @Html.ValidationSummary(true)
                 <div class="form-row">
                     <div class="form-group col-md-12 css_center_block">
-                        <label for="fileField_imgen" class="attachment">
+                        <label for="fileField_imgen" class="attachment" style="width: 180px;">
                             <div class="row btn-file">
                                 <div class="btn-file__preview" id="Img_Producto"></div>
                                 <div class="btn-file__actions">
@@ -295,9 +305,7 @@
 
                         <div class="input-group mb-3">
                             @Html.TextBoxFor(model => model.COD_PRODUCTO_SERVICIO, new { @class = "form-control", @maxlength = "100" })
-                            <div class="input-group-append btn-hover-shine waves-effect waves-light" title="generar código" onclick="GenerarCodigoProucto();">
-                                <span class="input-group-text"><i class="bi bi-arrow-clockwise"></i>&nbsp; Generar Código</span>
-                            </div>
+                            <button class="input-group-append btn btn-info btn-hover-shine waves-effect waves-light" type="button" onclick="GenerarCodigoProucto();"><i class="bi bi-arrow-clockwise"></i>&nbsp; Generar Código</button>
                         </div>
                         @Html.ValidationMessageFor(model => model.COD_PRODUCTO_SERVICIO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
@@ -311,7 +319,7 @@
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.ID_UNIDAD_MEDIDA_SERVICIO)
-                        @Html.DropDownListFor(model => model.ID_UNIDAD_MEDIDA_SERVICIO, Model.Lista_Unidad_Medida, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                        @Html.DropDownListFor(model => model.ID_UNIDAD_MEDIDA_SERVICIO, Model.Lista_Unidad_Medida, new { @class = "form-control", @maxlength = "150", @style = "width:100%", @disabled = "true" })
                         @Html.ValidationMessageFor(model => model.ID_UNIDAD_MEDIDA_SERVICIO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 

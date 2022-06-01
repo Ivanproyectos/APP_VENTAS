@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="@Url.Content("~/assets/vendor/owl-carousel/css/owl.carousel.min.css")">
     <link rel="stylesheet" href="@Url.Content("~/assets/vendor/owl-carousel/css/owl.theme.default.min.css")">
     <link href="@Url.Content("~/assets/vendor/jqvmap/css/jqvmap.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/vendor/datatables/css/datatables.css")" rel="stylesheet">    
+    <link href="@Url.Content("~/assets/vendor/bootstrap-daterangepicker/daterangepicker.css")" rel="stylesheet">  
     <link href="@Url.Content("~/assets/css/style.css")" rel="stylesheet">
     <link href="@Url.Content("~/assets/css/Changes_estilos/theme_dark.css")" rel="stylesheet">
     <link href="@Url.Content("~/assets/icons/Boopstrap/bootstrap-icons.css")" rel="stylesheet">
@@ -24,7 +26,7 @@
     <link href="@Url.Content("~/assets/vendor/select2/css/select2.min.css")" rel="stylesheet">
     @*    <link href="@Url.Content("~/assets/css/File_image.css")" rel="stylesheet">*@
     <link href="@Url.Content("~/assets/vendor/toastr/css/toastr.min.css")" rel="stylesheet">
-
+ 
     @*<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")" type="text/javascript"></script>*@
 </head>
 <body>
@@ -53,9 +55,15 @@
         ***********************************-->
         <div class="nav-header">
             <a href="index.html" class="brand-logo">
-                <img class="logo-abbr" src="~/assets/images/logo.png" alt="">
+                @if (ViewBag.Isotipo != null){
+                <img class="logo-abbr" src="~/Recursos/Logo_Empresa/@ViewBag.Isotipo" alt="">
+                }
+                else
+                {
+                 <img class="logo-abbr" src="~/assets/images/awesome.png" alt="">
+                }
                 <img class="logo-compact" src="~/assets/images/logo-text.png" alt="">
-                <img class="brand-title" src="~/assets/images/logo-text.png" alt="">
+                <div class="brand-title" >@ViewBag.RazonSocial</div>
             </a>
 
             <div class="nav-control">
@@ -167,28 +175,26 @@
 
                             <li class="nav-item dropdown header-profile backroung_NameUser">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                    <i class="icon icon-single-04" style="font-size: 18px; color: #2c7be5;"></i>
-                                    <span>Ivan Perez Tintaya</span>
-                                    <i class="bi bi-chevron-down"></i>
+                                     <img class="logo-abbr" src="~/assets/images/avatar/4.png" alt="">
+                                    @*<i class="icon icon-single-04" style="font-size: 18px; color: #2c7be5;"></i>*@
+                                    <span>@ViewBag.NameUser</span> <i class="bi bi-chevron-down"></i>
+                                    <br />
+                                    <span class="text-secondary">SUCURSAL: @ViewBag.Desc_Sucursal</span>
 
-                                    <input type="hidden" id="input_hdcodusuario" value="iperez" />
+                                    <input type="hidden" id="input_hdcodusuario" value="@ViewBag.CodUsuario" />
                                     <input type="hidden" id="inputL_SimboloMoneda" value="@ViewBag.SimboloMoneda" />
                                     <input type="hidden" id="inputL_Impuesto" value="@ViewBag.IMPUESTO" />
                                     <input type="hidden" id="inputL_NombreImpuesto" value="@ViewBag.NOMBRE_IMPUESTO" />
-                                    <input type="hidden" id="inputL_Id_Sucursal" value="2" />
+                                    <input type="hidden" id="inputL_Id_Sucursal" value="@ViewBag.IdSucursal" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right animate__bounceIn">
                                     <a href="./app-profile.html" class="dropdown-item">
                                         <i class="icon-user"></i>
-                                        <span class="ml-2">Profile </span>
+                                        <span class="ml-2">Mi cuenta </span>
                                     </a>
-                                    <a href="./email-inbox.html" class="dropdown-item">
-                                        <i class="icon-envelope-open"></i>
-                                        <span class="ml-2">Inbox </span>
-                                    </a>
-                                    <a href="./page-login.html" class="dropdown-item">
+                                    <a href="@Url.Content("~/Home/Logout")" class="dropdown-item">
                                         <i class="icon-key"></i>
-                                        <span class="ml-2">Logout </span>
+                                        <span class="ml-2">Salir </span>
                                     </a>
                                 </div>
                             </li>
@@ -208,18 +214,12 @@
         <div class="quixnav">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li><a class="has-arrow not-before" name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aDasboard" aria-expanded="false">
-                        <i class="icon icon-app-store"></i><span class="nav-text">Dasboard </span></a>
-                        <ul aria-expanded="false">
-                        </ul>
-                    </li>
-
-
+        
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                         <i class="bi bi-gear-wide-connected"></i><span class="nav-text">Administración</span></a>
                         <ul aria-expanded="false">
                             <li><a name="Administracion/ConfigurarEmpresa/Index" onclick="_LayoutInvocar(this)">Configuracion Empresa </a></li>
-                            <li><a name="Administracion/Usuarios/Index" onclick="_LayoutInvocar(this)" id="aPrueba">Usuarios</a></li>
+                            <li><a name="Administracion/Usuarios/Index" onclick="_LayoutInvocar(this)" id="aUsuarios">Usuarios</a></li>
                             <li><a name="Administracion/Perfil/Index" onclick="_LayoutInvocar(this)" id="aPerfil">Perfiles</a></li>
                             <li><a name="Administracion/Sucursal/Index" onclick="_LayoutInvocar(this)" id="aSucursal">Sucursales</a></li>
                             <li><a name="Administracion/Clientes/Index" onclick="_LayoutInvocar(this)" id="aCliente">Clientes</a></li>
@@ -264,20 +264,25 @@
                         class="bi bi-box-seam"></i><span class="nav-text">Inventario</span></a>
                         <ul aria-expanded="false">
                             <li><a name="Inventario/Categoria/Index" onclick="_LayoutInvocar(this)" id="aCategoria">Categorias</a></li>
-                            <li><a name="Inventario/Producto/Index" onclick="_LayoutInvocar(this)" id="aProdcuto">Producto / Servicio</a></li>
-                            <li><a href="./index2.html">Kardex</a></li>
+                            <li><a name="Inventario/Producto/Index" onclick="_LayoutInvocar(this)" id="aProducto">Producto / Servicio</a></li>
+                            @*<li><a href="./index2.html">Kardex</a></li>*@
 
                         </ul>
                     </li>
 
+                  <li><a class="has-arrow not-before" name="Dashboard/Dashboard/Index" onclick="_LayoutInvocar(this)" id="aDasboard" aria-expanded="false">
+                        <i class="bi bi-bar-chart-line"></i><span class="nav-text">Reportes </span></a>
+                        <ul aria-expanded="false">
+                        </ul>
+                    </li>
 
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                 @*   <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                         class="bi bi-bar-chart-line"></i><span class="nav-text">Reportes</span></a>
                         <ul aria-expanded="false">
                             <li><a name="Admin/Prueba/Index" onclick="_LayoutInvocar(this)" id="aReporte">Prueba</a></li>
                             <li><a href="./index2.html">Dashboard 2</a></li>
                         </ul>
-                    </li>
+                    </li>*@
 
 
 
@@ -332,8 +337,6 @@
 
     <!-- Required vendors -->
 
-
-
     <script src="@Url.Content("~/assets/vendor/global/global.min.js")"></script>
     <script src="@Url.Content("~/assets/js/quixnav-init.js")"></script>
     <script src="@Url.Content("~/assets/js/custom.min.js")"></script>
@@ -342,8 +345,6 @@
     <!-- Vectormap -->
     <script src="@Url.Content("~/assets/vendor/raphael/raphael.min.js")"></script>
     <script src="@Url.Content("~/assets/vendor/morris/morris.min.js")"></script>
-
-
     <script src="@Url.Content("~/assets/vendor/circle-progress/circle-progress.min.js")"></script>
     <script src="@Url.Content("~/assets/vendor/chart.js/Chart.bundle.min.js")"></script>
 
@@ -365,8 +366,10 @@
 
     <script src="@Url.Content("~/Scripts/jquery-ui-1.8.24.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery-migrate-1.0.0.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/assets/jqGrid/js/i18n/grid.locale-es.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/jqGrid/js/i18n/grid.locale-es.js")" type="text/javascript"></script> 
+    <script src="@Url.Content("~/assets/vendor/datatables/js/jquery.dataTables.min.js")" type="text/javascript"></script> 
+    <script src="@Url.Content("~/assets/vendor/datatables/js/DatatablePlugin.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/SICA.js")"></script>
 
     <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
@@ -387,7 +390,7 @@
     <script src= "@Url.Content("~/Scripts/jquery.alphanumeric.js")" type="text/javascript"></script>
     <script src= "@Url.Content("~/Scripts/WavesEffect.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/General.js")"></script>
-
+    <script src="@Url.Content("~/assets/vendor/bootstrap-daterangepicker/daterangepicker.js")"></script>
     <!--**********************************
         Scripts
     ***********************************-->
@@ -404,8 +407,8 @@
 
 
         function ListarMenu(ID_PERFIL) {
-            debugger;
-            blockUI_('Generando modulos del usuario..');
+            
+            _blockUI('Generando modulos del usuario..');
             var urlListar = baseUrl + 'Modulos/Usuario_Modulos?ID_PERFIL=' + ID_PERFIL;
             $.ajax({
                 url: urlListar,

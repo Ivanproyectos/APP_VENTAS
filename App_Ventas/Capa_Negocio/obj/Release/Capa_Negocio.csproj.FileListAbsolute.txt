@@ -7,3 +7,13 @@ C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\obj\Release\Capa_Negocio.csprojResolveAssemblyReference.cache
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\obj\Release\Capa_Negocio.dll
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\obj\Release\Capa_Negocio.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Release\Capa_Token.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Release\Microsoft.IdentityModel.Tokens.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Release\Microsoft.IdentityModel.Logging.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Release\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Release\Capa_Token.pdb
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Release\Microsoft.IdentityModel.Tokens.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Release\Microsoft.IdentityModel.Logging.xml
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Negocio\bin\Release\Microsoft.IdentityModel.JsonWebTokens.xml

@@ -2,124 +2,286 @@
 var Caja_Grilla = 'Caja_Grilla';
 var Barra_Grilla = 'Barra_Grilla';
 
+function Caja_Cerrar() {
+    $('#myModalNuevo').modal('hide');
+    jQuery("#myModalNuevo").html('');
+}
+
+function Caja_Limpiar() {
+    $("#Caja_FechaRange").val(Fecha_Actual);
+    $('#ID_USUARIO').val("").trigger('change');
+    $('#ID_SUCURSAL_SEARCH').val("").trigger('change');
+    Caja_CargarGrilla();
+    Caja_Movimiento_CargarGrilla();
+}
+
+
 function Caja_ConfigurarGrilla() {
-    $("#" + Caja_Grilla).GridUnload();
-    var colNames = ['codigo', 'ID', 'Fecha y Hora', 'Tipo', 'Efec. Anterior', 'Cantidad', 'Efec. Actual', 'flg_estado',
-        'Usuario Creación', 'Motivo'];
+    DataTable.GridUnload(Caja_Grilla);
     var colModels = [
-            { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
-            { name: 'ID_CARGO', index: 'ID_CARGO', align: 'center', width: 100, hidden: true, key: true },
-            { name: 'FECH_HORA', index: 'FECH_HORA', align: 'left', width: 200, hidden: false },
-            { name: 'TIPO', index: 'TIPO', align: 'left', width: 200, hidden: false },
-            { name: 'EFECTIVO_ANTERIOR', index: 'EFECTIVO_ANTERIOR', align: 'left', width: 200, hidden: false },
-            { name: 'CANTIDAD', index: 'CANTIDAD', align: 'left', width: 100, hidden: false },
-            { name: 'EFECTIVO_ACTUAL', index: 'CANTIDAD', align: 'left', width: 200, hidden: false },
-            { name: 'FLG_ESTADO', index: 'FLG_ESTADO', align: 'left', width: 300, hidden: true },
-            { name: 'USU_CREACION', index: 'USU_CREACION', align: 'left', width: 150, hidden: false },
-            { name: 'MOTIVO', index: 'MOTIVO', align: 'center', width: 70, hidden: false, sortable: false, formatter: Caja_actionActivo, sortable: false },          
+          { data: "ID_TIPO_MOVIMIENTO", name: "ID_TIPO_MOVIMIENTO", title: "ID_TIPO_MOVIMIENTO", autoWidth: false, visible: false, },
+          { data: "FEC_CREACION", name: "FEC_CREACION", title: "Fecha y Hora", autoWidth: false, width: "90px", },
+          { data: "TIPO", name: "TIPO", title: "Tipo", autoWidth: false, },
+          { data: "DESC_MOVIMIENTO", name: "DESC_MOVIMIENTO", title: "Descripción", autoWidth: true },
+          { data: "MONTO", name: "MONTO", title: "Monto", autoWidth: true },
+          { data: "USU_CREACION", name: "USU_CREACION", title: "Usuario Creación", autoWidth: true },
+          {
+              data: null, sortable: false, title: "Acciones", width: "60px",
+              render: function (data, type, row, meta) { return Caja_Movimiento_actionAcciones(data.ID_TIPO_MOVIMIENTO); }
+          },
+
     ];
     var opciones = {
-        GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false
+        GridLocal: true, multiselect: false, sort: "desc", enumerable: false,
+        eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: false, responsive: true, processing: true
     };
-    SICA.Grilla(Caja_Grilla, Barra_Grilla, Caja_Grilla, 400, '', "", '', 'ID_CARGO', colNames, colModels, '', opciones);
+    DataTable.Grilla(Caja_Grilla, '', 'ID_TIPO_MOVIMIENTO', colModels, opciones, "ID_TIPO_MOVIMIENTO");
 }
 
-
-function Caja_actionActivo(cellvalue, options, rowObject) {
-    var check_ = 'check';
-    if (rowObject.FLG_ESTADO == 1)
-        check_ = 'checked';
-
-    var _btn = " <label class=\"content_toggle_1\">"
-            + "<input id=\"Vehiculos_chk_" + rowObject.ID_CARGO + "\" class=\"toggle_Beatiful_1\" type=\"checkbox\" onchange=\"Caja_Estado(" + rowObject.ID_CARGO + ",this)\" " + check_ + ">"
-            + "<div class=\"content_toggle_2\">"
-            + "  <span class=\"Label_toggle_1\" ></span>"
-             + "</div>"
-            + "</label>";
+function Caja_Movimiento_actionAcciones(ID_TIPO_MOVIMIENTO) {
+    var _btn_Editar = "<a class=\"dropdown-item\" onclick='Caja_Movimiento_MostrarEditar(" + ID_TIPO_MOVIMIENTO + ")'><i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;\"></i>&nbsp;  Editar</a>";
+    var _btn_Eliminar = "<a class=\"dropdown-item\" onclick='Caja_Movimiento_Eliminar(" + ID_TIPO_MOVIMIENTO + ")'><i class=\"bi bi-trash-fill\" style=\"color:#e40613;\"></i>&nbsp;  Eliminar</a>";
+    var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
+           "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn  dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
+           "<div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
+           _btn_Editar +
+           _btn_Eliminar +
+            "</div>" +
+        "</div>";
     return _btn;
 }
 
-function Caja_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Caja_MostrarEditar(" + rowObject.ID_CARGO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\" data-target='#myModalNuevo'> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
-    return _btn;
-}
-
-function Caja_actionEliminar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Eliminar'  onclick='Caja_Eliminar(" + rowObject.ID_CARGO + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>";
-    return _btn;
-}
-
-
-
-
-function Caja_CargarGrilla() {
-    var lista = new Array();
-    var item = {
-        ID_CARGO: '1',
-        DESC_CARGO: 'cargo XD',
-        FLG_ESTADO: 1,
-        FEC_CREACION: '12/02/2022'
-    }
-
-    var item2= {
-        ID_CARGO: '1',
-        DESC_CARGO: 'cargo XD',
-        FLG_ESTADO: 1,
-        FEC_CREACION: '12/02/2022'
-
-    }
-
-    lista.push(item); 
-    lista.push(item2);
-
-       jQuery("#" + Caja_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
-       $.each(lista, function (i, v) {
-                var idgrilla = i + 1;
-                var myData =
-                 {
-                     CODIGO: idgrilla,
-                     ID_CARGO: v.ID_CARGO,
-                     DESC_CARGO: v.DESC_CARGO,
-                     FLG_ESTADO: v.FLG_ESTADO,
-                     FEC_CREACION: v.FEC_CREACION,
-                     //USU_CREACION: v.USU_CREACION,
-                     //FEC_MODIFICACION: v.FEC_MODIFICACION,
-                     //USU_MODIFICACION: v.USU_MODIFICACION,
-                     //IP_CREACION: v.IP_CREACION,
-                     //IP_MODIFICACION: v.IP_MODIFICACION
-                 };
-                jQuery("#" + Caja_Grilla).jqGrid('addRowData', idgrilla, myData);
-            });
-            //jQuery("#" + Caja_Grilla).trigger("reloadGrid");
-  
-}
-
-
-function Caja_MostrarNuevo() {
+function Caja_Movimieto_MostrarNuevo() {
     jQuery("#myModalNuevo").html('');
-    jQuery("#myModalNuevo").load(baseUrl + "Admin/Prueba/Mantenimiento", function (responseText, textStatus, request) {
+    jQuery("#myModalNuevo").load(baseUrl + "Caja/Caja/View_Movimiento?id=0&Accion=N", function (responseText, textStatus, request) {
         $('#myModalNuevo').modal({ show: true });
         $.validator.unobtrusive.parse('#myModalNuevo');
         if (request.status != 200) return;
     });
 }
 
+function Caja_Movimiento_MostrarEditar(ID_TIPO_MOVIMIENTO) {
+    jQuery("#myModalNuevo").html('');
+    jQuery("#myModalNuevo").load(baseUrl + "Caja/Caja/View_Movimiento?id=" + ID_TIPO_MOVIMIENTO + "&Accion=M", function (responseText, textStatus, request) {
+        $('#myModalNuevo').modal({ show: true });
+        $.validator.unobtrusive.parse('#myModalNuevo');
+        if (request.status != 200) return;
+    });
+}
 
-function Preguntar() {
-    debugger; 
-    if ($('#frmMantenimientoCaja').valid()) {
-        jConfirm("¿ Desea actualizar este cargo ?", "Atención", function (r) {
-            if (r) {
-                $('#myModalNuevo').modal('hide'); 
-                jOkas('Registro guardado con exito', 'Atención');
-                
+///*********************************************** ----------------- *************************************************/
 
-            } else {
-                jError('Ocurrio un error', 'Atención');
+///*********************************************** Lista caja **************************************************/
+
+function Caja_CargarGrilla() {
+    var item =
+       {
+           FEC_INICIO:  $('#Caja_FechaRange').val().split('-')[0].trim(),
+           FEC_FIN:  $('#Caja_FechaRange').val().split('-')[0].trim(),
+           COD_USUARIO: $('#ID_USUARIO').val(),
+           ID_SUCURSAL: $('#ID_SUCURSAL_SEARCH').val(),
+       };
+    var url = baseUrl + 'Caja/Caja/Caja_Listar';
+    var auditoria = SICA.Ajax(url, item, false);
+    if (auditoria.EJECUCION_PROCEDIMIENTO) {
+        if (!auditoria.RECHAZAR) {
+            if (auditoria.OBJETO != null) {
+                var _TotalVenta = auditoria.OBJETO.TOTAL_VENTA;
+                var _TotalAdelanto = auditoria.OBJETO.TOTAL_ADELANTO;
+                var _TotalCobrar = auditoria.OBJETO.TOTAL_COBRAR;
+                var TotalIngresos = auditoria.OBJETO.TOTAL_INGRESO;
+                var TotalEgresos = auditoria.OBJETO.TOTAL_EGRESO;
+
+                var Total_Ingresos = (_TotalVenta + _TotalAdelanto + _TotalCobrar + TotalIngresos) ;
+                var Total = (Total_Ingresos - TotalEgresos);
+
+                $('#Caja_countVenta').text(auditoria.OBJETO.COUNT_VENTA);
+                $('#Caja_countAdelanto').text(auditoria.OBJETO.COUNT_COBRAR);
+                $('#Caja_countCobrar').text(auditoria.OBJETO.COUNT_ADELANTO);
+                $('#Caja_countEgresos').text(auditoria.OBJETO.COUNT_EGRESO);
+                $('#Caja_countIngresos').text(auditoria.OBJETO.COUNT_INGRESO);
+
+                $('#Caja_TotalVenta').text(Number(_TotalVenta).toFixed(2));
+                $('#Caja_TotalAdelanto').text(Number(_TotalAdelanto).toFixed(2));
+                $('#Caja_TotalCobrar').text(Number(_TotalCobrar).toFixed(2));
+                $('#Caja_TotalEgresos').text(Number(TotalEgresos).toFixed(2));
+                $('#Caja_TotalIgresos').text(Number(TotalIngresos).toFixed(2));
+
+                $('#Caja_Egresos').text(Number(TotalEgresos).toFixed(2));
+                $('#Caja_Ingresos').text(Number(Total_Ingresos).toFixed(2));
+                $('#Caja_Total').text(Number(Total).toFixed(2));
+
+              
             }
-        });
+        }
+    } else {
+        jError(auditoria.MENSAJE_SALIDA, "Atención");
     }
+}
 
+///*********************************************** ----------------- *************************************************/
+
+///*********************************************** Lista los  movimientos **************************************************/
+
+function Caja_Movimiento_CargarGrilla() {
+    var item =
+       {
+           FEC_INICIO: $('#Caja_FechaRange').val().split('-')[0].trim(),
+           FEC_FIN: $('#Caja_FechaRange').val().split('-')[0].trim(),
+           COD_USUARIO: $('#ID_USUARIO').val(),
+           ID_SUCURSAL: $('#ID_SUCURSAL_SEARCH').val(),
+       };
+    var url = baseUrl + 'Caja/Caja/Caja_Movimiento_Listar';
+    var auditoria = SICA.Ajax(url, item, false);
+    DataTable.clearGridData(Caja_Grilla);
+    if (auditoria.EJECUCION_PROCEDIMIENTO) {
+        if (!auditoria.RECHAZAR) {
+            $.each(auditoria.OBJETO, function (i, v) {
+                var idgrilla = i + 1;
+                var Tipo = ""; 
+                if (v.FLG_TIPO == 1) {
+                    Tipo = "<span>Ingreso &nbsp; <i class=\"bi bi-box-arrow-in-right text-success\"></i></span>"
+                } else {
+                    Tipo = "<span>Egreso &nbsp; <i class=\"bi bi-box-arrow-in-left text-danger\"></i></span>"
+                }
+                var myData =
+                 {
+                     CODIGO: idgrilla,
+                     ID_TIPO_MOVIMIENTO: v.ID_TIPO_MOVIMIENTO,
+                     ID_SUCURSAL: v.ID_SUCURSAL,
+                     TIPO: Tipo,
+                     DESC_MOVIMIENTO: v.DESC_MOVIMIENTO,
+                     MONTO: v.MONTO, 
+                     FEC_CREACION: v.FEC_CREACION,
+                     USU_CREACION: v.USU_CREACION,
+                     FEC_MODIFICACION: v.FEC_MODIFICACION,
+                     USU_MODIFICACION: v.USU_MODIFICACION,
+
+                 };
+                DataTable.addRowData(Caja_Grilla, myData);
+            });
+        }
+    } else {
+        jError(auditoria.MENSAJE_SALIDA, "Atención");
+    }
 }
 
 
+
+///*********************************************** ----------------- *************************************************/
+
+///*********************************************** Actualiza  caja  ************************************************/
+
+function Caja_Movimiento_Actualizar() {
+    if ($("#frmMantenimiento_Caja").valid()) {
+        var TipoMoviento = 1;  // ingreso 
+        if ($('#Movimiento_TipoCheck').is(':checked')) {
+            TipoMoviento = 2;  // egreso
+        }
+        var item =
+                {
+                    ID_SUCURSAL: $("#ID_SUCURSAL").val(),
+                    ID_TIPO_MOVIMIENTO: $("#hfd_ID_TIPO_MOVIMIENTO").val(),
+                    FLG_TIPO: TipoMoviento,
+                    DESC_MOVIMIENTO: $("#DESC_MOVIMIENTO").val(),
+                    MONTO: $("#MONTO").val(),
+                    USU_CREACION: $('#input_hdcodusuario').val(),
+                    USU_MODIFICACION: $('#input_hdcodusuario').val(),
+                    Accion: $("#AccionCaja").val()
+                };
+        jConfirm("¿ Desea actualizar este movimiento ?", "Atención", function (r) {
+            if (r) {
+                var url = baseUrl + 'Caja/Caja/Caja_Movimiento_Actualizar';
+                var auditoria = SICA.Ajax(url, item, false);
+                if (auditoria != null && auditoria != "") {
+                    if (auditoria.EJECUCION_PROCEDIMIENTO) {
+                        if (!auditoria.RECHAZAR) {
+                            Caja_Movimiento_CargarGrilla();
+                            Caja_Cerrar();
+                            jOkas("Movimiento actualizado satisfactoriamente", "Proceso");
+                        } else {
+                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        }
+                    } else {
+                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                    }
+                }
+            }
+        });
+    }
+}
+
+///*********************************************** ----------------- *************************************************/
+
+///************************************************ Inserta caja  **************************************************/
+
+function Caja_Movimiento_Insertar() {
+    if ($('#AccionCaja').val() != 'N') {
+        Caja_Actualizar();
+    } else {
+        if ($("#frmMantenimiento_Caja").valid()) {
+            jConfirm("¿ Desea registrar este movimiento ?", "Atención", function (r) {
+                if (r) {
+                    var TipoMoviento = 1;  // ingreso 
+                    if ($('#Movimiento_TipoCheck').is(':checked')) {
+                        TipoMoviento = 2;  // egreso
+                    }
+                    var item =
+                        {
+                            ID_SUCURSAL: $("#ID_SUCURSAL").val(),
+                            FLG_TIPO: TipoMoviento,
+                            DESC_MOVIMIENTO: $("#DESC_MOVIMIENTO").val(),
+                            MONTO: $("#MONTO").val(),
+                            USU_CREACION: $('#input_hdcodusuario').val(),
+                            ACCION: $("#AccionCaja").val()
+                        };
+                    var url = baseUrl + 'Caja/Caja/Caja_Movimiento_Insertar';
+                    var auditoria = SICA.Ajax(url, item, false);
+                    if (auditoria != null && auditoria != "") {
+                        if (auditoria.EJECUCION_PROCEDIMIENTO) {
+                            if (!auditoria.RECHAZAR) {
+                                Caja_Movimiento_CargarGrilla();
+                                Caja_Cerrar();
+                                jOkas("Movimiento registrado satisfactoriamente", "Proceso");
+                            } else {
+                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            }
+                        } else {
+                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        }
+                    }
+                }
+            });
+        }
+    }
+}
+
+
+///*********************************************** ----------------- *************************************************/
+
+///*********************************************** Elimina caja  ***************************************************/
+
+function Caja_Movimiento_Eliminar(ID_TIPO_MOVIMIENTO) {
+    jConfirm("¿ Desea eliminar este movimiento ?", "Atención", function (r) {
+        if (r) {
+            var item = {
+                ID_TIPO_MOVIMIENTO: ID_TIPO_MOVIMIENTO
+            };
+            var url = baseUrl + 'Caja/Caja/Caja_Movimiento_Eliminar';
+            var auditoria = SICA.Ajax(url, item, false);
+            if (auditoria != null && auditoria != "") {
+                if (auditoria.EJECUCION_PROCEDIMIENTO) {
+                    if (!auditoria.RECHAZAR) {
+                        Caja_Movimiento_CargarGrilla();
+                        Caja_Cerrar();
+                        jOkas("Movimiento eliminado satisfactoriamente", "Proceso");
+                    } else {
+                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                    }
+                } else {
+                    jError(auditoria.MENSAJE_SALIDA, "Atención");
+                }
+            }
+        }
+    });
+}

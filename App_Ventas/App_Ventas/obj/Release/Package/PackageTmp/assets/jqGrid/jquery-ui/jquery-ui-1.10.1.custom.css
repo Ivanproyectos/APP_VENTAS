@@ -358,7 +358,7 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-datepicker table {
 	width: 100%;
-	font-size: .9em;
+	font-size: .85em;
 	border-collapse: collapse;
 	margin: 0 0 .4em;
 }
@@ -837,7 +837,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	/*border: 1px solid #cccccc;*/
-    background: #f9fbfd; 
+    background: transparent; 
 	font-weight: bold;
 	color:#5d5959;
     text-align: center;
@@ -869,10 +869,11 @@ body .ui-tooltip {
 .ui-state-active,
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
-	border: 1px solid #fbd850;
-	background: #97b8e5;
-	font-weight: bold;
-	color: #545454;
+    border: 1px solid #727cf5;
+    background: #727cf5;
+    font-weight: bold;
+    color: #ffffff !important;
+     border-radius:5px;
 }
 .ui-state-active a,
 .ui-state-active a:link,
@@ -890,9 +891,10 @@ body .ui-tooltip {
 	
         background: #ffe45c url(images/ui-bg_highlight-soft_75_ffe45c_1x100.png) 50% top repeat-x;*/
     /*border: 1px solid #cccccc;*/
-    background: rgba(44,123,229,0.10); /*url(images/ui-bg_highlight-soft_75_ffe45c_1x100.png) 100% top repeat-x;*/
-    
-	color: #363636;
+    border: 1px solid #b2e1ed;
+    color: #040404;
+    border-radius:5px;
+
 }
 .ui-state-highlight a,
 .ui-widget-content .ui-state-highlight a,

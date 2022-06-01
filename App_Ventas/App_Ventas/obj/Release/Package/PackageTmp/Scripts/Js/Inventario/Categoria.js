@@ -14,53 +14,53 @@ function Categoria_Limpiar() {
 }
 
 function Categoria_ConfigurarGrilla() {
-    $("#" + Categoria_Grilla).GridUnload();
-    var colNames = ['Editar', 'Eliminar', 'Estado', 'codigo', 'ID', 'Categoria', 'Descripción',
-        'flg_estado', 'Fecha Creación', 'Usuario Creación', 'Fecha Modificación', 'Usuario Modificación'];
+    DataTable.GridUnload(Categoria_Grilla);
     var colModels = [
-            { name: 'EDITAR', index: 'EDITAR', align: 'center', width: 60, hidden: false, formatter: Categoria_actionEditar, sortable: false },
-            { name: 'ELIMINAR', index: 'ELIMINAR', align: 'center', width: 80, hidden: false, formatter: Categoria_actionEliminar, sortable: false },
-            { name: 'ACTIVO', index: 'ACTIVO', align: 'center', width: 70, hidden: false, sortable: true, formatter: Categoria_actionActivo, sortable: false },
-            { name: 'CODIGO', index: 'CODIGO', align: 'center', width: 100, hidden: true, },
-            { name: 'ID_CATEGORIA', index: 'ID_CATEGORIA', width: 100, hidden: true, key: true },
-            { name: 'DESC_CATEGORIA', index: 'DESC_CATEGORIA', width: 200, hidden: false, align: "left" },
-            { name: 'DESCRIPCION', index: 'DESCRIPCION', width: 300, hidden: false, align: "left" },
-            { name: 'FLG_ESTADO', index: 'FLG_ESTADO', width: 300, hidden: true, align: "left" },
-            { name: 'FEC_CREACION', index: 'FEC_CREACION', width: 150, hidden: false, align: "left" },
-            { name: 'USU_CREACION', index: 'USU_CREACION', width: 150, hidden: false, align: "left" },
-            { name: 'FEC_MODIFICACION', index: 'FEC_MODIFICACION', width: 150, hidden: false, align: "left" },
-            { name: 'USU_MODIFICACION', index: 'USU_MODIFICACION', width: 150, hidden: false, align: "left" },
+          { data: "ID_CATEGORIA", name: "ID_CATEGORIA", title: "Código", autoWidth: false, visible: true, },
+          { data: "DESC_CATEGORIA", name: "DESC_CATEGORIA", title: "Categoria", autoWidth: true },
+          { data: "DESCRIPCION", name: "DESCRIPCION", title: "Descripción", autoWidth: false, },
+          { data: "USU_CREACION", name: "USU_CREACION", title: "Usuario Creación", autoWidth: false, },
+          { data: "FEC_CREACION", name: "FEC_CREACION", title: "Fecha Creación", autoWidth: false, },
+          {
+              data: null, name: "FLG_ESTADO", title: "Activo", width: "80px", sortable: false,
+              render: function (data, type, row, meta) { return Categoria_actionActivo(data.FLG_ESTADO, data.ID_CATEGORIA); }
+          },
+          {
+              data: null, sortable: false, title: "Acciones", width: "80px",
+              render: function (data, type, row, meta) { return Categoria_actionAcciones(data.ID_CATEGORIA); }
+          },
+
     ];
     var opciones = {
-        GridLocal: true, multiselect: false, CellEdit: false, Editar: false, nuevo: false, eliminar: false, search: false, rowNumber: 50, rowNumbers: [50, 100, 200, 300, 500],
+        GridLocal: true, multiselect: false, sort: "desc", enumerable: false,
+        eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: false, responsive: true, processing: false
     };
-    SICA.Grilla(Categoria_Grilla, Categoria_Barra, '', 400, '', "Lista de Categoria", '', 'ID_CATEGORIA', colNames, colModels, '', opciones);
+    DataTable.Grilla(Categoria_Grilla, '', 'ID_CATEGORIA', colModels, opciones, "ID_CATEGORIA");
+
 }
 
-function Categoria_actionActivo(cellvalue, options, rowObject) {
+function Categoria_actionAcciones(ID_CATEGORIA) {
+    var _btn_Editar = "<a class=\"dropdown-item\" onclick='Categoria_MostrarEditar(" + ID_CATEGORIA + ")'><i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;\"></i>&nbsp;  Editar</a>";
+    var _btn_Eliminar = "<a class=\"dropdown-item\" onclick='Categoria_Eliminar(" + ID_CATEGORIA + ")'><i class=\"bi bi-trash-fill\" style=\"color:#e40613;\"></i>&nbsp;  Eliminar</a>";
+    var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
+           "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn  dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
+           "<div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
+           _btn_Editar +
+           _btn_Eliminar +
+            "</div>" +
+        "</div>";
+    return _btn;
+}
+
+
+function Categoria_actionActivo(FLG_ESTADO, ID_CATEGORIA) {
     var check_ = 'check';
-    if (rowObject.FLG_ESTADO == 1)
+    if (FLG_ESTADO == 1)
         check_ = 'checked';
-
-    var _btn = " <label class=\"content_toggle_1\">"
-            + "<input id=\"Categoria_chk_" + rowObject.ID_CATEGORIA + "\" class=\"toggle_Beatiful_1\" type=\"checkbox\" onchange=\"Categoria_Estado(" + rowObject.ID_CATEGORIA + ",this)\" " + check_ + ">"
-            + "<div class=\"content_toggle_2\">"
-            + "  <span class=\"Label_toggle_1\" ></span>"
-             + "</div>"
-            + "</label>";
+    var _btn = "<input type=\"checkbox\" id=\"Categoria_chk_" + ID_CATEGORIA + "\"  data-switch=\"state\" onchange=\"Categoria_Estado(" + ID_CATEGORIA + ",this)\" " + check_ + ">"
+              + " <label for=\"Categoria_chk_" + ID_CATEGORIA + "\" data-on-label=\"Yes\" data-off-label=\"No\"></label>";
     return _btn;
 }
-
-function Categoria_actionEditar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Editar'  onclick='Categoria_MostrarEditar(" + rowObject.ID_CATEGORIA + ");' class=\"btn btn-outline-light\" type=\"button\"  style=\"height: 39px;line-height: 5px;\"> <i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;font-size:17px\"></i></button>";
-    return _btn;
-}
-
-function Categoria_actionEliminar(cellvalue, options, rowObject) {
-    var _btn = "<button title='Eliminar'  onclick='Categoria_Eliminar(" + rowObject.ID_CATEGORIA + ");' class=\"btn btn-outline-light\" type=\"button\" data-toggle=\"modal\" style=\"text-decoration: none !important;\"> <i class=\"bi bi-x-circle\" style=\"color:#e40613;font-size:17px\"></i></button>";
-    return _btn;
-}
-
 
 function Categoria_MostrarNuevo() {
     jQuery("#myModalNuevo").html('');
@@ -80,7 +80,6 @@ function Categoria_MostrarEditar(ID_CATEGORIA) {
     });
 }
 
-
 ///*********************************************** ----------------- *************************************************/
 
 ///*********************************************** Lista los  categoria **************************************************/
@@ -88,12 +87,12 @@ function Categoria_MostrarEditar(ID_CATEGORIA) {
 function Categoria_CargarGrilla() {
     var item =
        {
-           DESC_CATEGORIA: $('#Categoria_Desc').val(),
-           FLG_ESTADO: $('#Categoria_Estado').val()
+           //DESC_CATEGORIA: $('#Categoria_Desc').val(),
+           FLG_ESTADO:2
        };
     var url = baseUrl + 'Inventario/Categoria/Categoria_Listar';
     var auditoria = SICA.Ajax(url, item, false);
-    jQuery("#" + Categoria_Grilla).jqGrid('clearGridData', true).trigger("reloadGrid");
+    DataTable.clearGridData(Categoria_Grilla);
     if (auditoria.EJECUCION_PROCEDIMIENTO) {
         if (!auditoria.RECHAZAR) {
             $.each(auditoria.OBJETO, function (i, v) {
@@ -111,9 +110,8 @@ function Categoria_CargarGrilla() {
                      USU_MODIFICACION: v.USU_MODIFICACION,
    
                  };
-                jQuery("#" + Categoria_Grilla).jqGrid('addRowData', i, myData);
+                DataTable.addRowData(Categoria_Grilla, myData);
             });
-            jQuery("#" + Categoria_Grilla).trigger("reloadGrid");
         }
     } else {
         jError(auditoria.MENSAJE_SALIDA, "Atención");

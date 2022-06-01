@@ -1,0 +1,178 @@
+﻿@model App_Ventas.Areas.Caja.Models.DashboardModelView
+<script src="@Url.Content("~/assets/vendor/chart.js/Chart.bundle.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/assets/vendor/chart.js/chartjs-plugin-datalabels.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/assets/vendor/jquery.counterup/countUp.umd.js")"></script>
+<script src="@Url.Content("~/Scripts/Js/Dashboard/Dashboard.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Dashboard/Dashboard_Grafics.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Recursiva/Configuracion.js")" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+    var ANIO = moment().format('YYYY');
+    $(document).ready(function () {
+        ConfiguracionEmpresa();
+        $('#ID_ANIO').select2();
+        $('#ID_SUCURSAL').select2();
+        $('#ID_ANIO').val(ANIO).trigger('change');
+        $('#ID_SUCURSAL').val(2).trigger('change');
+        Dashboard_Cargar();
+    });
+
+    $('#Reporte_btn_graficoBuscar').click(function () {
+        Dashboard_Cargar();
+    }); 
+</script>
+<style>
+    .card-title {
+        text-transform: none;
+    }
+
+    #pie_chart, #doughnut_chart {
+        height: 25vh;
+    }
+    .nbx {
+        box-shadow:none !important; 
+    }
+</style>
+<div class="card card-body">
+    <div class="profile-tab">
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item"><a href="#Reporte_Graficos" data-toggle="tab" class="nav-link active"><i class="bi bi-pie-chart-fill"></i>&nbsp; Graficos</a>  </li>
+            <li class="nav-item"><a href="#Reporte_Producto" data-toggle="tab" class="nav-link"><i class="bi bi-box-seam"></i>&nbsp; Productos</a> </li>
+            <li class="nav-item"><a href="#Reporte_Ventas" data-toggle="tab" class="nav-link"><i class="bi bi-cart3"></i>&nbsp; Ventas</a> </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade active show" id="Reporte_Graficos" role="tabpanel">
+                <div class="row justify-content-end mb-3">
+                    <div class="col-xl-3 col-xxl-6 col-lg-6 col-md-12">
+                        <div class="form-row justify-content-end" style="margin-right: 0px; margin-left: 0px;">
+                            <div class="col-sm-3 mt-2 mt-sm-0 text-right">
+                                @Html.DropDownListFor(model => model.ID_ANIO, Model.Lista_Anio, new { @class = "form-control", @style = "width:100%" })
+                            </div>
+                            <div class="col-sm-7 mt-2 mt-sm-0 text-right">
+                                @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @style = "width:100%" })
+                            </div>
+                            <div class="col-sm-2 mt-2 mt-sm-0 text-right">
+                                <button id="Reporte_btn_graficoBuscar" type="button" class="btn btn-hover-shine btn-square btn-primary "><i class="bi bi-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card nbx">
+                            <div class="stat-widget-two card-body">
+                                <div class="stat-content">
+                                    <div class="float-end" style="float: right!important;">
+                                        <i class="bi bi-cash-stack widget-icon"></i>
+                                    </div>
+                                    <div class="stat-text">Total Ventas </div>
+                                    <div class="stat-digit"><span class="simboloMoneda"></span>&nbsp;<span id="LblVentasTotal">0</span></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card nbx">
+                            <div class="stat-widget-two card-body">
+                                <div class="stat-content">
+                                    <div class="float-end" style="float: right!important;">
+                                        <i class="bi bi-box-arrow-in-down-left widget-icon"></i>
+                                    </div>
+                                    <div class="stat-text">Devolucion de Productos.</div>
+                                    <div class="stat-digit"><span id="LblDevolucion">0</span></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card nbx">
+                            <div class="stat-widget-two card-body">
+                                <div class="stat-content">
+                                    <div class="float-end" style="float: right!important;">
+                                        <i class="bi bi-cart2 widget-icon"></i>
+                                    </div>
+                                    <div class="stat-text">Ventas al Credito Pendiente</div>
+                                    <div class="stat-digit"><span class="simboloMoneda"></span>&nbsp;<span id="LblVentas_Credito">0</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card nbx">
+                            <div class="stat-widget-two card-body">
+                                <div class="stat-content">
+                                    <div class="float-end" style="float: right!important;">
+                                        <i class="bi bi-basket3 widget-icon"></i>
+                                    </div>
+                                    <div class="stat-text">Compras</div>
+                                    <div class="stat-digit"><span class="simboloMoneda"></span>&nbsp;<span id="LblCompras">0</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                </div>
+
+                <!-- charjs -->
+
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="card nbx">
+                            <div class="card-header">
+                                <h4 class="card-title">Ventas del mes</h4>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="barChart_2"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="card nbx">
+                            <div class="card-header">
+                                <h4 class="card-title">Comparativa producto y servicio.</h4>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="lineChart_3"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="card nbx">
+                            <div class="card-header">
+                                <h4 class="card-title">Porcentaje de ventas por tipo de pago.</h4>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="pie_chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="card nbx">
+                            <div class="card-header">
+                                <h4 class="card-title">5 Productos mas vendidos</h4>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="doughnut_chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade " id="Reporte_Producto" role="tabpanel">
+                <h2>En proceso pipi ):</h2>
+            </div>
+
+            <div class="tab-pane fade " id="Reporte_Ventas" role="tabpanel">
+                  <h2>En proceso pipi ):</h2>
+            </div>
+
+        </div>
+    </div>
+</div>

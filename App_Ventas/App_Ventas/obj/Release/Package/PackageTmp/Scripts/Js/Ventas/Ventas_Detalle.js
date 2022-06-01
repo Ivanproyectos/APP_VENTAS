@@ -95,7 +95,7 @@ function Ventas_Detalle_UpdateRowId() {
 }
 
 function Ventas_Detalle_BuscarProducto_Grilla(ID_PRODUCTO) {
-    debugger;
+    
     var buscado = false;
     var ids = $("#" + Ventas_Detalle_Grilla).getDataIDs();
     for (var i = 0; i < ids.length; i++) {

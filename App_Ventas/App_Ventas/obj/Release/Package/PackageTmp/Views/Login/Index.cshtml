@@ -1,0 +1,223 @@
+﻿@model App_Ventas.Models.LoginModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Login </title>
+    <!-- Favicon icon -->
+    @*<link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">*@
+    <link rel="stylesheet" href="@Url.Content("~/assets/vendor/owl-carousel/css/owl.carousel.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/assets/vendor/owl-carousel/css/owl.theme.default.min.css")">
+    <link href="@Url.Content("~/assets/vendor/jqvmap/css/jqvmap.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/css/style.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/css/Changes_estilos/theme_dark.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/icons/Boopstrap/bootstrap-icons.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/vendor/sweetalert2/sweetalert2.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/css/animate.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/css/General.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/css/Login.css")" rel="stylesheet">
+    @*    <link href="@Url.Content("~/assets/css/File_image.css")" rel="stylesheet">*@
+    <link href="@Url.Content("~/assets/vendor/toastr/css/toastr.min.css")" rel="stylesheet">
+
+    @*<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")" type="text/javascript"></script>*@
+</head>
+<body>
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+    <div id="main-wrapper">
+        <div class="Login_content">
+            <div class="Login__carousel">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        @*<li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2" class=""></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="3" class=""></li>*@
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <h2 class="text-primary">SISTEMA GESTIÓN DE VENTAS</h2>
+                                    <p>Comencemos a gestiona tus ventas!</p>
+                                </div>
+                            </div>
+                            <div class="carousel__image" style="background-image:url(@Url.Content("~/assets/images/login/img-sistema.png")"></div>
+                        </div>
+
+                        @*                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <h2 class="text-primary">Reporte en graficos</h2>
+                                    <p>Un rapido vistazo a una informacion clara y precisa de las ventas</p>
+                                </div>
+                            </div>
+                            <div class="carousel__image" style="background-image:url(@Url.Content("~/assets/images/login/reportgrafics_3.png")"></div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <h2 class="text-primary">Gestion de Productos</h2>
+                                    <p>Gestiona tus productos eficientemente.</p>
+                                </div>
+                            </div>
+                            <div class="carousel__image" style="background-image:url(@Url.Content("~/assets/images/login/productos_1.png")"></div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <h2 class="text-primary">Gestion de ventas</h2>
+                                    <p>Gestiona tus ventas.</p>
+                                </div>
+                            </div>
+                            <div class="carousel__image" style="background-image:url(@Url.Content("~/assets/images/login/ventas_1.png")"></div>
+                        </div>*@
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" data-slide="prev"><span class="carousel-control-prev-icon"></span><span
+                        class="sr-only">Previous</span> </a><a class="carousel-control-next" href="#carouselExampleIndicators" data-slide="next"><span
+                            class="carousel-control-next-icon"></span>
+                            <span class="sr-only">Next</span></a>
+                </div>
+
+            </div>
+            <div class="Login__boxLogin authincation-content">
+                <div class="row no-gutters" id="Login_BoxSession" style="display: none;">
+                    <div class="col-xl-12">
+                        <div class="text-center">
+                            <img width="100" height="100"  src="@Url.Content("~/assets/images/awesome.png")" alt="logo">
+                        </div>
+                        <h3 class="text-center mb-4 text-primary">Inicia Sesión</h3>
+                        @using (Html.BeginForm("", "", new { @area = "" }, FormMethod.Post, new { @id = "frm_Login", @class = "form-horizontal" }))
+                        {
+                            @Html.ValidationSummary(true)
+                            <div class="form-group">
+                                <label><strong>Usuario</strong></label>
+                                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @maxlength = "100", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.UserName, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+                            <div class="form-group">
+                                <label><strong>Contraseña</strong></label>
+                                <div class="input-group mb-3">
+                                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @maxlength = "100", @autocomplete = "off", @type = "password" })
+                                    <div class="input-group-append" data-password="true">
+                                        <span class="input-group-text password-eye"></span>
+                                    </div>
+                                </div>
+
+                                @Html.ValidationMessageFor(model => model.Password, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                            </div>
+                            <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                <div class="form-group">
+                                    <div class="form-check ml-2">
+                                        @Html.CheckBoxFor(model => model.RememberMe, new { @class = "", })
+                                        <label class="form-check-label" for="RememberMe">Recuerdame</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <a href="page-forgot-password.html">Olvidaste tu contraseña?</a>
+                                </div>
+                            </div>
+                            <div class="text-center mb-3">
+                                <button type="button" id="Login_Ingresar" class="btn btn-primary btn-block btn-hover-shine">Ingresar</button>
+                            </div>                               
+                        }
+                    </div>
+                </div>
+                <div class="row no-gutters" id="Login_BoxUsuLogeo" style="display: none;">
+                    <div class="col-xl-12 mb-3">
+                        <h2 class="text-success text-center">Bienvenido</h2>
+                        <h3 class="text-center text-primary" id="Login_nameUser"></h3>
+                    </div>
+                    <div class="col-xl-12 mb-4">
+                        <div id="Login_MsgSinPermisos" style="display: none;">
+                            <p class="text-center">Su usuario no tiene acceso a ninguna de las sucursales o la fecha de prescripción expiro, comuníquese con el administrador del sistema.</p>
+                            <div class="text-center">
+                                <img height="200" width="200" src="@Url.Content("~/assets/images/login/questions.png")" />
+                            </div>
+                        </div>
+                        <div id="Login_ListPermisos" style="display: none;">
+                            <p>A continuación seleccione la sucursal donde realiza el registro de las transacciones generadas por la venta de bienes o servicios.</p>
+                            <div class="table-responsive">
+                                <div class="tab-pane show active" id="disabled-items-preview">
+                                    <div class="list-group" id="Login_TablePermisos">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12">
+                        <button type="button" id="Login_SignOff" class="btn btn-danger btn-block btn-hover-shine"><i class="bi bi-house"></i>&nbsp;Cerrar Sesión</button>
+                    </div>
+                </div>
+
+                <div class="row" id="Alert_Error" style="display: none;">
+                    <div class="text-center col-sm-12">
+                        <div class="alert alert-danger alert-dismissible show">
+                            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
+                                <span><i class="bi bi-x-lg"></i></span>
+                            </button>
+                            <strong>Error - </strong><span id="Msg_error"></span>.                      
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
+    <!-- Required vendors -->
+    <script src="@Url.Content("~/assets/vendor/global/global.min.js")"></script>
+    <!-- Owl Carousel -->
+    <script src="@Url.Content("~/assets/vendor/owl-carousel/js/owl.carousel.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-migrate-1.0.0.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/crypto-js.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/General.js")"></script>
+    <script src="@Url.Content("~/Scripts/Js/Login/LoginHelpers.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/SICA.js")"></script>
+
+
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script type="text/javascript">
+        var baseUrl = '@Url.Content("~")';
+        var sign = null;
+
+        $(document).ready(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+            sign = new Login();
+            sign.init();
+        });
+
+        function Login_Ingresar(id) {
+            sign.LogIn(id);
+        }
+
+    </script>
+</body>
+
+</html>

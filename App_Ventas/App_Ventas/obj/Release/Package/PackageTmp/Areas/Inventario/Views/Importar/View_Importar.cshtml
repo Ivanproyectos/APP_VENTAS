@@ -1,0 +1,119 @@
+﻿@model App_Ventas.Areas.Ventas.Models.BuscarProductoModelView
+<script>
+    var _Valido = false;
+    var _DESC_SUCURSAL = @Html.Raw(Json.Encode(Model.DESC_SUCURSAL)); 
+
+    $(document).ready(function () {
+        Producto_ErroresCarga_ConfigurarGrilla();
+        $("#file-upload").change(function () {
+            $("#Lbl_Namefile").html("Sin archivo cargado...");
+            var input = document.getElementById('file-upload');
+            var file = input.files[0];
+            var PesodeArchivo = parseFloat(file.size);
+            var ext = input.files[0].name.split('.').pop();
+            var nombre = input.files[0].name;
+            if (nombre.length > 100) {
+                jAlert("El nombre del archivo es muy largo", 'Alerta');
+                $(this).val('');
+                return false;
+            } else {
+                var valido = false;
+                if (ext.toLowerCase() == "xls" || ext.toLowerCase() == "xlsx")
+                    valido = true;
+                if (PesodeArchivo > Tamanio_Valido || !valido) {
+                    $(this).val('');
+                    if (!valido)
+                        jWarning("Solo se permite documentos en formato(.xlsx,.xls)", 'Alerta');
+                    else
+                        jWarning("La cantidad de el archivo que va adjuntar no pueden pesar más de " + Tamanio_Valido / 1024 / 1024 + "Mb", 'Alerta');
+                    return false;
+                } else {
+                    $("#Lbl_Namefile").html(nombre);
+                }
+            }
+        });
+    });
+
+    $(function () {
+        $(".modal-content").draggable();
+    });
+    $('#Importar_btn_DPlantilla').click(function () {
+        Producto_DescargarPlantillaProducto();
+    });
+
+    $('#Producto_Btn_Importar').click(function () {
+        Producto_ImportarProducto();
+    });
+
+</script>
+<style>
+    #modal-dialog_this {
+        margin: 30px auto;
+        max-width: 600px;
+    }
+
+    #ModalImportar {
+        padding: 8px;
+        background: #2c7be5 !important;
+    }
+</style>
+
+<div class="modal fade" id="myModalDescargar" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+
+<div class="modal-dialog" role="document" id="modal-dialog_this">
+    <div class="modal-content">
+        <div class="modal-header" id="ModalImportar">
+            <h5 class="modal-title"><i class="bi bi-cloud-upload"></i>&nbsp; Carga masiva productos</h5>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body mb-0">
+                            <h5 class="card-title">Descarga plantilla excel</h5>
+                            <p class="card-text">Para poder importar tus productos en lote debes descargar la plantilla y enviarlo utilizando el mismo formato!.</p>
+                            <button type="button" id="Importar_btn_DPlantilla" class="btn btn-outline-success"><i class="bi bi-file-earmark-excel"></i>&nbsp; Descargar Plantilla</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card mb-0">
+                        <div class="card-body mb-0">
+                            @using (Html.BeginForm("Importar_CargarExcel", "Importar_Producto", new { @area = "Inventario" }, FormMethod.Post, new { @id = "frmMantenimiento_ImportarExcel", @class = "form-horizontal", @enctype = "multipart/form-data" }))
+                            {
+                                @Html.ValidationSummary(true)
+                                <div class="custom-file mb-3">
+                                    <input id="file-upload" type="file" name="fileArchivo" class="custom-file-input" accept=".csv, .xls, .xlsx">
+                                    <label class="custom-file-label" for="file-upload" id="Lbl_Namefile">Sin archivo cargado..</label>
+                                </div>
+                                @Html.Hidden("IMP_ID_SUCURSAL", Model.ID_SUCURSAL);
+                            }
+
+                            <div class="alert alert-info alert-dismissible alert-alt fade show">
+                                <strong><i class="bi bi-info-circle text-info"></i>&nbsp;</strong>Todos los productos que se ingresen en el excel,
+                                         serán registrados en el almacén para la sucursal:<b> @Model.DESC_SUCURSAL</b> (ID: @Model.ID_SUCURSAL)
+                            </div>
+                            <div id="Importar_GirdErrores" style="display:none;">
+                                <h4 class="text-danger"><i class="bi bi-exclamation-triangle"></i>&nbsp;Carga con errores, Listado de errores econtrados.</h4>
+                                <div class="jqGrid">
+                                    <table id="Importar_ErroresCarga_Grilla"></table>
+                                    <div id="Importar_ErroresCarga_Barra"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="Producto_Btn_Importar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-cloud-upload"></i>&nbsp; Comenzar carga</button>
+            <button type="button" class="btn  btn-square btn-dark" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>
+

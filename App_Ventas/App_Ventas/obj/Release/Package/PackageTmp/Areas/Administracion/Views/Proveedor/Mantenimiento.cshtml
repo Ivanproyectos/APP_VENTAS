@@ -35,7 +35,7 @@
             BuscarPersonalNatural($('#NUMERO_DOCUMENTO').val());
 
         } else if (_tipoDocumento == 6) {
-            BuscarPersonalJuridica($('#NUMERO_DOCUMENTO').val());
+             BuscarPersonalJuridica($('#NUMERO_DOCUMENTO').val());
         } else {
             jDanger('Tipo documento no valido para buscar.', 'Atención')
         }
@@ -85,9 +85,9 @@
                         @Html.LabelFor(model => model.NUMERO_DOCUMENTO)
                         <div class="input-group mb-12 ">
                             @Html.TextBoxFor(model => model.NUMERO_DOCUMENTO, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
-                            <div class="input-group-append  btn-hover-shine waves-effect waves-light"onclick="Proveedor_SearchPersona()">
-                                <span class="input-group-text" ><i class="bi bi-search"></i></span>
-                            </div>
+                              <button class="input-group-append btn btn-info btn-hover-shine waves-effect waves-light" type="button" onclick="Proveedor_SearchPersona()">
+                                <i class="bi bi-search"></i>&nbsp; Buscar
+                            </button>
                         </div>
                         @Html.ValidationMessageFor(model => model.NUMERO_DOCUMENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>

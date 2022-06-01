@@ -1,17 +1,18 @@
 ﻿@model App_Ventas.Areas.Caja.Models.CajaModelView
 <script src="@Url.Content("~/Scripts/Js/Caja/Caja.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Recursiva/Configuracion.js")" type="text/javascript"></script>
 <script type="text/javascript">
-
+    var Fecha_Actual = moment().format('DD/MM/YYYY');
     $(document).ready(function () {
-        //Caja_ConfigurarGrilla();
-        //Caja_CargarGrilla();
-        var Fecha_Actual = moment().format('DD/MM/YYYY');
-        $('#Caja_FechaInicio, #Caja_FechaFin').val(Fecha_Actual);
+        ConfiguracionEmpresa();
         Caja_ConfigurarGrilla();
+        $('#ID_USUARIO').select2();
+        $('#ID_SUCURSAL_SEARCH').select2();
     });
 
     $("#Caja_btnBuscar").click(function (e) {
         Caja_CargarGrilla();
+        Caja_Movimiento_CargarGrilla();
     });
 
     $("#Caja_btnLimpiar").click(function (e) {
@@ -19,20 +20,26 @@
     });
 
 
-    $("#Caja_btnNuevo").click(function (e) {
-        Caja_MostrarNuevo();
+    $("#Caja_NuevoMovimiento").click(function (e) {
+        Caja_Movimieto_MostrarNuevo();
     });
-
-
-    $('#Caja_FechaInicio, #Caja_FechaFin').datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: "dd/mm/yy",
-        firstDay: 1,
-        changeFirstDay: false,
-        showAnim: 'slideDown'
+    $('#Caja_FechaRange').daterangepicker({
+        opens: 'right',
+        ranges: {
+            'Hoy': [moment(), moment()],
+            'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Los últimos 7 días': [moment().subtract(6, 'days'), moment()],
+            'Los últimos 30 días': [moment().subtract(29, 'days'), moment()],
+            'Este mes': [moment().startOf('month'), moment().endOf('month')],
+            'El mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        locale: {
+            format: "DD/MM/YYYY",
+            applyLabel: "Aplicar",
+            cancelLabel: "Cancelar",
+            customRangeLabel: "Rango Personalizado",
+        }
     });
-
 
 </script>
 
@@ -40,22 +47,23 @@
 
 <style>
     .table thead th {
-        background-color: #a9a9a9;
+        background-color: #313a46;
         color: white;
     }
 
-    ._text_detalle {
-        width: 45%;
-        max-width: 45%;
-        display: inline-block;
-        text-align: right;
+
+    #table_cajaCuadre th {
+        width: 150px;
+        text-align: center;
     }
 
-    ._text_detalle_monto {
-        width: 45%;
-        max-width: 45% display: inline-block;
-        text-align: left;
+    #table_cajaCuadre td {
+        text-align: center;
     }
+
+        #table_cajaCuadre td i {
+            font-size: 17px;
+        }
 </style>
 
 <div class="row ">
@@ -72,13 +80,13 @@
                         <div class="form-group col-md-3">
                             <label>Fecha Inicio:</label>
                             <div class="input-group mb-3">
-                                <input type="text" id="Caja_FechaInicio" class="form-control" placeholder="">
+                                <input type="text" id="Caja_FechaRange" class="form-control" placeholder="">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-3">
+                        @*   <div class="form-group col-md-3">
                             <label>Fecha Fin:</label>
                             <div class="input-group mb-3">
                                 <input type="text" id="Caja_FechaFin" class="form-control" placeholder="">
@@ -86,7 +94,7 @@
                                     <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
 
                         <div class="form-group col-md-3">
                             <label>Usuario:</label>
@@ -95,7 +103,7 @@
 
                         <div class="form-group col-md-3">
                             <label>Sucursal:</label>
-                            @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
+                            @Html.DropDownListFor(model => model.ID_SUCURSAL_SEARCH, Model.Lista_Sucursal, new { @class = "form-control", @maxlength = "150", @style = "width:100%" })
                         </div>
 
                     </div>
@@ -113,91 +121,101 @@
 </div>
 
 
-
-<div class="row ">
+<div class="row">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-body">
                 <div class="profile-tab">
-                    <ul class="nav nav-tabs" style="margin-bottom: 10px;">
+                    <ul class="nav nav-tabs mb-4">
                         <li class="nav-item"><a href="#Cadre_Caja" data-toggle="tab" class="nav-link active"><i class="bi bi-cash-stack"></i>&nbsp; Cuadre Caja</a>
                         </li>
-                        <li class="nav-item"><a href="#Movimiento_Caja" data-toggle="tab" class="nav-link"><i class="bi bi-files"></i>&nbsp; Movimiento Caja</a>
+                        <li class="nav-item"><a href="#Movimiento_Caja" data-toggle="tab" class="nav-link"><i class="bi bi-files"></i>&nbsp; Egresos/Ingresos</a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="Cadre_Caja" role="tabpanel">
-
-                            <div class="alert alert-info  alert-dismissible alert-alt fade show col-sm-12" >
-                                Cuadre caja para el sucursal: <strong>EL Paraiso</strong>
-                            </div>
                             <div class="form-row justify-content-center">
                                 <div class=" col-md-8 ">
+                                    @*       <div class="alert alert-info  alert-dismissible alert-alt fade show col-sm-12">
+                                        Cuadre caja para el sucursal: <strong>EL Paraiso</strong>
+                                    </div>*@
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-responsive-sm" style="color: #5a5a5a;">
+                                        <table class="table table-bordered table-responsive-sm " id="table_cajaCuadre" style="color: #313a46;">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
                                                     <th>Tipo Movimiento</th>
-                                                    <th>Monto</th>
+                                                    @*<th>NRO OPERACIONES</th>*@
+                                                    <th style="width:60px">Monto</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <th>1</th>
-                                                    <td>Ventas</td>
-                                                    <td class="color-primary">$21.56</td>
+                                                    <td class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="bi bi-cart3"></i>&nbsp; Ventas</span>
+                                                        <span id="Caja_countVenta" class="badge badge-primary badge-pill">0</span>
+                                                    </td>
+                                                    <td class="color-primary"><span class="simboloMoneda"></span><span id="Caja_TotalVenta">0.00</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <th>2</th>
-                                                    <td>Compras</td>
-                                                    <td class="color-success">$55.32</td>
+                                                    <td class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="bi bi-bag"></i>&nbsp;Adelantos</span>
+                                                        <span id="Caja_countAdelanto" class="badge badge-primary badge-pill">0</span>
+                                                    </td>
+                                                    <td class="color-success"><span class="simboloMoneda"></span><span id="Caja_TotalAdelanto">0.00</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <th>3</th>
-                                                    <td>Ingresos</td>
-                                                    <td class="color-danger">$14.85</td>
+                                                    <td class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="bi bi-collection"></i>&nbsp;Cuentas Cobradas</span>
+                                                        <span id="Caja_countCobrar" class="badge badge-primary badge-pill">0</span>
+                                                    </td>
+                                                    <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_TotalCobrar">0.00</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <th>4</th>
-                                                    <td>Egresos</td>
-                                                    <td class="color-danger">$14.85</td>
+                                                    <td class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="bi bi-box-arrow-left text-danger"></i>&nbsp;Egresos</span>
+                                                        <span id="Caja_countEgresos" class="badge badge-primary badge-pill">0</span>
+                                                    </td>
+                                                    <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_TotalEgresos">0.00</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <th>5</th>
-                                                    <td>Cuentas Cobradas</td>
-                                                    <td class="color-danger">$14.85</td>
+                                                    <td class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="bi bi-box-arrow-right text-success"></i>&nbsp;Ingresos</span>
+                                                        <span id="Caja_countIngresos" class="badge badge-primary badge-pill">0</span>
+                                                    </td>
+                                                    <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_TotalIgresos">0.00</span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td colspan="1" style="text-align: right"><span class="text-danger">(-) </span>Total Egresos:</td>
+                                                    <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_Egresos">0.00</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="1" style="text-align: right"><span class="text-success">(+) </span>Total Ingresos:</td>
+                                                    <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_Ingresos">0.00</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="1" style="text-align: right">Total:</td>
+                                                    <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_Total">0.00</span></td>
                                                 </tr>
 
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-8 " style="display: flex; justify-content: flex-end; margin-bottom: 8px;">
-                                    <div class="col-xl-4 col-xxl-6 col-lg-8 col-md-8" style="padding: 0px">
-                                        <div class="basic-list-group">
-                                            <ul class="list-group list-group-flush" style="color: #5a5a5a;">
-                                                <li class="list-group-item"><span class="_text_detalle">Ingresos caja:</span> <span class="_text_detalle_monto">0</span></li>
-                                                <li class="list-group-item"><span class="_text_detalle">Egresos Caja:</span> <span class="_text_detalle_monto">0</span> </li>
-                                                <li class="list-group-item" style="border-bottom: 1px solid #eaeaea;"><span class="_text_detalle">Total Caja:</span> <span class="_text_detalle_monto">0</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                @*        <div class="col-md-8 " style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
-                                 <button type="button" class="btn btn-rounded btn-success btn-hover-shine"><span class="btn-icon-left text-success"><i class="bi bi-inbox"></i>
-                                    </span>Cuadrar caja</button>
-                                </div>*@
+
                             </div>
                         </div>
 
                         <div class="tab-pane fade show" id="Movimiento_Caja" role="tabpanel">
-                            <div class="alert alert-info  alert-dismissible alert-alt fade show col-sm-12" >
+                            @*           <div class="alert alert-info  alert-dismissible alert-alt fade show col-sm-12" style="margin-bottom:5px;">
                                 Movimiento de caja para el sucursal: <strong>EL Paraiso</strong>
-                            </div>
-                            <div class="jqGrid">
-                                <table id="Caja_Grilla"></table>
-                                <div id="Barra_Grilla"></div>
+                            </div>*@
+
+                            <button id="Caja_NuevoMovimiento" type="button" class="btn btn-hover-shine btn-square btn-primary mb-3"><i class="bi bi-plus-square"></i>&nbsp Nuevo Movimiento</button>
+                            <br />
+                            <div class="table-responsive">
+                                <table id="Caja_Grilla" style="width: 100%" class="table"></table>
+                                @*<div id="Barra_Grilla"></div>*@
                             </div>
                         </div>
                     </div>
@@ -205,3 +223,4 @@
             </div>
         </div>
     </div>
+</div>

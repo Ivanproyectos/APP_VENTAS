@@ -27,7 +27,7 @@
 
 
 
-<div class="row ">
+@*<div class="row ">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-header border-bottom-head">
@@ -63,8 +63,13 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
+<div class="row mb-3">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+          <h4 class="card-title">Listado Sucursales</h4>
+    </div>
+</div>
 
 
 <div class="row ">
@@ -72,12 +77,12 @@
         <div class="card">
             <div class="card-header">
 
-                <button id="Sucursal_btnNuevo" type="button" class="btn btn-hover-shine btn-square btn-primary " ><i class="bi bi-plus-square"></i>&nbsp Nuevo</button>
+                <button id="Sucursal_btnNuevo" type="button" class="btn btn-hover-shine btn-square btn-primary " ><i class="bi bi-plus-square"></i>&nbsp Nuevo Sucursal</button>
             </div>
             <div class="card-body">
-                <div class="jqGrid">
-                    <table id="Sucursal_Grilla"></table>
-                    <div id="Sucursal_Barra"></div>
+                <div class="table-responsive">
+                    <table id="Sucursal_Grilla" class="table" style="width: 100%"></table>
+                    @*<div id="Sucursal_Barra"></div>*@
                 </div>
             </div>
         </div>

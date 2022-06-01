@@ -1,0 +1,19 @@
+﻿
+<script type="text/javascript">
+    $(document).ready(function () {
+        Generar();
+    });
+    function Generar() {
+        $("#iframeReporte").attr("src", '@Url.Content("~/Recursos/Descargas/DescargarPlantillaExcel.aspx")');
+    }
+</script>
+<style>
+    .modal-dialog2 {
+        width: 60%;
+        margin: 30px auto
+    }
+</style>
+<div class="modal-dialog2">
+    <iframe id="iframeReporte" style="background-color:white;width:99%;height:570px;" src=""></iframe> 
+</div>
+

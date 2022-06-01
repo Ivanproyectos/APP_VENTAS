@@ -20,7 +20,6 @@
         changeFirstDay: false,
         showAnim: 'slideDown'
     });
-
     $('#Ventas_btn_Guardar').click(function () {
         Ventas_Ingresar();
     });
@@ -54,7 +53,7 @@
                 jError("Cliente seleccionado no es valido para credito.", "Atención");
                 $('#ID_TIPO_PAGO').val(1)
             } else {
-                debugger;
+                
                 $('#Venta_NroOperacion').hide();
                 $('#Venta_Adelanto').show('slow');
                 if ($('#ID_CLIENTE').val() != "")
@@ -92,6 +91,7 @@
 <style>
     .modal-lg_ {
         max-width: 55%;
+        margin: 10px auto;
     }
 </style>
 
@@ -254,6 +254,21 @@
                         </ul>
                     </div>
                 </div>
+
+              @*  <style>
+                    .css_li {
+                        padding-left:10px; 
+                    }
+                </style>
+                <div class="col-sm-12">
+                    <ul>
+                        <li><h4>Colocar el cursor al inicio de la línea</h4> </li>
+                        <li class="css_li">Haz clic al inicio de la primera línea del párrafo para ubicar allí el Puntode inserción.</li>
+                        <li class="css_li">Colocar el cursor al inicio de la línea. </li>
+                        <li class="css_li">Oprimir la tecla TAB. </li>
+                    </ul>
+
+                </div>*@
             </div>
 
         </div>

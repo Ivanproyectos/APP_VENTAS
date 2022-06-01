@@ -11,16 +11,19 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/Administracion/Views/Clientes/Index.cshtml">
-      <publishTime>03/08/2022 10:41:28</publishTime>
+      <publishTime>05/22/2022 12:06:26</publishTime>
     </File>
     <File Include="Areas/Administracion/Views/Clientes/Mantenimiento.cshtml">
-      <publishTime>03/10/2022 19:08:26</publishTime>
+      <publishTime>05/15/2022 18:42:34</publishTime>
     </File>
     <File Include="Areas/Administracion/Views/ConfigurarEmpresa/Index.cshtml">
-      <publishTime>03/10/2022 13:14:56</publishTime>
+      <publishTime>04/24/2022 16:19:32</publishTime>
     </File>
     <File Include="Areas/Administracion/Views/Perfil/Index.cshtml">
-      <publishTime>03/06/2022 12:49:10</publishTime>
+      <publishTime>05/28/2022 18:11:44</publishTime>
+    </File>
+    <File Include="Areas/Administracion/Views/Perfil/View_Mantenimiento.cshtml">
+      <publishTime>05/23/2022 18:23:45</publishTime>
     </File>
     <File Include="Areas/Administracion/Views/Personal/Index.cshtml">
       <publishTime>02/28/2022 09:46:48</publishTime>
@@ -29,40 +32,43 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>02/26/2022 11:04:40</publishTime>
     </File>
     <File Include="Areas/Administracion/Views/Proveedor/Index.cshtml">
-      <publishTime>03/08/2022 10:41:39</publishTime>
+      <publishTime>04/27/2022 09:00:45</publishTime>
     </File>
     <File Include="Areas/Administracion/Views/Proveedor/Mantenimiento.cshtml">
-      <publishTime>03/07/2022 16:10:52</publishTime>
+      <publishTime>05/31/2022 17:26:49</publishTime>
     </File>
     <File Include="Areas/Administracion/Views/Sucursal/Index.cshtml">
-      <publishTime>03/08/2022 10:39:30</publishTime>
+      <publishTime>04/26/2022 22:20:04</publishTime>
     </File>
     <File Include="Areas/Administracion/Views/Sucursal/Mantenimiento.cshtml">
       <publishTime>03/06/2022 11:13:03</publishTime>
     </File>
     <File Include="Areas/Administracion/Views/Usuarios/Index.cshtml">
-      <publishTime>03/08/2022 10:35:23</publishTime>
+      <publishTime>04/26/2022 22:20:14</publishTime>
     </File>
     <File Include="Areas/Administracion/Views/Usuarios/Mantenimiento.cshtml">
-      <publishTime>03/08/2022 10:28:06</publishTime>
+      <publishTime>05/31/2022 17:28:15</publishTime>
     </File>
     <File Include="Areas/Administracion/Views/Web.config">
       <publishTime>02/26/2022 11:01:47</publishTime>
     </File>
     <File Include="Areas/Caja/Views/Caja/Index.cshtml">
-      <publishTime>03/15/2022 19:15:12</publishTime>
+      <publishTime>05/30/2022 22:45:47</publishTime>
+    </File>
+    <File Include="Areas/Caja/Views/Caja/View_Movimiento.cshtml">
+      <publishTime>05/31/2022 17:16:09</publishTime>
     </File>
     <File Include="Areas/Caja/Views/Web.config">
       <publishTime>03/01/2022 10:48:48</publishTime>
     </File>
     <File Include="Areas/Compras/Views/Compras/Index.cshtml">
-      <publishTime>04/07/2022 21:34:14</publishTime>
+      <publishTime>05/31/2022 16:07:26</publishTime>
     </File>
     <File Include="Areas/Compras/Views/Compras/Mantenimiento.cshtml">
-      <publishTime>04/07/2022 19:50:42</publishTime>
+      <publishTime>04/28/2022 11:27:45</publishTime>
     </File>
     <File Include="Areas/Compras/Views/Compras/View_BuscarProducto.cshtml">
-      <publishTime>04/07/2022 14:38:34</publishTime>
+      <publishTime>05/12/2022 15:24:03</publishTime>
     </File>
     <File Include="Areas/Compras/Views/Compras/View_DetalleCompra.cshtml">
       <publishTime>04/07/2022 17:17:29</publishTime>
@@ -71,7 +77,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>03/03/2022 10:29:54</publishTime>
     </File>
     <File Include="Areas/CuentasCobrar/Views/CuentasCobrar/Index.cshtml">
-      <publishTime>03/29/2022 10:51:24</publishTime>
+      <publishTime>05/30/2022 23:57:42</publishTime>
     </File>
     <File Include="Areas/CuentasCobrar/Views/CuentasCobrar/Mantenimiento.cshtml">
       <publishTime>04/07/2022 10:25:05</publishTime>
@@ -79,20 +85,53 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     <File Include="Areas/CuentasCobrar/Views/Web.config">
       <publishTime>03/05/2022 11:51:16</publishTime>
     </File>
+    <File Include="Areas/Dashboard/Views/Dashboard/Index.cshtml">
+      <publishTime>05/31/2022 20:49:19</publishTime>
+    </File>
+    <File Include="Areas/Dashboard/Views/Web.config">
+      <publishTime>04/15/2022 13:45:46</publishTime>
+    </File>
     <File Include="Areas/Inventario/Views/Categoria/Index.cshtml">
-      <publishTime>03/08/2022 11:31:24</publishTime>
+      <publishTime>04/28/2022 12:46:31</publishTime>
     </File>
     <File Include="Areas/Inventario/Views/Categoria/Mantenimiento.cshtml">
       <publishTime>03/08/2022 11:30:28</publishTime>
     </File>
+    <File Include="Areas/Inventario/Views/Importar/Importar_DescagarPlantilla.cshtml">
+      <publishTime>05/05/2022 17:07:18</publishTime>
+    </File>
+    <File Include="Areas/Inventario/Views/Importar/View_Importar.cshtml">
+      <publishTime>05/09/2022 14:31:01</publishTime>
+    </File>
     <File Include="Areas/Inventario/Views/Producto/Index.cshtml">
-      <publishTime>03/15/2022 10:12:02</publishTime>
+      <publishTime>05/12/2022 15:29:45</publishTime>
     </File>
     <File Include="Areas/Inventario/Views/Producto/Mantenimiento.cshtml">
-      <publishTime>04/07/2022 14:34:20</publishTime>
+      <publishTime>05/31/2022 20:57:32</publishTime>
+    </File>
+    <File Include="Areas/Inventario/Views/Producto/View_ExportarProductoExcel.cshtml">
+      <publishTime>05/12/2022 15:44:28</publishTime>
+    </File>
+    <File Include="Areas/Inventario/Views/Producto/View_ExportarProductoPDF.cshtml">
+      <publishTime>05/12/2022 15:46:04</publishTime>
+    </File>
+    <File Include="Areas/Inventario/Views/Producto/View_Ingreso.cshtml">
+      <publishTime>05/30/2022 22:53:00</publishTime>
+    </File>
+    <File Include="Areas/Inventario/Views/Producto/View_Salidas.cshtml">
+      <publishTime>05/12/2022 15:24:03</publishTime>
+    </File>
+    <File Include="Areas/Inventario/Views/Translado_Producto/View_BuscarProducto.cshtml">
+      <publishTime>05/30/2022 22:53:00</publishTime>
+    </File>
+    <File Include="Areas/Inventario/Views/Translado_Producto/View_Translados.cshtml">
+      <publishTime>05/15/2022 14:56:18</publishTime>
     </File>
     <File Include="Areas/Inventario/Views/Web.config">
       <publishTime>03/01/2022 23:35:08</publishTime>
+    </File>
+    <File Include="Areas/Login/Views/Login/View_UsuarioLogeado.cshtml">
+      <publishTime>05/30/2022 09:02:56</publishTime>
     </File>
     <File Include="Areas/Login/Views/Web.config">
       <publishTime>03/11/2022 21:43:47</publishTime>
@@ -101,13 +140,16 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>03/10/2022 18:41:20</publishTime>
     </File>
     <File Include="Areas/Ventas/Views/Consulta_Ventas/Index.cshtml">
-      <publishTime>04/07/2022 10:28:47</publishTime>
+      <publishTime>05/14/2022 17:28:03</publishTime>
+    </File>
+    <File Include="Areas/Ventas/Views/Consulta_Ventas/View_Exportar.cshtml">
+      <publishTime>05/14/2022 13:35:11</publishTime>
     </File>
     <File Include="Areas/Ventas/Views/Ventas/Index.cshtml">
-      <publishTime>04/07/2022 10:26:40</publishTime>
+      <publishTime>05/31/2022 00:25:52</publishTime>
     </File>
     <File Include="Areas/Ventas/Views/Ventas/Mantenimiento.cshtml">
-      <publishTime>04/09/2022 19:58:24</publishTime>
+      <publishTime>05/30/2022 22:53:00</publishTime>
     </File>
     <File Include="Areas/Ventas/Views/Ventas/Mantenimiento_BuscarProducto.cshtml">
       <publishTime>03/28/2022 19:10:38</publishTime>
@@ -116,7 +158,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>03/24/2022 10:12:27</publishTime>
     </File>
     <File Include="Areas/Ventas/Views/Ventas/View_BuscarProducto.cshtml">
-      <publishTime>04/06/2022 22:44:15</publishTime>
+      <publishTime>05/30/2022 22:53:00</publishTime>
     </File>
     <File Include="Areas/Ventas/Views/Web.config">
       <publishTime>03/03/2022 17:24:07</publishTime>
@@ -125,7 +167,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>02/19/2022 18:41:02</publishTime>
     </File>
     <File Include="assets/css/Changes_estilos/theme_dark.css">
-      <publishTime>03/10/2022 21:21:56</publishTime>
+      <publishTime>05/31/2022 00:24:40</publishTime>
     </File>
     <File Include="assets/css/Copia de General.css">
       <publishTime>04/06/2022 21:21:14</publishTime>
@@ -134,22 +176,28 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>04/07/2022 09:52:12</publishTime>
     </File>
     <File Include="assets/css/General.css">
-      <publishTime>04/07/2022 09:52:26</publishTime>
+      <publishTime>05/29/2022 13:18:54</publishTime>
+    </File>
+    <File Include="assets/css/Grid_theme_bootstrap.css">
+      <publishTime>05/07/2022 13:23:55</publishTime>
+    </File>
+    <File Include="assets/css/Login.css">
+      <publishTime>05/30/2022 20:52:03</publishTime>
     </File>
     <File Include="assets/css/perfect-scrollbar.css">
       <publishTime>02/19/2022 18:41:02</publishTime>
     </File>
     <File Include="assets/css/RadioButton.css">
-      <publishTime>03/08/2022 14:56:17</publishTime>
+      <publishTime>04/12/2022 14:14:11</publishTime>
     </File>
     <File Include="assets/css/Sistema.css">
-      <publishTime>04/09/2022 20:13:43</publishTime>
+      <publishTime>04/19/2022 11:16:09</publishTime>
     </File>
     <File Include="assets/css/spinnerloader.css">
       <publishTime>03/03/2022 22:26:04</publishTime>
     </File>
     <File Include="assets/css/style.css">
-      <publishTime>04/07/2022 14:17:00</publishTime>
+      <publishTime>05/31/2022 17:14:51</publishTime>
     </File>
     <File Include="assets/css/Switch_Toggle.css">
       <publishTime>03/19/2022 23:29:36</publishTime>
@@ -316,6 +364,12 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     <File Include="assets/images/1.jpg">
       <publishTime>02/19/2022 18:41:02</publishTime>
     </File>
+    <File Include="assets/images/401-Error-Unauthorized.gif">
+      <publishTime>05/31/2022 01:08:58</publishTime>
+    </File>
+    <File Include="assets/images/401-Error-Unauthorized.png">
+      <publishTime>05/31/2022 10:45:36</publishTime>
+    </File>
     <File Include="assets/images/avatar/1.png">
       <publishTime>02/19/2022 18:41:02</publishTime>
     </File>
@@ -330,6 +384,9 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     </File>
     <File Include="assets/images/avatar/5.png">
       <publishTime>02/19/2022 18:41:02</publishTime>
+    </File>
+    <File Include="assets/images/awesome.png">
+      <publishTime>04/17/2022 16:33:27</publishTime>
     </File>
     <File Include="assets/images/card/1.png">
       <publishTime>02/19/2022 18:41:02</publishTime>
@@ -349,6 +406,36 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     <File Include="assets/images/invalid.png">
       <publishTime>02/19/2022 18:41:02</publishTime>
     </File>
+    <File Include="assets/images/login/bg_login.png">
+      <publishTime>05/29/2022 14:00:42</publishTime>
+    </File>
+    <File Include="assets/images/login/img-sistema.png">
+      <publishTime>05/29/2022 14:14:02</publishTime>
+    </File>
+    <File Include="assets/images/login/login.jpg">
+      <publishTime>05/28/2022 20:24:34</publishTime>
+    </File>
+    <File Include="assets/images/login/Login2.png">
+      <publishTime>05/29/2022 13:49:30</publishTime>
+    </File>
+    <File Include="assets/images/login/productos_1.PNG">
+      <publishTime>05/28/2022 20:06:02</publishTime>
+    </File>
+    <File Include="assets/images/login/questions.png">
+      <publishTime>05/30/2022 11:38:12</publishTime>
+    </File>
+    <File Include="assets/images/login/reportgrafics_1.PNG">
+      <publishTime>05/28/2022 19:47:06</publishTime>
+    </File>
+    <File Include="assets/images/login/reportgrafics_2.PNG">
+      <publishTime>05/28/2022 19:47:06</publishTime>
+    </File>
+    <File Include="assets/images/login/reportgrafics_3.PNG">
+      <publishTime>05/28/2022 20:03:24</publishTime>
+    </File>
+    <File Include="assets/images/login/ventas_1.PNG">
+      <publishTime>05/28/2022 20:08:54</publishTime>
+    </File>
     <File Include="assets/images/logo-text.png">
       <publishTime>02/19/2022 18:41:02</publishTime>
     </File>
@@ -357,6 +444,9 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     </File>
     <File Include="assets/images/logo.svg">
       <publishTime>02/19/2022 18:41:02</publishTime>
+    </File>
+    <File Include="assets/images/logo_aw.png">
+      <publishTime>05/30/2022 20:51:59</publishTime>
     </File>
     <File Include="assets/images/product/1.jpg">
       <publishTime>02/19/2022 18:41:02</publishTime>
@@ -414,6 +504,9 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     </File>
     <File Include="assets/images/profile/profile.png">
       <publishTime>02/19/2022 18:41:02</publishTime>
+    </File>
+    <File Include="assets/images/radio.png">
+      <publishTime>04/30/2022 13:50:34</publishTime>
     </File>
     <File Include="assets/images/svg/actions.svg">
       <publishTime>02/19/2022 18:41:02</publishTime>
@@ -526,6 +619,9 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     <File Include="assets/images/svg/project.svg">
       <publishTime>02/19/2022 18:41:02</publishTime>
     </File>
+    <File Include="assets/images/svg/radio.png">
+      <publishTime>04/30/2022 13:50:16</publishTime>
+    </File>
     <File Include="assets/images/svg/reload.svg">
       <publishTime>02/19/2022 18:41:02</publishTime>
     </File>
@@ -607,8 +703,20 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     <File Include="assets/images/valid.png">
       <publishTime>02/19/2022 18:41:02</publishTime>
     </File>
+    <File Include="assets/jqGrid/css/ace.min.css">
+      <publishTime>04/20/2022 15:01:11</publishTime>
+    </File>
     <File Include="assets/jqGrid/css/ui.jqgrid.css">
-      <publishTime>03/15/2022 12:47:25</publishTime>
+      <publishTime>05/07/2022 17:47:53</publishTime>
+    </File>
+    <File Include="assets/jqGrid/Griddo/jquery.jqgrid.min.js">
+      <publishTime>04/20/2022 15:40:19</publishTime>
+    </File>
+    <File Include="assets/jqGrid/Griddo/jquery.jqgrid.min.js.map">
+      <publishTime>04/20/2022 15:40:19</publishTime>
+    </File>
+    <File Include="assets/jqGrid/Griddo/ui.jqgrid.css">
+      <publishTime>04/20/2022 15:42:41</publishTime>
     </File>
     <File Include="assets/jqGrid/jquery-ui/images/animated-overlay.gif">
       <publishTime>02/19/2022 18:41:02</publishTime>
@@ -692,7 +800,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>02/19/2022 18:41:02</publishTime>
     </File>
     <File Include="assets/jqGrid/jquery-ui/jquery-ui-1.10.1.custom.css">
-      <publishTime>03/11/2022 15:06:15</publishTime>
+      <publishTime>04/30/2022 16:29:00</publishTime>
     </File>
     <File Include="assets/jqGrid/jquery-ui/jquery-ui-1.10.1.custom.min.css">
       <publishTime>02/19/2022 18:41:02</publishTime>
@@ -1232,7 +1340,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>02/19/2022 18:41:04</publishTime>
     </File>
     <File Include="assets/vendor/bootstrap-daterangepicker/daterangepicker.css">
-      <publishTime>02/19/2022 18:41:04</publishTime>
+      <publishTime>05/04/2022 18:18:31</publishTime>
     </File>
     <File Include="assets/vendor/bootstrap-daterangepicker/daterangepicker.js">
       <publishTime>02/19/2022 18:41:04</publishTime>
@@ -1817,7 +1925,10 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>02/19/2022 18:41:04</publishTime>
     </File>
     <File Include="assets/vendor/chart.js/Chart.bundle.min.js">
-      <publishTime>02/19/2022 18:41:04</publishTime>
+      <publishTime>04/15/2022 16:10:11</publishTime>
+    </File>
+    <File Include="assets/vendor/chart.js/chartjs-plugin-datalabels.min.js">
+      <publishTime>04/17/2022 11:53:46</publishTime>
     </File>
     <File Include="assets/vendor/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
       <publishTime>02/19/2022 18:41:04</publishTime>
@@ -10516,8 +10627,17 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     <File Include="assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js">
       <publishTime>02/19/2022 18:41:17</publishTime>
     </File>
+    <File Include="assets/vendor/datatables/css/datatables.css">
+      <publishTime>04/25/2022 16:46:00</publishTime>
+    </File>
     <File Include="assets/vendor/datatables/css/jquery.dataTables.min.css">
       <publishTime>02/19/2022 18:41:17</publishTime>
+    </File>
+    <File Include="assets/vendor/datatables/css/responsive.dataTables.min.css">
+      <publishTime>04/25/2022 09:52:45</publishTime>
+    </File>
+    <File Include="assets/vendor/datatables/css/select.dataTables.css">
+      <publishTime>04/25/2022 09:52:45</publishTime>
     </File>
     <File Include="assets/vendor/datatables/images/favicon.ico">
       <publishTime>02/19/2022 18:41:17</publishTime>
@@ -10537,8 +10657,11 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     <File Include="assets/vendor/datatables/images/sort_desc_disabled.png">
       <publishTime>02/19/2022 18:41:17</publishTime>
     </File>
+    <File Include="assets/vendor/datatables/js/DatatablePlugin.js">
+      <publishTime>05/30/2022 22:53:02</publishTime>
+    </File>
     <File Include="assets/vendor/datatables/js/jquery.dataTables.min.js">
-      <publishTime>02/19/2022 18:41:17</publishTime>
+      <publishTime>04/25/2022 09:52:16</publishTime>
     </File>
     <File Include="assets/vendor/datedropper/datedropper.min.css">
       <publishTime>02/19/2022 18:41:17</publishTime>
@@ -11040,6 +11163,9 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     </File>
     <File Include="assets/vendor/jquery-validation/jquery.validate.min.js">
       <publishTime>02/19/2022 18:41:18</publishTime>
+    </File>
+    <File Include="assets/vendor/jquery.counterup/countUp.umd.js">
+      <publishTime>04/15/2022 19:40:20</publishTime>
     </File>
     <File Include="assets/vendor/jquery.counterup/jquery.counterup.min.js">
       <publishTime>02/19/2022 18:41:18</publishTime>
@@ -11578,17 +11704,26 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>02/19/2022 18:39:48</publishTime>
     </File>
+    <File Include="bin/ApiCulqi.dll">
+      <publishTime>05/31/2022 22:11:41</publishTime>
+    </File>
     <File Include="bin/App_Ventas.dll">
-      <publishTime>04/10/2022 12:22:57</publishTime>
+      <publishTime>05/31/2022 22:11:45</publishTime>
+    </File>
+    <File Include="bin/BouncyCastle.Crypto.dll">
+      <publishTime>02/24/2020 15:29:24</publishTime>
     </File>
     <File Include="bin/Capa_Datos.dll">
-      <publishTime>04/10/2022 12:22:56</publishTime>
+      <publishTime>05/31/2022 22:11:42</publishTime>
     </File>
     <File Include="bin/Capa_Entidad.dll">
-      <publishTime>04/10/2022 12:22:55</publishTime>
+      <publishTime>05/31/2022 22:11:41</publishTime>
     </File>
     <File Include="bin/Capa_Negocio.dll">
-      <publishTime>04/10/2022 12:22:56</publishTime>
+      <publishTime>05/31/2022 22:11:42</publishTime>
+    </File>
+    <File Include="bin/Capa_Token.dll">
+      <publishTime>05/31/2022 22:11:41</publishTime>
     </File>
     <File Include="bin/DocumentFormat.OpenXml.dll">
       <publishTime>03/15/2022 01:39:04</publishTime>
@@ -11656,6 +11791,21 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     <File Include="bin/es/WebMatrix.WebData.resources.dll">
       <publishTime>07/10/2012 23:40:02</publishTime>
     </File>
+    <File Include="bin/ICSharpCode.SharpZipLib.dll">
+      <publishTime>08/15/2018 17:16:34</publishTime>
+    </File>
+    <File Include="bin/itextsharp.dll">
+      <publishTime>08/27/2020 11:20:20</publishTime>
+    </File>
+    <File Include="bin/Microsoft.IdentityModel.JsonWebTokens.dll">
+      <publishTime>06/30/2020 01:04:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.IdentityModel.Logging.dll">
+      <publishTime>06/30/2020 01:05:58</publishTime>
+    </File>
+    <File Include="bin/Microsoft.IdentityModel.Tokens.dll">
+      <publishTime>06/30/2020 01:09:30</publishTime>
+    </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>02/19/2022 18:39:46</publishTime>
     </File>
@@ -11663,7 +11813,28 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>02/19/2022 18:39:47</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>02/19/2022 18:39:46</publishTime>
+      <publishTime>03/17/2021 20:03:36</publishTime>
+    </File>
+    <File Include="bin/NPOI.dll">
+      <publishTime>12/17/2018 19:15:12</publishTime>
+    </File>
+    <File Include="bin/NPOI.OOXML.dll">
+      <publishTime>12/17/2018 19:15:12</publishTime>
+    </File>
+    <File Include="bin/NPOI.OpenXml4Net.dll">
+      <publishTime>12/17/2018 19:15:12</publishTime>
+    </File>
+    <File Include="bin/NPOI.OpenXmlFormats.dll">
+      <publishTime>12/17/2018 19:15:12</publishTime>
+    </File>
+    <File Include="bin/nunit.framework.dll">
+      <publishTime>03/20/2022 17:47:40</publishTime>
+    </File>
+    <File Include="bin/RestSharp.dll">
+      <publishTime>10/15/2019 15:01:31</publishTime>
+    </File>
+    <File Include="bin/System.IdentityModel.Tokens.Jwt.dll">
+      <publishTime>06/30/2020 01:02:56</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>02/19/2022 18:39:47</publishTime>
@@ -11918,13 +12089,31 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>03/15/2022 14:11:43</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>03/15/2022 13:51:16</publishTime>
+      <publishTime>05/16/2022 17:08:16</publishTime>
+    </File>
+    <File Include="Recursos/Descargas/DescargarPlantillaExcel.aspx">
+      <publishTime>05/05/2022 16:36:33</publishTime>
+    </File>
+    <File Include="Recursos/Descargas/DescargarProductoExcel.aspx">
+      <publishTime>05/11/2022 18:39:32</publishTime>
+    </File>
+    <File Include="Recursos/Descargas/DescargarProductoPDF.aspx">
+      <publishTime>05/12/2022 10:42:31</publishTime>
+    </File>
+    <File Include="Recursos/Descargas/DescargarVentas.aspx">
+      <publishTime>05/14/2022 13:32:45</publishTime>
+    </File>
+    <File Include="Recursos/Excel/Plantillas/Plantilla_Producto.xlsx">
+      <publishTime>05/08/2022 12:59:29</publishTime>
     </File>
     <File Include="Recursos/Forms/GenerarComprobante.aspx">
       <publishTime>03/21/2022 22:53:20</publishTime>
     </File>
     <File Include="Recursos/Imagenes/tulogo.png">
       <publishTime>03/15/2022 15:31:30</publishTime>
+    </File>
+    <File Include="Recursos/ImagenProducto/no-image.png">
+      <publishTime>04/18/2022 20:44:41</publishTime>
     </File>
     <File Include="Recursos/ImagenProducto/NoBorrar.js">
       <publishTime>04/03/2022 15:11:07</publishTime>
@@ -11936,7 +12125,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>04/03/2022 15:11:09</publishTime>
     </File>
     <File Include="Recursos/PlantillaCorreo/NotificarCredito.html">
-      <publishTime>03/30/2022 22:24:30</publishTime>
+      <publishTime>05/31/2022 18:58:21</publishTime>
     </File>
     <File Include="Recursos/PlantillaCorreo/NotificarCredito1.html">
       <publishTime>03/29/2022 12:35:19</publishTime>
@@ -11944,8 +12133,11 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     <File Include="Recursos/Temporales/NoBorrar.js">
       <publishTime>04/03/2022 15:11:14</publishTime>
     </File>
+    <File Include="Scripts/crypto-js.min.js">
+      <publishTime>05/30/2022 12:30:38</publishTime>
+    </File>
     <File Include="Scripts/General.js">
-      <publishTime>03/26/2022 22:57:53</publishTime>
+      <publishTime>05/30/2022 22:53:02</publishTime>
     </File>
     <File Include="Scripts/inicializacion.js">
       <publishTime>03/05/2022 15:22:42</publishTime>
@@ -11984,7 +12176,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>02/27/2022 19:07:09</publishTime>
     </File>
     <File Include="Scripts/jquery.jqGrid.js">
-      <publishTime>02/19/2022 18:43:30</publishTime>
+      <publishTime>04/20/2022 16:56:22</publishTime>
     </File>
     <File Include="Scripts/jquery.jqGrid.min.js">
       <publishTime>02/19/2022 18:43:30</publishTime>
@@ -11996,7 +12188,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>02/19/2022 18:43:30</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.js">
-      <publishTime>02/19/2022 18:43:30</publishTime>
+      <publishTime>05/30/2022 22:53:02</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.min.js">
       <publishTime>02/19/2022 18:43:30</publishTime>
@@ -12008,13 +12200,13 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>02/19/2022 18:43:30</publishTime>
     </File>
     <File Include="Scripts/Js/Administracion/Clientes.js">
-      <publishTime>03/19/2022 22:29:22</publishTime>
+      <publishTime>05/15/2022 18:33:47</publishTime>
     </File>
     <File Include="Scripts/Js/Administracion/configurarEmpresa/configurarEmpresa.js">
       <publishTime>03/05/2022 22:35:03</publishTime>
     </File>
     <File Include="Scripts/Js/Administracion/configurarEmpresa/Recursos.js">
-      <publishTime>03/09/2022 12:28:56</publishTime>
+      <publishTime>05/07/2022 16:21:31</publishTime>
     </File>
     <File Include="Scripts/Js/Administracion/ListadoCombo.js">
       <publishTime>03/21/2022 15:24:52</publishTime>
@@ -12022,44 +12214,71 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     <File Include="Scripts/Js/Administracion/Perfil.js">
       <publishTime>03/19/2022 22:29:31</publishTime>
     </File>
+    <File Include="Scripts/Js/Administracion/Perfil/Perfil.js">
+      <publishTime>05/23/2022 18:25:17</publishTime>
+    </File>
+    <File Include="Scripts/Js/Administracion/Perfil/PerfilModulo.js">
+      <publishTime>05/23/2022 18:25:45</publishTime>
+    </File>
     <File Include="Scripts/Js/Administracion/Personal.js">
-      <publishTime>02/26/2022 12:02:37</publishTime>
+      <publishTime>05/30/2022 22:53:02</publishTime>
     </File>
     <File Include="Scripts/Js/Administracion/Proveedor.js">
-      <publishTime>03/19/2022 22:29:55</publishTime>
+      <publishTime>05/30/2022 22:53:02</publishTime>
     </File>
     <File Include="Scripts/Js/Administracion/Sucursal.js">
-      <publishTime>03/19/2022 22:29:55</publishTime>
+      <publishTime>04/26/2022 22:40:23</publishTime>
     </File>
     <File Include="Scripts/Js/Administracion/Usuarios.js">
-      <publishTime>03/19/2022 22:29:55</publishTime>
+      <publishTime>05/31/2022 17:30:39</publishTime>
     </File>
     <File Include="Scripts/Js/Administracion/Usuario_Perfil.js">
       <publishTime>03/07/2022 23:10:30</publishTime>
     </File>
     <File Include="Scripts/Js/Caja/Caja.js">
-      <publishTime>03/01/2022 22:52:20</publishTime>
+      <publishTime>05/31/2022 20:49:09</publishTime>
     </File>
     <File Include="Scripts/Js/Compras/Compras.js">
-      <publishTime>04/07/2022 21:33:46</publishTime>
+      <publishTime>05/30/2022 22:53:02</publishTime>
     </File>
     <File Include="Scripts/Js/Compras/Compras_Detalle.js">
       <publishTime>03/03/2022 13:42:19</publishTime>
     </File>
     <File Include="Scripts/Js/CuentasCobrar/CuentasCobrar.js">
-      <publishTime>04/07/2022 10:25:11</publishTime>
+      <publishTime>05/30/2022 22:53:02</publishTime>
+    </File>
+    <File Include="Scripts/Js/Dashboard/Dashboard.js">
+      <publishTime>05/31/2022 15:36:00</publishTime>
+    </File>
+    <File Include="Scripts/Js/Dashboard/Dashboard_Grafics.js">
+      <publishTime>05/31/2022 15:09:50</publishTime>
     </File>
     <File Include="Scripts/Js/Inventario/Categoria.js">
-      <publishTime>03/19/2022 22:29:05</publishTime>
+      <publishTime>05/15/2022 18:25:08</publishTime>
     </File>
     <File Include="Scripts/Js/Inventario/Producto.js">
       <publishTime>03/21/2022 10:38:36</publishTime>
     </File>
+    <File Include="Scripts/Js/Inventario/Producto/Importar_Producto.js">
+      <publishTime>05/12/2022 17:30:57</publishTime>
+    </File>
+    <File Include="Scripts/Js/Inventario/Producto/Movimiento_Producto.js">
+      <publishTime>05/05/2022 12:08:22</publishTime>
+    </File>
+    <File Include="Scripts/Js/Inventario/Producto/Producto.js">
+      <publishTime>05/30/2022 22:53:02</publishTime>
+    </File>
+    <File Include="Scripts/Js/Inventario/Producto/Translados_Detalle.js">
+      <publishTime>04/30/2022 12:09:20</publishTime>
+    </File>
     <File Include="Scripts/Js/Inventario/Producto_Recursos.js">
-      <publishTime>03/24/2022 10:14:46</publishTime>
+      <publishTime>05/07/2022 16:21:31</publishTime>
+    </File>
+    <File Include="Scripts/Js/Login/LoginHelpers.js">
+      <publishTime>05/31/2022 18:32:46</publishTime>
     </File>
     <File Include="Scripts/Js/Prueba.js">
-      <publishTime>02/19/2022 18:43:30</publishTime>
+      <publishTime>05/30/2022 22:53:02</publishTime>
     </File>
     <File Include="Scripts/Js/Recursiva/BuscarProcutos.js">
       <publishTime>03/11/2022 10:32:55</publishTime>
@@ -12068,19 +12287,19 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>03/24/2022 10:11:23</publishTime>
     </File>
     <File Include="Scripts/Js/Servicio/ServicioPersona.js">
-      <publishTime>03/10/2022 18:42:55</publishTime>
+      <publishTime>05/31/2022 17:30:39</publishTime>
     </File>
     <File Include="Scripts/Js/Ventas/Consulta_Ventas.js">
-      <publishTime>04/07/2022 10:27:18</publishTime>
+      <publishTime>05/14/2022 13:44:27</publishTime>
     </File>
     <File Include="Scripts/Js/Ventas/Ventas.js">
-      <publishTime>04/07/2022 16:32:09</publishTime>
+      <publishTime>05/30/2022 23:34:24</publishTime>
     </File>
     <File Include="Scripts/Js/Ventas/Ventas_Detalle.js">
-      <publishTime>04/06/2022 22:48:02</publishTime>
+      <publishTime>05/30/2022 22:53:02</publishTime>
     </File>
     <File Include="Scripts/Js/Ventas/Ventas_Recursiva.js">
-      <publishTime>03/29/2022 00:46:24</publishTime>
+      <publishTime>05/30/2022 23:58:41</publishTime>
     </File>
     <File Include="Scripts/knockout-2.1.0.debug.js">
       <publishTime>02/19/2022 18:43:30</publishTime>
@@ -12095,13 +12314,13 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>03/01/2022 18:59:20</publishTime>
     </File>
     <File Include="Scripts/SICA.js">
-      <publishTime>03/29/2022 14:23:40</publishTime>
+      <publishTime>05/30/2022 22:53:03</publishTime>
     </File>
     <File Include="Scripts/SweetAlert.js">
-      <publishTime>03/23/2022 18:30:44</publishTime>
+      <publishTime>05/30/2022 22:53:03</publishTime>
     </File>
     <File Include="Scripts/ui.datepicker-es.js">
-      <publishTime>02/28/2022 14:18:34</publishTime>
+      <publishTime>04/27/2022 16:14:26</publishTime>
     </File>
     <File Include="Scripts/WavesEffect.js">
       <publishTime>03/07/2022 10:25:27</publishTime>
@@ -12145,11 +12364,17 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
     <File Include="Views/Home/Index.cshtml">
       <publishTime>03/12/2022 13:11:39</publishTime>
     </File>
+    <File Include="Views/Home/page401.cshtml">
+      <publishTime>05/31/2022 11:38:20</publishTime>
+    </File>
+    <File Include="Views/Login/Index.cshtml">
+      <publishTime>05/31/2022 12:15:25</publishTime>
+    </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>02/19/2022 18:39:40</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/06/2022 22:51:02</publishTime>
+      <publishTime>05/31/2022 18:30:29</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>02/19/2022 18:39:40</publishTime>
@@ -12161,7 +12386,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>02/19/2022 18:45:33</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/10/2022 12:23:05</publishTime>
+      <publishTime>05/31/2022 22:11:49</publishTime>
     </File>
   </ItemGroup>
 </Project>

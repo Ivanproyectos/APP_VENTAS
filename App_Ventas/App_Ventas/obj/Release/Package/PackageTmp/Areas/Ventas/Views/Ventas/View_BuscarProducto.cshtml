@@ -1,4 +1,4 @@
-﻿@model App_Ventas.Areas.Ventas.Models.ProductoModelView
+﻿@model App_Ventas.Areas.Ventas.Models.BuscarProductoModelView
 <script>
     var _Valido = false;
     var _Accion = $('#AccionBuscarProducto').val();
@@ -132,7 +132,7 @@
         }
     })
     .data("autocomplete")._renderItem = function (ul, item) {
-        debugger;
+        
         var _html_FotoProducto = "";
         var _Tipodesc = item.FLG_SERVICIO == 1 ? 'servicio' : 'producto';
         if (item.FLG_SERVICIO == 0 && item.MiArchivo.CODIGO_ARCHIVO !="0") {
@@ -262,14 +262,14 @@
             }
         </div>
         <div class="modal-footer">
-            <button type="button" id="Sucursal_Btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-basket"></i>&nbsp; Agregar Producto</button>
+            <button type="button" id="Sucursal_Btn_Guardar" class="btn btn-hover-shine btn-square btn-secondary"><i class="bi bi-basket"></i>&nbsp; Agregar Producto</button>
             <button type="button" class="btn  btn-square btn-dark" id="Btn_CerrarModal">Cancelar</button>
         </div>
     </div>
 </div>
 @Html.Hidden("hfd_ID_PRODUCTO", Model.ID_PRODUCTO)
 @Html.Hidden("hfd_STOCK", Model.STOCK)
-@Html.Hidden("Hdf_flg_Servicio", Model.FLG_SERIVICIO)
+@Html.Hidden("Hdf_flg_Servicio", Model.FLG_SERVICIO)
 @Html.Hidden("AccionBuscarProducto", Model.Accion)
 @Html.Hidden("HDF_COD_UNIDAD_MEDIDA", Model.COD_UNIDAD_MEDIDA)
 @Html.Hidden("hfd_TIPO_PROCESO", Model.TIPO_PROCESO)

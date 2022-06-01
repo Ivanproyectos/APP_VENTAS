@@ -93,7 +93,7 @@ $.extend($.fn, {
 	},
 	// http://docs.jquery.com/Plugins/Validation/valid
 	valid: function () {
-	    debugger; 
+	     
         if ( $(this[0]).is('form')) {
             return this.validate().form();
         } else {
