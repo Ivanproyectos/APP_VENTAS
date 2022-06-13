@@ -27,41 +27,41 @@ namespace App_Ventas.Areas.CuentasCobrar.Controllers
 
         public ActionResult Index()
         {
-
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             CuentasCobrarModelView model = new CuentasCobrarModelView();
-
- 
-
-            using (SucursalRepositorio RepositorioUbigeo = new SucursalRepositorio())
+            try
             {
-                Cls_Ent_Sucursal entidad = new Cls_Ent_Sucursal
+                Cls_Ent_SetUpLogin SetUp = (Cls_Ent_SetUpLogin)Session["SetUpLogin"];
+                model.ID_SUCURSAL = SetUp.ID_SUCURSAL;
+                using (SucursalRepositorio RepositorioUbigeo = new SucursalRepositorio())
                 {
-                    FLG_ESTADO = 2
-                }; 
-                model.Lista_Sucursal = RepositorioUbigeo.Sucursal_Listar(entidad, ref auditoria).Select(x => new SelectListItem()
+                    Cls_Ent_Sucursal entidad = new Cls_Ent_Sucursal
+                    {
+                        FLG_ESTADO = 2
+                    };
+                    model.Lista_Sucursal = RepositorioUbigeo.Sucursal_Listar(entidad, ref auditoria).Select(x => new SelectListItem()
+                    {
+                        Text = x.DESC_SUCURSAL,
+                        Value = x.ID_SUCURSAL.ToString()
+                    }).ToList();
+                    model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "0", Text = "--Seleccione--" });
+                }
+                using (ClienteRepositorio RepositorioC = new ClienteRepositorio())
                 {
-                    Text = x.DESC_SUCURSAL,
-                    Value = x.ID_SUCURSAL.ToString()
-                }).ToList();
-                model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "0", Text = "--Seleccione--" });
+                    Cls_Ent_Cliente Entidad = new Cls_Ent_Cliente();
+                    Entidad.FLG_ESTADO = 1; // activos
+                    model.Lista_Cliente = RepositorioC.Cliente_Listar(Entidad, ref auditoria).Select(x => new SelectListItem()
+                    {
+                        Text = x.NOMBRES_APE + " - " + x.NUMERO_DOCUMENTO,
+                        Value = x.ID_CLIENTE.ToString()
+                    }).ToList();
+                    model.Lista_Cliente.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+                }
             }
-
-
-            using (ClienteRepositorio RepositorioC = new ClienteRepositorio())
+            catch (Exception ex)
             {
-                Cls_Ent_Cliente Entidad = new Cls_Ent_Cliente();
-                Entidad.FLG_ESTADO = 1; // activos
-                model.Lista_Cliente = RepositorioC.Cliente_Listar(Entidad, ref auditoria).Select(x => new SelectListItem()
-                {
-                    Text = x.NOMBRES_APE + " - " + x.NUMERO_DOCUMENTO,
-                    Value = x.ID_CLIENTE.ToString()
-                }).ToList();
-                model.Lista_Cliente.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+                Recursos.Clases.Css_Log.Guardar(ex.Message.ToString());
             }
-
-
-
             return View(model);
         }
 
@@ -274,11 +274,6 @@ namespace App_Ventas.Areas.CuentasCobrar.Controllers
             }
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
-
-
-     
- 
-
 
     }
 }

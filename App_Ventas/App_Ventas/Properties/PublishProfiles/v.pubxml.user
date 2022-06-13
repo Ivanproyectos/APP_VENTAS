@@ -11708,7 +11708,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>05/31/2022 22:11:41</publishTime>
     </File>
     <File Include="bin/App_Ventas.dll">
-      <publishTime>06/01/2022 12:00:06</publishTime>
+      <publishTime>06/01/2022 20:19:48</publishTime>
     </File>
     <File Include="bin/BouncyCastle.Crypto.dll">
       <publishTime>02/24/2020 15:29:24</publishTime>
@@ -12275,7 +12275,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>05/07/2022 16:21:31</publishTime>
     </File>
     <File Include="Scripts/Js/Login/LoginHelpers.js">
-      <publishTime>06/01/2022 11:07:41</publishTime>
+      <publishTime>06/01/2022 13:59:46</publishTime>
     </File>
     <File Include="Scripts/Js/Prueba.js">
       <publishTime>05/30/2022 22:53:02</publishTime>
@@ -12374,7 +12374,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>02/19/2022 18:39:40</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>06/01/2022 11:53:44</publishTime>
+      <publishTime>06/01/2022 13:41:54</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>02/19/2022 18:39:40</publishTime>
@@ -12386,7 +12386,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>02/19/2022 18:45:33</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/01/2022 12:00:08</publishTime>
+      <publishTime>06/01/2022 20:19:57</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -21,35 +21,42 @@ namespace App_Ventas.Areas.Inventario.Controllers
 
         public ActionResult Index()
         {
+
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             ProductoModelView model = new ProductoModelView();
-
-              using (SucursalRepositorio Repositorio = new SucursalRepositorio())
+            try
             {
-                Cls_Ent_Sucursal entidad = new Cls_Ent_Sucursal();
-                entidad.FLG_ESTADO = 1;
-                model.Lista_Sucursal = Repositorio.Sucursal_Listar(entidad, ref auditoria).Select(x => new SelectListItem()
+                Cls_Ent_SetUpLogin SetUp = (Cls_Ent_SetUpLogin)Session["SetUpLogin"];
+                model.ID_SUCURSAL = SetUp.ID_SUCURSAL;
+                using (SucursalRepositorio Repositorio = new SucursalRepositorio())
                 {
-                    Text = x.DESC_SUCURSAL,
-                    Value = x.ID_SUCURSAL.ToString()
-                }).ToList();
-                model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "--Todos--" });
-            }
+                    Cls_Ent_Sucursal entidad = new Cls_Ent_Sucursal();
+                    entidad.FLG_ESTADO = 1;
+                    model.Lista_Sucursal = Repositorio.Sucursal_Listar(entidad, ref auditoria).Select(x => new SelectListItem()
+                    {
+                        Text = x.DESC_SUCURSAL,
+                        Value = x.ID_SUCURSAL.ToString()
+                    }).ToList();
+                    model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "--Todos--" });
+                }
 
-            
 
-            using (CategoriaRepositorio Repositorio = new CategoriaRepositorio())
-            {
-                Cls_Ent_Categoria entidad = new Cls_Ent_Categoria();
-                entidad.FLG_ESTADO = 1; 
-                model.Lista_Categoria = Repositorio.Categoria_Listar(entidad, ref auditoria).Select(x => new SelectListItem()
+
+                using (CategoriaRepositorio Repositorio = new CategoriaRepositorio())
                 {
-                    Text = x.DESC_CATEGORIA,
-                    Value = x.ID_CATEGORIA.ToString()
-                }).ToList();
-                model.Lista_Categoria.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+                    Cls_Ent_Categoria entidad = new Cls_Ent_Categoria();
+                    entidad.FLG_ESTADO = 1;
+                    model.Lista_Categoria = Repositorio.Categoria_Listar(entidad, ref auditoria).Select(x => new SelectListItem()
+                    {
+                        Text = x.DESC_CATEGORIA,
+                        Value = x.ID_CATEGORIA.ToString()
+                    }).ToList();
+                    model.Lista_Categoria.Insert(0, new SelectListItem() { Value = "", Text = "--Seleccione--" });
+                }
             }
-
+            catch (Exception ex) {
+                Recursos.Clases.Css_Log.Guardar(ex.Message.ToString());
+            }
             return View(model);
        
         }

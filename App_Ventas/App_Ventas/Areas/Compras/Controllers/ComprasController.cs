@@ -26,42 +26,49 @@ namespace App_Ventas.Areas.Compras.Controllers
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             ComprasModelView model = new ComprasModelView();
- 
-            using (SucursalRepositorio Repositorio = new SucursalRepositorio())
+            try
             {
+                Cls_Ent_SetUpLogin SetUp = (Cls_Ent_SetUpLogin)Session["SetUpLogin"];
+                model.ID_SUCURSAL = SetUp.ID_SUCURSAL;
+                using (SucursalRepositorio Repositorio = new SucursalRepositorio())
+                {
 
-                model.Lista_Sucursal = Repositorio.Sucursal_Listar(new Cls_Ent_Sucursal { FLG_ESTADO = 1 }, ref auditoria).Select(x => new SelectListItem()
-                {
-                    Text = x.DESC_SUCURSAL,
-                    Value = x.ID_SUCURSAL.ToString()
-                }).ToList();
-                model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Seleccione --" });
-                if (!auditoria.EJECUCION_PROCEDIMIENTO)
-                {
-                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
-                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
-                    model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Error al cargar opciones --" });
+                    model.Lista_Sucursal = Repositorio.Sucursal_Listar(new Cls_Ent_Sucursal { FLG_ESTADO = 1 }, ref auditoria).Select(x => new SelectListItem()
+                    {
+                        Text = x.DESC_SUCURSAL,
+                        Value = x.ID_SUCURSAL.ToString()
+                    }).ToList();
+                    model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Seleccione --" });
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                        model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Error al cargar opciones --" });
+                    }
+
                 }
 
-            }
+                using (ProveedorRepositorio Repositorio = new ProveedorRepositorio())
+                {
+                    model.Lista_Proveedor = Repositorio.Proveedor_Listar(new Cls_Ent_Proveedor { FLG_ESTADO = 1 }, ref auditoria).Select(x => new SelectListItem()
+                    {
+                        Text = x.NOMBRES_APE + " Nro Doc: " + x.NUMERO_DOCUMENTO,
+                        Value = x.ID_PROVEEDOR.ToString()
+                    }).ToList();
+                    model.Lista_Proveedor.Insert(0, new SelectListItem() { Value = "", Text = "-- Seleccione --" });
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                        model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Error al cargar opciones --" });
+                    }
 
-            using (ProveedorRepositorio Repositorio = new ProveedorRepositorio())
-            {
-                model.Lista_Proveedor = Repositorio.Proveedor_Listar(new Cls_Ent_Proveedor { FLG_ESTADO = 1 }, ref auditoria).Select(x => new SelectListItem()
-                {
-                    Text = x.NOMBRES_APE + " Nro Doc: " + x.NUMERO_DOCUMENTO,
-                    Value = x.ID_PROVEEDOR.ToString()
-                }).ToList();
-                model.Lista_Proveedor.Insert(0, new SelectListItem() { Value = "", Text = "-- Seleccione --" });
-                if (!auditoria.EJECUCION_PROCEDIMIENTO)
-                {
-                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
-                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
-                    model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Error al cargar opciones --" });
                 }
-
             }
-
+            catch (Exception ex)
+            {
+                Recursos.Clases.Css_Log.Guardar(ex.Message.ToString());
+            }
             return View(model);
         }
 

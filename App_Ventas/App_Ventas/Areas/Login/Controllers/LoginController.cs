@@ -40,7 +40,10 @@ namespace App_Ventas.Areas.Login.Controllers
                     {
                         if (!auditoria.RECHAZAR)
                         {
-                            auditoria.OBJETO = Cls_Api_Token.Generar(Usuario.ID_USUARIO.ToString(), Usuario.COD_USUARIO, RememberMe.ToString());
+                            auditoria.OBJETO = Cls_Api_Token.Generar(Usuario.ID_USUARIO.ToString(),
+                                                                        Usuario.COD_USUARIO, 
+                                                                        RememberMe.ToString(),
+                                                                        Convert.ToString(0));
                         }
                     }
                 }

@@ -16,7 +16,7 @@ function Producto_Limpiar() {
 }
 
 function Producto_ConfigurarGrilla() {
-      DataTable.GridUnload(Producto_Grilla);
+    DataTable.GridUnload(Producto_Grilla);
     var url = baseUrl + 'Inventario/Producto/Productos_Paginado';
     var colModels = [
            {
@@ -64,10 +64,12 @@ function GetRules(Ventas_Grilla) {
     var rules = new Array();
     var SearchFields = new Array();
     var ID_SUCURSAL = jQuery('#ID_SUCURSAL').val() == '' ? null : "'" + jQuery('#ID_SUCURSAL').val() + "'";
+    var FLG_SERVICIO = jQuery('#Producto_FLG_SERVICIO').val() == '' ? null : "'" + jQuery('#Producto_FLG_SERVICIO').val() + "'";
 
     var POR = "'%'";
     rules = []
     rules.push({ field: 'ID_SUCURSAL', data: '  ISNULL(' + ID_SUCURSAL + ',ID_SUCURSAL)', op: " = " });
+    rules.push({ field: 'FLG_SERVICIO', data: '  ISNULL(' + FLG_SERVICIO + ',FLG_SERVICIO)', op: " = " });
 
     SearchFields.push({ field: 'UPPER(COD_PRODUCTO)' });
     SearchFields.push({ field: 'UPPER(DESC_PRODUCTO)' });

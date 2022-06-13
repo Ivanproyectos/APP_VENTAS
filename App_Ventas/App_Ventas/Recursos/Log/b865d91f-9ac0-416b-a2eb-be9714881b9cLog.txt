@@ -1,0 +1,1 @@
+El servidor SMTP requiere una conexión segura o el cliente no se autenticó. La respuesta del servidor fue: 5.7.0 Authentication Required. Learn more at

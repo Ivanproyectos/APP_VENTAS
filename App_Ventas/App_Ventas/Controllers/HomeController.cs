@@ -13,6 +13,7 @@ using App_Ventas.Areas.Administracion.Repositorio;
 using Capa_Token;
 using System.Web.Security;
 using WebMatrix.WebData;
+using Capa_Token; 
 namespace App_Ventas.Controllers
 {
     public class HomeController : Controller
@@ -38,6 +39,7 @@ namespace App_Ventas.Controllers
                         Usuario.ID_USUARIO = ID_USUARIO; 
                         Usuario.Perfil_Sucursal.ID_USUARIO_PERFIL = ID_PERFIL_USUARIO;
                         Usuario = repositorio.Usuario_Sistema(Usuario, ref auditoria);
+
                         if (!auditoria.EJECUCION_PROCEDIMIENTO)
                         {
                             Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
@@ -54,7 +56,11 @@ namespace App_Ventas.Controllers
                                     ViewBag.IdSucursal = Usuario.Perfil_Sucursal.ID_SUCURSAL;
                                     ViewBag.CodUsuario = Usuario.COD_USUARIO;
                                     ViewBag.IdPf = Usuario.Perfil_Sucursal.ID_PERFIL;
-
+                                    int RECUERDAME = Capa_Token.Cls_Api_Token.Claim_RECUERDAME(Token);
+                                     Token = Capa_Token.Cls_Api_Token.Generar(Usuario.ID_USUARIO.ToString(), Usuario.COD_USUARIO,
+                                                                      RECUERDAME.ToString(), Usuario.Perfil_Sucursal.ID_SUCURSAL.ToString());
+                                     this.getCookie(Token);
+                                     Session["SetUpLogin"] = Capa_Token.Cls_Api_Token.SetUpLogin(Token); 
                                     Cls_Ent_configurarEmpresa Empresa = new Cls_Ent_configurarEmpresa();
                                     using (ConfigurarEmpresaRepositorio Repositorio = new ConfigurarEmpresaRepositorio())
                                     {
@@ -92,9 +98,7 @@ namespace App_Ventas.Controllers
                 {
                     return RedirectToAction("page401", "Home");
                 }
-                //ViewBag.SimboloMoneda = "S/.";
-                //ViewBag.IMPUESTO = "18";
-                //ViewBag.NOMBRE_IMPUESTO = "IGV";
+
                 if (Valido)
                 {
                     return View();
@@ -111,7 +115,6 @@ namespace App_Ventas.Controllers
             }
         }
 
- 
         public ActionResult Logout()
         {
             var cook = HttpContext.Request.Cookies["IP-CyberToken"];
@@ -131,6 +134,11 @@ namespace App_Ventas.Controllers
         public ActionResult page401()
         {
             return View();
+        }
+
+        public void getCookie(string value) {
+            HttpCookie cookie1 = new HttpCookie("IP-CyberToken", value);
+            ControllerContext.HttpContext.Response.SetCookie(cookie1); 
         }
     }
 }

@@ -23,8 +23,7 @@
     $("#Producto_btnNuevo").click(function (e) {
         Producto_MostrarNuevo();
     });
-    $('#ID_SUCURSAL').change(function () {
-        //$("#" + Producto_Grilla).dataTable().fnDestroy();
+    $('#ID_SUCURSAL, #Producto_FLG_SERVICIO').change(function () {
         Producto_ConfigurarGrilla();
     });
     $("#Producto_Ingreso").click(function (e) {
@@ -82,7 +81,7 @@
                       <div class="form-group col-md-4">
                         <label>Tipo:<span class="text-danger"></span></label>
                        <select class = "form-control" id="Producto_FLG_SERVICIO">
-                           <option value="2">Productos y servicios</option>
+                           <option value="">Productos y servicios</option>
                            <option value="0">Producto</option>
                            <option value="1">Servicios</option>
                        </select>

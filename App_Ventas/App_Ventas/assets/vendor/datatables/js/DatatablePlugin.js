@@ -194,6 +194,7 @@ DataTable = {
     GridUnload: function (table) {
         if ($.fn.DataTable.isDataTable('#' + table)) {
             $("#" + table).dataTable().fnDestroy();
+            $("#" + table).html("");
         }
     }
 

@@ -91,7 +91,6 @@ function Ventas_Detalle_UpdateRowId() {
         var rowData = ListaDetalleProductos[i];
         $("#" + Ventas_Detalle_Grilla).jqGrid('setCell', rowData.CODIGO, 'CODIGO', resetId);
     }
-
 }
 
 function Ventas_Detalle_BuscarProducto_Grilla(ID_PRODUCTO) {

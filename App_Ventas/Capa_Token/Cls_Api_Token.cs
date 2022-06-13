@@ -5,7 +5,7 @@ using System.Web;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
-
+using Capa_Entidad.Base; 
 namespace Capa_Token
 {
     public class Cls_Api_Token
@@ -14,15 +14,20 @@ namespace Capa_Token
         private static string KEY_ID_USUARIO = "ID_USUARIO";
         private static string KEY_COD_USUARIO = "COD_USUARIO";
         private static string KEY_RECUERDAME = "RECUERDAME";
+        private static string KEY_ID_SUCURSAL = "ID_SUCURSAL";
 
-        public static string Generar(string ID_USUARIO, string COD_USUARIO, string RememberMe)
+        public static string Generar(string ID_USUARIO, string COD_USUARIO, string RememberMe, string ID_SUCURSAL)
         {
             byte[] key = Convert.FromBase64String(key_secret);
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(key);
             SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(claims: new[] { new Claim(type: KEY_ID_USUARIO, value: ID_USUARIO), new Claim(type: KEY_COD_USUARIO, value: COD_USUARIO),
-                new Claim(type: KEY_RECUERDAME, value: RememberMe) }),
+                Subject = new ClaimsIdentity(claims: new[] { 
+                    new Claim(type: KEY_ID_USUARIO, value: ID_USUARIO),
+                    new Claim(type: KEY_COD_USUARIO, value: COD_USUARIO),
+                    new Claim(type: KEY_RECUERDAME, value: RememberMe), 
+                    new Claim(type: KEY_ID_SUCURSAL, value: ID_SUCURSAL), 
+                }),
                 Expires = DateTime.UtcNow.AddHours(6),
                 SigningCredentials = new SigningCredentials(securityKey, algorithm: SecurityAlgorithms.HmacSha256Signature)
             };
@@ -167,15 +172,60 @@ namespace Capa_Token
             return RECUERDAME;
         }
 
-        //public static string My_Token(string Nombre_Cookie) {
-        //    string Token = "";
-        //    HttpCookie MyCookie = new HttpCookie();
-        //    //Token = cook.Value;
-        //    return Token; 
-        //}
+        public static int Claim_ID_SUCURSAL(string TOKEN)
+        {
+            int ID_SUCURSAL = 0;
+            try
+            {
+                var Claim = Cls_Api_Token.Principal(TOKEN);
+                if (Claim != null)
+                    foreach (Claim claim in Claim.Claims)
+                    {
+                        if (claim.Type == KEY_ID_SUCURSAL)
+                        {
+                            ID_SUCURSAL = int.Parse(claim.Value);
+                            break;
+                        }
+                    }
+            }
+            catch
+            {
+                ID_SUCURSAL = 0;
+            }
+            return ID_SUCURSAL;
+        }
 
-
-
+        public static Cls_Ent_SetUpLogin SetUpLogin(string TOKEN)
+        {
+            Cls_Ent_SetUpLogin setUp = new Cls_Ent_SetUpLogin();
+            try
+            {
+                var Claim = Cls_Api_Token.Principal(TOKEN);
+                if (Claim != null)
+                    foreach (Claim claim in Claim.Claims)
+                    {
+                        if (claim.Type == KEY_ID_USUARIO)
+                        {
+                            setUp.ID_USUARIO = int.Parse(claim.Value);
+                        } else if (claim.Type == KEY_COD_USUARIO)
+                        {
+                            setUp.COD_USUARIO = claim.Value;
+                        } else if (claim.Type == KEY_RECUERDAME)
+                        {
+                            setUp.RECUERDAME = int.Parse(claim.Value);
+                        }
+                        else if (claim.Type == KEY_ID_SUCURSAL)
+                        {
+                            setUp.ID_SUCURSAL = int.Parse(claim.Value);
+                        }
+                    }
+            }
+            catch
+            {
+                setUp = new Cls_Ent_SetUpLogin(); 
+            }
+            return setUp;
+        }
 
 
     }

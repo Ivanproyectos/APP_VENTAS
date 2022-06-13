@@ -122,7 +122,9 @@
                 var idgrilla = i + 1;
                 var ID_USUARIO_PERFIL_HASH = "'" + v.ID_USUARIO_PERFIL_HASH + "'"
                 html += "<a href=\"javascript:void()\" onclick=\"Login_Ingresar(" + ID_USUARIO_PERFIL_HASH + ")\" data-placement=\"left\" "
-                         + "class=\"list-group-item list-group-item-action \" title=\"Vamos para alla!\" data-bs-toggle=\"tooltip\" style=\"cursor:pointer\"><i class=\"bi bi-geo-alt-fill\"></i> " + v.DESC_SUCURSAL +" </a>";
+                         + "class=\"list-group-item justify-content-between d-flex  list-group-item-action \" "
+                          + " style=\"cursor:pointer\"><span><i class=\"bi bi-geo-alt-fill\"></i> " + v.DESC_SUCURSAL + " "
+                           + "</span><button type=\"button\" data-bs-toggle=\"tooltip\" onclick=\"Login_Ingresar(" + ID_USUARIO_PERFIL_HASH + ")\"  title=\"Vamos para alla!\"  class=\"btn btn-outline-primary\">Go!</button> </a>";
             });
             return html; 
         }
