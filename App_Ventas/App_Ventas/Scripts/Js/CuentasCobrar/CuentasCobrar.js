@@ -228,10 +228,10 @@ function CuentasCobrar_Ingresar() {
                                 CuentasCobrar_Cerrar();
                                 Ventas_GenerarVistaComprobante(auditoria.OBJETO)
                             } else {
-                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                             }
                         } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     }
                 }
@@ -259,11 +259,11 @@ function CuentasCobrar_NotificarCredito(ID_VENTA) {
                            
                             } else {
                                 jQuery.unblockUI(); 
-                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                             }
                         } else {
                             jQuery.unblockUI(); 
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     }
                 }, 500);      

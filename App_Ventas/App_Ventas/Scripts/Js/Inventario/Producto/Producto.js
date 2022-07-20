@@ -266,10 +266,10 @@ function Producto_Actualizar() {
                             Producto_Cerrar();
                             jOkas("Producto actualizado satisfactoriamente", "Proceso");
                         } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                     }
                 }
             }
@@ -348,10 +348,10 @@ function Producto_Ingresar() {
                                 Producto_Cerrar();
                                 jOkas("Producto registrado satisfactoriamente", "Proceso");
                             } else {
-                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                             }
                         } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     }
                 }
@@ -379,10 +379,10 @@ function Producto_Eliminar(ID_PRODUCTO) {
                         Producto_Cerrar();
                         jOkas("Producto eliminado satisfactoriamente", "Proceso");
                     } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                     }
                 } else {
-                    jError(auditoria.MENSAJE_SALIDA, "Atención");
+                    jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                 }
             }
         }
@@ -404,10 +404,10 @@ function Producto_Estado(ID_PRODUCTO, CHECK) {
     if (auditoria != null && auditoria != "") {
         if (auditoria.EJECUCION_PROCEDIMIENTO) {
             if (auditoria.RECHAZAR) {
-                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
             }
         } else {
-            jError(auditoria.MENSAJE_SALIDA, "Atención");
+            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
         }
     }
 }

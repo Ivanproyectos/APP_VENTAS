@@ -84,10 +84,10 @@
             if (!auditoria.RECHAZAR) {
                 // Sin proceso
             } else {
-                jAlert(auditoria.MENSAJE_SALIDA, 'Atención');
+                jError(auditoria.MENSAJE_SALIDA, 'Ocurrio un Error');
             }
         } else {
-            jAlert(auditoria.MENSAJE_SALIDA, 'Atención');
+            jError(auditoria.MENSAJE_SALIDA, 'Ocurrio un Error');
         }
     }
 }

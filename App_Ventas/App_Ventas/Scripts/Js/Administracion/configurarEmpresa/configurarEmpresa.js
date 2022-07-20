@@ -35,11 +35,12 @@ function ConfigurarEmpresa_Actualizar() {
                     if (auditoria.EJECUCION_PROCEDIMIENTO) {
                         if (!auditoria.RECHAZAR) {
                             jOkas("Configuración actualizado satisfactoriamente", "Proceso");
+                            $('#MssRefresh').show('slow'); 
                         } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                     }
                 }
             }
@@ -85,10 +86,10 @@ function ConfigurarEmpresa_Insertar() {
                             if (!auditoria.RECHAZAR) {
                                 jOkas("Configuración registrado satisfactoriamente", "Proceso");
                             } else {
-                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                             }
                         } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     }
                 }

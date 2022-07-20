@@ -81,9 +81,9 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -4281,6 +4281,8 @@
     <Content Include="Areas\Ventas\Views\Consulta_Ventas\View_Exportar.cshtml" />
     <Content Include="Areas\Administracion\Views\Perfil\View_Mantenimiento.cshtml" />
     <Content Include="Areas\Login\Views\Login\View_UsuarioLogeado.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Vistas\_ViewProductoMovimientos.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Vistas\_ViewProductoTranslados.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <Content Include="Recursos\Descargas\DescargarProductoExcel.aspx" />
     <Content Include="Recursos\Descargas\DescargarProductoPDF.aspx" />
@@ -4337,6 +4339,7 @@
     <Content Include="Scripts\Js\CuentasCobrar\CuentasCobrar.js" />
     <Content Include="Scripts\Js\Dashboard\Dashboard_Grafics.js" />
     <Content Include="Scripts\Js\Dashboard\Dashboard.js" />
+    <Content Include="Scripts\Js\Dashboard\Recursos\Producto.js" />
     <Content Include="Scripts\Js\Inventario\Categoria.js" />
     <Content Include="Scripts\Js\Inventario\Producto\Importar_Producto.js" />
     <Content Include="Scripts\Js\Inventario\Producto\Movimiento_Producto.js" />

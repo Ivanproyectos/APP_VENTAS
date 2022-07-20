@@ -40,7 +40,7 @@ namespace App_Ventas.Recursos.Descargas
                     if (!auditoria.EJECUCION_PROCEDIMIENTO)
                     {
                         string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
-                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);  
                     }
                 }
                 string NOMBRE_ARCHIVO = "Plantilla_Producto.xlsx";

@@ -34,10 +34,10 @@ function Producto_Movimiento_Insertar(Tipo) {
                                     Producto_Cerrar();
                                     jOkas("Proceso culminado satisfactoriamente.", "Proceso");
                                 } else {
-                                    jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                    jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                                 }
                             } else {
-                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                             }
                         }
                     }
@@ -90,10 +90,10 @@ function Producto_Translados_Insertar() {
                                     Producto_Cerrar();
                                     jOkas("Translado realizado correctamente", "Proceso");
                                 } else {
-                                    jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                    jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                                 }
                             } else {
-                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                             }
                         }
                     }

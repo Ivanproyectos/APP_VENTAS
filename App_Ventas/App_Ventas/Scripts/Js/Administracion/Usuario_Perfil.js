@@ -74,7 +74,7 @@ function UsuariosPerfil_CargarGrilla() {
             jQuery("#" + Usuarios_Perfil_Grilla).trigger("reloadGrid");
         }
     } else {
-        jError(auditoria.MENSAJE_SALIDA, "Atención");
+        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
     }
 }
 
@@ -111,10 +111,10 @@ function UsuariosPerfil_Ingresar() {
                                 //Usuarios_Cerrar();
                                 jOkas("Acceso registrado satisfactoriamente para este usuario.", "Proceso");
                             } else {
-                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                             }
                         } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     }
                 }
@@ -142,10 +142,10 @@ function UsuariosPerfil_Eliminar(ID_USUARIO_PERFIL) {
                         UsuariosPerfil_CargarGrilla(); 
                         jOkas("acceso eliminado satisfactoriamente", "Proceso");
                     } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                     }
                 } else {
-                    jError(auditoria.MENSAJE_SALIDA, "Atención");
+                    jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                 }
             }
         }
@@ -167,10 +167,10 @@ function UsuariosPerfil_Estado(ID_USUARIO_PERFIL, CHECK) {
     if (auditoria != null && auditoria != "") {
         if (auditoria.EJECUCION_PROCEDIMIENTO) {
             if (auditoria.RECHAZAR) {
-                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
             }
         } else {
-            jError(auditoria.MENSAJE_SALIDA, "Atención");
+            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
         }
     }
 }

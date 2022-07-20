@@ -89,13 +89,13 @@ function Producto_ImportarProducto() {
                                     jOkas(_html, 'Atención');
 
                                 } else {
-                                    jError(auditoria.MENSAJE_SALIDA, 'Atención');
+                                    jError(auditoria.MENSAJE_SALIDA, 'Ocurrio un Error');
                                     if (auditoria.OBJETO != null)
                                         Producto_Importar_TablaResutaldos(auditoria.OBJETO);
                                 }
                             }
                             else {
-                                jError(auditoria.MENSAJE_SALIDA, 'Atención');
+                                jError(auditoria.MENSAJE_SALIDA, 'Ocurrio un Error');
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
@@ -133,9 +133,12 @@ function Producto_ExportarProductoExcel() {
     var _ID_SUCURSAL = $("#ID_SUCURSAL").val();
     if (_ID_SUCURSAL == "")
         _ID_SUCURSAL = 0;
+    var _FLG_SERVICIO = $('#Producto_FLG_SERVICIO').val(); 
+        if(_FLG_SERVICIO =="")
+            _FLG_SERVICIO =2; 
     var Params = {
         ID_SUCURSAL: _ID_SUCURSAL,
-        FLG_SERVICIO: $('#Producto_FLG_SERVICIO').val(),
+        FLG_SERVICIO: _FLG_SERVICIO
     }
     _blockUI("Descargando archivo...");
     jQuery("#myModalDescargar").html('');
@@ -153,9 +156,12 @@ function Producto_ExportarProductoPDF() {
     var _FLG_SERVICIO = $("#Producto_FLG_SERVICIO").val();
     if (_ID_SUCURSAL == "")
         _ID_SUCURSAL = 0;
+    var _FLG_SERVICIO = $('#Producto_FLG_SERVICIO').val();
+    if (_FLG_SERVICIO == "")
+        _FLG_SERVICIO = 2;
     var Params = {
         ID_SUCURSAL: _ID_SUCURSAL,
-        FLG_SERVICIO: $('#Producto_FLG_SERVICIO').val(),
+        FLG_SERVICIO: _FLG_SERVICIO
     }
     _blockUI("Descargando archivo...");
     jQuery("#myModalDescargar").html('');

@@ -386,6 +386,7 @@ namespace App_Ventas.Areas.Ventas.Controllers
                     model.SUBTOTAL = lista.SUB_TOTAL;
                     model.IGV = lista.IGV;
                     model.DESCUENTO = lista.DESCUENTO;
+                    model.COD_COMPROBANTE = lista.COD_COMPROBANTE;
                 }
             }
 

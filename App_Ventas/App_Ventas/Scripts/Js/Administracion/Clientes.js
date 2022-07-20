@@ -10,7 +10,6 @@ function Clientes_Limpiar() {
     $("#Cliente_NombreYape").val('');
     $('#Cliente_NumeroDocumento').val('');
     $('#Clientes_Estado').val(2);
-
     Clientes_CargarGrilla();
 }
 
@@ -130,7 +129,7 @@ function Clientes_CargarGrilla() {
             });
         }
     } else {
-        jError(auditoria.MENSAJE_SALIDA, "Atención");
+        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
     }
 }
 
@@ -166,10 +165,10 @@ function Clientes_Actualizar() {
                             Clientes_Cerrar();
                             jOkas("Clientes actualizado satisfactoriamente", "Proceso");
                         } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                     }
                 }
             }
@@ -211,10 +210,10 @@ function Clientes_Ingresar() {
                                 Clientes_Cerrar();
                                 jOkas("Clientes registrado satisfactoriamente", "Proceso");
                             } else {
-                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                             }
                         } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     }
                 }
@@ -242,10 +241,10 @@ function Clientes_Eliminar(ID_CLIENTE) {
                         Clientes_Cerrar();
                         jOkas("Clientes eliminado satisfactoriamente", "Proceso");
                     } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                     }
                 } else {
-                    jError(auditoria.MENSAJE_SALIDA, "Atención");
+                    jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                 }
             }
         }
@@ -267,10 +266,10 @@ function Clientes_Estado(ID_CLIENTE, CHECK) {
     if (auditoria != null && auditoria != "") {
         if (auditoria.EJECUCION_PROCEDIMIENTO) {
             if (auditoria.RECHAZAR) {
-                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
             }
         } else {
-            jError(auditoria.MENSAJE_SALIDA, "Atención");
+            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
         }
     }
 }

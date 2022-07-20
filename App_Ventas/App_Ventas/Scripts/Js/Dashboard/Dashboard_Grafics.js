@@ -84,8 +84,8 @@
                             color: '#fff',
                             display: true, 
                             formatter: function (value, ctx) {                      
-                                //return ((value * 100) / total(ctx)).toFixed(2) + '%'; 
-                                return ((value * 100) / total(ctx)) + '%'; 
+                                return ((value * 100) / total(ctx)).toFixed(0) + '%'; 
+                                //return ((value * 100) / total(ctx)) + '%'; 
                             },
                         },
                     },

@@ -13,11 +13,14 @@ using App_Ventas.Areas.Administracion.Repositorio;
 using Capa_Token;
 using System.Web.Security;
 using WebMatrix.WebData;
-using Capa_Token; 
+using System.Web.Http;
+
 namespace App_Ventas.Controllers
 {
+   [RoutePrefix("sistema-ventas")]
     public class HomeController : Controller
     {
+
         public ActionResult Index(string Pf)
         {
             try
@@ -56,6 +59,7 @@ namespace App_Ventas.Controllers
                                     ViewBag.IdSucursal = Usuario.Perfil_Sucursal.ID_SUCURSAL;
                                     ViewBag.CodUsuario = Usuario.COD_USUARIO;
                                     ViewBag.IdPf = Usuario.Perfil_Sucursal.ID_PERFIL;
+                                    ViewBag.ABREV_USUARIO = Usuario.ABREV_USUARIO;
                                     int RECUERDAME = Capa_Token.Cls_Api_Token.Claim_RECUERDAME(Token);
                                      Token = Capa_Token.Cls_Api_Token.Generar(Usuario.ID_USUARIO.ToString(), Usuario.COD_USUARIO,
                                                                       RECUERDAME.ToString(), Usuario.Perfil_Sucursal.ID_SUCURSAL.ToString());

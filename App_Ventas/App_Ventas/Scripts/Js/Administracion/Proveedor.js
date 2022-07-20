@@ -135,7 +135,7 @@ function Proveedor_CargarGrilla() {
             });
         }
     } else {
-        jError(auditoria.MENSAJE_SALIDA, "Atención");
+        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
     }
 }
 
@@ -173,10 +173,10 @@ function Proveedor_Actualizar() {
                             Proveedor_Cerrar();
                             jOkas("Proveedor actualizado satisfactoriamente", "Proceso");
                         } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                     }
                 }
             }
@@ -219,10 +219,10 @@ function Proveedor_Ingresar() {
                                 Proveedor_Cerrar();
                                 jOkas("Proveedor registrado satisfactoriamente", "Proceso");
                             } else {
-                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                             }
                         } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     }
                 }
@@ -250,10 +250,10 @@ function Proveedor_Eliminar(ID_PROVEEDOR) {
                         Proveedor_Cerrar();
                         jOkas("Proveedor eliminado satisfactoriamente", "Proceso");
                     } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                     }
                 } else {
-                    jError(auditoria.MENSAJE_SALIDA, "Atención");
+                    jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                 }
             }
         }
@@ -275,10 +275,10 @@ function Proveedor_Estado(ID_PROVEEDOR, CHECK) {
     if (auditoria != null && auditoria != "") {
         if (auditoria.EJECUCION_PROCEDIMIENTO) {
             if (auditoria.RECHAZAR) {
-                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
             }
         } else {
-            jError(auditoria.MENSAJE_SALIDA, "Atención");
+            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
         }
     }
 }

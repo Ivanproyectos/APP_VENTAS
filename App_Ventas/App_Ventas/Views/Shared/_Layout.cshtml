@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="@Url.Content("~/assets/vendor/owl-carousel/css/owl.carousel.min.css")">
     <link rel="stylesheet" href="@Url.Content("~/assets/vendor/owl-carousel/css/owl.theme.default.min.css")">
     <link href="@Url.Content("~/assets/vendor/jqvmap/css/jqvmap.min.css")" rel="stylesheet">
-    <link href="@Url.Content("~/assets/vendor/datatables/css/datatables.css")" rel="stylesheet">    
-    <link href="@Url.Content("~/assets/vendor/bootstrap-daterangepicker/daterangepicker.css")" rel="stylesheet">  
+    <link href="@Url.Content("~/assets/vendor/datatables/css/datatables.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/vendor/bootstrap-daterangepicker/daterangepicker.css")" rel="stylesheet">
     <link href="@Url.Content("~/assets/css/style.css")" rel="stylesheet">
     <link href="@Url.Content("~/assets/css/Changes_estilos/theme_dark.css")" rel="stylesheet">
     <link href="@Url.Content("~/assets/icons/Boopstrap/bootstrap-icons.css")" rel="stylesheet">
@@ -26,7 +26,7 @@
     <link href="@Url.Content("~/assets/vendor/select2/css/select2.min.css")" rel="stylesheet">
     @*    <link href="@Url.Content("~/assets/css/File_image.css")" rel="stylesheet">*@
     <link href="@Url.Content("~/assets/vendor/toastr/css/toastr.min.css")" rel="stylesheet">
- 
+
     @*<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")" type="text/javascript"></script>*@
 </head>
 <body>
@@ -57,14 +57,14 @@
             <a href="index.html" class="brand-logo">
                 @if (ViewBag.Isotipo != null && ViewBag.Isotipo != "")
                 {
-                <img class="logo-abbr" src="~/Recursos/Logo_Empresa/@ViewBag.Isotipo" alt="">
+                    <img class="logo-abbr" src="~/Recursos/Logo_Empresa/@ViewBag.Isotipo" alt="">
                 }
                 else
                 {
-                 <img class="logo-abbr" src="~/assets/images/awesome.png" alt="">
+                    <img class="logo-abbr" src="~/assets/images/awesome.png" alt="">
                 }
                 <img class="logo-compact" src="~/assets/images/logo-text.png" alt="">
-                <div class="brand-title" >@ViewBag.RazonSocial</div>
+                <div class="brand-title">@ViewBag.RazonSocial</div>
             </a>
 
             <div class="nav-control">
@@ -110,9 +110,9 @@
                         </div>
 
                         <ul class="navbar-nav header-right">
-                            @*     <li class="nav-item dropdown notification_dropdown">
+                            @*                    <li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                    <i class="mdi mdi-bell"></i>
+                                    <i class="bi bi-bell-fill"></i>
                                     <div class="pulse-css"></div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
@@ -174,26 +174,36 @@
                                 </div>
                             </li>*@
 
-                            <li class="nav-item dropdown header-profile backroung_NameUser">
+                            <li class="nav-item dropdown header-profile ">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                     <img class="logo-abbr" src="~/assets/images/avatar/4.png" alt="">
-                                    @*<i class="icon icon-single-04" style="font-size: 18px; color: #2c7be5;"></i>*@
+                                    <span  title="@ViewBag.NameUser" class="badge badge-primary badge-pill">@ViewBag.ABREV_USUARIO</span>
+                                    @*            <img class="logo-abbr" src="~/assets/images/avatar/4.png" alt="">
                                     <span>@ViewBag.NameUser</span> <i class="bi bi-chevron-down"></i>
                                     <br />
-                                    <span class="text-secondary">SUCURSAL: @ViewBag.Desc_Sucursal</span>
-
+                                    <span class="text-secondary"><i class="bi bi-geo-alt-fill"></i>&nbsp;SUCURSAL: @ViewBag.Desc_Sucursal</span>*@
                                     <input type="hidden" id="input_hdcodusuario" value="@ViewBag.CodUsuario" />
                                     <input type="hidden" id="inputL_SimboloMoneda" value="@ViewBag.SimboloMoneda" />
                                     <input type="hidden" id="inputL_Impuesto" value="@ViewBag.IMPUESTO" />
                                     <input type="hidden" id="inputL_NombreImpuesto" value="@ViewBag.NOMBRE_IMPUESTO" />
                                     <input type="hidden" id="inputL_Id_Sucursal" value="@ViewBag.IdSucursal" />
-                                     <input type="hidden" id="inputL_IdPerfil" value="@ViewBag.IdPf" />
-                                    
+                                    <input type="hidden" id="inputL_IdPerfil" value="@ViewBag.IdPf" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right animate__bounceIn">
+                                    <h4 class="dropdown-header text-center">Mi cuenta</h4>
+                                    <hr style="margin: 2px 0px" />
+                                    <div class="dropdown-header text-center">
+                                        <div class="row" style="flex-flow: row;">
+                                            <div><span title="@ViewBag.NameUser" class="badge badge-primary badge-pill">@ViewBag.ABREV_USUARIO</span></div>
+                                            <div class="ml-2">
+                                                <span><strong>@ViewBag.NameUser</strong></span><br />
+                                                <span><i class="bi bi-geo-alt-fill text-secondary"></i>&nbsp;@ViewBag.Desc_Sucursal</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr style="margin: 2px 0px" />
                                     <a href="./app-profile.html" class="dropdown-item">
                                         <i class="icon-user"></i>
-                                        <span class="ml-2">Mi cuenta </span>
+                                        <span class="ml-2">Perfil </span>
                                     </a>
                                     <a href="@Url.Content("~/Home/Logout")" class="dropdown-item">
                                         <i class="icon-key"></i>
@@ -217,8 +227,8 @@
         <div class="quixnav">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-        
-               @*     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+
+                    @*     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                         <i class="bi bi-gear-wide-connected"></i><span class="nav-text">Administración</span></a>
                         <ul aria-expanded="false">
                             <li><a name="Administracion/ConfigurarEmpresa/Index" onclick="_LayoutInvocar(this)">Configuracion Empresa </a></li>
@@ -352,8 +362,8 @@
 
     <script src="@Url.Content("~/Scripts/jquery-ui-1.8.24.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery-migrate-1.0.0.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/assets/jqGrid/js/i18n/grid.locale-es.js")" type="text/javascript"></script> 
-    <script src="@Url.Content("~/assets/vendor/datatables/js/jquery.dataTables.min.js")" type="text/javascript"></script> 
+    <script src="@Url.Content("~/assets/jqGrid/js/i18n/grid.locale-es.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/vendor/datatables/js/jquery.dataTables.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/assets/vendor/datatables/js/DatatablePlugin.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.jqGrid.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/SICA.js")"></script>
@@ -392,7 +402,7 @@
         };
 
 
-        function ListarMenu(ID_PERFIL) {     
+        function ListarMenu(ID_PERFIL) {
             var urlListar = baseUrl + 'Login/Modulos/Usuario_Modulos?ID_PERFIL=' + ID_PERFIL;
             $.ajax({
                 url: urlListar,
@@ -416,8 +426,8 @@
             $('[data-bs-toggle="tooltip"]').tooltip();
             var id_perfil = $('#inputL_IdPerfil').val();
             _blockUI('Generando modulos del usuario..');
-           setTimeout("ListarMenu(" + id_perfil + ")", 200);
-           // $("#menu").metisMenu(); // inicia menu 
+            setTimeout("ListarMenu(" + id_perfil + ")", 200);
+            // $("#menu").metisMenu(); // inicia menu 
         });
     </script>
 </body>

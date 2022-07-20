@@ -33,10 +33,10 @@ function Ventas_AnularVenta(ID_VENTA) {
                         //Ventas_Cerrar();
                         jOkas("Venta anulada con exito!", "Proceso");
                     } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                     }
                 } else {
-                    jError(auditoria.MENSAJE_SALIDA, "Atención");
+                    jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                 }
             }
         }
@@ -196,7 +196,7 @@ function Ventas_Llenar_ComboMotivo() {
             Items_Motivo = items;
         }
     } else {
-        jError(auditoria.MENSAJE_SALIDA, "Atención");
+        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
     }
 }
 
@@ -271,7 +271,7 @@ function Ventas_ValidarCliente_Credito(ID_CLIENTE, ID_SUCURSAL) {
                 $('#Ventas_AlertCredito').show('slow');
             }
         } else {
-            jError(auditoria.MENSAJE_SALIDA, "Atención");
+            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
         }
     }
 }
@@ -295,6 +295,6 @@ function Ventas_ClientesXComprobante(ID_COMPROBANTE) {
             $('#ID_CLIENTE').html(items);
         }
     } else {
-        jError(auditoria.MENSAJE_SALIDA, "Atención");
+        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
     }
 }

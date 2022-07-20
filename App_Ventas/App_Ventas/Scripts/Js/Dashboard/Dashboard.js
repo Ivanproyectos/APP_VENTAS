@@ -28,7 +28,7 @@ function Dashboard_Cargar() {
                 Dashboard_Configurar_GraficoProductoMv(auditoria.OBJETO.Lista_ProductosMV);
         }
     } else {
-        jError(auditoria.MENSAJE_SALIDA, "Atención");
+        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
     }
 }
 

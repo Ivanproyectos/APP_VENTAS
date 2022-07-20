@@ -13,7 +13,7 @@ namespace App_Ventas.Areas.Caja.Models
   
      
         [DataType(DataType.Text)]
-        public string ID_SUCURSAL { get; set; }
+        public int ID_SUCURSAL { get; set; }
         public List<SelectListItem> Lista_Sucursal { get; set; }
 
 
@@ -21,7 +21,11 @@ namespace App_Ventas.Areas.Caja.Models
         public int ID_ANIO { get; set; }
         public List<SelectListItem> Lista_Anio { get; set; }
 
+       [DataType(DataType.Text)]
+        public int ID_USUARIO { get; set; }
+       public List<SelectListItem> Lista_Usuario { get; set; }
 
+      
         public string Accion { get; set; }
         
     }

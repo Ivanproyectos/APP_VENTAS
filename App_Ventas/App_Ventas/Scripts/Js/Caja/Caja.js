@@ -115,7 +115,7 @@ function Caja_CargarGrilla() {
             }
         }
     } else {
-        jError(auditoria.MENSAJE_SALIDA, "Atención");
+        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
     }
 }
 
@@ -162,7 +162,7 @@ function Caja_Movimiento_CargarGrilla() {
             });
         }
     } else {
-        jError(auditoria.MENSAJE_SALIDA, "Atención");
+        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
     }
 }
 
@@ -200,10 +200,10 @@ function Caja_Movimiento_Actualizar() {
                             Caja_Cerrar();
                             jOkas("Movimiento actualizado satisfactoriamente", "Proceso");
                         } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                     }
                 }
             }
@@ -244,10 +244,10 @@ function Caja_Movimiento_Insertar() {
                                 Caja_Cerrar();
                                 jOkas("Movimiento registrado satisfactoriamente", "Proceso");
                             } else {
-                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                             }
                         } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     }
                 }
@@ -276,10 +276,10 @@ function Caja_Movimiento_Eliminar(ID_TIPO_MOVIMIENTO) {
                         Caja_Cerrar();
                         jOkas("Movimiento eliminado satisfactoriamente", "Proceso");
                     } else {
-                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                     }
                 } else {
-                    jError(auditoria.MENSAJE_SALIDA, "Atención");
+                    jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                 }
             }
         }

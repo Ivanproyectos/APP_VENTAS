@@ -5,19 +5,13 @@
         $('#TELEFONO').numeric();
         $('#CELULAR').numeric();
         $('#COD_UBIGEO').select2();
-
-        //if ($('#AccionClientes').val() == "M") {
-        //    ChangeTipoDocumento($('#ID_TIPO_DOCUMENTO').val());
-        //}
     });
-
     $('#Cliente_Btn_Guardar').click(function () {
         Clientes_Ingresar();
     });
     $('#ID_TIPO_DOCUMENTO').change(function () {
         ChangeTipoDocumento($(this).val());
     });
-
     function ChangeTipoDocumento(_TipoDocumento) {
         $('.AlEstRuc').hide();
         $('#NUMERO_DOCUMENTO').val('');
@@ -40,7 +34,6 @@
             jDanger('Tipo documento no valido para buscar.', 'Atención')
         }
     }
-
 
 </script>
 
@@ -75,7 +68,6 @@
                         @Html.ValidationMessageFor(model => model.ID_TIPO_DOCUMENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
-
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.NUMERO_DOCUMENTO)
                         <div class="input-group">
@@ -87,14 +79,12 @@
                         @Html.ValidationMessageFor(model => model.NUMERO_DOCUMENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
 
-
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.NOMBRES_APE) <span class="text-success AlEstRuc RucActivo">(Estado:Activo)</span>
                         <span class="text-danger AlEstRuc RucInactivo">(Estado:Inactivo)</span>
                         @Html.TextBoxFor(model => model.NOMBRES_APE, new { @class = "form-control", @maxlength = "500", @autocomplete = "off" })
                         @Html.ValidationMessageFor(model => model.NOMBRES_APE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
                     </div>
-
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.TELEFONO)
@@ -131,10 +121,7 @@
                         @Html.TextAreaFor(model => model.DETALLE, new { @class = "form-control", @maxlength = "1000", @autocomplete = "off" })
                     </div>
 
-
                 </div>
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" id="Cliente_Btn_Guardar" class="btn btn-hover-shine btn-square btn-primary"><i class="bi bi-save2"></i>Guardar</button>

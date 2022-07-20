@@ -197,7 +197,7 @@ namespace Capa_Datos.Login
                     SqlCommand cmd = new SqlCommand("USP_SEG_PERF_MODU_ELIMINAR", cn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter("@PI_ID_PERFIL", SqlDbType.Int)).Value = entidad.ID_PERFIL;
-                    cmd.Parameters.Add(new SqlParameter("@PI_ID_MODULO", SqlDbType.Int)).Value = entidad.ID_PERFIL;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_MODULO", SqlDbType.Int)).Value = entidad.ID_MODULO;
                     cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("PO_MENSAJE", SqlDbType.VarChar, 200)).Direction = System.Data.ParameterDirection.Output;
                     try

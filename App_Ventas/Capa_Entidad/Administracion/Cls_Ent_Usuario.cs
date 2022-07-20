@@ -11,8 +11,9 @@ namespace Capa_Entidad.Administracion
         public Cls_Ent_Usuario() {
             Perfil_Sucursal = new Cls_Ent_Usuario_Perfil(); 
         }
-        public int ID_USUARIO { get; set; }
+        public int ID_USUARIO { get; set; } 
         public string NOMBRE { get; set; }
+        public string ABREV_USUARIO { get; set; }
         public string APE_PATERNO { get; set; }
         public string APE_MATERNO { get; set; }
         public string DNI { get; set; }

@@ -54,7 +54,6 @@ namespace App_Ventas.Areas.Caja.Controllers
                     auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
                     model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Error al cargar opciones --" });
                 }
-
             }
             return View(model);
         }

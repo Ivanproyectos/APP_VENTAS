@@ -17,7 +17,7 @@ function Ubigeo_Listar(_SelectInput) {
             $("#" + _SelectInput).html(items);
         }
     } else {
-        jError(auditoria.MENSAJE_SALIDA, "Atención");
+        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
     }
 }
 
@@ -40,6 +40,6 @@ function Cliente_TipoDocumento_Listar(ID_TIPO_DOCUMENTO, _SelectInput) {
             $("#" + _SelectInput).html(items);
         }
     } else {
-        jError(auditoria.MENSAJE_SALIDA, "Atención");
+        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
     }
 }

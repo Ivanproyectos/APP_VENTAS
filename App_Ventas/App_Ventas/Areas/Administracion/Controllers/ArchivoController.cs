@@ -26,7 +26,6 @@ namespace App_Ventas.Areas.Administracion.Controllers
                 {
                     var content = new byte[MifileArchivo.ContentLength];
                     MifileArchivo.InputStream.Read(content, 0, MifileArchivo.ContentLength);
-
                     //string CODIGO_UNICO = Recursos.Clases.Css_Codigo.Generar_Codigo_Temporal();
 
                     string CODIGO_UNICO = Recursos.Clases.Css_Codigo.Generar_Codigo_Temporal();

@@ -159,7 +159,8 @@ namespace App_Ventas.Areas.CuentasCobrar.Controllers
                         model.DESCUENTO = lista.DESCUENTO;
                         model.DEBE = lista.DEBE;
                         model.DETALLE_VENTA = lista.DETALLE;
-                        model.Cliente = lista.Cliente; 
+                        model.Cliente = lista.Cliente;
+                        model.COD_COMPROBANTE = lista.COD_COMPROBANTE;
                     }
                 }
 

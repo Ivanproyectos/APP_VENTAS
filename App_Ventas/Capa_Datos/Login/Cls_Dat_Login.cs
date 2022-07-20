@@ -348,6 +348,8 @@ namespace Capa_Datos.Login
                        int pos_ID_PERFIL = dr.GetOrdinal("ID_PERFIL");
                        int pos_ID_SUCURSAL = dr.GetOrdinal("ID_SUCURSAL");
                        int pos_DESC_SUCURSAL = dr.GetOrdinal("DESC_SUCURSAL");
+                       int pos_ABREV_USUARIO = dr.GetOrdinal("ABREV_USUARIO");
+                       
 
                        //Cls_Ent_Usuario obj = null;
                        while (dr.Read())
@@ -385,6 +387,10 @@ namespace Capa_Datos.Login
 
                            if (dr.IsDBNull(pos_COD_USUARIO)) obj.COD_USUARIO = "";
                            else obj.COD_USUARIO = dr.GetString(pos_COD_USUARIO);
+
+                           if (dr.IsDBNull(pos_ABREV_USUARIO)) obj.ABREV_USUARIO = "";
+                           else obj.ABREV_USUARIO = dr.GetString(pos_ABREV_USUARIO);
+
 
                            if (dr.IsDBNull(pos_CLAVE_USUARIO)) obj.CLAVE_USUARIO = "";
                            else obj.CLAVE_USUARIO = dr.GetString(pos_CLAVE_USUARIO);

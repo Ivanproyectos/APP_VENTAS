@@ -7,6 +7,7 @@ using App_Ventas.Areas.Caja.Models;
 using Capa_Entidad;
 using Capa_Entidad.Base;
 using Capa_Entidad.Administracion;
+using Capa_Entidad.Inventario; 
 using Capa_Entidad.Dashboard;
 using App_Ventas.Areas.Administracion.Repositorio;
 using App_Ventas.Areas.Dashboard.Repositorio;
@@ -23,6 +24,8 @@ namespace App_Ventas.Areas.Dashboard.Controllers
             List<Cls_Ent_Combo> ListaAnio = new List<Cls_Ent_Combo>(); 
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             DashboardModelView model = new DashboardModelView();
+            Cls_Ent_SetUpLogin SetUp = (Cls_Ent_SetUpLogin)Session["SetUpLogin"];
+            model.ID_SUCURSAL = SetUp.ID_SUCURSAL;
             using (SucursalRepositorio Repositorio = new SucursalRepositorio())
             {
 
@@ -44,6 +47,22 @@ namespace App_Ventas.Areas.Dashboard.Controllers
             for (int i = 2022; i <= Convert.ToInt32(Anio); i++)
             {
                 ListaAnio.Add(new Cls_Ent_Combo{ ID =i, DESCRIPCION = i.ToString()}); 
+            }
+
+            using (UsuarioRepositorio Repositorio = new UsuarioRepositorio())
+            {
+                model.Lista_Usuario = Repositorio.Usuario_Listar(new Cls_Ent_Usuario { FLG_ESTADO = 1 }, ref auditoria).Select(x => new SelectListItem()
+                {
+                    Text = x.NOMBRES_APE,
+                    Value = x.COD_USUARIO.ToString()
+                }).ToList();
+                model.Lista_Usuario.Insert(0, new SelectListItem() { Value = "", Text = "-- Seleccione --" });
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Error al cargar opciones --" });
+                }
             }
 
             model.Lista_Anio = ListaAnio.Select(x => new SelectListItem()
@@ -81,6 +100,31 @@ namespace App_Ventas.Areas.Dashboard.Controllers
             }
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Dashboard_ProductoMovimiento_Listar(Cls_Ent_Movimiento_Producto entidad)
+        {
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            try
+            {
+                using (DashboardRepositorio repositorio = new DashboardRepositorio())
+                {
+                    auditoria.OBJETO = repositorio.Dashboard_ProductoMovimiento_Listar(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }

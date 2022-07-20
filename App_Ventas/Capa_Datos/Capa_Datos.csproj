@@ -54,6 +54,7 @@
     <Compile Include="Compras\Cls_Dat_Compras.cs" />
     <Compile Include="CuentasCobrar\Cls_Dat_CuentasCobrar.cs" />
     <Compile Include="Dashboard\Cls_Dat_Dashboard.cs" />
+    <Compile Include="Dashboard\Cls_Dat_Producto.cs" />
     <Compile Include="Inventario\Cls_Dat_Categoria.cs" />
     <Compile Include="Inventario\Cls_Dat_Producto.cs" />
     <Compile Include="Inventario\Cls_Dat_Translado_Producto.cs" />

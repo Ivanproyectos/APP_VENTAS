@@ -253,10 +253,10 @@ function Compras_Ingresar() {
                                 Compras_Cerrar();
                                 jOkas("Compra registrado correctamente", "Proceso"); 
                             } else {
-                                jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                             }
                         } else {
-                            jError(auditoria.MENSAJE_SALIDA, "Atención");
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
                     }
                 }
@@ -309,6 +309,6 @@ function Compras_Detalle_CargarGrilla(ID_COMPRA) {
             jQuery("#" + Ventas_Detalle_Grilla).trigger("reloadGrid");
         }
     } else {
-        jError(auditoria.MENSAJE_SALIDA, "Atención");
+        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
     }
 }

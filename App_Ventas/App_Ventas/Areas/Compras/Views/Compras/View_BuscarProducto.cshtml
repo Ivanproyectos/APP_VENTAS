@@ -160,14 +160,14 @@
 <div class="modal-dialog" role="document" id="modal-dialog_this">
     <div class="modal-content">
         <div class="modal-header" id="modal-header_this">
-            <h5 class="modal-title"><i class="bi bi-search"></i>&nbsp; Buscar producto</h5>
+            <h4 class="modal-title text-white"><i class="bi bi-search"></i>&nbsp; Buscar producto</h4>
         </div>
         <div class="modal-body">
             @using (Html.BeginForm("", "", new { @area = "" }, FormMethod.Post, new { @id = "frmMantenimiento_BuscarProducto" }))
             {
                 @Html.ValidationSummary(true)
                 <div class="form-row">
-                    <p style="font-weight: bold; color: black;"><i class="bi bi-cart-plus"></i>&nbsp; Busca productos o servicios para agregar a la lista de productos. </p>
+                    <p style="font-weight: bold; color: black;"><i class="bi bi-cart-plus"></i>&nbsp; Busca productos para agregar a la lista de productos. </p>
                     <div class="form-group col-md-12 border-bottom-head">
                         @Html.LabelFor(model => model.SEARCH_PRODUCTO)
                         <div class="input-group mb-3 ">

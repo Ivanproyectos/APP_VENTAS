@@ -130,11 +130,11 @@
             @if (Model.ID_PRODUCTO == 0)
             {
                     
-                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Registrar producto/servicio </h5> 
+                <h4 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Registrar producto/servicio </h4> 
             }
             else
             {
-                <h5 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Actualiza producto/servicio</h5> 
+                <h4 class="modal-title"><i class="bi bi-pencil-square"></i>&nbsp; Actualiza producto/servicio</h4> 
             }
 
             <button type="button" class="close" data-dismiss="modal">
@@ -148,29 +148,8 @@
             {
                 <div class="alert alert-info alert-dismissible alert-alt fade show">
                     <strong><i class="bi bi-info-circle text-info"></i>&nbsp;</strong>Este producto sera registrado para el sucursal:<b> @Model.DESC_SUCURSAL.</b>
-                </div>@*
+                </div>
 
-                <div class="form-row border-bottom-head" id="_Content_TipoRadioBtn">
-                    <div class="col-sm-6">
-                        <div class="_Content_Radio">
-                            <input type="radio" id="f-option" checked name="Producto_FlgServicio" value="0">
-                            <label for="f-option">Producto</label>
-                            <div class="check"></div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="_Content_Radio">
-                            <input type="radio" id="s-option" name="Producto_FlgServicio" value="1">
-                            <div class="check">
-                                <div class="inside"></div>
-                            </div>
-
-                            <label for="s-option">Servicio</label>
-
-                        </div>
-                    </div>
-                </div>*@
-                
                   <div class="form-row">
                     <div class="col-sm-12">
                         <label class="swichttoggle_ip" for="Producto_TipoCheck">
@@ -183,7 +162,6 @@
                         </label>
                     </div>
                 </div>
-
                 <br />
             }
 

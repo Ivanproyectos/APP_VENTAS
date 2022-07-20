@@ -13,5 +13,12 @@ namespace Capa_Entidad.Inventario
         public int CANTIDAD { get; set; }
         public string DETALLE { get; set; }
         public int FLG_MOVIMIENTO { get; set; }
+        public string MOVIMIENTO { get; set; }
+
+        public string COD_USUARIO { get; set; }
+        public string FECHA_INICIO { get; set; }
+        public string FECHA_FIN { get; set; }
+        public string DESC_PRODUCTO { get; set; }
+        
     }
 }

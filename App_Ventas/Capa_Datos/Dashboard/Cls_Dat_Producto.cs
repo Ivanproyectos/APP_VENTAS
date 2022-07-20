@@ -1,0 +1,82 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Capa_Entidad;
+using Capa_Entidad.Base;
+using Capa_Entidad.Inventario;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
+
+namespace Capa_Datos.Dashboard
+{
+    public class Cls_Dat_Producto : Protected.DataBaseHelper
+    {
+
+
+        ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** Lista producto movimiento*************************************************/
+
+        public List<Cls_Ent_Movimiento_Producto> Dashboard_ProductoMovimiento_Listar(Cls_Ent_Movimiento_Producto entidad_param, ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            List<Cls_Ent_Movimiento_Producto> lista = new List<Cls_Ent_Movimiento_Producto>();
+            try
+            {
+                using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlDataReader dr = null;
+                    SqlCommand cmd = new SqlCommand("USP_REPORTE_MOV_PRODUCTO_LISTAR", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@PI_COD_USUARIO", SqlDbType.VarChar,200)).Value = entidad_param.COD_USUARIO;
+                    cmd.Parameters.Add(new SqlParameter("@PI_FECHA_INICIO", SqlDbType.VarChar,200)).Value = entidad_param.FECHA_INICIO;
+                    cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar,200)).Value = entidad_param.FECHA_FIN;
+                    dr = cmd.ExecuteReader();
+                    int pos_ID_MOVIMIENTO = dr.GetOrdinal("ID_MOVIMIENTO");
+                    int pos_MOVIMIENTO = dr.GetOrdinal("MOVIMIENTO");
+                    int pos_CANTIDAD = dr.GetOrdinal("CANTIDAD");
+                    int pos_DESC_PRODUCTO = dr.GetOrdinal("DESC_PRODUCTO");
+                    int pos_FEC_CREACION = dr.GetOrdinal("FEC_CREACION");
+                    int pos_USU_CREACION = dr.GetOrdinal("USU_CREACION");
+                    if (dr.HasRows)
+                    {
+                        Cls_Ent_Movimiento_Producto obj = null;
+                        while (dr.Read())
+                        {
+                            obj = new Cls_Ent_Movimiento_Producto();
+                            if (dr.IsDBNull(pos_ID_MOVIMIENTO)) obj.ID_MOVIMIENTO = 0;
+                            else obj.ID_MOVIMIENTO = int.Parse(dr[pos_ID_MOVIMIENTO].ToString());
+                            if (dr.IsDBNull(pos_MOVIMIENTO)) obj.MOVIMIENTO = "";
+                            else obj.MOVIMIENTO = dr.GetString(pos_MOVIMIENTO);
+                            if (dr.IsDBNull(pos_CANTIDAD)) obj.CANTIDAD = 0;
+                            else obj.CANTIDAD = int.Parse(dr[pos_CANTIDAD].ToString());
+                            if (dr.IsDBNull(pos_DESC_PRODUCTO)) obj.DESC_PRODUCTO = "";
+                            else obj.DESC_PRODUCTO = dr.GetString(pos_DESC_PRODUCTO);
+                            if (dr.IsDBNull(pos_FEC_CREACION)) obj.FEC_CREACION = "";
+                            else obj.FEC_CREACION = dr.GetString(pos_FEC_CREACION);
+
+                            if (dr.IsDBNull(pos_USU_CREACION)) obj.USU_CREACION = "";
+                            else obj.USU_CREACION = dr.GetString(pos_USU_CREACION);
+
+                            lista.Add(obj);
+                        }
+                    }
+                    dr.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+            return lista;
+        }
+
+
+
+        
+
+    }
+}

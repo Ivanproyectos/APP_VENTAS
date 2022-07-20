@@ -32,7 +32,6 @@ namespace App_Ventas.Areas.Compras.Controllers
                 model.ID_SUCURSAL = SetUp.ID_SUCURSAL;
                 using (SucursalRepositorio Repositorio = new SucursalRepositorio())
                 {
-
                     model.Lista_Sucursal = Repositorio.Sucursal_Listar(new Cls_Ent_Sucursal { FLG_ESTADO = 1 }, ref auditoria).Select(x => new SelectListItem()
                     {
                         Text = x.DESC_SUCURSAL,
@@ -45,7 +44,6 @@ namespace App_Ventas.Areas.Compras.Controllers
                         auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
                         model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Error al cargar opciones --" });
                     }
-
                 }
 
                 using (ProveedorRepositorio Repositorio = new ProveedorRepositorio())

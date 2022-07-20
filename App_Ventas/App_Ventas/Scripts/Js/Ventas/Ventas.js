@@ -267,10 +267,10 @@ function Ventas_Ingresar() {
                                         //jOkas("Ventas registrado satisfactoriamente", "Proceso"); 
                                         Ventas_GenerarVistaComprobante(auditoria.OBJETO)
                                     } else {
-                                        jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                                     }
                                 } else {
-                                    jError(auditoria.MENSAJE_SALIDA, "Atención");
+                                    jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                                 }
                             }
                         }
