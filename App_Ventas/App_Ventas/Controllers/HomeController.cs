@@ -13,25 +13,25 @@ using App_Ventas.Areas.Administracion.Repositorio;
 using Capa_Token;
 using System.Web.Security;
 using WebMatrix.WebData;
-using System.Web.Http;
+//using System.Web.Http;
 
 namespace App_Ventas.Controllers
 {
    //[RoutePrefix("sistema-ventas")]
     public class HomeController : Controller
     {
-
-        public ActionResult Index(string Pf)
+        [Route("base/{id}")]
+        public ActionResult Index(string id)
         {
             try
             {
-                Pf = Pf.Replace(" ", "+");
-                string DESENCRIPTADO = Recursos.Clases.Css_Encriptar.Desencriptar(Pf);
+                id = id.Replace(" ", "+");
+                string DESENCRIPTADO = Recursos.Clases.Css_Encriptar.Desencriptar(id);
                 Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
                 bool Valido = false;
                 var cook = HttpContext.Request.Cookies["IP-CyberToken"];
                 string Token = "";
-                if (Pf != null && cook != null)
+                if (id != null && cook != null)
                 {
                     Token = cook.Value;
                     using (LoginRepositorio repositorio = new LoginRepositorio())

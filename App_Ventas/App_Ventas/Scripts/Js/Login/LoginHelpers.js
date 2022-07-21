@@ -162,7 +162,7 @@
         }
 
         function Login_Ingresar(ID_PERMISO) {
-            window.location.href = baseUrl + "Home/index?Pf=" + ID_PERMISO;
+            window.location.href = baseUrl + "Home/Index/" + ID_PERMISO;
         }
 
 
