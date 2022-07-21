@@ -76,7 +76,7 @@ function Repo_MovimientoProducto_CargarGrilla() {
                      ID_MOVIMIENTO: v.ID_MOVIMIENTO,
                      MOVIMIENTO: v.MOVIMIENTO,
                      DESC_PRODUCTO : v.DESC_PRODUCTO, 
-                     CANTIDAD: ConvertGramos_Kilos(v.CANTIDAD, v.ID_UNIDAD_MEDIDA) + ' ' + v.COD_UNIDAD_MEDIDA,
+                     CANTIDAD: ConvertGramos_Kilostwo(v.CANTIDAD, v.ID_UNIDAD_MEDIDA) + ' ' + v.COD_UNIDAD_MEDIDA,
                      FEC_CREACION: v.FEC_CREACION,
                      USU_CREACION: v.USU_CREACION,
                      DETALLE: v.DETALLE
@@ -101,7 +101,6 @@ function Repo_FormatterTipo(TIPO) {
     }
     return text; 
 }
-
 
 ///*********************************************** ----------------- *************************************************/
 

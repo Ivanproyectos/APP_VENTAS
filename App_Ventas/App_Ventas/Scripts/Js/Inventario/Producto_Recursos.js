@@ -129,7 +129,7 @@ function DifferenceDaysFechas(Fecha_ini, Fecha_fin) {
 }
 
 
-function ConvertGramos_Kilos(_GRAMOS, _ID_TIPO) {
+function ConvertGramos_Kilostwo(_GRAMOS, _ID_TIPO) {
     var Kilos = _GRAMOS; 
     if (_ID_TIPO == 1) {
          Kilos = (_GRAMOS / 1000);

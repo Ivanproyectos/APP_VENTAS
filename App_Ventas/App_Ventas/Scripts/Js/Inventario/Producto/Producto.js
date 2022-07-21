@@ -157,8 +157,9 @@ function Producto_StatuStock(STOCK, STOCK_MINIMO, ID_UNIDAD_MEDIDA, FLG_SERVICIO
     var _StockMinimo = parseInt(STOCK_MINIMO);
     var _IdUnidadMedida = parseInt(ID_UNIDAD_MEDIDA);
     var _Flg_servicio = parseInt(FLG_SERVICIO);
-
+    
     if (_IdUnidadMedida == 1) {
+        debugger; 
         _Stock = ConvertGramos_Kilos(_Stock);
         _StockMinimo = ConvertGramos_Kilos(_StockMinimo);
     }
