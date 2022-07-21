@@ -5,9 +5,13 @@
 <script src="@Url.Content("~/Scripts/Js/Dashboard/Dashboard.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Dashboard/Dashboard_Grafics.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Recursiva/Configuracion.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Js/Inventario/Producto_Recursos.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Js/Dashboard/Recursos/Producto.js")" type="text/javascript"></script>
 
+
 <script type="text/javascript">
+    var CargoTab3 = false;
+    var CargoTab4 = false;
     var ANIO = moment().format('YYYY');
     $(document).ready(function () {
         ConfiguracionEmpresa();
@@ -17,38 +21,23 @@
         $('#ID_ANIO').val(ANIO).trigger('change');
         Dashboard_Cargar();
     });
-    $('#Repo_FechaProducto').daterangepicker({
-        opens: 'right',
-        ranges: {
-            'Hoy': [moment(), moment()],
-            'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Los últimos 7 días': [moment().subtract(6, 'days'), moment()],
-            'Los últimos 30 días': [moment().subtract(29, 'days'), moment()],
-            'Este mes': [moment().startOf('month'), moment().endOf('month')],
-            'El mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        locale: {
-            format: "DD/MM/YYYY",
-            applyLabel: "Aplicar",
-            cancelLabel: "Cancelar",
-            customRangeLabel: "Rango Personalizado",
-        }
-    });
-
-
 
     $('#Reporte_btn_graficoBuscar').click(function () {
         Dashboard_Cargar();
     });
-
     $('#TabProductoMovimiento').click(function () {
-        Repo_MovimientoProducto_ConfigurarGrilla();
-        Repo_MovimientoProducto_CargarGrilla(); 
+        if (!CargoTab3) {
+            Repo_MovimientoProducto_ConfigurarGrilla();
+            Repo_MovimientoProducto_CargarGrilla();
+            CargoTab3 = true;
+        }
     });
     $('#TabProductoTranslados').click(function () {
-        Repo_TransladoProducto_ConfigurarGrilla();
+        if (!CargoTab4) {
+            Repo_TransladoProducto_ConfigurarGrilla();
+            CargoTab4 = true;
+        }
     });
-
 
 </script>
 <style>

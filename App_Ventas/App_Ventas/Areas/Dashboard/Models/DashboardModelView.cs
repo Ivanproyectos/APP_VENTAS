@@ -22,9 +22,10 @@ namespace App_Ventas.Areas.Caja.Models
         public List<SelectListItem> Lista_Anio { get; set; }
 
        [DataType(DataType.Text)]
-        public int ID_USUARIO { get; set; }
+        public int ID_USUARIO_INDEX3 { get; set; }
        public List<SelectListItem> Lista_Usuario { get; set; }
 
+       public int ID_USUARIO_INDEX4 { get; set; }
       
         public string Accion { get; set; }
         

@@ -9,6 +9,9 @@ namespace App_Ventas
     {
         public static void Register(HttpConfiguration config)
         {
+            // Rutas de API web
+            //config.MapHttpAttributeRoutes();
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

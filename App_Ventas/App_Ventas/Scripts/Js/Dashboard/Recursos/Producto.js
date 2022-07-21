@@ -1,4 +1,20 @@
-﻿var Repo_MovimientoProducto_Grilla = 'Repo_MovimientoProducto_Grilla';
+﻿var _FECHA_INICIO3 = "";
+var _FECHA_FIN3 = "";
+
+var _FECHA_INICIO4 = "";
+var _FECHA_FIN4 ="";
+
+
+CreateDateRange('Repo_FechaProductoTab3', function (fec1, fec2) {
+    Repo_MovimientoProducto_CargarGrilla();
+});
+
+CreateDateRange('Repo_FechaProductoTab4', function (fec1, fec2) {
+    //Repo_MovimientoProducto_CargarGrilla();
+});
+
+
+var Repo_MovimientoProducto_Grilla = 'Repo_MovimientoProducto_Grilla';
 var Repo_MovimientoProducto_Grilla = 'Repo_MovimientoProducto_Grilla';
 
 var Repo_TransladoProducto_Grilla = 'Repo_TransladoProducto_Grilla';
@@ -16,27 +32,26 @@ function Repo_MovimientoProducto_Limpiar() {
     Repo_MovimientoProducto_CargarGrilla();
 }
 
-
-
 function Repo_MovimientoProducto_ConfigurarGrilla() {
     DataTable.GridUnload(Repo_MovimientoProducto_Grilla);
     var colModels = [
           { data: "ID_MOVIMIENTO", name: "ID_MOVIMIENTO", title: "ID_MOVIMIENTO", autoWidth: false, visible: false, },
           { data: "DESC_PRODUCTO", name: "DESC_PRODUCTO", title: "Producto", autoWidth: true },
-          { data: "CANTIDAD", name: "CANTIDAD", title: "Cantidad", autoWidth: false, width: "80px" },
-          { data: "MOVIMIENTO", name: "MOVIMIENTO", title: "Tipo", autoWidth: true },
-          { data: "NUMERO_DOCUMENTO", name: "NUMERO_DOCUMENTO", title: "Detalle", autoWidth: false, },       
-          { data: "FEC_CREACION", name: "FEC_CREACION", title: "Fecha Registro", autoWidth: true },
-          { data: "FEC_CREACION", name: "FEC_CREACION", title: "Usuario", autoWidth: true },
-
+          { data: "CANTIDAD", name: "CANTIDAD", title: "Cantidad", autoWidth: false, width: "15%" },
+          {
+              data:null, name: "MOVIMIENTO", title: "Tipo", autoWidth: true,
+              render: function (data, type, row, meta) { return Repo_FormatterTipo(data.MOVIMIENTO); }
+          },
+          { data: "DETALLE", name: "DETALLE", title: "Detalle", autoWidth: false, width: "300px" },
+          { data: "FEC_CREACION", name: "FEC_CREACION", title: "Fecha Registro", autoWidth: true,  width: "150px" },
+          { data: "USU_CREACION", name: "USU_CREACION", title: "Usuario Registro", autoWidth: true ,width: "150px"  },
     ];
     var opciones = {
         GridLocal: true, multiselect: false, sort: "desc", enumerable: false,
         eliminar: false, search: true, rowNumber: 10, rowNumbers: [10, 25, 50], rules: false, responsive: true, processing: true
     };
-    DataTable.Grilla(Repo_MovimientoProducto_Grilla, '', 'ID_CLIENTE', colModels, opciones, "ID_CLIENTE");
+    DataTable.Grilla(Repo_MovimientoProducto_Grilla, '', 'ID_MOVIMIENTO', colModels, opciones, "ID_MOVIMIENTO");
 }
-
 
 ///*********************************************** ----------------- *************************************************/
 
@@ -45,13 +60,13 @@ function Repo_MovimientoProducto_ConfigurarGrilla() {
 function Repo_MovimientoProducto_CargarGrilla() {
     var item =
        {
-           COD_USUARIO: $('#Cliente_NombreYape').val(),
-           FECHA_INICIO: $('#Cliente_NumeroDocumento').val(),
-           FECHA_FIN: $('#Cliente_NumeroDocumento').val(),
+           COD_USUARIO: $('#ID_USUARIO_INDEX3').val(),
+           FECHA_INICIO: $('#Repo_FechaProductoTab3').val().split('-')[0],
+           FECHA_FIN: $('#Repo_FechaProductoTab3').val().split('-')[1],
        };
     var url = baseUrl + 'Dashboard/Dashboard/Dashboard_ProductoMovimiento_Listar';
     var auditoria = SICA.Ajax(url, item, false);
-    DataTable.clearGridData(Clientes_Grilla);
+    DataTable.clearGridData(Repo_MovimientoProducto_Grilla);
     if (auditoria.EJECUCION_PROCEDIMIENTO) {
         if (!auditoria.RECHAZAR) {
             $.each(auditoria.OBJETO, function (i, v) {
@@ -60,11 +75,14 @@ function Repo_MovimientoProducto_CargarGrilla() {
                  {
                      ID_MOVIMIENTO: v.ID_MOVIMIENTO,
                      MOVIMIENTO: v.MOVIMIENTO,
-                     CANTIDAD: v.CANTIDAD,
+                     DESC_PRODUCTO : v.DESC_PRODUCTO, 
+                     CANTIDAD: ConvertGramos_Kilos(v.CANTIDAD, v.ID_UNIDAD_MEDIDA) + ' ' + v.COD_UNIDAD_MEDIDA,
                      FEC_CREACION: v.FEC_CREACION,
+                     USU_CREACION: v.USU_CREACION,
+                     DETALLE: v.DETALLE
 
                  };
-                DataTable.addRowData(Clientes_Grilla, myData);
+                DataTable.addRowData(Repo_MovimientoProducto_Grilla, myData);
             });
         }
     } else {
@@ -72,9 +90,22 @@ function Repo_MovimientoProducto_CargarGrilla() {
     }
 }
 
+function Repo_FormatterTipo(TIPO) {
+    var text = TIPO; 
+    if (TIPO == "SALIDA") {
+        text = "<span class=\"text-danger\"><i class=\"bi bi-arrow-bar-down\"></i>&nbsp;" + TIPO + "</span>";
+    } else if (TIPO == "INGRESO") {
+        text = "<span class=\"text-success\"><i class=\"bi bi-arrow-bar-up\"></i>&nbsp;" + TIPO + "</span>";
+    } else if (TIPO == "COMPRAS") {
+        text = "<span class=\"text-success\"><i class=\"bi bi-basket3\"></i>&nbsp;" + TIPO + "</span>";
+    }
+    return text; 
+}
 
 
-/// translado
+///*********************************************** ----------------- *************************************************/
+
+///*********************************************** Translados **************************************************/
 
 function Repo_TransladoProducto_ConfigurarGrilla() {
     DataTable.GridUnload(Repo_TransladoProducto_Grilla);

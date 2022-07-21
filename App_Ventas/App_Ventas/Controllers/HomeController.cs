@@ -17,7 +17,7 @@ using System.Web.Http;
 
 namespace App_Ventas.Controllers
 {
-   [RoutePrefix("sistema-ventas")]
+   //[RoutePrefix("sistema-ventas")]
     public class HomeController : Controller
     {
 

@@ -213,7 +213,6 @@ function CollapsearchCard (_this) {
 //    $(_div).removeClass('show-password');
 //}); 
 
-
 $('div[data-password]').click(function () {
     var _Elements = $(this).parent().children();
     var _div = _Elements[1];
@@ -229,5 +228,31 @@ $('div[data-password]').click(function () {
     }
 
 });
+
+function CreateDateRange(_input, calback) {
+    var fec_inicio = "";
+    var fec_fin = "";
+    $('#' + _input).daterangepicker({
+        opens: 'right',
+        ranges: {
+            'Hoy': [moment(), moment()],
+            'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Los últimos 7 días': [moment().subtract(6, 'days'), moment()],
+            'Los últimos 30 días': [moment().subtract(29, 'days'), moment()],
+            'Este mes': [moment().startOf('month'), moment().endOf('month')],
+            'El mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        locale: {
+            format: "DD/MM/YYYY",
+            applyLabel: "Aplicar",
+            cancelLabel: "Cancelar",
+            customRangeLabel: "Rango Personalizado",
+        }
+    }, function (start, end, label) {
+        fec_inicio = start.format("DD/MM/YYYY");
+        fec_fin = end.format("DD/MM/YYYY");
+        calback(fec_inicio, fec_fin)
+    });
+}
 
 

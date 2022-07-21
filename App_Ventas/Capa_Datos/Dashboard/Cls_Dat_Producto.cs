@@ -31,16 +31,34 @@ namespace Capa_Datos.Dashboard
                     SqlDataReader dr = null;
                     SqlCommand cmd = new SqlCommand("USP_REPORTE_MOV_PRODUCTO_LISTAR", cn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@PI_COD_USUARIO", SqlDbType.VarChar,200)).Value = entidad_param.COD_USUARIO;
-                    cmd.Parameters.Add(new SqlParameter("@PI_FECHA_INICIO", SqlDbType.VarChar,200)).Value = entidad_param.FECHA_INICIO;
-                    cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar,200)).Value = entidad_param.FECHA_FIN;
+                    //cmd.Parameters.Add(new SqlParameter("@PI_COD_USUARIO", SqlDbType.VarChar,200)).Value = entidad_param.COD_USUARIO;
+                    if (entidad_param.COD_USUARIO == null)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_COD_USUARIO", SqlDbType.VarChar, 200)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_COD_USUARIO", SqlDbType.VarChar, 200)).Value = entidad_param.COD_USUARIO; }
+
+                    //cmd.Parameters.Add(new SqlParameter("@PI_FECHA_INICIO", SqlDbType.VarChar,200)).Value = entidad_param.FECHA_INICIO;
+                    if (entidad_param.FECHA_INICIO == null)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_INICIO", SqlDbType.VarChar, 200)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_INICIO", SqlDbType.VarChar, 200)).Value = entidad_param.FECHA_INICIO; }
+                    //cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar,200)).Value = entidad_param.FECHA_FIN;
+                    if (entidad_param.FECHA_FIN == null)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar, 200)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar, 200)).Value = entidad_param.FECHA_FIN; }
+
                     dr = cmd.ExecuteReader();
                     int pos_ID_MOVIMIENTO = dr.GetOrdinal("ID_MOVIMIENTO");
                     int pos_MOVIMIENTO = dr.GetOrdinal("MOVIMIENTO");
                     int pos_CANTIDAD = dr.GetOrdinal("CANTIDAD");
                     int pos_DESC_PRODUCTO = dr.GetOrdinal("DESC_PRODUCTO");
-                    int pos_FEC_CREACION = dr.GetOrdinal("FEC_CREACION");
+                    int pos_FEC_CREACION = dr.GetOrdinal("FEC_CREACION"); 
                     int pos_USU_CREACION = dr.GetOrdinal("USU_CREACION");
+                    int pos_DETALLE = dr.GetOrdinal("DETALLE");
+                    int pos_ID_UNIDAD_MEDIDA = dr.GetOrdinal("ID_UNIDAD_MEDIDA");
+                    int pos_COD_UNIDAD_MEDIDA = dr.GetOrdinal("COD_UNIDAD_MEDIDA");
+                    
                     if (dr.HasRows)
                     {
                         Cls_Ent_Movimiento_Producto obj = null;
@@ -60,6 +78,16 @@ namespace Capa_Datos.Dashboard
 
                             if (dr.IsDBNull(pos_USU_CREACION)) obj.USU_CREACION = "";
                             else obj.USU_CREACION = dr.GetString(pos_USU_CREACION);
+
+                            if (dr.IsDBNull(pos_DETALLE)) obj.DETALLE = "";
+                            else obj.DETALLE = dr.GetString(pos_DETALLE);
+
+                            if (dr.IsDBNull(pos_ID_UNIDAD_MEDIDA)) obj.ID_UNIDAD_MEDIDA = 0;
+                            else obj.ID_UNIDAD_MEDIDA = int.Parse(dr[pos_ID_UNIDAD_MEDIDA].ToString());
+
+                            if (dr.IsDBNull(pos_COD_UNIDAD_MEDIDA)) obj.COD_UNIDAD_MEDIDA = "";
+                            else obj.COD_UNIDAD_MEDIDA = dr.GetString(pos_COD_UNIDAD_MEDIDA);
+
 
                             lista.Add(obj);
                         }
