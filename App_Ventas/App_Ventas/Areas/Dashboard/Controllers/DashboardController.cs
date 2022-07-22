@@ -125,6 +125,32 @@ namespace App_Ventas.Areas.Dashboard.Controllers
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Dashboard_ProductoTranslados_Listar(Cls_Ent_Translado_Producto entidad)
+        {
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            try
+            {
+                using (DashboardRepositorio repositorio = new DashboardRepositorio())
+                {
+                    auditoria.OBJETO = repositorio.Dashboard_ProductoTranslados_Listar(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+        
+
 
     }
 }

@@ -14,7 +14,11 @@ namespace Capa_Entidad.Inventario
        public string DETALLE { get; set; }
        public int CANTIDAD { get; set; }
        public int ID_PRODUCTO { get; set; }
-
-       public List<Cls_Ent_Translado_Producto> ListaDetalle { get; set; }
+        public string DESC_SUCURSAL_ORIGEN { get; set; }
+        public string DESC_SUCURSAL_DESTINO { get; set; }
+        public string COD_USUARIO { get; set; }
+        public string FECHA_INICIO { get; set; }
+        public string FECHA_FIN { get; set; }
+        public List<Cls_Ent_Translado_Producto> ListaDetalle { get; set; }
     }
 }

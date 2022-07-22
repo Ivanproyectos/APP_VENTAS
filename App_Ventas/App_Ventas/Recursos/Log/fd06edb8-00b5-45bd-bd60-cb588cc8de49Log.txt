@@ -1,0 +1,6 @@
+System.FormatException: Longitud no válida para una matriz o cadena de caracteres Base-64.
+   en System.Convert.FromBase64_Decode(Char* startInputPtr, Int32 inputLength, Byte* startDestPtr, Int32 destLength)
+   en System.Convert.FromBase64CharPtr(Char* inputPtr, Int32 inputLength)
+   en System.Convert.FromBase64String(String s)
+   en App_Ventas.Recursos.Clases.Css_Encriptar.Desencriptar(String textoEncriptado) en C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Recursos\Clases\Css_Encriptar.cs:línea 49
+   en App_Ventas.Controllers.HomeController.Index(String id) en C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Controllers\HomeController.cs:línea 29

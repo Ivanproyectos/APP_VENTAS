@@ -38,8 +38,8 @@ namespace App_Ventas.Controllers
                     {
                         int ID_PERFIL_USUARIO = int.Parse(DESENCRIPTADO);
                         int ID_USUARIO = Cls_Api_Token.Claim_ID_USUARIO(Token);
-                        Cls_Ent_Usuario Usuario = new Cls_Ent_Usuario(); 
-                        Usuario.ID_USUARIO = ID_USUARIO; 
+                        Cls_Ent_Usuario Usuario = new Cls_Ent_Usuario();
+                        Usuario.ID_USUARIO = ID_USUARIO;
                         Usuario.Perfil_Sucursal.ID_USUARIO_PERFIL = ID_PERFIL_USUARIO;
                         Usuario = repositorio.Usuario_Sistema(Usuario, ref auditoria);
 
@@ -61,10 +61,10 @@ namespace App_Ventas.Controllers
                                     ViewBag.IdPf = Usuario.Perfil_Sucursal.ID_PERFIL;
                                     ViewBag.ABREV_USUARIO = Usuario.ABREV_USUARIO;
                                     int RECUERDAME = Capa_Token.Cls_Api_Token.Claim_RECUERDAME(Token);
-                                     Token = Capa_Token.Cls_Api_Token.Generar(Usuario.ID_USUARIO.ToString(), Usuario.COD_USUARIO,
-                                                                      RECUERDAME.ToString(), Usuario.Perfil_Sucursal.ID_SUCURSAL.ToString());
-                                     this.getCookie(Token);
-                                     Session["SetUpLogin"] = Capa_Token.Cls_Api_Token.SetUpLogin(Token); 
+                                    Token = Capa_Token.Cls_Api_Token.Generar(Usuario.ID_USUARIO.ToString(), Usuario.COD_USUARIO,
+                                                                     RECUERDAME.ToString(), Usuario.Perfil_Sucursal.ID_SUCURSAL.ToString());
+                                    this.getCookie(Token);
+                                    Session["SetUpLogin"] = Capa_Token.Cls_Api_Token.SetUpLogin(Token);
                                     Cls_Ent_configurarEmpresa Empresa = new Cls_Ent_configurarEmpresa();
                                     using (ConfigurarEmpresaRepositorio Repositorio = new ConfigurarEmpresaRepositorio())
                                     {
@@ -74,7 +74,8 @@ namespace App_Ventas.Controllers
                                             string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
                                             auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
                                         }
-                                        else {
+                                        else
+                                        {
                                             if (!auditoria.RECHAZAR)
                                             {
                                                 ViewBag.SimboloMoneda = Empresa.SIMBOLO_MONEDA;
@@ -107,10 +108,11 @@ namespace App_Ventas.Controllers
                 {
                     return View();
                 }
-                else {
+                else
+                {
                     return RedirectToAction("page401", "Home");
                 }
-              
+
             }
             catch (Exception ex)
             {
@@ -140,9 +142,10 @@ namespace App_Ventas.Controllers
             return View();
         }
 
-        public void getCookie(string value) {
+        public void getCookie(string value)
+        {
             HttpCookie cookie1 = new HttpCookie("IP-CyberToken", value);
-            ControllerContext.HttpContext.Response.SetCookie(cookie1); 
+            ControllerContext.HttpContext.Response.SetCookie(cookie1);
         }
     }
 }

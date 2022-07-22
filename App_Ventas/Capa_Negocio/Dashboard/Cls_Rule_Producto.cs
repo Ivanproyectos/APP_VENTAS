@@ -25,5 +25,18 @@ namespace Capa_Negocio.Dashboard
                 return new List<Cls_Ent_Movimiento_Producto>();
             }
         }
+        public List<Cls_Ent_Translado_Producto> Dashboard_ProductoTranslados_Listar(Cls_Ent_Translado_Producto entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                return OData.Dashboard_ProductoTranslados_Listar(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                return new List<Cls_Ent_Translado_Producto>();
+            }
+        }
+        
     }
 }

@@ -3,29 +3,29 @@
 ///*********************************************** Lista count dash **************************************************/
 function Dashboard_Cargar() {
     var item =
-       {
-           ID_SUCURSAL: $('#ID_SUCURSAL').val(),
-           ANIO: $('#ID_ANIO').val(),
-       };
+    {
+        ID_SUCURSAL: $('#ID_SUCURSAL').val(),
+        ANIO: $('#ID_ANIO').val(),
+    };
     var url = baseUrl + 'Dashboard/Dashboard/Dashboard_Count_Listar';
     var auditoria = SICA.Ajax(url, item, false);
     if (auditoria.EJECUCION_PROCEDIMIENTO) {
         if (!auditoria.RECHAZAR) {
-                var options = {
-                    decimalPlaces: 2
-                }
-                var VentaTotal = new countUp.CountUp('LblVentasTotal', parseFloat(auditoria.OBJETO.MONTO_TOTAL_VENTAS), options);
-                VentaTotal.start();
-                var Devolucion = new countUp.CountUp('LblDevolucion', auditoria.OBJETO.TOTAL_DEVOLUCIONES, null);
-                Devolucion.start();
-                var Ventas = new countUp.CountUp('LblVentas_Credito', auditoria.OBJETO.MONTO_CREDITO_VENTAS, options);
-                Ventas.start();
-                var Compras = new countUp.CountUp('LblCompras', auditoria.OBJETO.TOTAL_COMPRAS, options);
-                Compras.start();
-                Dashboard_Configurar_GraficoVentaMeses(auditoria.OBJETO.Lista_VentaMes);
-                Dashboard_Configurar_GraficoComparativa(auditoria.OBJETO.Lista_Comparativa);
-                Dashboard_Configurar_GraficoTipoPago(auditoria.OBJETO.Lista_TipoPago);
-                Dashboard_Configurar_GraficoProductoMv(auditoria.OBJETO.Lista_ProductosMV);
+            var options = {
+                decimalPlaces: 2
+            }
+            var VentaTotal = new countUp.CountUp('LblVentasTotal', parseFloat(auditoria.OBJETO.MONTO_TOTAL_VENTAS), options);
+            VentaTotal.start();
+            var Devolucion = new countUp.CountUp('LblDevolucion', auditoria.OBJETO.TOTAL_DEVOLUCIONES, null);
+            Devolucion.start();
+            var Ventas = new countUp.CountUp('LblVentas_Credito', auditoria.OBJETO.MONTO_CREDITO_VENTAS, options);
+            Ventas.start();
+            var Compras = new countUp.CountUp('LblCompras', auditoria.OBJETO.TOTAL_COMPRAS, options);
+            Compras.start();
+            Dashboard_Configurar_GraficoVentaMeses(auditoria.OBJETO.Lista_VentaMes);
+            Dashboard_Configurar_GraficoComparativa(auditoria.OBJETO.Lista_Comparativa);
+            Dashboard_Configurar_GraficoTipoPago(auditoria.OBJETO.Lista_TipoPago);
+            Dashboard_Configurar_GraficoProductoMv(auditoria.OBJETO.Lista_ProductosMV);
         }
     } else {
         jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
@@ -34,10 +34,10 @@ function Dashboard_Cargar() {
 
 function Dashboard_Configurar_GraficoVentaMeses(_List) {
     var Model = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"];
-    var Data = []; 
-    var _Encontro = false; 
-    for (var i = 1; i <= Model.length ; i++) {
-        for (var j = 0; j < _List.length ; j++) {
+    var Data = [];
+    var _Encontro = false;
+    for (var i = 1; i <= Model.length; i++) {
+        for (var j = 0; j < _List.length; j++) {
             if (_List[j].NUMERO_MES == i) {
                 _Encontro = true;
                 Data.push(Number(_List[j].TOTAL).toFixed(2));
@@ -45,8 +45,8 @@ function Dashboard_Configurar_GraficoVentaMeses(_List) {
         }
         if (!_Encontro) {
             Data.push(0);
-        } 
-        _Encontro = false; 
+        }
+        _Encontro = false;
     }
     CargarGrafico_VentasMes(Model, Data);
 }
@@ -58,8 +58,8 @@ function Dashboard_Configurar_GraficoComparativa(_List) {
     var _Encontro_Lin1 = false;
     var _Encontro_Lin2 = false;
 
-    for (var i = 1; i <= Model.length ; i++) {
-        for (var j = 0; j < _List.length ; j++) {
+    for (var i = 1; i <= Model.length; i++) {
+        for (var j = 0; j < _List.length; j++) {
             if (_List[j].NUMERO_MES == i && _List[j].TIPO == "PRODUCTO") {
                 _Encontro_Lin1 = true;
                 Data_Line1.push(Number(_List[j].TOTAL).toFixed(2));
@@ -77,7 +77,7 @@ function Dashboard_Configurar_GraficoComparativa(_List) {
         }
 
         _Encontro_Lin1 = false;
-        _Encontro_Lin2 = false; 
+        _Encontro_Lin2 = false;
     }
     CargarGrafico_ComparativaLine(Model, Data_Line1, Data_Line2);
 }
@@ -85,17 +85,17 @@ function Dashboard_Configurar_GraficoComparativa(_List) {
 function Dashboard_Configurar_GraficoTipoPago(_List) {
     var Model = [];
     var Data = [];
-    for (var i = 0; i < _List.length ; i++) {
+    for (var i = 0; i < _List.length; i++) {
         Model.push(_List[i].TIPO);
         Data.push(_List[i].PORCENTAJE);
-        }
+    }
     CargarGrafico_TipoPago(Model, Data);
 }
 
 function Dashboard_Configurar_GraficoProductoMv(_List) {
     var Model = [];
     var Data = [];
-    for (var i = 0; i < _List.length ; i++) {
+    for (var i = 0; i < _List.length; i++) {
         Model.push(_List[i].PRODUCTO);
         Data.push(_List[i].CANTIDAD);
     }

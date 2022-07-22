@@ -20,41 +20,41 @@ function CuentasCobrar_ConfigurarGrilla() {
     var url = baseUrl + 'CuentasCobrar/CuentasCobrar/CuentasCobrar_Paginado';
     DataTable.GridUnload(CuentasCobrar_Grilla);
     var colModels = [
-          { data: "ID_VENTA", name: "ID_VENTA", title: "ID_VENTA", autoWidth: false, visible: false, },
-          {
-              data: null, name: "TIPO_COMPROBANTE", title: "Comprobante", autoWidth: true, sortable: false,
-              render: function (data, type, row, meta) { return CuentasCobrar_FormaterComprobante(data.DESC_TIPO_COMPROBANTE, data.COD_COMPROBANTE); }
-          },
-          { data: "Cliente.NOMBRES_APE", name: "CLIENTE", title: "Cliente", autoWidth: true, },
-          {
-              data: null, name: "DESCUENTO", title: "Descuento", autoWidth: true, sortable: false,
-              render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.DESCUENTO); }
-          },
-          {
-              data: null, name: "SUBTOTAL", title: "Subtotal", autoWidth: true, sortable: false,
-              render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.SUB_TOTAL); }
-          },
-          {
-              data: null, name: "IGV", title: "Igv", autoWidth: true, sortable: false,
-              render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.IGV); }
-          },
-          {
-              data: null, name: "TOTAL", title: "Total", autoWidth: true, sortable: false,
-              render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.TOTAL); }
-          },
-          {
-              data: null, name: "DEBE", title: "Total", autoWidth: true, sortable: false,
-              render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.DEBE); }
-          },
-          {
-              data: null, name: "DESC_ESTADO_CREDITO", title: "Estado", autoWidth: true, sortable: false,
-              render: function (data, type, row, meta) { return CuentasCobrar_formatterEstadoCredito(data.DESC_ESTADO_CREDITO, data.STR_FECHA_CREDITO_CANCELADO, data.FLG_ESTADO_CREDITO); }
-          },
-          { data: "DETALLE", name: "DETALLE", title: "Detalle", autoWidth: true, },
-          {
-              data: null, sortable: false, title: "Acciones", width: "60px",
-              render: function (data, type, row, meta) { return CuentasCobrar_actionAcciones(data.ID_VENTA, data.FLG_ANULADO, data.FLG_ESTADO_CREDITO); }
-          },
+        { data: "ID_VENTA", name: "ID_VENTA", title: "ID_VENTA", autoWidth: false, visible: false, },
+        {
+            data: null, name: "TIPO_COMPROBANTE", title: "Comprobante", autoWidth: true, sortable: false,
+            render: function (data, type, row, meta) { return CuentasCobrar_FormaterComprobante(data.DESC_TIPO_COMPROBANTE, data.COD_COMPROBANTE); }
+        },
+        { data: "Cliente.NOMBRES_APE", name: "CLIENTE", title: "Cliente", autoWidth: true, },
+        {
+            data: null, name: "DESCUENTO", title: "Descuento", autoWidth: true, sortable: false,
+            render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.DESCUENTO); }
+        },
+        {
+            data: null, name: "SUBTOTAL", title: "Subtotal", autoWidth: true, sortable: false,
+            render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.SUB_TOTAL); }
+        },
+        {
+            data: null, name: "IGV", title: "Igv", autoWidth: true, sortable: false,
+            render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.IGV); }
+        },
+        {
+            data: null, name: "TOTAL", title: "Total", autoWidth: true, sortable: false,
+            render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.TOTAL); }
+        },
+        {
+            data: null, name: "DEBE", title: "Total", autoWidth: true, sortable: false,
+            render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.DEBE); }
+        },
+        {
+            data: null, name: "DESC_ESTADO_CREDITO", title: "Estado", autoWidth: true, sortable: false,
+            render: function (data, type, row, meta) { return CuentasCobrar_formatterEstadoCredito(data.DESC_ESTADO_CREDITO, data.STR_FECHA_CREDITO_CANCELADO, data.FLG_ESTADO_CREDITO); }
+        },
+        { data: "DETALLE", name: "DETALLE", title: "Detalle", autoWidth: true, },
+        {
+            data: null, sortable: false, title: "Acciones", width: "60px",
+            render: function (data, type, row, meta) { return CuentasCobrar_actionAcciones(data.ID_VENTA, data.FLG_ANULADO, data.FLG_ESTADO_CREDITO); }
+        },
 
     ];
     var opciones = {
@@ -66,7 +66,7 @@ function CuentasCobrar_ConfigurarGrilla() {
 
 
 function GetRules(CuentasCobrar_Grilla) {
-     
+
     var rules = new Array();
     var SearchFields = new Array();
     var CODIGO_COMPROBANTE = jQuery('#CuentasCobrar_CodigoVenta').val();
@@ -102,17 +102,17 @@ function GetRules(CuentasCobrar_Grilla) {
 }
 
 function CuentasCobrar_actionAcciones(ID_VENTA, FLG_ANULADO, FLG_ESTADO_CREDITO) {
-    var _ID_VENTA = ID_VENTA; 
-    var _FLG_FLG_ANULADO = FLG_ANULADO; 
-    var _FLG_ESTADO_CREDITO = FLG_ESTADO_CREDITO; 
-    var _btn_Cobrar =""; 
+    var _ID_VENTA = ID_VENTA;
+    var _FLG_FLG_ANULADO = FLG_ANULADO;
+    var _FLG_ESTADO_CREDITO = FLG_ESTADO_CREDITO;
+    var _btn_Cobrar = "";
     var _btn_Anular = "";
     var _btn_Devolver = "";
     var _btn_Notificar = "";
 
-    if (_FLG_FLG_ANULADO == 0 && _FLG_ESTADO_CREDITO == 0) 
+    if (_FLG_FLG_ANULADO == 0 && _FLG_ESTADO_CREDITO == 0)
         _btn_Anular = "<a class=\"dropdown-item\" onclick='Ventas_AnularVenta(" + _ID_VENTA + ")'><i class=\"bi bi-cart-x\" style=\"color:red;\"></i>&nbsp;Anular</a>";
-         _btn_Devolver = "<a class=\"dropdown-item\" onclick=\"CuentasCobrar_MostrarDevolverProducto(" + _ID_VENTA + ")\" ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>";
+    _btn_Devolver = "<a class=\"dropdown-item\" onclick=\"CuentasCobrar_MostrarDevolverProducto(" + _ID_VENTA + ")\" ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>";
 
     if (_FLG_ESTADO_CREDITO == 0) {
         _btn_Cobrar = "<a class=\"dropdown-item\" onclick='CuentasCobrar_MostrarCobrarCredito(" + _ID_VENTA + ")'><i class=\"bi bi-cash-coin\" style=\"color:#2c7be5\"></i>&nbsp;Cobrar</a>";
@@ -120,21 +120,21 @@ function CuentasCobrar_actionAcciones(ID_VENTA, FLG_ANULADO, FLG_ESTADO_CREDITO)
     }
 
     var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
-           " <button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button> " +
-           " <div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
-            "<a class=\"dropdown-item\" onclick='Ventas_ViewDetalleVenta(" + _ID_VENTA + ")'><i class=\"bi bi-stickies\" style=\"color:#2c7be5\"></i>&nbsp;  Detalle Venta</a>" +
-               _btn_Notificar +
-               _btn_Cobrar +
-               _btn_Anular +
-               _btn_Devolver + 
-            "</div>" +
+        " <button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button> " +
+        " <div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
+        "<a class=\"dropdown-item\" onclick='Ventas_ViewDetalleVenta(" + _ID_VENTA + ")'><i class=\"bi bi-stickies\" style=\"color:#2c7be5\"></i>&nbsp;  Detalle Venta</a>" +
+        _btn_Notificar +
+        _btn_Cobrar +
+        _btn_Anular +
+        _btn_Devolver +
+        "</div>" +
         "</div>";
     return _btn;
 }
 
-function CuentasCobrar_FormaterComprobante(DESC_TIPO_COMPROBANTE ,COD_COMPROBANTE) {
+function CuentasCobrar_FormaterComprobante(DESC_TIPO_COMPROBANTE, COD_COMPROBANTE) {
     var _DESC_COMPROBANTE = DESC_TIPO_COMPROBANTE;
-    var _DESC_COD_COMPROBANTE = COD_COMPROBANTE; 
+    var _DESC_COD_COMPROBANTE = COD_COMPROBANTE;
     var _text = "";
     var _text = '<span>' + _DESC_COMPROBANTE + '</span><br><span style="font-size: 12px; color: #2c7be5;"><i class="bi bi-upc"></i>&nbsp;Nro: ' + _DESC_COD_COMPROBANTE + '</span>';
     return _text;
@@ -154,16 +154,16 @@ function CuentasCobrar_FormatterDebe(cellvalue, options, rowObject) {
 
 
 function CuentasCobrar_formatterEstadoCredito(DESC_ESTADO_CREDITO, STR_FECHA_CREDITO_CANCELADO, FLG_ESTADO_CREDITO) {
-    var _FLG_ESTADO_CREDITO = FLG_ESTADO_CREDITO; 
+    var _FLG_ESTADO_CREDITO = FLG_ESTADO_CREDITO;
     var _DESC_ESTADO_CREDITO = DESC_ESTADO_CREDITO;
-    var _FECHA_CANCELADO = STR_FECHA_CREDITO_CANCELADO; 
+    var _FECHA_CANCELADO = STR_FECHA_CREDITO_CANCELADO;
     var _text = "";
     if (_FLG_ESTADO_CREDITO == 0) {
         _text = "<span class=\"badge badge-danger \" data-bs-toggle=\"tooltip\" title=\"Este credito aun esta pendiente.\">" + _DESC_ESTADO_CREDITO + "</span>";
     }
     else if (_FLG_ESTADO_CREDITO == 1) {
         _text = "<span class=\"badge badge-success\" data-bs-toggle=\"tooltip\" title=\"Fecha: " + _FECHA_CANCELADO + "\">" + _DESC_ESTADO_CREDITO + "</span>";
-               // + " <br><span style=\"font-size: 12px; color: #2c7be5;\"><i class=\"bi bi-calendar-week\"></i>&nbsp;Fecha/Hora: " +  + "</span>";
+        // + " <br><span style=\"font-size: 12px; color: #2c7be5;\"><i class=\"bi bi-calendar-week\"></i>&nbsp;Fecha/Hora: " +  + "</span>";
     }
     return _text;
 }
@@ -197,7 +197,7 @@ function Fn_CuentasCobrar_Vuelto() {
     var _Total = isNaN(parseFloat($('#Venta_TotalDebe').text())) ? 0 : parseFloat($('#Venta_TotalDebe').text());
     var _PagoCon = isNaN(parseFloat($('#TOTAL_RECIBIDO').val())) ? 0 : parseFloat($('#TOTAL_RECIBIDO').val());
     var _Vuelto = (_PagoCon - _Total); +
-    $('#VUELTO').val(Number(_Vuelto).toFixed(2));
+        $('#VUELTO').val(Number(_Vuelto).toFixed(2));
 }
 
 
@@ -207,68 +207,68 @@ function Fn_CuentasCobrar_Vuelto() {
 
 function CuentasCobrar_Ingresar() {
     if ($("#frmMantenimiento_CuentasCobrar").valid() && $("#frmMantenimiento_Detalle").valid()) {
-            jConfirm("¿ Desea cancelar este credito. ?", "Atención", function (r) {
-                if (r) {
-                    var item =
-                        {
-                            ID_VENTA: $("#hfd_ID_VENTA").val(),
-                            ID_CLIENTE: $("#hfd_ID_CLIENTE").val(),
-                            TOTAL: parseFloat($("#Venta_TotalDebe").text()),
-                            USU_CREACION: $('#input_hdcodusuario').val(),
-                            ID_TIPO_PAGO: $("#ID_TIPO_PAGO").val(),
-                            NRO_OPERACION: $("#NRO_OPERACION").val(),
-                  
-                        };
-                    var url = baseUrl + 'CuentasCobrar/CuentasCobrar/CuentasCobrar_Insertar';
-                    var auditoria = SICA.Ajax(url, item, false);
-                    if (auditoria != null && auditoria != "") {
-                        if (auditoria.EJECUCION_PROCEDIMIENTO) {
-                            if (!auditoria.RECHAZAR) {
-                                CuentasCobrar_ConfigurarGrilla();
-                                CuentasCobrar_Cerrar();
-                                Ventas_GenerarVistaComprobante(auditoria.OBJETO)
-                            } else {
-                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
-                            }
+        jConfirm("¿ Desea cancelar este credito. ?", "Atención", function (r) {
+            if (r) {
+                var item =
+                {
+                    ID_VENTA: $("#hfd_ID_VENTA").val(),
+                    ID_CLIENTE: $("#hfd_ID_CLIENTE").val(),
+                    TOTAL: parseFloat($("#Venta_TotalDebe").text()),
+                    USU_CREACION: $('#input_hdcodusuario').val(),
+                    ID_TIPO_PAGO: $("#ID_TIPO_PAGO").val(),
+                    NRO_OPERACION: $("#NRO_OPERACION").val(),
+
+                };
+                var url = baseUrl + 'CuentasCobrar/CuentasCobrar/CuentasCobrar_Insertar';
+                var auditoria = SICA.Ajax(url, item, false);
+                if (auditoria != null && auditoria != "") {
+                    if (auditoria.EJECUCION_PROCEDIMIENTO) {
+                        if (!auditoria.RECHAZAR) {
+                            CuentasCobrar_ConfigurarGrilla();
+                            CuentasCobrar_Cerrar();
+                            Ventas_GenerarVistaComprobante(auditoria.OBJETO)
                         } else {
                             jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
+                    } else {
+                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                     }
                 }
-            });
+            }
+        });
     }
 }
 
 
 function CuentasCobrar_NotificarCredito(ID_VENTA) {
-        jConfirm("¿ Desea enviar correo para notificar este credito. ?", "Atención", function (r) {
-            if (r) {
-                _blockUI("Enviando Correo..."); 
-                setTimeout(function () {
-                            var item =
-                       {
-                           ID_VENTA: ID_VENTA,
-                       };
-                    var url = baseUrl + 'CuentasCobrar/CuentasCobrar/CuentasCobrar_NotificarCredito';
-                    var auditoria = SICA.Ajax(url, item, false);
-                    if (auditoria != null && auditoria != "") {
-                        if (auditoria.EJECUCION_PROCEDIMIENTO) {
-                            if (!auditoria.RECHAZAR) {
-                                jQuery.unblockUI(); 
-                                jOkas('Correo enviado con exito', 'Atención');
-                           
-                            } else {
-                                jQuery.unblockUI(); 
-                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
-                            }
+    jConfirm("¿ Desea enviar correo para notificar este credito. ?", "Atención", function (r) {
+        if (r) {
+            _blockUI("Enviando Correo...");
+            setTimeout(function () {
+                var item =
+                {
+                    ID_VENTA: ID_VENTA,
+                };
+                var url = baseUrl + 'CuentasCobrar/CuentasCobrar/CuentasCobrar_NotificarCredito';
+                var auditoria = SICA.Ajax(url, item, false);
+                if (auditoria != null && auditoria != "") {
+                    if (auditoria.EJECUCION_PROCEDIMIENTO) {
+                        if (!auditoria.RECHAZAR) {
+                            jQuery.unblockUI();
+                            jOkas('Correo enviado con exito', 'Atención');
+
                         } else {
-                            jQuery.unblockUI(); 
+                            jQuery.unblockUI();
                             jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                         }
+                    } else {
+                        jQuery.unblockUI();
+                        jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
                     }
-                }, 500);      
-            }
-        });
+                }
+            }, 500);
+        }
+    });
 }
 
 
