@@ -17,10 +17,10 @@ using WebMatrix.WebData;
 
 namespace App_Ventas.Controllers
 {
-   //[RoutePrefix("sistema-ventas")]
+    [RoutePrefix("sistema-ventas")]
     public class HomeController : Controller
     {
-        [Route("base/{id}")]
+        [Route("{id}")]
         public ActionResult Index(string id)
         {
             try

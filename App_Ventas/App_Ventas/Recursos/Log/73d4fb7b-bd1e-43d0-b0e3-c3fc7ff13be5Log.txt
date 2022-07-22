@@ -1,0 +1,4 @@
+System.Security.Cryptography.CryptographicException: Longitud de datos para descifrado no válida.
+   en System.Security.Cryptography.CryptoAPITransform.TransformFinalBlock(Byte[] inputBuffer, Int32 inputOffset, Int32 inputCount)
+   en App_Ventas.Recursos.Clases.Css_Encriptar.Desencriptar(String textoEncriptado) en C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Recursos\Clases\Css_Encriptar.cs:línea 60
+   en App_Ventas.Controllers.HomeController.Index(String id) en C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\App_Ventas\Controllers\HomeController.cs:línea 29

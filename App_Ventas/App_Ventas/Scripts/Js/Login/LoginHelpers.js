@@ -162,7 +162,7 @@
         }
 
         function Login_Ingresar(ID_PERMISO) {
-            window.location.href = baseUrl + "Home/Index/" + ID_PERMISO;
+            window.location.href = baseUrl + "sistema-ventas/" + ID_PERMISO;
         }
 
 
