@@ -1,0 +1,61 @@
+﻿@model App_Ventas.Areas.Caja.Models.DashboardModelView
+<div class="row">
+    <div class="col-lg-12 form-row col-sm-12 justify-content-end ">
+        <div class="form-group col-md-3">
+            <label>Fecha:</label>
+            <div class="input-group mb-3">
+                <input type="text" id="Repo_FechaVentaTab2" class="form-control" placeholder="">
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@*    <div class="col-lg-6 col-sm-12">
+        <div class="card nbx">
+            <div class="card-header">
+                <h4>Listado Ingreso Ventas</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="Repo_Ventas_Grilla" style="width: 100%"></table>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <div class="col-lg-6 col-sm-12">
+        <div class="card nbx">
+            <div class="card-header">
+                <h4>Ingreso Ventas</h4>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-outline-primary" data-toggle="dropdown" aria-expanded="false">
+                          <i class="bi bi-download"></i>&nbsp;Export Excel                         
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <canvas id="Ventas_Chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+     <div class="col-lg-6 col-sm-12">
+        <div class="card nbx">
+            <div class="card-header">
+                <h4>Compras</h4>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-outline-primary" data-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-download"></i>&nbsp;Export Excel                      
+                    </button>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <canvas id="Ventas_Chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>

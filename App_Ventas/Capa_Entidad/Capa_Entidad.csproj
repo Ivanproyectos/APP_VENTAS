@@ -69,6 +69,7 @@
     <Compile Include="Compras\Cls_Ent_Compras.cs" />
     <Compile Include="Compras\Cls_Ent_Compras_Detalle.cs" />
     <Compile Include="Dashboard\Cls_Ent_Dashboard.cs" />
+    <Compile Include="Dashboard\Cls_Ent_Venta.cs" />
     <Compile Include="Inventario\Cls_Ent_Categoria.cs" />
     <Compile Include="Inventario\Cls_Ent_Movimiento_Producto.cs" />
     <Compile Include="Inventario\Cls_Ent_Producto.cs" />

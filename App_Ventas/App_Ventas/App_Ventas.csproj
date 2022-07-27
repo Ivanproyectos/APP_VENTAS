@@ -4278,6 +4278,7 @@
     <Content Include="Areas\Login\Views\Login\View_UsuarioLogeado.cshtml" />
     <Content Include="Areas\Dashboard\Views\Vistas\_ViewProductoMovimientos.cshtml" />
     <Content Include="Areas\Dashboard\Views\Vistas\_ViewProductoTranslados.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Vistas\_ViewVentas.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <Content Include="Recursos\Descargas\DescargarProductoExcel.aspx" />
     <Content Include="Recursos\Descargas\DescargarProductoPDF.aspx" />
@@ -4334,6 +4335,7 @@
     <Content Include="Scripts\Js\CuentasCobrar\CuentasCobrar.js" />
     <Content Include="Scripts\Js\Dashboard\Dashboard_Grafics.js" />
     <Content Include="Scripts\Js\Dashboard\Dashboard.js" />
+    <Content Include="Scripts\Js\Dashboard\Recursos\Ventas.js" />
     <Content Include="Scripts\Js\Dashboard\Recursos\Producto.js" />
     <Content Include="Scripts\Js\Inventario\Categoria.js" />
     <Content Include="Scripts\Js\Inventario\Producto\Importar_Producto.js" />

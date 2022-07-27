@@ -13,6 +13,7 @@ namespace App_Ventas.Areas.Dashboard.Repositorio
     {
         private Cls_Rule_Dashboard _rule = new Cls_Rule_Dashboard();
         private Cls_Rule_Producto _rule_Producto = new Cls_Rule_Producto();
+        private Cls_Rule_Venta _rule_venta = new Cls_Rule_Venta();
 
         public Cls_Ent_Dashboard Dashboard_Listar_Uno(Cls_Ent_Dashboard entidad, ref Cls_Ent_Auditoria auditoria)
         {
@@ -52,6 +53,34 @@ namespace App_Ventas.Areas.Dashboard.Repositorio
                 return new List<Cls_Ent_Translado_Producto>();
             }
         }
+        public List<Cls_Ent_Venta> Dashboard_Venta_Listar(Cls_Ent_Venta entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                return _rule_venta.Dashboard_Venta_Listar(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                return new List<Cls_Ent_Venta>();
+            }
+        }
+
+        public List<Cls_Ent_Venta> Dashboard_Compras_Listar(Cls_Ent_Venta entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                return _rule_venta.Dashboard_Compras_Listar(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                return new List<Cls_Ent_Venta>();
+            }
+        }
+
+
+
         
         public void Dispose()
         {

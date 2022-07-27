@@ -7,7 +7,7 @@ using App_Ventas.Areas.Caja.Models;
 using Capa_Entidad;
 using Capa_Entidad.Base;
 using Capa_Entidad.Administracion;
-using Capa_Entidad.Inventario; 
+using Capa_Entidad.Inventario;
 using Capa_Entidad.Dashboard;
 using App_Ventas.Areas.Administracion.Repositorio;
 using App_Ventas.Areas.Dashboard.Repositorio;
@@ -21,14 +21,13 @@ namespace App_Ventas.Areas.Dashboard.Controllers
 
         public ActionResult Index()
         {
-            List<Cls_Ent_Combo> ListaAnio = new List<Cls_Ent_Combo>(); 
+            List<Cls_Ent_Combo> ListaAnio = new List<Cls_Ent_Combo>();
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             DashboardModelView model = new DashboardModelView();
             Cls_Ent_SetUpLogin SetUp = (Cls_Ent_SetUpLogin)Session["SetUpLogin"];
             model.ID_SUCURSAL = SetUp.ID_SUCURSAL;
             using (SucursalRepositorio Repositorio = new SucursalRepositorio())
             {
-
                 model.Lista_Sucursal = Repositorio.Sucursal_Listar(new Cls_Ent_Sucursal { FLG_ESTADO = 1 }, ref auditoria).Select(x => new SelectListItem()
                 {
                     Text = x.DESC_SUCURSAL,
@@ -46,7 +45,7 @@ namespace App_Ventas.Areas.Dashboard.Controllers
             string Anio = DateTime.Now.ToString("yyyy");
             for (int i = 2022; i <= Convert.ToInt32(Anio); i++)
             {
-                ListaAnio.Add(new Cls_Ent_Combo{ ID =i, DESCRIPCION = i.ToString()}); 
+                ListaAnio.Add(new Cls_Ent_Combo { ID = i, DESCRIPCION = i.ToString() });
             }
 
             using (UsuarioRepositorio Repositorio = new UsuarioRepositorio())
@@ -84,13 +83,13 @@ namespace App_Ventas.Areas.Dashboard.Controllers
                 using (DashboardRepositorio Dashboardrepositorio = new DashboardRepositorio())
                 {
 
-                   auditoria.OBJETO = Dashboardrepositorio.Dashboard_Listar_Uno(entidad, ref auditoria);
+                    auditoria.OBJETO = Dashboardrepositorio.Dashboard_Listar_Uno(entidad, ref auditoria);
                     if (!auditoria.EJECUCION_PROCEDIMIENTO)
                     {
                         string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
                         auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
                     }
-                  
+
                 }
             }
             catch (Exception ex)
@@ -149,7 +148,53 @@ namespace App_Ventas.Areas.Dashboard.Controllers
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
-        
+        public ActionResult Dashboard_Venta_Listar(Cls_Ent_Venta entidad)
+        {
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            try
+            {
+                using (DashboardRepositorio repositorio = new DashboardRepositorio())
+                {
+                    auditoria.OBJETO = repositorio.Dashboard_Venta_Listar(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Dashboard_Compras_Listar(Cls_Ent_Venta entidad)
+        {
+            Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
+            try
+            {
+                using (DashboardRepositorio repositorio = new DashboardRepositorio())
+                {
+                    auditoria.OBJETO = repositorio.Dashboard_Venta_Listar(entidad, ref auditoria);
+                    if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                    {
+                        string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                        auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+                string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
 
 
     }

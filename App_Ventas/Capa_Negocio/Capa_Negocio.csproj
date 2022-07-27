@@ -54,6 +54,7 @@
     <Compile Include="CuentasCobrar\Cls_Rule_CuentasCobrar.cs" />
     <Compile Include="Dashboard\Cls_Rule_Dashboard.cs" />
     <Compile Include="Dashboard\Cls_Rule_Producto.cs" />
+    <Compile Include="Dashboard\Cls_Rule_Venta.cs" />
     <Compile Include="Inventario\Cls_Rule_Categoria.cs" />
     <Compile Include="Inventario\Cls_Rule_Producto.cs" />
     <Compile Include="Inventario\Cls_Rule_Translado_Producto.cs" />
