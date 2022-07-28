@@ -21,8 +21,7 @@ $('#Repo_Ventas_ExportExcel').click(function () {
         ID_SUCURSAL: $('#ID_SUCURSAL_INDEX2').val(),
         DESC_SUCURSAL: DESC_SUCURSAL
     }
-    DowloandFileAspx(baseUrl + "Recursos/Descargas/DescargarVentasExcel.aspx?" + $.param(params));
-    //window.open(baseUrl + "Recursos/Descargas/DescargarVentasExcel.aspx?" + $.param(params));
+    DowloandFileAspx(baseUrl + "Recursos/Descargas/DescargarVentasExcel.aspx?" + $.param(params))
 });
 
 

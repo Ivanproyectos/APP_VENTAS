@@ -190,7 +190,6 @@ function rand_code(lon) {
     }
     return code.toUpperCase();
 }
-
 /* card collapse*/
 function CollapsearchCard (_this) {
     var _this = $(_this).parent().children(); // listado card
@@ -198,8 +197,6 @@ function CollapsearchCard (_this) {
     $(_this).toggleClass('rotate-icon'); 
     $(_body).toggleClass('card-body-hide');
 }
-  
-
 /*ocultar password*/
 $('div[data-password]').click(function () {
     var _Elements = $(this).parent().children();
@@ -238,9 +235,6 @@ function CreateDateRange(_input) {
 }
 
 function DowloandFileAspx(Ruta) {
-    var Html ="<div class=\"modal-dialog2\">"
-              + "<iframe style=\"background-color:white;width:99%;height:570px;\" src=" + Ruta + "></iframe> "
-              +"</div>"
-    jQuery("#myModalLayout").html(Html);
-    $('#myModalLayout').modal({ show: true });
+    $('#FrameDescarga').prop('src', Ruta); 
+    setTimeout(function () { $('#FrameDescarga').prop('src', ''); }, 500);
 }
