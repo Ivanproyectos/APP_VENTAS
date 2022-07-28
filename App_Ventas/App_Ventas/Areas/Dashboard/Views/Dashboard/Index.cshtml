@@ -17,10 +17,11 @@
     $(document).ready(function () {
         ConfiguracionEmpresa();
         $('#ID_ANIO').select2();
-        $('#ID_SUCURSAL').select2();
-        $('#ID_USUARIO').select2();
+        $('#ID_SUCURSAL, #ID_SUCURSAL_INDEX2, #ID_SUCURSAL_INDEX3, #ID_SUCURSAL_INDEX4').select2();
+        $('#ID_USUARIO, #ID_USUARIO_INDEX3, #ID_USUARIO_INDEX4').select2();
         $('#ID_ANIO').val(ANIO).trigger('change');
         Dashboard_Cargar();
+        CreateDateRange('Repo_FechaVentaTab2,#Repo_FechaProductoTab3,#Repo_FechaProductoTab4'); 
     });
     $('#Reporte_btn_graficoBuscar').click(function () {
         Dashboard_Cargar();
@@ -41,8 +42,8 @@
     });
     $('#TabVentas').click(function () {
         if (!CargoTab2) {
-            //Repo_Ventas_ConfigurarGrilla();
-            Repo_Ventas_CargarGrilla();
+            Repo_Compras_Cargar();
+            Repo_Ventas_Cargar(); 
             CargoTab2 = true;
         }
     });
@@ -87,7 +88,7 @@
                             <div class="col-sm-7 mt-2 mt-sm-0 text-right">
                                 @Html.DropDownListFor(model => model.ID_SUCURSAL, Model.Lista_Sucursal, new { @class = "form-control", @style = "width:100%" })
                             </div>
-                            <div class="col-sm-2 mt-2 mt-sm-0 text-right">
+                            <div class=" mt-2 mt-sm-0 text-right">
                                 <button id="Reporte_btn_graficoBuscar" type="button" class="btn btn-hover-shine btn-square btn-primary "><i class="bi bi-search"></i></button>
                             </div>
                         </div>

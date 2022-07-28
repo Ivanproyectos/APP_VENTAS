@@ -46,6 +46,10 @@ namespace Capa_Datos.Dashboard
                     { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar, 200)).Value = DBNull.Value; }
                     else
                     { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar, 200)).Value = entidad_param.FECHA_FIN; }
+                    if (entidad_param.ID_SUCURSAL == 0)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = entidad_param.ID_SUCURSAL; }
 
                     dr = cmd.ExecuteReader();
                     int pos_ID_MOVIMIENTO = dr.GetOrdinal("ID_MOVIMIENTO");

@@ -162,8 +162,6 @@ function ValidarFechasInicioFin(fechaini, fechafin, tipo) {
     return valido;
 }
 
-
-
 function SoloDecimal(e, field) {
      
     key = e.keyCode ? e.keyCode : e.which
@@ -203,16 +201,6 @@ function CollapsearchCard (_this) {
   
 
 /*ocultar password*/
-
-//$('div[data-password="false"]').click(function () {
-//     
-//    var _Elements = $(this).parent().children();
-//    var _Input = _Elements[0].type = "password";
-//    var _div = _Elements[1]; 
-//    _div.dataset.password = "true";
-//    $(_div).removeClass('show-password');
-//}); 
-
 $('div[data-password]').click(function () {
     var _Elements = $(this).parent().children();
     var _div = _Elements[1];
@@ -229,9 +217,7 @@ $('div[data-password]').click(function () {
 
 });
 
-function CreateDateRange(_input, calback) {
-    var fec_inicio = "";
-    var fec_fin = "";
+function CreateDateRange(_input) {
     $('#' + _input).daterangepicker({
         opens: 'right',
         ranges: {
@@ -248,11 +234,13 @@ function CreateDateRange(_input, calback) {
             cancelLabel: "Cancelar",
             customRangeLabel: "Rango Personalizado",
         }
-    }, function (start, end, label) {
-        fec_inicio = start.format("DD/MM/YYYY");
-        fec_fin = end.format("DD/MM/YYYY");
-        calback(fec_inicio, fec_fin)
     });
 }
 
-
+function DowloandFileAspx(Ruta) {
+    var Html ="<div class=\"modal-dialog2\">"
+              + "<iframe style=\"background-color:white;width:99%;height:570px;\" src=" + Ruta + "></iframe> "
+              +"</div>"
+    jQuery("#myModalLayout").html(Html);
+    $('#myModalLayout').modal({ show: true });
+}

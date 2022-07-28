@@ -38,6 +38,11 @@ namespace Capa_Datos.Dashboard
                     else
                     { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar, 200)).Value = entidad_param.FECHA_FIN; }
 
+                    if (entidad_param.ID_SUCURSAL == 0)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = entidad_param.ID_SUCURSAL; }
+
                     dr = cmd.ExecuteReader();
                     int pos_STR_FEC_CREACION = dr.GetOrdinal("STR_FEC_CREACION");
                     int pos_TOTAL = dr.GetOrdinal("TOTAL");
@@ -65,8 +70,6 @@ namespace Capa_Datos.Dashboard
             }
             return lista;
         }
-
-
 
         public List<Cls_Ent_Venta> Dashboard_Compras_Listar(Cls_Ent_Venta entidad_param, ref Cls_Ent_Auditoria auditoria)
         {
@@ -88,6 +91,10 @@ namespace Capa_Datos.Dashboard
                     { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar, 200)).Value = DBNull.Value; }
                     else
                     { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar, 200)).Value = entidad_param.FECHA_FIN; }
+                    if (entidad_param.ID_SUCURSAL == 0)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_ID_SUCURSAL", SqlDbType.Int)).Value = entidad_param.ID_SUCURSAL; }
 
                     dr = cmd.ExecuteReader();
                     int pos_STR_FEC_CREACION = dr.GetOrdinal("STR_FEC_CREACION");
@@ -116,8 +123,6 @@ namespace Capa_Datos.Dashboard
             }
             return lista;
         }
-
-
 
     }
 }

@@ -264,7 +264,65 @@ function CargarGrafico_VentasDia(Labels,Data){
                 intersect: false,
                 callbacks: {
                     label: function (tooltipItem, data) {
-                        return Number(tooltipItem.yLabel).toFixed(2); // label con decimal 
+                        return Number(tooltipItem.xLabel).toFixed(2); // label con decimal 
+                    }
+                }
+            },
+            hover: {
+                mode: 'index',
+                intersect: false
+            },
+            plugins: {
+                datalabels: {
+                    display: false, 
+                }},
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    }
+                }],
+                xAxes: [{
+                    // Change here
+                    barPercentage: 0.5
+                }]
+            }
+        }
+    });
+}
+
+//grafico compras 
+function CargarGrafico_ComprasDia(Labels,Data){
+   const Compras_Chart = document.getElementById("Compras_Chart").getContext('2d');
+    //generate gradient
+   const Compras_ChartgradientStroke = Compras_Chart.createLinearGradient(0, 0, 0, 250);
+   Compras_ChartgradientStroke.addColorStop(0, "rgba(236, 58, 37, 1)");
+    Compras_ChartgradientStroke.addColorStop(1, "rgba(236, 58, 37, 0.5)");
+    Compras_Chart.height = 200;
+    new Chart(Compras_Chart, {
+        type: 'horizontalBar',
+        data: {
+            defaultFontFamily: 'Poppins',
+            labels: Labels,
+            datasets: [
+                {
+                    label: "Monto",
+                    data: Data,
+                    borderColor: Compras_ChartgradientStroke,
+                    borderWidth: "0",
+                    backgroundColor: Compras_ChartgradientStroke, 
+                    hoverBackgroundColor:Compras_ChartgradientStroke
+                }
+            ]
+        },
+        options: {
+            legend: false,
+            tooltips: { 
+                mode: 'index',
+                intersect: false,
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        return Number(tooltipItem.xLabel).toFixed(2); // label con decimal 
                     }
                 }
             },

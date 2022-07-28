@@ -12,5 +12,6 @@ namespace Capa_Entidad.Dashboard
        public string STR_FEC_CREACION { get; set; }
        public string FECHA_INICIO { get; set; }
        public string FECHA_FIN { get; set; }
+       public int ID_SUCURSAL { get; set; }
     }
 }

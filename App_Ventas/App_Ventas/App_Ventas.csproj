@@ -308,6 +308,13 @@
     <Compile Include="Recursos\Descargas\DescargarVentas.aspx.designer.cs">
       <DependentUpon>DescargarVentas.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\Descargas\DescargarVentasExcel.aspx.cs">
+      <DependentUpon>DescargarVentasExcel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Recursos\Descargas\DescargarVentasExcel.aspx.designer.cs">
+      <DependentUpon>DescargarVentasExcel.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\Excel\Css_Excel.cs" />
     <Compile Include="Recursos\Forms\GenerarComprobante.aspx.cs">
       <DependentUpon>GenerarComprobante.aspx</DependentUpon>
@@ -4283,6 +4290,7 @@
     <Content Include="Recursos\Descargas\DescargarProductoExcel.aspx" />
     <Content Include="Recursos\Descargas\DescargarProductoPDF.aspx" />
     <Content Include="Recursos\Descargas\DescargarVentas.aspx" />
+    <Content Include="Recursos\Descargas\DescargarVentasExcel.aspx" />
     <Content Include="Recursos\Excel\Plantillas\Plantilla_Producto.xlsx" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Recursos\Descargas\DescargarPlantillaExcel.aspx" />

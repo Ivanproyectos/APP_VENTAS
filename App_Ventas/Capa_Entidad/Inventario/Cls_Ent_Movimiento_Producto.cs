@@ -21,6 +21,8 @@ namespace Capa_Entidad.Inventario
         public string DESC_PRODUCTO { get; set; }
         public int ID_UNIDAD_MEDIDA { get; set; }
         public string COD_UNIDAD_MEDIDA { get; set; }
+        public int ID_SUCURSAL { get; set; }
+        
         
     }
 }

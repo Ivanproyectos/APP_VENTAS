@@ -1,36 +1,18 @@
-﻿var _FECHA_INICIO3 = "";
-var _FECHA_FIN3 = "";
+﻿
+var Repo_MovimientoProducto_Grilla = 'Repo_MovimientoProducto_Grilla';
+var Repo_MovimientoProducto_Grilla = 'Repo_MovimientoProducto_Grilla';
 
-var _FECHA_INICIO4 = "";
-var _FECHA_FIN4 = "";
+var Repo_TransladoProducto_Grilla = 'Repo_TransladoProducto_Grilla';
+var Repo_TransladoProducto_Grilla = 'Repo_TransladoProducto_Grilla';
 
-
-CreateDateRange('Repo_FechaProductoTab3', function (fec1, fec2) {
-    Repo_MovimientoProducto_CargarGrilla();
-});
-
-CreateDateRange('Repo_FechaProductoTab4', function (fec1, fec2) {
+$('#Reporte_btn_TransladosBuscar').click(function () {
     Repo_TransladoProducto_CargarGrilla();
 });
 
-
-var Repo_MovimientoProducto_Grilla = 'Repo_MovimientoProducto_Grilla';
-var Repo_MovimientoProducto_Grilla = 'Repo_MovimientoProducto_Grilla';
-
-var Repo_TransladoProducto_Grilla = 'Repo_TransladoProducto_Grilla';
-var Repo_TransladoProducto_Grilla = 'Repo_TransladoProducto_Grilla';
-
-function Repo_MovimientoProducto_Cerrar() {
-    $('#myModalNuevo').modal('hide');
-    jQuery("#myModalNuevo").html('');
-}
-
-function Repo_MovimientoProducto_Limpiar() {
-    $("#Cliente_NombreYape").val('');
-    $('#Cliente_NumeroDocumento').val('');
-    $('#Repo_MovimientoProducto_Estado').val(2);
+$('#Reporte_btn_MovimientosBuscar').click(function () {
     Repo_MovimientoProducto_CargarGrilla();
-}
+});
+
 
 function Repo_MovimientoProducto_ConfigurarGrilla() {
     DataTable.GridUnload(Repo_MovimientoProducto_Grilla);
@@ -63,6 +45,7 @@ function Repo_MovimientoProducto_CargarGrilla() {
         COD_USUARIO: $('#ID_USUARIO_INDEX3').val(),
         FECHA_INICIO: $('#Repo_FechaProductoTab3').val().split('-')[0],
         FECHA_FIN: $('#Repo_FechaProductoTab3').val().split('-')[1],
+        ID_SUCURSAL: $('#ID_SUCURSAL_INDEX3').val(),
     };
     var url = baseUrl + 'Dashboard/Dashboard/Dashboard_ProductoMovimiento_Listar';
     var auditoria = SICA.Ajax(url, item, false);

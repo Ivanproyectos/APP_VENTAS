@@ -33,7 +33,7 @@ namespace App_Ventas.Areas.Dashboard.Controllers
                     Text = x.DESC_SUCURSAL,
                     Value = x.ID_SUCURSAL.ToString()
                 }).ToList();
-                model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Seleccione --" });
+                model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "0", Text = "-- Seleccione Sucursal --" });
                 if (!auditoria.EJECUCION_PROCEDIMIENTO)
                 {
                     string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
@@ -55,7 +55,7 @@ namespace App_Ventas.Areas.Dashboard.Controllers
                     Text = x.NOMBRES_APE,
                     Value = x.COD_USUARIO.ToString()
                 }).ToList();
-                model.Lista_Usuario.Insert(0, new SelectListItem() { Value = "", Text = "-- Seleccione --" });
+                model.Lista_Usuario.Insert(0, new SelectListItem() { Value = "", Text = "-- Seleccione Usuario --" });
                 if (!auditoria.EJECUCION_PROCEDIMIENTO)
                 {
                     string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
@@ -179,7 +179,7 @@ namespace App_Ventas.Areas.Dashboard.Controllers
             {
                 using (DashboardRepositorio repositorio = new DashboardRepositorio())
                 {
-                    auditoria.OBJETO = repositorio.Dashboard_Venta_Listar(entidad, ref auditoria);
+                    auditoria.OBJETO = repositorio.Dashboard_Compras_Listar(entidad, ref auditoria);
                     if (!auditoria.EJECUCION_PROCEDIMIENTO)
                     {
                         string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);

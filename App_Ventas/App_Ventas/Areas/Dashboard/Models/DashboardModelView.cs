@@ -10,12 +10,13 @@ namespace App_Ventas.Areas.Caja.Models
 {
     public class DashboardModelView
     {
-  
-     
+
         [DataType(DataType.Text)]
         public int ID_SUCURSAL { get; set; }
         public List<SelectListItem> Lista_Sucursal { get; set; }
-
+        public int ID_SUCURSAL_INDEX2 { get; set; }
+        public int ID_SUCURSAL_INDEX3 { get; set; }
+        public int ID_SUCURSAL_INDEX4 { get; set; }
 
         [DataType(DataType.Text)]
         public int ID_ANIO { get; set; }

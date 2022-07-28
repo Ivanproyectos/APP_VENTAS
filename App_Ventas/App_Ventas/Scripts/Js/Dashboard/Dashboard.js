@@ -99,5 +99,5 @@ function Dashboard_Configurar_GraficoProductoMv(_List) {
         Model.push(_List[i].PRODUCTO);
         Data.push(_List[i].CANTIDAD);
     }
-    //CargarGrafico_ProductoMv(Model, Data);
+    CargarGrafico_ProductoMv(Model, Data);
 }
