@@ -20,11 +20,11 @@ function Caja_ConfigurarGrilla() {
     DataTable.GridUnload(Caja_Grilla);
     var colModels = [
           { data: "ID_TIPO_MOVIMIENTO", name: "ID_TIPO_MOVIMIENTO", title: "ID_TIPO_MOVIMIENTO", autoWidth: false, visible: false, },
-          { data: "FEC_CREACION", name: "FEC_CREACION", title: "Fecha y Hora", autoWidth: false, width: "90px", },
-          { data: "TIPO", name: "TIPO", title: "Tipo", autoWidth: false, },
+          { data: "FEC_CREACION", name: "FEC_CREACION", title: "Fecha y Hora", autoWidth: true },
+          { data: "TIPO", name: "TIPO", title: "Tipo", autoWidth: true, },
           { data: "DESC_MOVIMIENTO", name: "DESC_MOVIMIENTO", title: "Descripción", autoWidth: true },
           { data: "MONTO", name: "MONTO", title: "Monto", autoWidth: true },
-          { data: "USU_CREACION", name: "USU_CREACION", title: "Usuario Creación", autoWidth: true },
+          { data: "USU_CREACION", name: "USU_CREACION", title: "Usuario Creación", visible: false },
           {
               data: null, sortable: false, title: "Acciones", width: "60px",
               render: function (data, type, row, meta) { return Caja_Movimiento_actionAcciones(data.ID_TIPO_MOVIMIENTO); }
@@ -39,12 +39,10 @@ function Caja_ConfigurarGrilla() {
 }
 
 function Caja_Movimiento_actionAcciones(ID_TIPO_MOVIMIENTO) {
-    var _btn_Editar = "<a class=\"dropdown-item\" onclick='Caja_Movimiento_MostrarEditar(" + ID_TIPO_MOVIMIENTO + ")'><i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;\"></i>&nbsp;  Editar</a>";
     var _btn_Eliminar = "<a class=\"dropdown-item\" onclick='Caja_Movimiento_Eliminar(" + ID_TIPO_MOVIMIENTO + ")'><i class=\"bi bi-trash-fill\" style=\"color:#e40613;\"></i>&nbsp;  Eliminar</a>";
     var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
            "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn  dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
            "<div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
-           _btn_Editar +
            _btn_Eliminar +
             "</div>" +
         "</div>";
@@ -151,7 +149,7 @@ function Caja_Movimiento_CargarGrilla() {
                      ID_SUCURSAL: v.ID_SUCURSAL,
                      TIPO: Tipo,
                      DESC_MOVIMIENTO: v.DESC_MOVIMIENTO,
-                     MONTO: v.MONTO, 
+                     MONTO: _SimboloMoneda + " " +v.MONTO,
                      FEC_CREACION: v.FEC_CREACION,
                      USU_CREACION: v.USU_CREACION,
                      FEC_MODIFICACION: v.FEC_MODIFICACION,

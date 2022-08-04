@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DescargarVentasExcel.aspx.cs" Inherits="App_Ventas.Recursos.Descargas.DescargarVentasExcel" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DescargarVentasResumenExcel.aspx.cs" Inherits="App_Ventas.Recursos.Descargas.DescargarVentasExcel" %>
 
 <!DOCTYPE html>
 

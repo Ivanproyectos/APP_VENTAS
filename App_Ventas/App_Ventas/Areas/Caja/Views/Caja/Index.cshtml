@@ -53,7 +53,7 @@
 
 
     #table_cajaCuadre th {
-        width: 150px;
+        width: 80px;
         text-align: center;
     }
 
@@ -114,101 +114,84 @@
 <div class="row">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
+            <div class="card-header">
+                <button id="Caja_NuevoMovimiento" type="button" class="btn btn-hover-shine btn-square btn-primary mb-3"><i class="bi bi-plus-square"></i>&nbsp Nuevo Movimiento</button>
+            </div>
             <div class="card-body">
-                <div class="profile-tab">
-                    <ul class="nav nav-tabs mb-4">
-                        <li class="nav-item"><a href="#Cadre_Caja" data-toggle="tab" class="nav-link active"><i class="bi bi-cash-stack"></i>&nbsp; Cuadre Caja</a>
-                        </li>
-                        <li class="nav-item"><a href="#Movimiento_Caja" data-toggle="tab" class="nav-link"><i class="bi bi-files"></i>&nbsp; Egresos/Ingresos</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane fade active show" id="Cadre_Caja" role="tabpanel">
-                            <div class="form-row justify-content-center">
-                                <div class=" col-md-8 ">
-                                    @*       <div class="alert alert-info  alert-dismissible alert-alt fade show col-sm-12">
-                                        Cuadre caja para el sucursal: <strong>EL Paraiso</strong>
-                                    </div>*@
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-responsive-sm " id="table_cajaCuadre" style="color: #313a46;">
-                                            <thead>
-                                                <tr>
-                                                    <th>Tipo Movimiento</th>
-                                                    @*<th>NRO OPERACIONES</th>*@
-                                                    <th style="width:60px">Monto</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="d-flex justify-content-between align-items-center">
-                                                        <span><i class="bi bi-cart3"></i>&nbsp; Ventas</span>
-                                                        <span id="Caja_countVenta" class="badge badge-primary badge-pill">0</span>
-                                                    </td>
-                                                    <td class="color-primary"><span class="simboloMoneda"></span><span id="Caja_TotalVenta">0.00</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="d-flex justify-content-between align-items-center">
-                                                        <span><i class="bi bi-bag"></i>&nbsp;Adelantos</span>
-                                                        <span id="Caja_countAdelanto" class="badge badge-primary badge-pill">0</span>
-                                                    </td>
-                                                    <td class="color-success"><span class="simboloMoneda"></span><span id="Caja_TotalAdelanto">0.00</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="d-flex justify-content-between align-items-center">
-                                                        <span><i class="bi bi-collection"></i>&nbsp;Cuentas Cobradas</span>
-                                                        <span id="Caja_countCobrar" class="badge badge-primary badge-pill">0</span>
-                                                    </td>
-                                                    <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_TotalCobrar">0.00</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="d-flex justify-content-between align-items-center">
-                                                        <span><i class="bi bi-box-arrow-left text-danger"></i>&nbsp;Egresos</span>
-                                                        <span id="Caja_countEgresos" class="badge badge-primary badge-pill">0</span>
-                                                    </td>
-                                                    <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_TotalEgresos">0.00</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="d-flex justify-content-between align-items-center">
-                                                        <span><i class="bi bi-box-arrow-right text-success"></i>&nbsp;Ingresos</span>
-                                                        <span id="Caja_countIngresos" class="badge badge-primary badge-pill">0</span>
-                                                    </td>
-                                                    <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_TotalIgresos">0.00</span></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td colspan="1" style="text-align: right"><span class="text-danger">(-) </span>Total Egresos:</td>
-                                                    <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_Egresos">0.00</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="1" style="text-align: right"><span class="text-success">(+) </span>Total Ingresos:</td>
-                                                    <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_Ingresos">0.00</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="1" style="text-align: right">Total:</td>
-                                                    <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_Total">0.00</span></td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
+                <div class="form-row justify-content-center">
+                    <div class="col-xl-8 col-xxl-8 col-lg-6 col-md-12">
+                        <div class="card nbx">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="Caja_Grilla" style="width: 100%" class="table"></table>
                                 </div>
-
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade show" id="Movimiento_Caja" role="tabpanel">
-                            @*           <div class="alert alert-info  alert-dismissible alert-alt fade show col-sm-12" style="margin-bottom:5px;">
-                                Movimiento de caja para el sucursal: <strong>EL Paraiso</strong>
-                            </div>*@
-
-                            <button id="Caja_NuevoMovimiento" type="button" class="btn btn-hover-shine btn-square btn-primary mb-3"><i class="bi bi-plus-square"></i>&nbsp Nuevo Movimiento</button>
-                            <br />
-                            <div class="table-responsive">
-                                <table id="Caja_Grilla" style="width: 100%" class="table"></table>
-                                @*<div id="Barra_Grilla"></div>*@
                             </div>
                         </div>
                     </div>
+                    <div class="col-xl-4 col-xxl-4 col-lg-6 col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-responsive-sm " id="table_cajaCuadre" style="color: #313a46;">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo Movimiento</th>
+                                        <th style="width: 60px">Monto</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="d-flex justify-content-between align-items-center">
+                                            <span><i class="bi bi-cart3"></i>&nbsp; Ventas</span>
+                                            <span id="Caja_countVenta" class="badge badge-primary badge-pill">0</span>
+                                        </td>
+                                        <td class="color-primary"><span class="simboloMoneda"></span><span id="Caja_TotalVenta">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="d-flex justify-content-between align-items-center">
+                                            <span><i class="bi bi-bag"></i>&nbsp;Adelantos</span>
+                                            <span id="Caja_countAdelanto" class="badge badge-primary badge-pill">0</span>
+                                        </td>
+                                        <td class="color-success"><span class="simboloMoneda"></span><span id="Caja_TotalAdelanto">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="d-flex justify-content-between align-items-center">
+                                            <span><i class="bi bi-collection"></i>&nbsp;Cuentas Cobradas</span>
+                                            <span id="Caja_countCobrar" class="badge badge-primary badge-pill">0</span>
+                                        </td>
+                                        <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_TotalCobrar">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="d-flex justify-content-between align-items-center">
+                                            <span><i class="bi bi-box-arrow-left text-danger"></i>&nbsp;Otros Egresos</span>
+                                            <span id="Caja_countEgresos" class="badge badge-primary badge-pill">0</span>
+                                        </td>
+                                        <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_TotalEgresos">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="d-flex justify-content-between align-items-center">
+                                            <span><i class="bi bi-box-arrow-right text-success"></i>&nbsp;Otros Ingresos</span>
+                                            <span id="Caja_countIngresos" class="badge badge-primary badge-pill">0</span>
+                                        </td>
+                                        <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_TotalIgresos">0.00</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="1" style="text-align: right"><span class="text-danger">(-) </span>Total Egresos:</td>
+                                        <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_Egresos">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" style="text-align: right"><span class="text-success">(+) </span>Total Ingresos:</td>
+                                        <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_Ingresos">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" style="text-align: right">Total:</td>
+                                        <td class="color-danger"><span class="simboloMoneda"></span><span id="Caja_Total">0.00</span></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

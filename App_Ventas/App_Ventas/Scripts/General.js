@@ -235,6 +235,7 @@ function CreateDateRange(_input) {
 }
 
 function DowloandFileAspx(Ruta) {
-    $('#FrameDescarga').prop('src', Ruta); 
-    setTimeout(function () { $('#FrameDescarga').prop('src', ''); }, 500);
+    $('#FrameDescarga').prop('src', "");
+    $('#FrameDescarga').prop('src', Ruta);
+    setTimeout(function () { $('#FrameDescarga').prop('src', ''); }, 1000);
 }

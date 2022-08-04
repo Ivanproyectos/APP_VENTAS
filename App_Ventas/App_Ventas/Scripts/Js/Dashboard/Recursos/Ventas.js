@@ -3,10 +3,6 @@
     Repo_Compras_Cargar(); 
 });
 
-$('#Repo_Compras_ExportExcel').click(function () {
-    window.open(rutaDescargaEntidad + "Entidad_DescargarEntidad", '_blank');
-});
-
 $('#Repo_Ventas_ExportExcel').click(function () {
     var DESC_SUCURSAL =""; 
     var ID_SUCURSAL = $('#ID_SUCURSAL_INDEX2').val(); 
@@ -19,9 +15,28 @@ $('#Repo_Ventas_ExportExcel').click(function () {
         FECHA_INICIO: $('#Repo_FechaVentaTab2').val().split('-')[0],
         FECHA_FIN: $('#Repo_FechaVentaTab2').val().split('-')[1],
         ID_SUCURSAL: $('#ID_SUCURSAL_INDEX2').val(),
-        DESC_SUCURSAL: DESC_SUCURSAL
+        DESC_SUCURSAL: DESC_SUCURSAL,
+        TIPO: 1// ventas
     }
-    DowloandFileAspx(baseUrl + "Recursos/Descargas/DescargarVentasExcel.aspx?" + $.param(params))
+    DowloandFileAspx(baseUrl + "Recursos/Descargas/DescargarVentasResumenExcel.aspx?" + $.param(params))
+});
+
+$('#Repo_Compras_ExportExcel').click(function () {
+    var DESC_SUCURSAL = "";
+    var ID_SUCURSAL = $('#ID_SUCURSAL_INDEX2').val();
+    if (ID_SUCURSAL != 0) {
+        DESC_SUCURSAL = $("#ID_SUCURSAL_INDEX2 option:selected").text();
+    } else {
+        DESC_SUCURSAL = "TODOS";
+    }
+    var params = {
+        FECHA_INICIO: $('#Repo_FechaVentaTab2').val().split('-')[0],
+        FECHA_FIN: $('#Repo_FechaVentaTab2').val().split('-')[1],
+        ID_SUCURSAL: $('#ID_SUCURSAL_INDEX2').val(),
+        DESC_SUCURSAL: DESC_SUCURSAL,
+        TIPO: 2// compras
+    }
+    DowloandFileAspx(baseUrl + "Recursos/Descargas/DescargarVentasResumenExcel.aspx?" + $.param(params))
 });
 
 

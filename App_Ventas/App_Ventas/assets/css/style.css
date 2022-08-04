@@ -19672,6 +19672,13 @@ div[data-password] {
     left: 2px;
     background: #2c7be5; 
 }
+.swichttoggle_ip input[data-switch=option-type]  + .base-color .toggle-slider {
+    background: #0acf97;
+}
+
+.swichttoggle_ip input[data-switch=option-type]:checked  + .base-color .toggle-slider {
+    background: #fa5c7c;
+}
 
 .swichttoggle_ip input[type=checkbox] + .base-color .swichttoggle_ip_c1 {
     color: #f7fafb;

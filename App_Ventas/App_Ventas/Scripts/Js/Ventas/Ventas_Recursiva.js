@@ -29,8 +29,10 @@ function Ventas_AnularVenta(ID_VENTA) {
             if (auditoria != null && auditoria != "") {
                 if (auditoria.EJECUCION_PROCEDIMIENTO) {
                     if (!auditoria.RECHAZAR) {
-                        Ventas_ConfigurarGrilla();
-                        //Ventas_Cerrar();
+                        if (Modulo == "Ventas")
+                            Ventas_ConfigurarGrilla();
+                        else if (Modulo == "COBRAR")
+                            CuentasCobrar_ConfigurarGrilla();
                         jOkas("Venta anulada con exito!", "Proceso");
                     } else {
                         jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
@@ -95,9 +97,6 @@ function Ventas_DevolverProducto(CODIGO) {
                 var _MOTIVO = $('#ID_DEVOLUCION').val();
                 var _Mensaje = "";
                 var _valido = false;
-
-               
-
                 if (_CANTIDAD == "") {
                     _Mensaje += "Cantidad es oblitario. </br>"
                 } else {
@@ -106,7 +105,6 @@ function Ventas_DevolverProducto(CODIGO) {
                         _CANTIDAD_GRID = ConvertKilos_Gramos(_CANTIDAD_GRID); // kilos a gramos
                     }
                 }
-
                 if (_MOTIVO == "")
                     _Mensaje += "Motivo es oblitario. </br>"
 
@@ -116,8 +114,9 @@ function Ventas_DevolverProducto(CODIGO) {
                     $(".swal2-cancel").attr('disabled', false);
                     return null;
                 } else {
-                    if (_CANTIDAD_GRID < _CANTIDAD) {
-                        swal.showValidationMessage("La cantidad a devolver no puede ser mayor a la cantidad vendida.");
+                    debugger; 
+                    if (_CANTIDAD_GRID < _CANTIDAD || _CANTIDAD <= 0) {
+                        swal.showValidationMessage("La cantidad a devolver no puede ser mayor o menor a la cantidad vendida.");
                         $(".swal2-confirm").attr('disabled', false);
                         $(".swal2-cancel").attr('disabled', false);
                         return null;
@@ -128,7 +127,6 @@ function Ventas_DevolverProducto(CODIGO) {
 
                 if (_valido) {
                     swal.resetValidationMessage();
-
                     var item = {
                         ID_VENTA_DETALLE: _ID_VENTA_DETALLE,
                         USU_MODIFICACION: $('#input_hdcodusuario').val(),
@@ -170,11 +168,11 @@ function Ventas_DevolverProducto(CODIGO) {
             return false;
         }
         jOkas("Producto devuelto con exito!", "Proceso");
-        if (_Modulo == "VENTAS")
+        if (Modulo == "Ventas")
             Ventas_ConfigurarGrilla();
         else if (_Modulo == "COBRAR")
             CuentasCobrar_ConfigurarGrilla();
-        Ventas_Detalle_CargarGrilla($('#hfd_ID_VENTA').val());
+           Ventas_Detalle_CargarGrilla($('#hfd_ID_VENTA').val());
 
     }).catch(swal.noop)
 }

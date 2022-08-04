@@ -1,6 +1,6 @@
 ﻿var CuentasCobrar_Grilla = 'CuentasCobrar_Grilla';
 var CuentasCobrar_Barra = 'CuentasCobrar_Barra';
-var _Modulo = "COBRAR";
+var Modulo = "COBRAR";
 
 function CuentasCobrar_Cerrar() {
     $('#myModalNuevo').modal('hide');
@@ -39,7 +39,7 @@ function CuentasCobrar_ConfigurarGrilla() {
             render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.IGV); }
         },
         {
-            data: null, name: "TOTAL", title: "Total", autoWidth: true, sortable: false,
+            data: null, name: "TOTAL", title: "Total", autoWidth: true, sortable: false, visible: false,
             render: function (data, type, row, meta) { return CuentasCobrar_FormatterMoneda(data.TOTAL); }
         },
         {
@@ -110,10 +110,10 @@ function CuentasCobrar_actionAcciones(ID_VENTA, FLG_ANULADO, FLG_ESTADO_CREDITO)
     var _btn_Devolver = "";
     var _btn_Notificar = "";
 
-    if (_FLG_FLG_ANULADO == 0 && _FLG_ESTADO_CREDITO == 0)
+    if (_FLG_FLG_ANULADO == 0 && _FLG_ESTADO_CREDITO == 0) {
         _btn_Anular = "<a class=\"dropdown-item\" onclick='Ventas_AnularVenta(" + _ID_VENTA + ")'><i class=\"bi bi-cart-x\" style=\"color:red;\"></i>&nbsp;Anular</a>";
-    _btn_Devolver = "<a class=\"dropdown-item\" onclick=\"CuentasCobrar_MostrarDevolverProducto(" + _ID_VENTA + ")\" ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>";
-
+        _btn_Devolver = "<a class=\"dropdown-item\" onclick=\"CuentasCobrar_MostrarDevolverProducto(" + _ID_VENTA + ")\" ><i class=\"bi bi-box-arrow-in-down-left\" style=\"color:green;\"></i>&nbsp;  Devolver Producto</a>";
+    }
     if (_FLG_ESTADO_CREDITO == 0) {
         _btn_Cobrar = "<a class=\"dropdown-item\" onclick='CuentasCobrar_MostrarCobrarCredito(" + _ID_VENTA + ")'><i class=\"bi bi-cash-coin\" style=\"color:#2c7be5\"></i>&nbsp;Cobrar</a>";
         _btn_Notificar = "<a class=\"dropdown-item\" onclick='CuentasCobrar_NotificarCredito(" + _ID_VENTA + ")'><i class=\"bi bi-send\" style=\"color:#D34320\"></i>&nbsp;Notificar Credito</a>";
