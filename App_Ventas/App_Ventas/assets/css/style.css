@@ -19706,3 +19706,6 @@ div[data-password] {
     top: 2px;
 }
 
+.nobefore::before {
+    display:none !important; 
+}

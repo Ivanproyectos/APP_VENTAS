@@ -119,9 +119,9 @@ function CuentasCobrar_actionAcciones(ID_VENTA, FLG_ANULADO, FLG_ESTADO_CREDITO)
         _btn_Notificar = "<a class=\"dropdown-item\" onclick='CuentasCobrar_NotificarCredito(" + _ID_VENTA + ")'><i class=\"bi bi-send\" style=\"color:#D34320\"></i>&nbsp;Notificar Credito</a>";
     }
 
-    var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
-        " <button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button> " +
-        " <div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
+    var _btn = "<div class=\"btn-group Group_Acciones dropleft \" role=\"group\" title=\"Acciones \" >" +
+        " <button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn dropdown-toggle text-dark nobefore\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-three-dots-vertical\"></i></button> " +
+         "<div class=\"dropdown-menu\" x-placement=\"left-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-162px, 0px, 0px);\">" +
         "<a class=\"dropdown-item\" onclick='Ventas_ViewDetalleVenta(" + _ID_VENTA + ")'><i class=\"bi bi-stickies\" style=\"color:#2c7be5\"></i>&nbsp;  Detalle Venta</a>" +
         _btn_Notificar +
         _btn_Cobrar +
