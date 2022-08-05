@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Administracion\Cls_Ent_Cliente.cs" />
     <Compile Include="Administracion\Cls_Ent_configurarEmpresa.cs" />
+    <Compile Include="Administracion\Cls_Ent_Notificacion.cs" />
     <Compile Include="Administracion\Cls_Ent_Perfil.cs" />
     <Compile Include="Administracion\Cls_Ent_Sistemas_Modulos.cs" />
     <Compile Include="Administracion\Cls_Ent_Sistemas_Perfiles.cs" />

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Administracion\Cls_Dat_Cliente.cs" />
     <Compile Include="Administracion\Cls_Dat_ConfigurarEmpresa.cs" />
+    <Compile Include="Administracion\Cls_Dat_Notificacion.cs" />
     <Compile Include="Administracion\Cls_Dat_Sucursal.cs" />
     <Compile Include="Administracion\Cls_Dat_Perfil.cs" />
     <Compile Include="Administracion\Cls_Dat_Proveedor.cs" />
