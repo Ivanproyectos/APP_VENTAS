@@ -94,7 +94,7 @@ function Repo_TransladoProducto_ConfigurarGrilla() {
     var colModels = [
         { data: "ID_TRANSLADO", name: "ID_TRANSLADO", title: "ID_TRANSLADO", autoWidth: false, visible: false, },
         { data: "DESC_SUCURSAL_ORIGEN", name: "DESC_SUCURSAL_ORIGEN", title: "Sucursal Origen", autoWidth: true },
-        { data: "DESC_SUCURSAL_DESTINO", name: "DESC_SUCURSAL_DESTINO", title: "Sucursal Destino", autoWidth: false, width: "50px" },
+        { data: "DESC_SUCURSAL_DESTINO", name: "DESC_SUCURSAL_DESTINO", title: "Sucursal Destino", autoWidth: true },
         { data: "DETALLE", name: "DETALLE", title: "Detalle", autoWidth: true },
         { data: "USU_CREACION", name: "USU_CREACION", title: "Usuario Registro", autoWidth: false, },
         { data: "FEC_CREACION", name: "FEC_CREACION", title: "Fecha Registro", autoWidth: false, },

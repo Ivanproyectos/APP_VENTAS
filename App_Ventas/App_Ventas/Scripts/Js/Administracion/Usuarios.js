@@ -50,9 +50,9 @@ function Usuarios_ConfigurarGrilla() {
 function Usuarios_actionAcciones(ID_USUARIO) {
     var _btn_Editar = "<a class=\"dropdown-item\" onclick='Usuarios_MostrarEditar(" + ID_USUARIO + ")'><i class=\"bi bi-pencil-fill\" style=\"color:#f59d3f;\"></i>&nbsp;  Editar</a>";
     var _btn_Eliminar = "<a class=\"dropdown-item\" onclick='Usuarios_Eliminar(" + ID_USUARIO + ")'><i class=\"bi bi-trash-fill\" style=\"color:#e40613;\"></i>&nbsp;  Eliminar</a>";
-    var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
-           "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn  dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
-           "<div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
+    var _btn = "<div class=\"btn-group Group_Acciones dropleft\" role=\"group\" title=\"Acciones \" >" +
+             "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn btn-link dropdown-toggle text-dark nobefore\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-three-dots-vertical\"></i></button>" +
+           "<div class=\"dropdown-menu\" x-placement=\"left-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-162px, 0px, 0px);\">" +
            _btn_Editar +
            _btn_Eliminar +
             "</div>" +
