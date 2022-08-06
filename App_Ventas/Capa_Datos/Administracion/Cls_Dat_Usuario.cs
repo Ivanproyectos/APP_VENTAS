@@ -236,6 +236,7 @@ namespace Capa_Datos.Administracion
                     cmd.Parameters.Add(new SqlParameter("@PI_CLAVE_USUARIO", SqlDbType.VarChar, 200)).Value = entidad.CLAVE_USUARIO;
                     cmd.Parameters.Add(new SqlParameter("@PI_FLG_ADMIN", SqlDbType.Int)).Value = entidad.FLG_ADMIN;
                     cmd.Parameters.Add(new SqlParameter("@PI_USUARIO_CREACION", SqlDbType.VarChar, 200)).Value = entidad.USU_CREACION;
+                    cmd.Parameters.Add(new SqlParameter("@PI_COLOR_BADGE", SqlDbType.VarChar, 200)).Value = entidad.COLOR_BADGE;
                     cmd.Parameters.Add(new SqlParameter("PO_ID_USUARIO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
                     cmd.Parameters.Add(new SqlParameter("PO_MENSAJE", SqlDbType.VarChar, 200)).Direction = System.Data.ParameterDirection.Output;

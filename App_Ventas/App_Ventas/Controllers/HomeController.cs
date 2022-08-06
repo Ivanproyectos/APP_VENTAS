@@ -60,6 +60,7 @@ namespace App_Ventas.Controllers
                                     ViewBag.CodUsuario = Usuario.COD_USUARIO;
                                     ViewBag.IdPf = Usuario.Perfil_Sucursal.ID_PERFIL;
                                     ViewBag.ABREV_USUARIO = Usuario.ABREV_USUARIO;
+                                    ViewBag.ColorBadge = Usuario.COLOR_BADGE;
                                     int RECUERDAME = Capa_Token.Cls_Api_Token.Claim_RECUERDAME(Token);
                                     Token = Capa_Token.Cls_Api_Token.Generar(Usuario.ID_USUARIO.ToString(), Usuario.COD_USUARIO,
                                                                      RECUERDAME.ToString(), Usuario.Perfil_Sucursal.ID_SUCURSAL.ToString());

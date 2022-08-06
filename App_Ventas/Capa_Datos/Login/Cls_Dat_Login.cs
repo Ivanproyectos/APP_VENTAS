@@ -349,10 +349,10 @@ namespace Capa_Datos.Login
                        int pos_ID_SUCURSAL = dr.GetOrdinal("ID_SUCURSAL");
                        int pos_DESC_SUCURSAL = dr.GetOrdinal("DESC_SUCURSAL");
                        int pos_ABREV_USUARIO = dr.GetOrdinal("ABREV_USUARIO");
-                       
+                       int pos_COLOR_BADGE = dr.GetOrdinal("COLOR_BADGE");
 
-                       //Cls_Ent_Usuario obj = null;
-                       while (dr.Read())
+                        //Cls_Ent_Usuario obj = null;
+                        while (dr.Read())
                        {
                            obj = new Cls_Ent_Usuario();
                            if (dr.IsDBNull(pos_ID_USUARIO)) obj.ID_USUARIO = 0;
@@ -391,8 +391,10 @@ namespace Capa_Datos.Login
                            if (dr.IsDBNull(pos_ABREV_USUARIO)) obj.ABREV_USUARIO = "";
                            else obj.ABREV_USUARIO = dr.GetString(pos_ABREV_USUARIO);
 
+                            if (dr.IsDBNull(pos_COLOR_BADGE)) obj.COLOR_BADGE = "";
+                            else obj.COLOR_BADGE = dr.GetString(pos_COLOR_BADGE);
 
-                           if (dr.IsDBNull(pos_CLAVE_USUARIO)) obj.CLAVE_USUARIO = "";
+                            if (dr.IsDBNull(pos_CLAVE_USUARIO)) obj.CLAVE_USUARIO = "";
                            else obj.CLAVE_USUARIO = dr.GetString(pos_CLAVE_USUARIO);
 
                            if (dr.IsDBNull(pos_FLG_ADMIN)) obj.FLG_ADMIN = 0;

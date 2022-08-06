@@ -26,7 +26,8 @@ namespace Capa_Entidad.Administracion
         public int FLG_ADMIN { get; set; }
         public string NOMBRES_APE { get; set; }
         public string DESC_TIPO_DOCUMENTO { get; set; }
-
+        public string COLOR_BADGE { get; set; }
+        
         public List<Cls_Ent_Usuario> ListaDetalle { get; set; }
         public List<Cls_Ent_Usuario_Perfil> Lista_Sucursales { get; set; }
         public Cls_Ent_Usuario_Perfil Perfil_Sucursal { get; set; }

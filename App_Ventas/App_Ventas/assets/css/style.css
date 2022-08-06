@@ -3906,10 +3906,10 @@ input[type="button"].btn-block {
   top: -1px; }
 
 .badge-pill {
-  padding-right: 0.6em;
-  padding-left: 0.6em;
-  border-radius: 10rem; 
-  padding: 5px 10px !important;
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    border-radius: 10rem;
+    padding: 8px 13px !important; 
 }
 
 .badge-primary {

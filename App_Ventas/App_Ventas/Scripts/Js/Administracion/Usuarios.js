@@ -1,6 +1,6 @@
 ﻿var Usuarios_Grilla = 'Usuarios_Grilla';
 var Usuarios_Barra = 'Usuarios_Barra';
-
+var _ArrayColor = ['primary', 'secondary', 'succes', 'danger', 'warning', 'info', 'dark']; 
 
 function Usuarios_Cerrar() {
     $('#myModalNuevo').modal('hide');
@@ -78,7 +78,6 @@ function Usuario_TextUsuario(NOMBRES_APE, COD_USUARIO) {
     return _text
 }
 
-
 function Usuarios_MostrarNuevo() {
     jQuery("#myModalNuevo").html('');
     jQuery("#myModalNuevo").load(baseUrl + "Administracion/Usuarios/Mantenimiento?id=0&Accion=N", function (responseText, textStatus, request) {
@@ -145,8 +144,6 @@ function Usuarios_CargarGrilla() {
     }
 }
 
-
-
 ///*********************************************** ----------------- *************************************************/
 
 ///*********************************************** Actualiza  cargos  ************************************************/
@@ -196,8 +193,7 @@ function Usuarios_Actualizar() {
 
 ///************************************************ Inserta cargos  **************************************************/
 
-function Usuarios_Ingresar() {
-     
+function Usuarios_Ingresar() { 
     if ($('#AccionUsuarios').val() != 'N') {
         Usuarios_Actualizar();
     } else {
@@ -217,7 +213,7 @@ function Usuarios_Ingresar() {
                             COD_USUARIO: $("#COD_USUARIO").val(),
                             CLAVE_USUARIO: $("#CLAVE_USUARIO").val(),
                             ID_TIPO_DOCUMENTO: $("#ID_TIPO_DOCUMENTO").val(),
-                            
+                            COLOR_BADGE: ColorBadge[Math.floor(Math.random() * _ArrayColor.length)],
                             USU_CREACION: $('#input_hdcodusuario').val(),
                             ACCION: $("#AccionUsuarios").val()
                         };

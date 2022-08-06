@@ -113,68 +113,13 @@
                                     <div class="" id="AlertNotific"></div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" id="List_Notific">
-                                    @*<ul class="list-unstyled">
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-user"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p>
-                                                        <strong>Martin</strong> has added a <strong>customer</strong> Successfully
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-shopping-cart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="danger"><i class="ti-bookmark"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p>
-                                                        <strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-heart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-image"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p>
-                                                        <strong>James.</strong> has added a<strong>customer</strong> Successfully
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                    </ul>
-                                    <a class="all-notification" href="#">
-                                        Ver todas las notificaciones <i class="ti-arrow-right"></i>
-                                    </a>*@
+                                   
                                 </div>
                             </li>
 
                             <li class="nav-item dropdown header-profile ">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                    <span title="@ViewBag.NameUser" class="badge badge-primary badge-pill">@ViewBag.ABREV_USUARIO</span>
+                                    <span title="@ViewBag.NameUser" class="badge badge-@ViewBag.ColorBadge badge-pill">@ViewBag.ABREV_USUARIO</span>
                                     <input type="hidden" id="input_hdcodusuario" value="@ViewBag.CodUsuario" />
                                     <input type="hidden" id="inputL_SimboloMoneda" value="@ViewBag.SimboloMoneda" />
                                     <input type="hidden" id="inputL_Impuesto" value="@ViewBag.IMPUESTO" />
@@ -187,7 +132,9 @@
                                     <hr style="margin: 2px 0px" />
                                     <div class="dropdown-header text-center">
                                         <div class="row" style="flex-flow: row;">
-                                            <div><span title="@ViewBag.NameUser" class="badge badge-primary badge-pill">@ViewBag.ABREV_USUARIO</span></div>
+                                            <div>
+                                                <span title="@ViewBag.NameUser"  class="badge badge-@ViewBag.ColorBadge badge-pill">@ViewBag.ABREV_USUARIO</span>
+                                            </div>
                                             <div class="ml-2">
                                                 <span><strong>@ViewBag.NameUser</strong></span><br />
                                                 <span class="alert-info"><i class="bi bi-geo-alt-fill text-secondary"></i>&nbsp;@ViewBag.Desc_Sucursal</span>
