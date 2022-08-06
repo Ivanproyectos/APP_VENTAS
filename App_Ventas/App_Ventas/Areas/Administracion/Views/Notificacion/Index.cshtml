@@ -1,0 +1,69 @@
+﻿@model App_Ventas.Areas.Administracion.Models.NotificacioModelView
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        Notificaciones_Estado(); 
+    });
+</script>
+<style>
+    .list-group-item .pill-image {
+        width: 35px;
+        height: 35px;
+        border-radius: 50px;
+        display: inline-block;
+        padding: 7px 9px;
+        margin-right: 10px;
+    }
+    .list-group-item  .success {
+        background: #DEF2DB;
+        color: #2F9B1B;
+    }
+    .list-group-item .danger {
+        background: #FFE0E0;
+        color: #E24747;
+    }
+    .list-group-item .primary {
+        background: #D3E7FE;
+        color: #176AD2;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row  mb-3">
+        <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+            <h4 class="card-title"><i class="bi bi-bell-fill"></i>&nbsp;Notificaciones</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Tienes @Model.Lista.Count notifaciones sin leer.</h4>
+                </div>
+                <div class="card-body">
+                    <div class="basic-list-group">
+                        <div class="list-group">
+                            @if (Model.Lista.Count > 0)
+                            {
+                                foreach (var itemx in Model.Lista)
+                                {
+                                    <a href="javascript:void()" class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-3">@itemx.FECHA_REGISTRO</h5><small class="text-muted">
+                                                @itemx.HORA
+                                            </small>
+                                        </div>
+                                        <div class="d-flex w-100 justify-content-start">
+                                            <span class="@itemx.COLOR  pill-image"><i class="@itemx.IMAGE"></i></span>
+                                            <p class="mb-1">@Html.Raw(HttpUtility.HtmlDecode(itemx.MENSAJE)).</p>
+                                        </div>
+                                    </a>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

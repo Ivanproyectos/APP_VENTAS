@@ -189,6 +189,7 @@
     <Compile Include="Areas\Administracion\Controllers\ClientesController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ConfigurarEmpresaController.cs" />
     <Compile Include="Areas\Administracion\Controllers\DevolucionController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\Administracion\Controllers\Usuarios_PerfilController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ProveedorController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ListadoComboController.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Areas\Administracion\Controllers\UsuariosController.cs" />
     <Compile Include="Areas\Administracion\Models\ClientesModelView.cs" />
     <Compile Include="Areas\Administracion\Models\ConfiguracionEmpresaModelView.cs" />
+    <Compile Include="Areas\Administracion\Models\NotificacioModelView.cs" />
     <Compile Include="Areas\Administracion\Models\SucursalModelView.cs" />
     <Compile Include="Areas\Administracion\Models\PerfilModelView.cs" />
     <Compile Include="Areas\Administracion\Models\UsuariosModelView.cs" />
@@ -204,6 +206,7 @@
     <Compile Include="Areas\Administracion\Repositorio\ConfigurarEmpresaRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\ClienteRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\DevolucionRepositorio.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\NotificacionRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\UsuarioPerfilRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\UsuarioRepositorio.cs" />
     <Compile Include="Areas\Administracion\Repositorio\ProveedorRepositorio.cs" />
@@ -371,6 +374,7 @@
     <Content Include="assets\images\avatar\5.png" />
     <Content Include="assets\images\card\1.png" />
     <Content Include="assets\images\card\2.png" />
+    <Content Include="assets\images\cofe.png" />
     <Content Include="assets\images\error.PNG" />
     <Content Include="assets\images\error2.png" />
     <Content Include="assets\images\favicon.png" />
@@ -4286,6 +4290,8 @@
     <Content Include="Areas\Dashboard\Views\Vistas\_ViewProductoMovimientos.cshtml" />
     <Content Include="Areas\Dashboard\Views\Vistas\_ViewProductoTranslados.cshtml" />
     <Content Include="Areas\Dashboard\Views\Vistas\_ViewVentas.cshtml" />
+    <Content Include="Areas\Administracion\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Administracion\Views\Notificacion\Index.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <Content Include="Recursos\Descargas\DescargarProductoExcel.aspx" />
     <Content Include="Recursos\Descargas\DescargarProductoPDF.aspx" />
@@ -4353,6 +4359,7 @@
     <Content Include="Scripts\Js\Inventario\Producto_Recursos.js" />
     <Content Include="Scripts\Js\Login\LoginHelpers.js" />
     <Content Include="Scripts\Js\Prueba.js" />
+    <Content Include="Scripts\Js\Recursiva\Notificaciones.js" />
     <Content Include="Scripts\Js\Recursiva\Configuracion.js" />
     <Content Include="Scripts\Js\Servicio\ServicioPersona.js" />
     <Content Include="Scripts\Js\Ventas\Consulta_Ventas.js" />
@@ -4413,7 +4420,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administracion\Views\Shared\" />
     <Folder Include="Areas\Caja\Views\Shared\" />
     <Folder Include="Areas\Compras\Views\Shared\" />
     <Folder Include="Areas\CuentasCobrar\Views\Shared\" />

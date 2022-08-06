@@ -7,6 +7,4 @@ C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Deb
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Debug\nunit.framework.dll
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Debug\Newtonsoft.Json.xml
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\bin\Debug\nunit.framework.xml
-C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\obj\Debug\ApiCulqi.csprojAssemblyReference.cache
-C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\obj\Debug\ApiCulqi.csproj.CoreCompileInputs.cache
-C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\obj\Debug\ApiCulqi.csproj.CopyComplete
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\ApiCulqi\obj\Debug\ApiCulqi.csprojResolveAssemblyReference.cache
