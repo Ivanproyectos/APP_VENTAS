@@ -283,8 +283,6 @@ function Ventas_Ingresar() {
         }
 }
 
-
-
 // CALCULAR VUELTO VENTA
 function Fn_Ventas_Vuelto() {
     var _Total = isNaN(parseFloat($('#Venta_Total').text())) ? 0 : parseFloat($('#Venta_Total').text());
@@ -295,3 +293,12 @@ function Fn_Ventas_Vuelto() {
     $('#VUELTO').val(Number(_Vuelto).toFixed(2));
 }
 
+// VALIDAR ADELANTO
+function Fn_Ventas_Adelanto() {
+    var _Total = isNaN(parseFloat($('#Venta_Total').text())) ? 0 : parseFloat($('#Venta_Total').text());
+    var _Adelanto = isNaN(parseFloat($('#ADELANTO').val())) ? 0 : parseFloat($('#ADELANTO').val());
+    if (_Adelanto > _Total) {
+        jError("El adelanto no puede ser mayor al total.", "Atención");
+        $('#ADELANTO').val(0);
+    }
+}

@@ -1,6 +1,6 @@
 ﻿$(function () {
     Notificaciones_Listar(); 
-    //setInterval(Notificaciones_Listar, 2000);
+    setInterval(Notificaciones_Listar, 2000);
 });
 
 function Notificaciones_Listar() {
