@@ -93,8 +93,23 @@ namespace App_Ventas.Areas.Administracion.Models
         [Display(Name = "Fecha Desactivación: ")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "[Fecha Desactivación] es obligatorio")]
-        public string FEC_DESACTIVACION { get; set; }  
+        public string FEC_DESACTIVACION { get; set; }
 
+        // cambiar clave 
+        [Display(Name = "Clave Actual: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Clave Actual] es obligatorio")]
+        public string CLAVE_ACTUAL { get; set; }
+
+        [Display(Name = "Nueva Clave: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Nueva Clave] es obligatorio")]
+        public string NUEVA_CLAVE { get; set; }
+
+        [Display(Name = "Repita Clave: ")]
+        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "[Repita Clave] es obligatorio")]
+        public string REPITA_CLAVE { get; set; }
 
 
         public string Accion { get; set; }

@@ -199,6 +199,7 @@ function CollapsearchCard (_this) {
 }
 /*ocultar password*/
 $('div[data-password]').click(function () {
+    debugger; 
     var _Elements = $(this).parent().children();
     var _div = _Elements[1];
     var _Input = _Elements[0]

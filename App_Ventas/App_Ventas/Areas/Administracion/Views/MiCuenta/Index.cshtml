@@ -1,0 +1,136 @@
+﻿@model App_Ventas.Areas.Administracion.Models.UsuariosModelView
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.validator.unobtrusive.parse('#Mycount'); // validar div
+
+        $('#CambiarClave_btn_Guardar').click(function () {
+            MyCount_CambiarClave();
+        });
+    });
+</script>
+
+<div class="container-fluid">
+    <div class="row  mb-3">
+        <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+            <h4 class="card-title"><i class="bi bi-person"></i>&nbsp;Mi Cuenta</h4>
+        </div>
+    </div>
+    <div class="row" >
+        <div class=" col-md-12">
+            <div class="card card-body">
+                <div class="row" id="Mycount">
+                    <div class="col-xl-3">
+                        <div class="nav flex-column nav-pills">
+                            <a href="#v-pills-home" data-toggle="pill" class="nav-link show active"><i class="bi bi-person"></i>&nbsp;Mi Cuenta</a>
+                            <a href="#v-pills-profile" data-toggle="pill" class="nav-link "><i class="icon-key"></i>&nbsp;Cambiar Clave</a>
+                        </div>
+                    </div>
+                    <div class="col-xl-9">
+                        <div class="tab-content">
+                            <div id="v-pills-home" class="tab-pane active show">
+                                <h4>Mi Información</h4>
+                                <hr />
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        @Html.LabelFor(model => model.ID_TIPO_DOCUMENTO)
+                                        @Html.DropDownListFor(model => model.ID_TIPO_DOCUMENTO, Model.Lista_Tipo_Documento, new { @class = "form-control", @maxlength = "150", @style = "width:100%", @disabled = "true" })
+                                        @Html.ValidationMessageFor(model => model.ID_TIPO_DOCUMENTO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                    </div>
+
+
+                                    <div class="form-group col-md-6">
+                                        @Html.LabelFor(model => model.DNI)
+                                        @Html.TextBoxFor(model => model.DNI, new { @class = "form-control", @maxlength = "200", @autocomplete = "off", @disabled = "true" })
+                                        @Html.ValidationMessageFor(model => model.DNI, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        @Html.LabelFor(model => model.NOMBRE)
+                                        @Html.TextBoxFor(model => model.NOMBRE, new { @class = "form-control", @maxlength = "200", @autocomplete = "off", @disabled = "true" })
+                                        @Html.ValidationMessageFor(model => model.NOMBRE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        @Html.LabelFor(model => model.APE_PATERNO)
+                                        @Html.TextBoxFor(model => model.APE_PATERNO, new { @class = "form-control", @maxlength = "200", @autocomplete = "off", @disabled = "true" })
+                                        @Html.ValidationMessageFor(model => model.APE_PATERNO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        @Html.LabelFor(model => model.APE_MATERNO)
+                                        @Html.TextBoxFor(model => model.APE_MATERNO, new { @class = "form-control", @maxlength = "200", @autocomplete = "off", @disabled = "true" })
+                                        @Html.ValidationMessageFor(model => model.APE_MATERNO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        @Html.LabelFor(model => model.CELULAR)
+                                        @Html.TextBoxFor(model => model.CELULAR, new { @class = "form-control", @maxlength = "9", @autocomplete = "off", @disabled = "true" })
+                                        @Html.ValidationMessageFor(model => model.CELULAR, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        @Html.LabelFor(model => model.TELEFONO)
+                                        @Html.TextBoxFor(model => model.TELEFONO, new { @class = "form-control", @maxlength = "7", @autocomplete = "off", @disabled = "true" })
+                                        @Html.ValidationMessageFor(model => model.TELEFONO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        @Html.LabelFor(model => model.CORREO)
+                                        @Html.TextBoxFor(model => model.CORREO, new { @class = "form-control", @maxlength = "100", @autocomplete = "off", @disabled = "true" })
+                                        @Html.ValidationMessageFor(model => model.CORREO, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="v-pills-profile" class="tab-pane fade">
+                                <h4>Cambiar Clave</h4>
+                                <hr />
+                                @using (Html.BeginForm("", "", new { @area = "" }, FormMethod.Post, new { @id = "FrmCambioClave" }))
+                                {
+                                    @Html.ValidationSummary(true)
+                                    <div class="form-row col-sm-6">
+                                        <div class="form-group col-sm-12">
+                                            @Html.LabelFor(model => model.CLAVE_ACTUAL)
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(model => model.CLAVE_ACTUAL, new { @class = "form-control", @maxlength = "200", @autocomplete = "off", @type = "password" })
+                                                <div class="input-group-append" data-password="true">
+                                                    <span class="input-group-text password-eye"></span>
+                                                </div>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.CLAVE_ACTUAL, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            @Html.LabelFor(model => model.NUEVA_CLAVE)
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(model => model.NUEVA_CLAVE, new { @class = "form-control", @maxlength = "200", @autocomplete = "off", @type = "password" })
+                                                <div class="input-group-append" data-password="true">
+                                                    <span class="input-group-text password-eye"></span>
+                                                </div>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.NUEVA_CLAVE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            @Html.LabelFor(model => model.REPITA_CLAVE)
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(model => model.REPITA_CLAVE, new { @class = "form-control", @maxlength = "200", @autocomplete = "off", @type = "password" })
+                                                <div class="input-group-append" data-password="true">
+                                                    <span class="input-group-text password-eye"></span>
+                                                </div>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.REPITA_CLAVE, string.Empty, new { @class = "cssMessageError animated  fadeInUp" })
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <button style="width:100%" type="button" id="CambiarClave_btn_Guardar" class="btn btn-hover-shine btn-square btn-primary">
+                                                <i class="bi bi-arrow-clockwise">
+                                                </i>&nbsp; Cambiar Clave
+                                            </button>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

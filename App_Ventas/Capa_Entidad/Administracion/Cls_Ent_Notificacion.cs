@@ -15,5 +15,7 @@ namespace Capa_Entidad.Administracion
         public string IMAGE { get; set; }
         public string COLOR { get; set; }
         public string HORA { get; set; }
+        public string FECHA_INICIO { get; set; }
+        public string FECHA_FIN { get; set; }
     }
 }

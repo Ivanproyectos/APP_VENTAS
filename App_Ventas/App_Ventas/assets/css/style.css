@@ -3308,10 +3308,11 @@ input[type="button"].btn-block {
 .nav-pills .nav-link {
   border-radius: 0.25rem; }
 
-.nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #593bdb; }
+    .nav-pills .nav-link.active,
+    .nav-pills .show > .nav-link {
+        color: #fff;
+        background-color: #727cf5;
+    }
 
 .nav-fill .nav-item {
   flex: 1 1 auto;

@@ -189,6 +189,7 @@
     <Compile Include="Areas\Administracion\Controllers\ClientesController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ConfigurarEmpresaController.cs" />
     <Compile Include="Areas\Administracion\Controllers\DevolucionController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\MiCuentaController.cs" />
     <Compile Include="Areas\Administracion\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\Administracion\Controllers\Usuarios_PerfilController.cs" />
     <Compile Include="Areas\Administracion\Controllers\ProveedorController.cs" />
@@ -4292,6 +4293,7 @@
     <Content Include="Areas\Dashboard\Views\Vistas\_ViewVentas.cshtml" />
     <Content Include="Areas\Administracion\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administracion\Views\Notificacion\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\MiCuenta\Index.cshtml" />
     <None Include="Properties\PublishProfiles\v.pubxml" />
     <Content Include="Recursos\Descargas\DescargarProductoExcel.aspx" />
     <Content Include="Recursos\Descargas\DescargarProductoPDF.aspx" />
@@ -4343,7 +4345,7 @@
     <Content Include="Scripts\Js\Administracion\Usuario_Perfil.js" />
     <Content Include="Scripts\Js\Administracion\Perfil\Perfil.js" />
     <Content Include="Scripts\Js\Administracion\Usuarios.js" />
-    <Content Include="Scripts\Js\Administracion\Personal.js" />
+    <Content Include="Scripts\Js\Administracion\MiCuenta.js" />
     <Content Include="Scripts\Js\Compras\Compras.js" />
     <Content Include="Scripts\Js\Compras\Compras_Detalle.js" />
     <Content Include="Scripts\Js\CuentasCobrar\CuentasCobrar.js" />

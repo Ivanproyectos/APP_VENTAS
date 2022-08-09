@@ -20,7 +20,7 @@ namespace App_Ventas.Areas.Administracion.Controllers
             using (NotificacionRepositorio repositorio = new NotificacionRepositorio())
             {
                 Cls_Ent_Auditoria auditoria = new Cls_Ent_Auditoria();
-                model.Lista = repositorio.Notificacion_Listar(new Cls_Ent_Notificacion(), ref auditoria);
+                model.Lista = repositorio.Notificacion_Listar(new Cls_Ent_Notificacion {ESTADO = 0}, ref auditoria);
                 if (!auditoria.EJECUCION_PROCEDIMIENTO)
                 {
                     string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);

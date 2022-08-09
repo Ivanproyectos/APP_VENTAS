@@ -52,7 +52,7 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="index.html" class="brand-logo">
+            <a href="javascript:void(0)" class="brand-logo">
                 @if (ViewBag.Isotipo != null && ViewBag.Isotipo != "")
                 {
                     <img class="logo-abbr" src="~/Recursos/Logo_Empresa/@ViewBag.Isotipo" alt="">
@@ -142,9 +142,9 @@
                                         </div>
                                     </div>
                                     <hr style="margin: 2px 0px" />
-                                    <a href="./app-profile.html" class="dropdown-item">
+                                    <a href="javascript:void(0);" id="ChangeProfile" class="dropdown-item">
                                         <i class="icon-user"></i>
-                                        <span class="ml-2">Perfil </span>
+                                        <span class="ml-2">Mi Cuenta </span>
                                     </a>
                                     <a href="@Url.Content("~/Home/Logout")" class="dropdown-item">
                                         <i class="icon-key"></i>
@@ -324,6 +324,7 @@
     <script src="@Url.Content("~/Scripts/General.js")"></script>
     <script src="@Url.Content("~/assets/vendor/bootstrap-daterangepicker/daterangepicker.js")"></script>
     <script src="@Url.Content("~/Scripts/Js/Recursiva/Notificaciones.js")"></script>
+    <script src="@Url.Content("~/Scripts/Js/Administracion/MiCuenta.js")"></script>
     <!--**********************************
         Scripts
     ***********************************-->

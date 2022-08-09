@@ -2,8 +2,14 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        Notificaciones_Estado(); 
+        Notificaciones_Estado();
+        CreateDateRange('Noti_Fecha');
     });
+
+    $('#TabLeidas, #Noti_BuscarNoLeidas').click(function () {
+        Notificaciones_LeidasListar();
+    });
+
 </script>
 <style>
     .list-group-item .pill-image {
@@ -14,14 +20,17 @@
         padding: 7px 9px;
         margin-right: 10px;
     }
-    .list-group-item  .success {
+
+    .list-group-item .success {
         background: #DEF2DB;
         color: #2F9B1B;
     }
+
     .list-group-item .danger {
         background: #FFE0E0;
         color: #E24747;
     }
+
     .list-group-item .primary {
         background: #D3E7FE;
         color: #176AD2;
@@ -35,34 +44,63 @@
     </div>
 
     <div class="row">
-        <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Tienes @Model.Lista.Count notifaciones sin leer.</h4>
-                </div>
-                <div class="card-body">
-                    <div class="basic-list-group">
-                        <div class="list-group">
-                            @if (Model.Lista.Count > 0)
-                            {
-                                foreach (var itemx in Model.Lista)
-                                {
-                                    <a href="javascript:void()" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-3">@itemx.FECHA_REGISTRO</h5><small class="text-muted">
-                                                @itemx.HORA
-                                            </small>
+        <div class=" col-md-12">
+            <div class="card card-body">
+                <div class="profile-tab">
+                    <ul class="nav nav-tabs mb-4">
+                        <li class="nav-item"><a href="#Noti_Noleidas" data-toggle="tab" class="nav-link active"><i class="bi bi-app-indicator"></i>&nbsp; No Leidas</a>  </li>
+                        <li class="nav-item"><a href="#Noti_Leidas" id="TabLeidas" data-toggle="tab" class="nav-link"><i class="bi bi-bell-slash"></i>&nbsp; Leidas</a> </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="Noti_Noleidas" role="tabpanel">
+                            <div class="card-header">
+                                <h4 class="card-title">Tienes @Model.Lista.Count notifaciones sin leer.</h4>
+                            </div>
+                            <div class="basic-list-group">
+                                <div class="list-group">
+                                    @if (Model.Lista.Count > 0)
+                                    {
+                                        foreach (var itemx in Model.Lista)
+                                        {
+                                        <a href="javascript:void()" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-3">@itemx.FECHA_REGISTRO</h5>
+                                                <small class="text-muted">
+                                                    @itemx.HORA
+                                                </small>
+                                            </div>
+                                            <div class="d-flex w-100 justify-content-start">
+                                                <span class="@itemx.COLOR  pill-image"><i class="@itemx.IMAGE"></i></span>
+                                                <p class="mb-1">@Html.Raw(HttpUtility.HtmlDecode(itemx.MENSAJE)).</p>
+                                            </div>
+                                        </a>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade " id="Noti_Leidas" role="tabpanel">
+                            <div class="form-row justify-content-end" style="margin-right: 0px; margin-left: 0px;">
+                                <div class="col-xl-3 col-xxl-3 col-lg-3 col-md-10 mt-2 mt-sm-0 text-right">
+                                    <div class="input-group mb-3">
+                                        <input type="text" id="Noti_Fecha" class="form-control" placeholder="">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
                                         </div>
-                                        <div class="d-flex w-100 justify-content-start">
-                                            <span class="@itemx.COLOR  pill-image"><i class="@itemx.IMAGE"></i></span>
-                                            <p class="mb-1">@Html.Raw(HttpUtility.HtmlDecode(itemx.MENSAJE)).</p>
-                                        </div>
-                                    </a>
-                                }
-                            }
+                                    </div>
+                                </div>
+                                <div class="mt-2 mt-sm-0 text-right">
+                                    <button id="Noti_BuscarNoLeidas" type="button" class="btn btn-hover-shine btn-square btn-primary "><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                            <div class="basic-list-group">
+                                <div class="list-group" id="ListNoti_Leidas">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

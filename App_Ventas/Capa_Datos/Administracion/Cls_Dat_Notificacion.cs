@@ -29,6 +29,17 @@ namespace Capa_Datos.Administracion
                     SqlDataReader dr = null;
                     SqlCommand cmd = new SqlCommand("USP_NOTI_NOTIFICACION_LISTAR", cn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ESTADO", SqlDbType.Int)).Value = entidad_param.ESTADO;
+                    if (entidad_param.FECHA_INICIO == null)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_INICIO", SqlDbType.VarChar, 200)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_INICIO", SqlDbType.VarChar, 200)).Value = entidad_param.FECHA_INICIO; }
+                    //cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar,200)).Value = entidad_param.FECHA_FIN;
+                    if (entidad_param.FECHA_FIN == null)
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar, 200)).Value = DBNull.Value; }
+                    else
+                    { cmd.Parameters.Add(new SqlParameter("@PI_FECHA_FIN", SqlDbType.VarChar, 200)).Value = entidad_param.FECHA_FIN; }
+
                     dr = cmd.ExecuteReader();
                     int pos_ID_NOTIFICACION = dr.GetOrdinal("ID_NOTIFICACION");
                     int pos_HORA = dr.GetOrdinal("HORA");
@@ -57,8 +68,6 @@ namespace Capa_Datos.Administracion
                             else obj.IMAGE = dr.GetString(pos_IMAGE);
                             if (dr.IsDBNull(pos_COLOR)) obj.COLOR = "";
                             else obj.COLOR = dr.GetString(pos_COLOR);
-
-
                             lista.Add(obj);
                         }
                     }
