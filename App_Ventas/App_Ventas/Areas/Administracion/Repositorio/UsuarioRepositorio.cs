@@ -87,8 +87,18 @@ namespace App_Ventas.Areas.Administracion.Repositorio
                 auditoria.Error(ex);
             }
         }
-
-
+        public void Usuario_ActualizarClave(Cls_Ent_Usuario entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                _rule.Usuario_ActualizarClave(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+        }
+        
 
         public void Dispose()
         {

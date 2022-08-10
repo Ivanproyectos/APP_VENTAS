@@ -383,5 +383,44 @@ namespace Capa_Datos.Administracion
             }
         }
 
+        ///*********************************************** ----------------- **************************************************/
+
+        ///*********************************************** Actualiza  sucursal  *************************************************/
+
+        public void Usuario_ActualizarClave(Cls_Ent_Usuario entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            auditoria.Limpiar();
+            try
+            {
+                using (SqlConnection cn = this.GetNewConnection())
+                {
+                    SqlCommand cmd = new SqlCommand("USP_ADMIN_USUARIO_CAMBIARCLAVE", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@PI_ID_USUARIO", SqlDbType.Int)).Value = entidad.ID_USUARIO;
+                    cmd.Parameters.Add(new SqlParameter("@PI_CLAVE_ACTUAL", SqlDbType.VarChar, 200)).Value = entidad.CLAVE_ACTUAL;
+                    cmd.Parameters.Add(new SqlParameter("@PI_NUEVA_CLAVE", SqlDbType.VarChar, 200)).Value = entidad.NUEVA_CLAVE;
+                    cmd.Parameters.Add(new SqlParameter("PO_VALIDO", SqlDbType.Int)).Direction = System.Data.ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("PO_MENSAJE", SqlDbType.VarChar, 200)).Direction = System.Data.ParameterDirection.Output;
+                    if (cn.State != System.Data.ConnectionState.Open)
+                    {
+                        cn.Open();
+                    }
+                    cmd.ExecuteReader();
+                    string PO_VALIDO = cmd.Parameters["PO_VALIDO"].Value.ToString();
+                    string PO_MENSAJE = cmd.Parameters["PO_MENSAJE"].Value.ToString();
+                    if (PO_VALIDO == "0")
+                    {
+                        auditoria.Rechazar(PO_MENSAJE);
+                    }
+                    cn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+        }
+
+
     }
 }

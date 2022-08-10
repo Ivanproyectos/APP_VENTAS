@@ -31,6 +31,10 @@ namespace Capa_Entidad.Administracion
         public List<Cls_Ent_Usuario> ListaDetalle { get; set; }
         public List<Cls_Ent_Usuario_Perfil> Lista_Sucursales { get; set; }
         public Cls_Ent_Usuario_Perfil Perfil_Sucursal { get; set; }
-        
+
+        public string CLAVE_ACTUAL { get; set; }
+        public string NUEVA_CLAVE { get; set; }
+        public string REPITA_CLAVE { get; set; }
+
     }
 }

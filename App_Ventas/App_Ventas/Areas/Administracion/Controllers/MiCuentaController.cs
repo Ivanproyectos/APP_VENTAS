@@ -62,6 +62,26 @@ namespace App_Ventas.Areas.Administracion.Controllers
             return View(model);
         }
 
-       
+        public ActionResult MiCuenta_CambiarContraseña(Cls_Ent_Usuario entidad)
+        {
+            Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
+            var ip_local = Recursos.Clases.Css_IP.ObtenerIp();
+            using (UsuarioRepositorio Usuariorepositorio = new UsuarioRepositorio())
+            {
+                var cook = HttpContext.Request.Cookies["IP-CyberToken"];
+                string Token = cook.Value;
+                entidad.ID_USUARIO = Cls_Api_Token.Claim_ID_USUARIO(Token);
+                Usuariorepositorio.Usuario_ActualizarClave(entidad, ref auditoria);
+
+                if (!auditoria.EJECUCION_PROCEDIMIENTO)
+                {
+                    string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
+                    auditoria.MENSAJE_SALIDA = Recursos.Clases.Css_Log.Mensaje(CodigoLog);
+                }
+            }
+            return Json(auditoria, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

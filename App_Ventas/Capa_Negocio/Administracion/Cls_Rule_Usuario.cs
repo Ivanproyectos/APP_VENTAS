@@ -91,5 +91,18 @@ namespace Capa_Negocio.Administracion
             }
         }
 
+        public void Usuario_ActualizarClave(Cls_Ent_Usuario entidad, ref Cls_Ent_Auditoria auditoria)
+        {
+            try
+            {
+                OData.Usuario_ActualizarClave(entidad, ref auditoria);
+            }
+            catch (Exception ex)
+            {
+                auditoria.Error(ex);
+            }
+        }
+        
+
     }
 }

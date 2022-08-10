@@ -198,22 +198,23 @@ function CollapsearchCard (_this) {
     $(_body).toggleClass('card-body-hide');
 }
 /*ocultar password*/
-$('div[data-password]').click(function () {
-    debugger; 
-    var _Elements = $(this).parent().children();
-    var _div = _Elements[1];
-    var _Input = _Elements[0]
-    if (_div.dataset.password == "true") {
-        _Input.type = "text";
-        _div.dataset.password = "false";
-        $(_div).addClass('show-password');
-    } else if (_div.dataset.password == "false") {
-        _Input.type = "password";
-        _div.dataset.password = "true";
-        $(_div).removeClass('show-password');
-    }
+    $('div[data-password]').click(function () {
+        debugger;
+        var _Elements = $(this).parent().children();
+        var _div = _Elements[1];
+        var _Input = _Elements[0]
+        if (_div.dataset.password == "true") {
+            _Input.type = "text";
+            _div.dataset.password = "false";
+            $(_div).addClass('show-password');
+        } else if (_div.dataset.password == "false") {
+            _Input.type = "password";
+            _div.dataset.password = "true";
+            $(_div).removeClass('show-password');
+        }
+    });
 
-});
+
 
 function CreateDateRange(_input) {
     $('#' + _input).daterangepicker({

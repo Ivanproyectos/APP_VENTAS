@@ -30,7 +30,7 @@ function Ventas_AnularVenta(ID_VENTA) {
                 if (auditoria.EJECUCION_PROCEDIMIENTO) {
                     if (!auditoria.RECHAZAR) {
                         if (Modulo == "Ventas")
-                            Ventas_ConfigurarGrilla();
+                            Ventas_ConfigurarGrilla(Modulo);
                         else if (Modulo == "COBRAR")
                             CuentasCobrar_ConfigurarGrilla();
                         jOkas("Venta anulada con exito!", "Proceso");
@@ -200,7 +200,7 @@ function Ventas_Llenar_ComboMotivo() {
 
 function Ventas_GenerarVistaComprobante(ID_VENTA) {
     _blockUI('Generando vista previa...');
-    setTimeout(function () { jQuery.unblockUI() }, 1000);
+    setTimeout(function () { jQuery.unblockUI() }, 2000);
     //Ventas_Cerrar();
     var _Html = "<div class=\"row\" style=\"width: 454px;\" >"
                + " <div class=\"form-group col-sm-12\" style=\"padding:2px;\"> "
