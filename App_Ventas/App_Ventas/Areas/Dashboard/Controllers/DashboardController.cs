@@ -26,6 +26,9 @@ namespace App_Ventas.Areas.Dashboard.Controllers
             DashboardModelView model = new DashboardModelView();
             Cls_Ent_SetUpLogin SetUp = (Cls_Ent_SetUpLogin)Session["SetUpLogin"];
             model.ID_SUCURSAL = SetUp.ID_SUCURSAL;
+            model.ID_SUCURSAL_INDEX2 = SetUp.ID_SUCURSAL;
+            model.ID_SUCURSAL_INDEX3 = SetUp.ID_SUCURSAL;
+            model.ID_SUCURSAL_INDEX4 = SetUp.ID_SUCURSAL;
             using (SucursalRepositorio Repositorio = new SucursalRepositorio())
             {
                 model.Lista_Sucursal = Repositorio.Sucursal_Listar(new Cls_Ent_Sucursal { FLG_ESTADO = 1 }, ref auditoria).Select(x => new SelectListItem()

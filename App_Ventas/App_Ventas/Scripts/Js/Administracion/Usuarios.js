@@ -22,7 +22,7 @@ function Usuarios_ConfigurarGrilla() {
                render: function (data, type, row, meta) { return Usuario_TextUsuario(data.NOMBRES_APE , data.COD_USUARIO); }
            },
           { data: "CLAVE_USUARIO", name: "CLAVE_USUARIO", title: "Clave Usuario", autoWidth: true },
-          { data: "ES_JEFE", name: "ES_JEFE", title: "Es Jefe", autoWidth: false, width: "90px", },
+           { data: "ES_JEFE", name: "ES_JEFE", title: "Es Jefe", autoWidth: false, width: "90px", visible: false, },
           { data: "ID_USUARIO", name: "ID_USUARIO", title: "ID_PRODUCTO", autoWidth: false, visible: false, },
           { data: "DESC_TIPO_DOCUMENTO", name: "DESC_TIPO_DOCUMENTO", title: "Tipo Documento", autoWidth: true, },
           { data: "DNI", name: "DNI", title: "Número Documento",  autoWidth: true },
@@ -209,7 +209,8 @@ function Usuarios_Ingresar() {
                             CELULAR: $("#CELULAR").val(),
                             TELEFONO: $("#TELEFONO").val(),
                             CORREO: $("#CORREO").val(),
-                            FLG_ADMIN: $("#FLG_ADMIN").is(':checked') ? 1 : 0,
+                            //FLG_ADMIN: $("#FLG_ADMIN").is(':checked') ? 1 : 0,
+                            FLG_ADMIN:  0,
                             COD_USUARIO: $("#COD_USUARIO").val(),
                             CLAVE_USUARIO: $("#CLAVE_USUARIO").val(),
                             ID_TIPO_DOCUMENTO: $("#ID_TIPO_DOCUMENTO").val(),

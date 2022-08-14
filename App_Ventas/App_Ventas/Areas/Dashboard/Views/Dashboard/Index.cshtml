@@ -14,6 +14,7 @@
     var CargoTab3 = false;
     var CargoTab4 = false;
     var ANIO = moment().format('YYYY');
+    var _unMes = moment().subtract(29, 'days').format('DD/MM/YYYY') + " - " + moment().format('DD/MM/YYYY'); 
     $(document).ready(function () {
         ConfiguracionEmpresa();
         $('#ID_ANIO').select2();
@@ -22,6 +23,7 @@
         $('#ID_ANIO').val(ANIO).trigger('change');
         Dashboard_Cargar();
         CreateDateRange('Repo_FechaVentaTab2,#Repo_FechaProductoTab3,#Repo_FechaProductoTab4'); 
+        $('#Repo_FechaVentaTab2').val(_unMes); 
     });
     $('#Reporte_btn_graficoBuscar').click(function () {
         Dashboard_Cargar();
