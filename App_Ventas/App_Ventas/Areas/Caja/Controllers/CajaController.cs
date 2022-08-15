@@ -24,6 +24,8 @@ namespace App_Ventas.Areas.Caja.Controllers
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             CajaModelView model = new CajaModelView();
+            Cls_Ent_SetUpLogin SetUp = (Cls_Ent_SetUpLogin)Session["SetUpLogin"];
+            model.ID_SUCURSAL_SEARCH = SetUp.ID_SUCURSAL;
             using (SucursalRepositorio Repositorio = new SucursalRepositorio())
             {
 
@@ -32,6 +34,7 @@ namespace App_Ventas.Areas.Caja.Controllers
                     Text = x.DESC_SUCURSAL,
                     Value = x.ID_SUCURSAL.ToString()
                 }).ToList();
+
                 model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Seleccione --" });
                 if (!auditoria.EJECUCION_PROCEDIMIENTO)
                 {
@@ -40,6 +43,7 @@ namespace App_Ventas.Areas.Caja.Controllers
                     model.Lista_Sucursal.Insert(0, new SelectListItem() { Value = "", Text = "-- Error al cargar opciones --" });
                 }
             }
+
             using (UsuarioRepositorio Repositorio = new UsuarioRepositorio())
             {
                 model.Lista_Usuario = Repositorio.Usuario_Listar(new Cls_Ent_Usuario { FLG_ESTADO = 1 }, ref auditoria).Select(x => new SelectListItem()

@@ -39,14 +39,8 @@ function Caja_ConfigurarGrilla() {
 }
 
 function Caja_Movimiento_actionAcciones(ID_TIPO_MOVIMIENTO) {
-    var _btn_Eliminar = "<a class=\"dropdown-item\" onclick='Caja_Movimiento_Eliminar(" + ID_TIPO_MOVIMIENTO + ")'><i class=\"bi bi-trash-fill\" style=\"color:#e40613;\"></i>&nbsp;  Eliminar</a>";
-    var _btn = "<div class=\"btn-group Group_Acciones\" role=\"group\" title=\"Acciones \" >" +
-           "<button  style=\" background: transparent; border: none; color: #000000;font-size: 18px;\" type=\"button\" class=\"btn  dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"bi bi-list\"></i></button>" +
-           "<div class=\"dropdown-menu\" x-placement=\"bottom-start\" style=\"position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);\">" +
-           _btn_Eliminar +
-            "</div>" +
-        "</div>";
-    return _btn;
+    var _btn_Eliminar = "<a href=\"javascript:void()\" onclick='Caja_Movimiento_Eliminar(" + ID_TIPO_MOVIMIENTO + ")' data-toggle=\"tooltip\" data-placement=\"top\" title=\"Eliminar Movimiento\"><i class=\"bi bi-trash-fill\"style=\"color:#e40613;\"></i></a>"; 
+    return _btn_Eliminar;
 }
 
 function Caja_Movimieto_MostrarNuevo() {
@@ -195,6 +189,7 @@ function Caja_Movimiento_Actualizar() {
                     if (auditoria.EJECUCION_PROCEDIMIENTO) {
                         if (!auditoria.RECHAZAR) {
                             Caja_Movimiento_CargarGrilla();
+                            Caja_CargarGrilla(); 
                             Caja_Cerrar();
                             jOkas("Movimiento actualizado satisfactoriamente", "Proceso");
                         } else {
@@ -239,6 +234,7 @@ function Caja_Movimiento_Insertar() {
                         if (auditoria.EJECUCION_PROCEDIMIENTO) {
                             if (!auditoria.RECHAZAR) {
                                 Caja_Movimiento_CargarGrilla();
+                                Caja_CargarGrilla(); 
                                 Caja_Cerrar();
                                 jOkas("Movimiento registrado satisfactoriamente", "Proceso");
                             } else {

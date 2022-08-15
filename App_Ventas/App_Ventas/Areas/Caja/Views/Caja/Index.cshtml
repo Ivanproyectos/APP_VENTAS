@@ -4,10 +4,12 @@
 <script type="text/javascript">
     var Fecha_Actual = moment().format('DD/MM/YYYY');
     $(document).ready(function () {
-        ConfiguracionEmpresa();
-        Caja_ConfigurarGrilla();
         $('#ID_USUARIO').select2();
         $('#ID_SUCURSAL_SEARCH').select2();
+        ConfiguracionEmpresa();
+        Caja_ConfigurarGrilla();
+        Caja_Movimiento_CargarGrilla();
+        Caja_CargarGrilla(); 
     });
 
     $("#Caja_btnBuscar").click(function (e) {
