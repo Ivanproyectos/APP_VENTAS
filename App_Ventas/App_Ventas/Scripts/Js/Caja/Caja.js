@@ -78,14 +78,6 @@ function Caja_CargarGrilla() {
     if (auditoria.EJECUCION_PROCEDIMIENTO) {
         if (!auditoria.RECHAZAR) {
             if (auditoria.OBJETO != null) {
-                var _TotalVenta = auditoria.OBJETO.TOTAL_VENTA;
-                var _TotalAdelanto = auditoria.OBJETO.TOTAL_ADELANTO;
-                var _TotalCobrar = auditoria.OBJETO.TOTAL_COBRAR;
-                var TotalIngresos = auditoria.OBJETO.TOTAL_INGRESO;
-                var TotalEgresos = auditoria.OBJETO.TOTAL_EGRESO;
-
-                var Total_Ingresos = (_TotalVenta + _TotalAdelanto + _TotalCobrar + TotalIngresos) ;
-                var Total = (Total_Ingresos - TotalEgresos);
 
                 $('#Caja_countVenta').text(auditoria.OBJETO.COUNT_VENTA);
                 $('#Caja_countAdelanto').text(auditoria.OBJETO.COUNT_COBRAR);
@@ -93,15 +85,16 @@ function Caja_CargarGrilla() {
                 $('#Caja_countEgresos').text(auditoria.OBJETO.COUNT_EGRESO);
                 $('#Caja_countIngresos').text(auditoria.OBJETO.COUNT_INGRESO);
 
-                $('#Caja_TotalVenta').text(Number(_TotalVenta).toFixed(2));
-                $('#Caja_TotalAdelanto').text(Number(_TotalAdelanto).toFixed(2));
-                $('#Caja_TotalCobrar').text(Number(_TotalCobrar).toFixed(2));
-                $('#Caja_TotalEgresos').text(Number(TotalEgresos).toFixed(2));
-                $('#Caja_TotalIgresos').text(Number(TotalIngresos).toFixed(2));
-
-                $('#Caja_Egresos').text(Number(TotalEgresos).toFixed(2));
-                $('#Caja_Ingresos').text(Number(Total_Ingresos).toFixed(2));
-                $('#Caja_Total').text(Number(Total).toFixed(2));
+                $('#Caja_TotalVenta').text(Number(auditoria.OBJETO.TOTAL_VENTA).toFixed(2));
+                $('#Caja_TotalAdelanto').text(Number(auditoria.OBJETO.TOTAL_ADELANTO).toFixed(2));
+                $('#Caja_TotalCobrar').text(Number(auditoria.OBJETO.TOTAL_COBRAR).toFixed(2));
+                $('#Caja_TotalEgresos').text(Number(auditoria.OBJETO.TOTAL_EGRESO).toFixed(2));
+                $('#Caja_TotalIgresos').text(Number(auditoria.OBJETO.TOTAL_INGRESO).toFixed(2));
+                $('#Caja_countCompras').text(auditoria.OBJETO.COUNT_COMPRAS);
+                $('#Caja_TotalCompras').text(Number(auditoria.OBJETO.TOTAL_COMPRAS).toFixed(2));
+                $('#Caja_Egresos').text(Number(auditoria.OBJETO.EGRESOS_NETO).toFixed(2));
+                $('#Caja_Ingresos').text(Number(auditoria.OBJETO.INGRESOS_NETO).toFixed(2));
+                $('#Caja_Total').text(Number(auditoria.OBJETO.TOTAL_NETO).toFixed(2));
 
               
             }

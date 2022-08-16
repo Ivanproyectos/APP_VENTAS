@@ -29,5 +29,12 @@ namespace Capa_Entidad.Caja
        public string DESC_MOVIMIENTO { get; set; }
        public decimal MONTO { get; set; }
 
+
+        public int COUNT_COMPRAS { get; set; }
+        public decimal TOTAL_COMPRAS { get; set; }
+        public decimal EGRESOS_NETO { get; set; }
+        public decimal INGRESOS_NETO { get; set; }
+        public decimal TOTAL_NETO { get; set; }
+
     }
 }

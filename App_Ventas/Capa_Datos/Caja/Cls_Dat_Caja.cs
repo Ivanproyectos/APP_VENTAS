@@ -45,11 +45,16 @@ namespace Capa_Datos.Caja
                     int pos_TOTAL_COBRAR = dr.GetOrdinal("TOTAL_COBRAR");
                     int pos_COUNT_ADELANTO = dr.GetOrdinal("COUNT_ADELANTO");
                     int pos_TOTAL_ADELANTO = dr.GetOrdinal("TOTAL_ADELANTO");
-
                     int pos_COUNT_INGRESO = dr.GetOrdinal("COUNT_INGRESO");
                     int pos_TOTAL_INGRESO = dr.GetOrdinal("TOTAL_INGRESO");
                     int pos_COUNT_EGRESO = dr.GetOrdinal("COUNT_EGRESO");
                     int pos_TOTAL_EGRESO = dr.GetOrdinal("TOTAL_EGRESO");
+
+                    int pos_COUNT_COMPRAS = dr.GetOrdinal("COUNT_COMPRAS");
+                    int pos_TOTA_COMPRAS = dr.GetOrdinal("TOTAL_COMPRAS");
+                    int pos_EGRESOS_NETO = dr.GetOrdinal("EGRESOS_NETO");
+                    int pos_INGRESOS_NETO = dr.GetOrdinal("INGRESOS_NETO");
+                    int pos_TOTAL_NETO = dr.GetOrdinal("TOTAL_NETO");
 
                     if (dr.HasRows)
                     {
@@ -59,7 +64,6 @@ namespace Capa_Datos.Caja
                             obj = new Cls_Ent_Caja();
                             if (dr.IsDBNull(pos_COUNT_VENTA)) obj.COUNT_VENTA = 0;
                             else obj.COUNT_VENTA = int.Parse(dr[pos_COUNT_VENTA].ToString());
-
                             if (dr.IsDBNull(pos_TOTAL_VENTA)) obj.TOTAL_VENTA = 0;
                             else obj.TOTAL_VENTA = decimal.Parse(dr[pos_TOTAL_VENTA].ToString());
 
@@ -87,6 +91,20 @@ namespace Capa_Datos.Caja
                             if (dr.IsDBNull(pos_TOTAL_EGRESO)) obj.TOTAL_EGRESO = 0;
                             else obj.TOTAL_EGRESO = decimal.Parse(dr[pos_TOTAL_EGRESO].ToString());
 
+                            if (dr.IsDBNull(pos_COUNT_COMPRAS)) obj.COUNT_COMPRAS = 0;
+                            else obj.COUNT_COMPRAS = int.Parse(dr[pos_COUNT_COMPRAS].ToString());
+
+                            if (dr.IsDBNull(pos_TOTA_COMPRAS)) obj.TOTAL_COMPRAS = 0;
+                            else obj.TOTAL_COMPRAS = decimal.Parse(dr[pos_TOTA_COMPRAS].ToString());
+
+                            if (dr.IsDBNull(pos_EGRESOS_NETO)) obj.EGRESOS_NETO = 0;
+                            else obj.EGRESOS_NETO = decimal.Parse(dr[pos_EGRESOS_NETO].ToString());
+
+                            if (dr.IsDBNull(pos_INGRESOS_NETO)) obj.INGRESOS_NETO = 0;
+                            else obj.INGRESOS_NETO = decimal.Parse(dr[pos_INGRESOS_NETO].ToString());
+
+                            if (dr.IsDBNull(pos_TOTAL_NETO)) obj.TOTAL_NETO = 0;
+                            else obj.TOTAL_NETO = decimal.Parse(dr[pos_TOTAL_NETO].ToString());
 
 
                         }

@@ -49,11 +49,11 @@ namespace App_Ventas.Areas.Compras.Repositorio
             }
         }
 
-        public void Compras_AnularVenta(Cls_Ent_Compras entidad, ref Cls_Ent_Auditoria auditoria)
+        public void Compras_Anular(Cls_Ent_Compras entidad, ref Cls_Ent_Auditoria auditoria)
         {
             try
             {
-                _rule.Compras_AnularVenta(entidad, ref auditoria);
+                _rule.Compras_Anular(entidad, ref auditoria);
             }
             catch (Exception ex)
             {

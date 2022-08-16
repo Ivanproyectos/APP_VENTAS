@@ -51,11 +51,11 @@ namespace Capa_Negocio.Compras
             }
         }
 
-        public void Compras_AnularVenta(Cls_Ent_Compras entidad, ref Cls_Ent_Auditoria auditoria)
+        public void Compras_Anular(Cls_Ent_Compras entidad, ref Cls_Ent_Auditoria auditoria)
         {
             try
             {
-                OData.Compras_AnularVenta(entidad, ref auditoria);
+                OData.Compras_Anular(entidad, ref auditoria);
             }
             catch (Exception ex)
             {

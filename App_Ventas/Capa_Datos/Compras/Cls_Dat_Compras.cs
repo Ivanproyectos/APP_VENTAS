@@ -233,7 +233,7 @@ namespace Capa_Datos.Compras
 
         ///*********************************************** Inserta COMPRAS  *************************************************/
 
-        public void Compras_AnularVenta(Cls_Ent_Compras entidad, ref Cls_Ent_Auditoria auditoria)
+        public void Compras_Anular(Cls_Ent_Compras entidad, ref Cls_Ent_Auditoria auditoria)
         {
             auditoria.Limpiar();
             try

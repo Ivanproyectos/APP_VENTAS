@@ -312,3 +312,36 @@ function Compras_Detalle_CargarGrilla(ID_COMPRA) {
         jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
     }
 }
+
+
+
+function Compras_AnularVenta(ID_COMPRA) {
+            jConfirm("¿ Desea anular esta compra ?", "Atención", function (r) {
+                if (r) {
+                   var item =
+                    {
+                       ID_COMPRA: ID_COMPRA,
+                       USU_MODIFICACION: $('#input_hdcodusuario').val(),
+                    };
+                    var url = baseUrl + 'Compras/Compras/Compras_Anular';
+                    var auditoria = SICA.Ajax(url, item, false);
+                    if (auditoria != null && auditoria != "") {
+                        if (auditoria.EJECUCION_PROCEDIMIENTO) {
+                            if (!auditoria.RECHAZAR) {
+                                Compras_ConfigurarGrilla();
+                                Compras_Cerrar();
+                                jOkas("Compra anulada correctamente", "Proceso");
+                            } else {
+                                jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
+                            }
+                        } else {
+                            jError(auditoria.MENSAJE_SALIDA, "Ocurrio un Error");
+                        }
+                    }
+                }
+            });
+}
+
+///*********************************************** ----------------- *************************************************/
+
+///*********************************************** Elimina cargos  ***************************************************/

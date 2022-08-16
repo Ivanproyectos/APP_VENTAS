@@ -298,7 +298,7 @@ namespace App_Ventas.Areas.Compras.Controllers
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Compras_AnularVenta(Cls_Ent_Compras entidad)
+        public ActionResult Compras_Anular(Cls_Ent_Compras entidad)
         {
             Capa_Entidad.Cls_Ent_Auditoria auditoria = new Capa_Entidad.Cls_Ent_Auditoria();
             var ip_local = Recursos.Clases.Css_IP.ObtenerIp();
@@ -308,7 +308,7 @@ namespace App_Ventas.Areas.Compras.Controllers
                 {
                     entidad.IP_CREACION = ip_local;
 
-                    Comprasrepositorio.Compras_AnularVenta(entidad, ref auditoria);
+                    Comprasrepositorio.Compras_Anular(entidad, ref auditoria);
                     if (!auditoria.EJECUCION_PROCEDIMIENTO)
                     {
                         string CodigoLog = Recursos.Clases.Css_Log.Guardar(auditoria.ERROR_LOG);
@@ -323,7 +323,6 @@ namespace App_Ventas.Areas.Compras.Controllers
             }
             return Json(auditoria, JsonRequestBehavior.AllowGet);
         }
-
 
         public ActionResult Compras_Detalle_Listar(Cls_Ent_Compras_Detalle entidad)
         {
