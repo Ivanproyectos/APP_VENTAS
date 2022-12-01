@@ -14,6 +14,4 @@ C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\bin\D
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\bin\Debug\Microsoft.IdentityModel.Logging.xml
 C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
-C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\obj\Debug\Capa_Datos.csprojAssemblyReference.cache
-C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\obj\Debug\Capa_Datos.csproj.CoreCompileInputs.cache
-C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\obj\Debug\Capa_Datos.csproj.CopyComplete
+C:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\obj\Debug\Capa_Datos.csprojResolveAssemblyReference.cache

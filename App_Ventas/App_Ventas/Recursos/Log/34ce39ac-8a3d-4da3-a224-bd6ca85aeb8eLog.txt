@@ -1,0 +1,14 @@
+System.Data.SqlClient.SqlException (0x80131904): No se puede abrir la base de datos "BD_SIS_VENTAS" solicitada por el inicio de sesión. Error de inicio de sesión.
+Error de inicio de sesión del usuario 'sa'.
+   en System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   en System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   en System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   en System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   en System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   en System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   en System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   en System.Data.SqlClient.SqlConnection.Open()
+   en Capa_Datos.Protected.DataBaseHelper.GetNewConnection() en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Protected\DataBaseHelper.cs:línea 38
+   en Capa_Datos.Login.Cls_Dat_Login.Login_Usuario(Cls_Ent_Usuario entidad_param, Cls_Ent_Auditoria& auditoria) en c:\Users\ivans\OneDrive\Documentos\GitHub\APP_VENTAS\App_Ventas\Capa_Datos\Login\Cls_Dat_Login.cs:línea 114
+ClientConnectionId:e6f3210d-cae1-4e18-b078-879ac40ef0d7
+Error Number:4060,State:1,Class:11

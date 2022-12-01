@@ -3,16 +3,16 @@
 @import url('RadioButton.css'); 
 @import url('Sistema.css'); 
 @import url('File_image.css'); 
-@import url('Grid_theme_bootstrap.css'); 
+@import url('Grid_theme_bootstrap.css');
+
 
 .cssMessageError {
     width: 100%;
     margin-top: 0.25rem;
     font-size: 80%;
     color: #d92550;
-
-    animation: fadeInDown; 
-   animation-duration: 2s
+    animation: fadeInDown;
+    animation-duration: 2s
 }
 
 .input-validation-error {
